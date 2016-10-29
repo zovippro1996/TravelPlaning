@@ -36,52 +36,47 @@
                     <h3>Thank you for still trusting and using our services.</h3>
                     <h3>As you may already know, our three special managers are always ready
                         to help you plan your trip ahead</h3>
-                    <h3>Please choose the one that suits your taste</h3>
+                    <h3>Please choose your preferred manager</h3>
                 </div>
                 
                 <!-- Manager section: contain information about three managers -->
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-2 col-md-offset-1 manager-box">
                             <img src="img/decker-manager.png" alt="decker-manager"
-                                 width="200px" height="260px" class="center-block">
+                                 width="100px" height="130px" class="center-block">
+                            <br>
                             <div class="description center-block">
-                                Decker is a hiker and a true mountain climber. He
-                                has traveled around the world and challenged some 
-                                of the greatest obstacles of nature. If you want
-                                a trip full of <span>adventurous</span> and
-                                <span>thrilling</span> moments, Decker is the choice
-                                for you.
+                                Description for <span>Decker</span>.
                             </div>
-                            <button type="button" class="btn btn-danger manager-button center-block">
+                            <br>
+                            <button class="btn btn-info btn-md center-block">
                                 <b>Decker</b>
+                                <!-- Challenging trip. Discover beautiful places (hiker, mountain climber) -->
                             </button>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-2 col-md-offset-2 manager-box">
                             <img src="img/internationale-manager.png" alt="internationale-manager"
-                                 width="200px" height="260px" class="center-block">
+                                 width="100px" height="130px" class="center-block">
+                            <br>
                             <div class="description center-block">
-                                Internationale is a socialized person and an expert
-                                in <span>cuisine</span> around the world. She has gone to many
-                                great restaurant, and experienced food from every
-                                cultures. So, if you are also a <span>food-oriented</span>
-                                person, why not choose her.
+                                Description for <span>Internationale</span>.
+                                <!-- People care about cusine / food / cultures -->
                             </div>
-                            <button type="button" class="btn btn-danger manager-button center-block">
+                            <br>
+                            <button class="btn btn-info btn-md center-block">
                                 <b>Internationale</b>
                             </button>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-2 col-md-offset-2 manager-box">
                             <img src="img/olivia-manager.png" alt="olivia-manager"
-                                 width="200px" height="260px" class="center-block">
+                                 width="100px" height="130px" class="center-block">
+                            <br>
                             <div class="description center-block">
-                                Olivia is a traveler but also an archaeologist at
-                                the same time. She has special interests in <span>history</span>
-                                and <span>traditions</span> of countries all over
-                                the world, and has studies them for a long time.
-                                If you want to know more about the great past, just
-                                ask her for advice.
+                                Description for <span>Olivia</span>.
+                                <!-- People care about history / past -->
                             </div>
-                            <button type="button" class="btn btn-danger manager-button center-block">
+                            <br>
+                            <button class="btn btn-info btn-md center-block">
                                 <b>Olivia</b>
                             </button>
                         </div>

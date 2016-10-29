@@ -22,25 +22,30 @@ and open the template in the editor.
 #welcome span {
     font-size: 50px;
     font-weight: bolder;
+    font-style: italic;
 }
 
-#manager-section {
-    padding-left: auto;
-    padding-right: auto;
-    width: 100%;
-    
+.manager-box {
+    padding: 14px 14px 14px 14px;
+}
+
+.manager-box:hover {
+    border: 4px solid red;
+    border-style: double;
+    padding: 10px 10px 10px 10px;
 }
 
 .description {
     text-align: center;
     line-height: 1.4;
-    width: 80%;
-    height: 180px;
-    padding-top: 15px;
+    width: 100%;
+/*    height: 230px;*/
+    height: auto;
     font-size: 15px;
     color: tomato;
     
-    font-family: 'Playfair Display', serif;
+/*    font-family: 'Playfair Display', serif;*/
+    font-family: sans-serif;
 }
 
 .manager-button {
@@ -48,8 +53,10 @@ and open the template in the editor.
     margin: 0 auto;
 }
 
-span {
-    font-size: 18px;
+.description span {
+    font-size: 17px;
     font-weight: bolder;
     font-style: italic;
+    
+    font-family: 'Playfair Display', serif;
 }
