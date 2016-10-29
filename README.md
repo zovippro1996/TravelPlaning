@@ -12,7 +12,7 @@
 
 **Main Function** (of website): 
 
-  - Register.
+  - Register. 
   - Log in.
   - Change Personal Information.
   - Update Location.
@@ -24,7 +24,7 @@
   - Save List (for Logged In)
   - View History Journey/List
   - Rating + Comment.
-  - Highligh USERS FEATURE Journey.
+  - FEATURED Journey.
   
   
 **Optional**:
