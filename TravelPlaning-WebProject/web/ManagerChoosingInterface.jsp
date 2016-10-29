@@ -51,6 +51,7 @@
                             <br>
                             <button class="btn btn-info btn-md center-block">
                                 <b>Decker</b>
+                                <!-- Challenging trip. Discover beautiful places (hiker, mountain climber) -->
                             </button>
                         </div>
                         <div class="col-md-2 col-md-offset-2 manager-box">
@@ -59,6 +60,7 @@
                             <br>
                             <div class="description center-block">
                                 Description for <span>Internationale</span>.
+                                <!-- People care about cusine / food / cultures -->
                             </div>
                             <br>
                             <button class="btn btn-info btn-md center-block">
@@ -71,6 +73,7 @@
                             <br>
                             <div class="description center-block">
                                 Description for <span>Olivia</span>.
+                                <!-- People care about history / past -->
                             </div>
                             <br>
                             <button class="btn btn-info btn-md center-block">
