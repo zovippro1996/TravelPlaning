@@ -9,26 +9,21 @@ and open the template in the editor.
         <title>Travel Planning</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="style.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic&amp;subset=latin">
-         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
-         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
-         <link rel="stylesheet" href="assets/et-line-font-plugin/style.css">
-         <link rel="stylesheet" href="assets/bootstrap-material-design-font/css/material.css">
-         <link rel="stylesheet" href="assets/tether/tether.min.css">
-          <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-          <link rel="stylesheet" href="assets/socicon/css/socicon.min.css">
-          <link rel="stylesheet" href="assets/animate.css/animate.min.css">
-          <link rel="stylesheet" href="assets/dropdown/css/style.css">
-          <link rel="stylesheet" href="assets/theme/css/style.css">
-         <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="css/w3.css">
+        <link rel="stylesheet" type="text/css" href="css/ManagerChoosingStyle.css">
+        <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+
     </head>
     <body onload="Loader()" style="margin:0;" >
         <div id="loader">
         </div>
-        <video id="loader_video" src="img/loader_animation.mp4" width="100%" autoplay>
-            </video>
-        
+
+        <video id="loader_video" src="img/Loader_animation.mp4" width="100%" autoplay>
+        </video>
+
         <div id="wrapper" class ="animate-bottom">
             <div id="header">
                 <div id="header-name">
@@ -36,101 +31,114 @@ and open the template in the editor.
                 </div>
             </div>
             <div id="body-content">
-                <div id="logo-banner">
-                    <div id="logo-bg">
-                        <div style="position: absolute; z-index: 0;">
-                            <img src="img/hex.png" width="200" height="200" alt="Hexagon"/>
-                        </div>
-                        <div id="guest-btn">
-                            Guest
-                        </div>
-                    </div>
+                <div id="background-slide">
+                    <img class="mySlides w3-animate-fading" src="img/PicforBackgroundWLCpage/slide1.jpg" style="width: 100%">
+                    <img class="mySlides w3-animate-fading" src="img/PicforBackgroundWLCpage/slide2.jpg" style="width: 100%">
+                    <img class="mySlides w3-animate-fading" src="img/PicforBackgroundWLCpage/slide3.jpg" style="width: 100%">
+                    <img class="mySlides w3-animate-fading" src="img/PicforBackgroundWLCpage/slide4.jpg" style="width: 100%">
+                    <img class="mySlides w3-animate-fading" src="img/PicforBackgroundWLCpage/slide5.jpg" style="width: 100%">
+                    <img class="mySlides w3-animate-fading" src="img/PicforBackgroundWLCpage/slide6.jpg" style="width: 100%">
+                    <img class="mySlides w3-animate-fading" src="img/PicforBackgroundWLCpage/slide7.jpg" style="width: 100%">
                 </div>
-
-                <div id="login">
-                    <div id="login-banner">
-                        Login
-                    </div>
-
-                    <div id="login-form">
-                        <form class="form-horizontal">
-                            <div class="form-group">
-                                <div class="col-sm-10">
-                                    <input type="text" name="username" class="form-control" placeholder="Enter your username."/>
-                                </div>
+                <div id="content">
+                    <div id="logo-banner">
+                        <div id="logo-bg">
+                            <div style="position: absolute; z-index: 0;">
+                                <img src="img/hex.png" width="250" height="250" alt="Hexagon"/>
                             </div>
-
-                            <div class="form-group" style="margin-bottom: 10px;">
-                                <div class="col-sm-10">
-                                    <input type="password" name="password" class="form-control" placeholder="Enter your password."/>
-                                </div>
+                            <div id="guest-btn">
+                                Guest
                             </div>
-
-                            <div id="reset-pass">
-                                <a>Forgot password?</a>
-                            </div>
-
-                            <div class="form-group" style="clear: both; padding-top: 10px;">
-                                <div class="col-sm-offset-3">
-                                    <button type="submit" class="btn btn-default" id="login-button">Login</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-
-                    <div id="social-link">
-                        <div id="social-text">
-                            Or login with a social account
-                        </div>
-                        <div class="social-logo">
-                            <img src="img/facebook.png" alt="Facebook" width="35" height="35"/>
-                        </div>
-                        <div class="social-logo">
-                            <img src="img/twitter.png" alt="Twitter" width="35" height="35"/>
                         </div>
                     </div>
 
-                    <div class="col-sm-offset-3" id="register-btn">
-                        <a href="#" class="btn btn-default" role="button" id="register-button">Create New Account</a>
+                    <div id="login">
+                        <div id="login-banner">
+                            Login
+                        </div>
+
+                        <div id="login-form">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <div class="col-sm-10">
+                                        <input type="text" name="username" class="form-control" placeholder="Enter your username."/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="margin-bottom: 10px;">
+                                    <div class="col-sm-10">
+                                        <input type="password" name="password" class="form-control" placeholder="Enter your password."/>
+                                    </div>
+                                </div>
+
+                                <div id="reset-pass">
+                                    <a>Forgot password?</a>
+                                </div>
+
+                                <div class="form-group" style="clear: both; padding-top: 10px;">
+                                    <div class="col-sm-offset-3">
+                                        <button type="submit" class="btn btn-default" id="login-button">Login</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div id="social-link">
+                            <div id="social-text">
+                                Or login with 
+                            </div>
+                            <div class="social-logo">
+                                <img src="img/facebook.png" alt="Facebook" width="35" height="35"/>
+                            </div>
+                            <div class="social-logo">
+                                <img src="img/twitter.png" alt="Twitter" width="35" height="35"/>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-offset-3" id="register-btn">
+                            <a href="#" class="btn btn-default" role="button" id="register-button">Create New Account</a>
+                        </div>
                     </div>
                 </div>
             </div>
-
             <br style="clear: both;">
 
-          <footer class="mbr-small-footer mbr-section mbr-section-nopadding" id="main-footer1-0" style="background-color: rgb(50, 50, 50); margin-top: 3rem; padding-top: 1.75rem; padding-bottom: 1.75rem;">
-    
-    <div class="container">
-        <p class="text-xs-center"><strong>Copyright (c) 2016 Travel Planning.</strong></p>
-    </div>
-</footer>
+            <div id="footer">
+                Travel Planning &copy; Copyright 2016 | All rights reserved.
+            </div>
         </div>
-        
+
         <script>
-var Var;
+            var Var;
 
+            function Loader() {
+                Var = setTimeout(showPage, 2000);
+            }
 
-function Loader() {
-    Var = setTimeout(showPage, 2000);
-}
+            function showPage() {
+                document.getElementById("loader").style.display = "none";
+                document.getElementById("loader_video").style.display = "none";
+                document.getElementById("wrapper").style.display = "block";
+            }
 
-function showPage() {
-  document.getElementById("loader").style.display = "none";
-  document.getElementById("loader_video").style.display = "none";
-  document.getElementById("wrapper").style.display = "block";
-}
+            var myIndex = 0;
+            carousel();
 
+            function carousel() {
+                var i;
+                var x = document.getElementsByClassName("mySlides");
+                for (i = 0; i < x.length; i++) {
+                    x[i].style.display = "none";
+                }
+                myIndex++;
+                if (myIndex > x.length) {
+                    myIndex = 1;
+                }
+                x[myIndex - 1].style.display = "block";
+                setTimeout(carousel, 10000);
+            }
 
-/* to disable loading screen comment out Loader() function and enable this 
+        </script>
 
-function Loader() 
-{
-    Var = setTimeout(showPage,0);
-}
-
-*/
-
-</script>
-        
     </body> 
 </html>
