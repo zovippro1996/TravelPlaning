@@ -21,9 +21,9 @@
       
       
   - Calculate the Bugget.
-  - Save List (for Logged In)
-  - View History Journey/List
-  - Rating + Comment.
+  - Save List (for Logged In).
+  - View History Journey/List (for Logged In).
+  - Rating + Comment (for Logged In).
   - FEATURED Journey.
   
   
