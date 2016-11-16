@@ -1,17 +1,53 @@
 <%-- 
     Document   : plan-generated-interface
     Created on : Oct 27, 2016, 10:10:33 AM
-    Author     : krankai
+    Author     : Krankai
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%
+    // Get username; or just 'guest'
+    // Maybe try to determine whether this is the first time
+    // user tries to access the page -> change 'Welcome' accordingly
+    String username = "Krankai";
+
+    // Check visit
+    // If the first time --> display "Welcome, user_name"
+    // If the second time (and onward) --> display "Welcome back, user_name"
+    Cookie[] cookies = request.getCookies();
+    String welcome = "Welcome back, ";
+    boolean found = false;
+    if (cookies != null)        // there are cookies
+    {
+        // find for cookie 'visit'
+        for (int i = 0; i < cookies.length; ++i)
+        {
+            Cookie cookie = cookies[i];
+            if ("visit".equals(cookie.getName()))   // found
+            {
+                found = true;
+                break;
+            }
+        }
+    }
+    if (!found)
+    {
+        Cookie cookie = new Cookie("visit", "on");
+        cookie.setMaxAge(24 * 60 * 60);     // remember user for a day
+        response.addCookie(cookie);
+
+        welcome = "Welcome, ";
+    }
+%>
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="generator" content="Mobirise v3.7.3, mobirise.com">
-        <meta name="description" content="Help users to manage their travel plans with a click of a button.">
+        <meta name="description" content="Getting inputs from user to generate journey.">
         <link rel="shortcut icon" href="assets/images/hexa1-128x128-80.png" type="image/x-icon">
         <title>Plan Generate Interface</title>
         <link rel="stylesheet" type="text/css" href="css/style.css">
@@ -33,170 +69,189 @@
     </head>
     <body>
         <!-- Open nav drawer extensive js -->
-        <script>
-        function openNav() {
-            document.getElementById("mySidenav").style.width = "250px";
-            document.getElementById("main").style.marginLeft = "250px";
-            document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
-        }
-
-        function closeNav() {
-            document.getElementById("mySidenav").style.width = "0";
-            document.getElementById("main").style.marginLeft= "0";
-            document.body.style.backgroundColor = "white";
-        }
-        </script>
-        
-        
         <div class="animate-bottom">
             
             <!-- Upper section -->
             <div id="upper">
                 <!-- Header -->
-                <section id="index-menu-0">
-                    <nav class="navbar navbar-dropdown bg-color transparent navbar-fixed-top">
-                        <div class="container">
-                            <div class="mbr-table">
-                                <div class="mbr-table-cell">
-                                    <div class="navbar-brand">
-                                        <div id="mySidenav" class="sidenav" style="z-index: 3;">
-                                            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                                            <img src ="assets/images/avatar.png" />
-                                            <a href="#">Username:</a>
-                                            <a href="#">Email:</a>
-                                            <a href="#">Previous trips:</a>
-                                            <a href="#">Sign out</a>
-                                        </div>  
-                                        <span style="font-size:50px;cursor:pointer" onclick="openNav()">&#9776;</span>
-                                        <a class="navbar-caption text-danger" href="Main.html" style="padding: 0 0 0 50px; margin-bottom: 20px;">Travel Planning</a>
-                                    </div>
-                                </div>
-                                <div class="mbr-table-cell">
-                                    <button class="navbar-toggler pull-xs-right hidden-md-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
-                                        <div class="hamburger-icon"></div>
-                                    </button>
+                <jsp:include page="Header.jsp" flush="true" />
 
-                                    <ul class="nav-dropdown collapse pull-xs-right nav navbar-nav navbar-toggleable-sm" id="exCollapsingNavbar">
-                                        <li class="nav-item"><a class="nav-link link" href="#" aria-expanded="false">Contact</a></li>
-                                        <li class="nav-item"><a class="nav-link link" href="index.html" aria-expanded="false">Login/Logout</a></li>
-                                        <li class="nav-item nav-btn"><a class="nav-link btn btn-secondary-outline btn-secondary" href="booking.html">Start Travel Now!</a></li>
-                                    </ul>
-                                    <button hidden="" class="navbar-toggler navbar-close" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
-                                        <div class="close-icon"></div>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </nav>
-                </section>
-
-                <!-- Body -->
-                <div class="container">
-                    <%
-                    // Get username; or just 'guest'
-                    // Maybe try to determine whether this is the first time
-                    // user tries to access the page -> change 'Welcome' accordingly
-                    String username = "Krankai";
-                    %>
-
-                    <!-- Welcoming section: welcome user -->
-                    <div id="welcome">
-                        <h1 class="mbr-section-title display-1">Welcome back, <%=username%></h1>
-                        <p style="margin-top: 30px">
-                            Thank you for still trusting and using our services.<br>
-                            Our three managers, each with different style, will help
-                            you plan your trip ahead.<br>
-                            <span>Please</span> choose your preferred manager.&nbsp;
-                        </p>
-                    </div>
+                <!-- Welcoming section: welcome user -->
+                <div id="welcome" class="container-fluid">
+                    <h1 class="mbr-section-title display-1"><%= welcome + username %></h1>
+                    <p style="font-size: 25px; font-weight: bold">
+                        Thank you for trusting and using our services.
+                        <br>
+                        It is a pleasure for us to help you have a wonderful
+                        and memorable trip.
+                        <br>
+                        <span style="font-size: 35px; font-weight: bolder">Please</span>
+                        fill in the form below so we can plan a suitable journey for you.
+                    </p>
+                    <button class="btn btn-primary choose-btn center-block">
+                        <a href="#lower" style="font-size: 15px">Go to Form Section</a>
+                    </button>
+                </div>
 
                     <!-- Manager section: contain information about three managers -->
-                    <div class="row">
+<!--                    <div class="row">
                         <div class="col-md-2 col-md-offset-1 manager-box">
                             <img src="img/decker-manager.png" alt="decker-manager"
-                                 width="100px" height="130px" class="center-block img-responsive">
+                                 width="100" height="130" class="center-block img-responsive">
                             <br>
                             <div class="description center-block">
                                 Description for<br><span>Decker</span>.
-                                <!-- Challenging trip; beautiful places -->
+                                 Challenging trip; beautiful places 
                             </div>
                         </div>
                         <div class="col-md-2 col-md-offset-2 manager-box">
                             <img src="img/internationale-manager.png" alt="internationale-manager"
-                                 width="100px" height="130px" class="center-block img-responsive">
+                                 width="100" height="130" class="center-block img-responsive">
                             <br>
                             <div class="description center-block">
                                 Description for<br><span>Internationale</span>.
-                                <!-- People care about cusine / food / cultures -->
+                                 People care about cusine / food / cultures 
                             </div>
                         </div>
                         <div class="col-md-2 col-md-offset-2 manager-box">
                             <img src="img/olivia-manager.png" alt="olivia-manager"
-                                 width="100px" height="130px" class="center-block img-responsive">
+                                 width="100" height="130" class="center-block img-responsive">
                             <br>
                             <div class="description center-block">
                                 Description for<br><span>Olivia</span>.
-                                <!-- People care about history / past -->
+                                 People care about history / past 
                             </div>
                         </div>
                     </div>
                     <br clear="both">
                     <div class="row">
-                        <!-- Button for Decker -->
+                         Button for Decker 
                         <div class="col-md-2 col-md-offset-1">
                             <button class="btn btn-primary choose-btn center-block">
                                 <a href="#lower"><b>Choose</b></a>
                             </button>
                         </div>
-                        <!-- Button for Internationale -->
+                         Button for Internationale 
                         <div class="col-md-2 col-md-offset-2">
                             <button class="btn btn-primary choose-btn center-block">
                                 <a href="#lower"><b>Choose</b></a>
                             </button>
                         </div>
-                        <!-- Button for Olivia -->
+                         Button for Olivia 
                         <div class="col-md-2 col-md-offset-2">
                             <button class="btn btn-primary choose-btn center-block">
                                 <a href="#lower"><b>Choose</b></a>
                             </button>
                         </div>
-                    </div>
-                </div>
+                    </div>-->
+
             </div>
-            
-            <br><br><br><br>
             
             <!-- Lower section: for getting input to plan the trip -->
-            <!-- Note: still in body -->
-            <div id="lower" class="container">
-                <h1>Form section</h1>
+            <div id="lower" class="container-fluid">
+                <h2 class="mbr-section-title display-2">Form section</h2>
+                <div id="form-wrapper">
+                    <form action="#" method="get">  <!-- Remember to switch method to post -->
+                        <div class="form-group">
+                            <label>
+                                Where do you want to go ? 
+                            </label>
+                            <input type="text" class="form-control" name="country"
+                                   placeholder="Enter your preferred country">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="dest" value="knownContinent">
+                                    I don't know which country, but I want to go to
+                                </label>
+                                <select class="form-inline" name="continent">
+                                    <option value="asia"> Asia</option>
+                                    <option value="africa">Africa</option>
+                                    <option value="namerica">North America</option>
+                                    <option value="samerica">South America</option>
+                                    <option value="antarctica">Antarctica</option>
+                                    <option value="europe"> Europe</option>
+                                    <option value="australia">Australia</option>
+                                </select>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="dest" value="notKnown">
+                                    I don't know where to go. I want the system to
+                                    help me choose instead.
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="duration">
+                                How long is your journey ? <span class="required">*</span>
+                            </label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="duration"
+                                       placeholder="Number of days" name="duration">
+                                <div class="input-group-addon"> day(s)</div>
+                            </div>
+                            <p class="help-block">Maximum: 7 days</p>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                Money relating stuff ?? Dont know what to write <span class="required">*</span>
+                            </label>
+                            <div>
+                                <label class="radio-inline">
+                                    <input type="radio" name="wealthyStyle" value="standard"> Standard
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="wealthyStyle" value="luxury"> Luxury
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="typeJourney">
+                                Which types of journey do you prefer ? <span class="required">*</span>
+                            </label>
+                            <select class="form-control input-sm" name="type" id="typeJourney">
+                                <option value="historical">Historical Trip</option>
+                                <option value="sightseeing">Sightseeing Trip</option>
+                                <option value="metropolis">Metropolis Trip</option>
+                            </select>
+                            <p class="help-block">
+                                This information will help us arrange locations
+                                that likely suit your taste.
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                Do you want to go to beach ? <span class="required">*</span>
+                            </label>
+                            <div>
+                                <label class="radio-inline">
+                                    <input type="radio" name="beachPrefer" value="yes"> Yes
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="beachPrefer" value="no"> No
+                                </label>
+                            </div>
+                            <p class="help-block">Only for coastal country</p>
+                        </div>
+                        <div style="text-align: center">
+                            <p style="font-size: 20px; font-weight: bold">
+                                -----------
+                                That's all. Thank you for your cooperation!
+                                -----------
+                            </p>
+                        </div>
+                        <button type="submit" class="btn btn-primary choose-btn">
+                            Submit
+                        </button>
+                        <button type="reset" class="btn btn-primary choose-btn">
+                            Cancel
+                        </button>
+                    </form>
+                </div>
             </div>
             
-            <br style="clear: both">
-            
             <!-- Footer -->
-            <footer class="mbr-small-footer mbr-section mbr-section-nopadding" id="main-footer1-0" style="background-color: rgb(50, 50, 50); padding-top: 1.75rem; padding-bottom: 1.75rem;">
-                <div class="container">
-                    <p class="text-xs-center"><strong>Copyright (c) 2016 Travel Planning.</strong></p>
-                </div>
-            </footer>
+            <jsp:include page="Footer.jsp" flush="true" />
         </div>
-                    
-        <script src="assets/web/assets/jquery/jquery.min.js"></script>
-        <script src="assets/tether/tether.min.js"></script>
-        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-        <script src="assets/smooth-scroll/SmoothScroll.js"></script>
-        <script src="assets/viewportChecker/jquery.viewportchecker.js"></script>
-        <script src="assets/dropdown/js/script.min.js"></script>
-        <script src="assets/touchSwipe/jquery.touchSwipe.min.js"></script>
-        <script src="assets/jarallax/jarallax.js"></script>
-        <script src="assets/theme/js/script.js"></script>
-        
-        <!-- Back-to-top button -->
-        <input name="animation" type="hidden">
-        <div id="scrollToTop" class="scrollToTop mbr-arrow-up">
-            <a style="text-align: center;"><i class="mbr-arrow-up-icon"></i></a>
-        </div>
-        
     </body>
 </html>
