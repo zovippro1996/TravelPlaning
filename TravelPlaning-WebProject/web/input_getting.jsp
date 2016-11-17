@@ -74,7 +74,7 @@
             <!-- Upper section -->
             <div id="upper">
                 <!-- Header -->
-                <jsp:include page="Header.jsp" flush="true" />
+                <jsp:include page="_header.jsp" flush="true" />
 
                 <!-- Welcoming section: welcome user -->
                 <div id="welcome" class="container-fluid">
@@ -251,7 +251,8 @@
             </div>
             
             <!-- Footer -->
-            <jsp:include page="Footer.jsp" flush="true" />
+            <jsp:include page="_footer.jsp" flush="true" />
         </div>
     </body>
 </html>
+
