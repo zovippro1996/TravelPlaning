@@ -26,6 +26,8 @@ Author : Trung Pham
   <link rel="stylesheet" href="assets/dropdown/css/style.css">
   <link rel="stylesheet" href="assets/theme/css/style.css">
   <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/w3.css">
   
   <style type="text/css">
       .signupform {
@@ -42,7 +44,7 @@ Author : Trung Pham
       
       legend{
           
-          font-size: 150%; 
+          font-size: 160%; 
           font-family: Courier New, Courier, monospace;
           
           
@@ -94,25 +96,34 @@ Author : Trung Pham
 
 </section>
         
+        <!-- - - - - - - - - Background - - - - - - - - - - -->
         
+        <div id="background-slide">
+                    <img class="mySlides w3-animate-fading" src="img/PicforBackgroundWLCpage/slide1.jpg" style="width: 100%">
+                    <img class="mySlides w3-animate-fading" src="img/PicforBackgroundWLCpage/slide2.jpg" style="width: 100%">
+                    <img class="mySlides w3-animate-fading" src="img/PicforBackgroundWLCpage/slide3.jpg" style="width: 100%">
+                    <img class="mySlides w3-animate-fading" src="img/PicforBackgroundWLCpage/slide5.jpg" style="width: 100%">
+                    <img class="mySlides w3-animate-fading" src="img/PicforBackgroundWLCpage/slide6.jpg" style="width: 100%">
+                    <img class="mySlides w3-animate-fading" src="img/PicforBackgroundWLCpage/slide7.jpg" style="width: 100%">
+                </div>
         
      <!-- - - - - - - - - - Begin OutMost Div - - - - - - - -->
      
-        <div  style="margin-left: 15%; margin-right:15%;padding-top:20%; margin-bottom: 10%; align-content: center;">
+        <div  style="margin-left: 15%; margin-right:15%;padding-top:5%; margin-bottom: 10%; align-content: center;">
             
-            <div style="text-align: center; font-size: 340%; margin-bottom:3%; font-style: oblique;">
-                Create your Travel Planing Account
+            <div style="text-align: center; font-size: 340%; margin-bottom:1%; font-style: oblique;">
+                Create your  Account
                 <br>
                 <span style = "font-size : 37.5%">Fill In The Boarding Ticket
-                    And We Will Travel Together </span>
+                    And We Are Ready To Go </span>
             </div>
         
             
            
             
             <!-- - - - - - - - - - FORM - - - - - - - -->
-            <div class="signupform" style="border: 5px solid #e5e5e5;  padding: 35px;
-  background: #f1f1f1; margin-left: 20%; margin-right: 20%">
+            <div class="signupform" style="border: 5px solid #e5e5e5;  padding: 2%;
+  background: #f1f1f1; margin-left: 26%; margin-right: 26%;">
                 
                 
                 <!-- - - - - - -USERNAME + PASS - - - - - -->    
@@ -123,17 +134,20 @@ Author : Trung Pham
                         
                         <label>
                             
-                            <input class ="formfieldcontent" type="text" value name="FirstName" id="UserName" placeholder="Username" spellcheck="false" >
+                            <input class ="formfieldcontent" type="text" name="username" id="UserName" placeholder="Username" spellcheck="false" >
                         </label>
                         
                         <br>
-                        
+                            
                         <label>
-                            <input class ="formfieldcontent" type="password" value name="LastName" id="Password" placeholder="Password" spellcheck="false">
-                        </label>  
+                            <input class ="formfieldcontent" type="password" name="password" id="Password" placeholder="Password" spellcheck="false" onkeyup="CheckPasswordStrength(this.value)">
+                              
+                        </label> 
+                        <span id="password_strength" style=""></span>
                         
+                        <br>
                         <label>
-                            <input class ="formfieldcontent" type="password" value name="LastName" id="ConfirmPassword" placeholder="Confirm Password" spellcheck="false">
+                            <input class ="formfieldcontent" type="password" name="confirmpassword" id="ConfirmPassword" placeholder="Confirm Password" spellcheck="false">
                         </label>  
                         
                     </fieldset>
@@ -149,12 +163,12 @@ Author : Trung Pham
                         
                         <label>
                             
-                            <input class ="formfieldcontent"  type="text" value name="FirstName" id="FirstName" placeholder="First" spellcheck="false">
+                            <input class ="formfieldcontent"  type="text"  name="firstname" id="FirstName" placeholder="First" spellcheck="false">
                         </label>
                         
                         
                         <label>
-                            <input class ="formfieldcontent"  type="text" value name="LastName" id="LastName" placeholder="Last" spellcheck="false">
+                            <input class ="formfieldcontent"  type="text" name="lastname" id="LastName" placeholder="Last" spellcheck="false">
                         </label>    
                         
                     </fieldset>
@@ -171,17 +185,31 @@ Author : Trung Pham
                         
                         <label>
                             
-                            <input class ="formfieldcontent" type="text" value name="BirthMonth" id="BirthMonth" placeholder="Username" >
+                           <select name="DOBMonth">
+                                <option> - Month - </option>
+                                <option value="January">January</option>
+                                <option value="Febuary">Febuary</option>
+                                <option value="March">March</option>
+                                <option value="April">April</option>
+                                <option value="May">May</option>
+                                <option value="June">June</option>
+                                <option value="July">July</option>
+                                <option value="August">August</option>
+                                <option value="September">September</option>
+                                <option value="October">October</option>
+                                <option value="November">November</option>
+                                <option value="December">December</option>
+                            </select>
                         </label>
                         
                        
                         
                         <label>
-                            <input class ="formfieldcontent" type="text" maxlength="2" size ="2" value name="BirthDay" id="BirthDay" placeholder="Day">
+                            <input class ="formfieldcontent" type="number" size ="6" name="birthday" min = "1" max = "31" id="Birthday" placeholder="Day" >
                         </label>  
                         
                         <label>
-                            <input class ="formfieldcontent" type="text" maxlength="4" size="4" value name="BirthYear" id="BirthYear" placeholder="Year" >
+                            <input class ="formfieldcontent" type="number" size="6" name="birthyear" min = "1970" max="2012" id="Birthyear" placeholder="Year"  >
                         </label>  
                         
                     </fieldset>
@@ -194,15 +222,19 @@ Author : Trung Pham
                         
                         <legend>Gender</legend>
                         
+                        
                         <label>
-                            
-                            <input class ="formfieldcontent"  type="text" value name="FirstName" id="FirstName" placeholder="First" spellcheck="false">
+                            <input type="radio" name="gender" value="male" checked> Male<br>
                         </label>
                         
                         
-                        <label>
-                            <input class ="formfieldcontent"  type="text" value name="LastName" id="LastName" placeholder="Last" spellcheck="false">
+                        <label style="margin-left:5%">
+                            <input type="radio" name="gender" value="female"> Female<br>
                         </label>    
+                        
+                        <label style="margin-left:5%">
+                            <input type="radio" name="gender" value="other"> Other
+                        </label>
                         
                     </fieldset>
                 </div>
@@ -222,7 +254,7 @@ Author : Trung Pham
                         <span style="margin-left: 1%"> &#8211;</span>
                        
                         <label>
-                            <input class ="formfieldcontent" type="text" maxlength="33" size="33" value name="PhoneNumber" id="PhoneNumber" placeholder="Phone Number" >
+                            <input class ="formfieldcontent" type="number"  min="0"  size="20"  id="PhoneNumber" placeholder="Phone Number" >
                         </label>  
                         
   
@@ -239,8 +271,7 @@ Author : Trung Pham
                         <legend>Email</legend>
                         
                         <label>
-                            
-                            <input class ="formfieldcontent"  type="text" value name="Email" id="FirstName" placeholder="@" maxlength="50" size="50" spellcheck="false">
+                            <input class ="formfieldcontent" type="email" id="email" placeholder=".com" maxlength="40" size="40" spellcheck="false">
                         </label>  
                         
                     </fieldset>
@@ -256,7 +287,7 @@ Author : Trung Pham
                         
                         <label>
                             
-                            <input class ="formfieldcontent"  type="text" value name="Email" id="FirstName" placeholder="Country" maxlength="50" size="50" spellcheck="false">
+                            <input class ="formfieldcontent"  type="text" name="location" id="location" placeholder="Country" maxlength="40" size="40" spellcheck="false">
                         </label>  
                         
                     </fieldset>
@@ -274,6 +305,68 @@ Author : Trung Pham
             </div>
             
         </div>
+     
+     
+     
+      <script type="text/javascript">
+    function CheckPasswordStrength(password) {
+        var password_strength = document.getElementById("password_strength");
+ 
+        //TextBox left blank.
+        if (password.length === 0) {
+            password_strength.innerHTML = "";
+            return;
+        }
+ 
+        //Regular Expressions.
+        var regex = new Array();
+        regex.push("[A-Z]"); //Uppercase Alphabet.
+        regex.push("[a-z]"); //Lowercase Alphabet.
+        regex.push("[0-9]"); //Digit.
+        regex.push("[$@$!%*#?&]"); //Special Character.
+ 
+        var passed = 0;
+ 
+        //Validate for each Regular Expression.
+        for (var i = 0; i < regex.length; i++) {
+            if (new RegExp(regex[i]).test(password)) {
+                passed++;
+            }
+        }
+ 
+        //Validate for length of Password.
+        if (passed > 2 && password.length > 8) {
+            passed++;
+        }
+ 
+        //Display status.
+        var color = "";
+        var strength = "";
+        switch (passed) {
+            case 0:
+            case 1:
+                strength = "Weak";
+                color = "red";
+                break;
+            case 2:
+                strength = "Good";
+                color = "darkorange";
+                break;
+            case 3:
+            case 4:
+                strength = "Strong";
+                color = "green";
+                break;
+            case 5:
+                strength = "Very Strong";
+                color = "darkgreen";
+                break;
+        }
+        password_strength.innerHTML = strength;
+        password_strength.style.color = color;
+    }
+</script> 
+     
     </body>
     
     
@@ -302,6 +395,30 @@ Author : Trung Pham
   <script src="assets/touchSwipe/jquery.touchSwipe.min.js"></script>
   <script src="assets/jarallax/jarallax.js"></script>
   <script src="assets/theme/js/script.js"></script>
+  
+  <script>
+      
+       var myIndex = 0;
+            carousel();
+
+            function carousel() {
+                var i;
+                var x = document.getElementsByClassName("mySlides");
+                for (i = 0; i < x.length; i++) {
+                    x[i].style.display = "none";
+                }
+                myIndex++;
+                if (myIndex > x.length) {
+                    myIndex = 1;
+                }
+                x[myIndex - 1].style.display = "block";
+                setTimeout(carousel, 10000);
+            }
+      
+      
+      
+      </script>
+  
   
   
   <input name="animation" type="hidden">
