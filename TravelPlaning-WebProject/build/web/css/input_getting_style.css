@@ -1,0 +1,109 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 27, 2016, 10:00:26 AM
+    Author     : krankai
+*/
+
+body {
+    overflow: auto;
+    text-align: center;
+    line-height: 1.3;
+    font-family: 'Roboto', serif;
+}
+
+#upper {
+    background-image: url("../img/input_background.jpg");
+    background-attachment: fixed;
+    background-size: cover;
+    
+    padding-bottom: 20px;
+}
+
+#welcome {
+    color: #5c5c8a;
+/*    text-align: center;*/
+    width: 100%; 
+    height: 800px;
+    
+/*    margin-top: 150px;
+    margin-bottom: 50px;*/
+
+    padding-top: 200px;
+/*    font-family: 'Playfair Display', serif;*/
+}
+
+/*.manager-box {
+    padding: 14px 14px 14px 14px;
+    border: 3px solid #3d3d5c;
+    background-color: #5c5c8a;
+}*/
+
+/*.manager-box:hover {
+    border: 4px solid red;
+    border-style: double;
+    padding: 10px 10px 10px 10px;
+}*/
+
+/*.description {
+    margin-right: 0px;
+    margin-left: 0px;
+    width: 100%;
+    height: 230px;
+    height: auto;
+    font-size: 15px;
+    color: white;
+    font-family: 'Playfair Display', serif;
+}
+
+.description span {
+    font-size: 17px;
+    font-weight: bolder;
+    font-style: italic;
+}
+
+.manager-button {
+    width: 50%;
+    margin: 0 auto;
+}*/
+
+.choose-btn {
+    background-color: #5c5c8a !important;
+    border-color: #5c5c8a !important;
+    font-size: 0.80rem !important;
+}
+
+.choose-btn:hover {
+    background-color: #333399 !important;
+}
+
+button a:link {
+    color: white;
+    text-decoration: none;
+}
+
+#lower {
+    padding-top: 100px;
+    padding-bottom: 94px;
+    height: auto;
+    width: 100%;
+    background-color: #efefed;
+}
+
+#form-wrapper {
+    width: 60%;
+    height: auto;
+    margin: 0 auto;
+    padding: 10px 20px 10px 20px;
+/*    border: dashed black 1px;*/
+    text-align: left;
+    font-size: 15px;
+}
+
+.required {
+    color: red;
+    font-size: 20px;
+}
