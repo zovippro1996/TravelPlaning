@@ -252,9 +252,11 @@
                         </div>
 
                         <div id="login-form">
-                            <form class="form-horizontal">
+                            <form class="form-horizontal" action="UserControl" method="POST">
+                                <input type="hidden" name="command" value="search">
+                                
                                 <div class="col-sm-11" style="margin-bottom: 15px;">
-                                    <input type="text" name="username" class="form-control" placeholder="Username."/>
+                                    <input type="text" name="username" class="form-control" placeholder="Username." autocomplete="off"/>
                                 </div>
 
                                 <div class="col-sm-11" style="margin-bottom: 15px;">

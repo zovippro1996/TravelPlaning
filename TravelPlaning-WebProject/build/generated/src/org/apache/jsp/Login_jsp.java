@@ -291,9 +291,11 @@ public final class Login_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                        </div>\r\n");
       out.write("\r\n");
       out.write("                        <div id=\"login-form\">\r\n");
-      out.write("                            <form class=\"form-horizontal\">\r\n");
+      out.write("                            <form class=\"form-horizontal\" action=\"UserControl\" method=\"POST\">\r\n");
+      out.write("                                <input type=\"hidden\" name=\"command\" value=\"search\">\r\n");
+      out.write("                                \r\n");
       out.write("                                <div class=\"col-sm-11\" style=\"margin-bottom: 15px;\">\r\n");
-      out.write("                                    <input type=\"text\" name=\"username\" class=\"form-control\" placeholder=\"Username.\"/>\r\n");
+      out.write("                                    <input type=\"text\" name=\"username\" class=\"form-control\" placeholder=\"Username.\" autocomplete=\"off\"/>\r\n");
       out.write("                                </div>\r\n");
       out.write("\r\n");
       out.write("                                <div class=\"col-sm-11\" style=\"margin-bottom: 15px;\">\r\n");
