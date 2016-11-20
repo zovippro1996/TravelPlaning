@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Form</title>
+<!--theme style-->
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />	
+
+
+
+<!--//theme style-->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Form lab 2 Le Quang Minh Anh" />
+
+<!--//Script-->
+
+</head>
+<body>
+
+<div class="header"><h1>My Form!</h1></div>
+
+<div class="form">
+<h1>School of Computer Science and Engineering</h1>
+
+
+
+				<form action="UserControl"  method="post">
+					<div class="form-container">
+						
+							<label>Username</label>
+							<input type="text" name="username" >
+							<span></span>
+                                                       
+							<label>Email</label>
+							<input type="text" name="email" >
+							<span></span>
+                                                       
+
+							<label>Password</label>
+							<input type="password" name="pass" > 
+							<span></span>
+
+						
+<!--                                                        de phan biet giua register va login-->
+                                                        <input type="hidden" name="command" value="insert">
+							
+					<input type="Submit" value="Create a new account!">
+					<input type="Reset" value="Cancel">
+					</div>
+				</form>
+			</div>

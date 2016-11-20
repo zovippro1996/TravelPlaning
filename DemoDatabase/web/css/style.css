@@ -1,0 +1,162 @@
+body{
+	background:#eeeeee;
+}
+
+br {
+   display: block;
+   margin: 50px 0;
+   line-height: 40px;
+}
+
+.header{
+	background-color: #FF4136;
+	 border: 2px solid black;
+	  padding: 25px 25px 50px 50px;
+}
+
+
+.header h1{
+	text-align: center;
+	font-size: 50px;
+	color: #ffffff;
+}
+
+.form{
+	 border: 2px solid black;
+	  padding: 25px 25px 50px 50px;
+}
+
+.form h1{
+text-align: center;
+color: #85144b;
+font-size: 60px;
+
+}
+
+label {
+	text-align: center;
+	color: #001f3f;
+	font-size: 25px;
+}
+
+input[type=radio] {
+    padding-left: 50px;
+    margin-left: 50px;
+
+}
+
+ul {
+	 list-style: none;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+
+
+
+input[type=text], [type=password] {
+    width: 80%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 3px solid #ccc;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+    display: block;
+}
+
+
+input [type=password]:focus {
+    border: 3px solid #555;
+}
+
+input[type=text]:focus {
+    border: 3px solid #555;
+}
+
+select[type=sub] {
+    width: 80%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 3px solid #ccc;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+    display: block;
+     border-radius: 4px;
+    background-color: #f1f1f1;
+}
+
+
+
+
+select[type=sub]:focus {
+    border: 3px solid #555;
+}
+
+option {
+	color: #001f3f;
+	font-size: 15px;
+}
+textarea[type=textbox]{
+	  width: 35%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 3px solid #ccc;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+    display: block;
+}
+textarea[type=textbox]:focus {
+    border: 3px solid #555;
+    width: 80%;
+}
+
+
+input[type=submit]{
+    background-color: #FF4136;
+    border-radius: 2px;
+    border: 3px solid white;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+input[type=button]{
+    background-color: #FF4136;
+    border-radius: 2px;
+    border: 3px solid white;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+
+
+input[type=reset] {
+    background-color: #DDDDDD;
+    border-radius: 2px;
+    border: 3px solid white;
+    color: black;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover, input[type=submit]:focus, input[type=reset]:hover, input[type=reset]:focus {border: 3px solid #555;  
+  text-shadow: 4px 4px 8px black;
+}
+
+
+
