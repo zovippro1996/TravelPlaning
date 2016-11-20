@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <servlet>
+        <servlet-name>DBConnect</servlet-name>
+        <servlet-class>Connect.DBConnect</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserControl</servlet-name>
+        <servlet-class>Control.UserControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Courses</servlet-name>
+        <servlet-class>Control.Courses</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DKcourse</servlet-name>
+        <servlet-class>Control.DKcourse</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DBConnect</servlet-name>
+        <url-pattern>/DBConnect</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserControl</servlet-name>
+        <url-pattern>/UserControl</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Courses</servlet-name>
+        <url-pattern>/Courses</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DKcourse</servlet-name>
+        <url-pattern>/DKcourse</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>CheckLogin</servlet-name>
+        <servlet-class>Control.CheckLogin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Login</servlet-name>
+        <servlet-class>Control.Login</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CheckLogin</servlet-name>
+        <url-pattern>/CheckLogin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>1</session-timeout>
+    </session-config>
+    
+    <welcome-file-list>
+        <welcome-file>CheckLogin</welcome-file>
+    </welcome-file-list>
+</web-app>
+
