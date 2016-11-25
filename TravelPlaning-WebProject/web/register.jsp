@@ -99,12 +99,11 @@ Author : Trung Pham
         
         <!-- - - - - - - - - Background - - - - - - - - - - -->
         
-        <div id="background-slide">
+        <div id="background-slide" style="position: fixed">
                     <img class="mySlides w3-animate-fading" src="img/PicforBackgroundWLCpage/slide1.jpg" style="width: 100%">
                     <img class="mySlides w3-animate-fading" src="img/PicforBackgroundWLCpage/slide2.jpg" style="width: 100%">
                     <img class="mySlides w3-animate-fading" src="img/PicforBackgroundWLCpage/slide3.jpg" style="width: 100%">
                     <img class="mySlides w3-animate-fading" src="img/PicforBackgroundWLCpage/slide5.jpg" style="width: 100%">
-                    <img class="mySlides w3-animate-fading" src="img/PicforBackgroundWLCpage/slide6.jpg" style="width: 100%">
                     <img class="mySlides w3-animate-fading" src="img/PicforBackgroundWLCpage/slide7.jpg" style="width: 100%">
                 </div>
         
@@ -123,8 +122,12 @@ Author : Trung Pham
            
             
             <!-- - - - - - - - - - FORM - - - - - - - -->
+            
+            
             <div class="signupform" style="border: 5px solid #e5e5e5;  padding: 2%;
   background: #f1f1f1; margin-left: 26%; margin-right: 26%;">
+                <form>
+                      <input type="hidden" name="command" value="addrecord">
                 
                 
                 <!-- - - - - - -USERNAME + PASS - - - - - -->    
@@ -132,25 +135,24 @@ Author : Trung Pham
                     <fieldset style="border-radius: 7px;">
                         
                         <legend>Account Info.</legend>
-                        
-                        <label>
+                         <div class="form-group">
+                           
+                             <input type="text" size="25" placeholder="Username" maxlength ="20" class="form-control" id="username" name="username" style="width: 55%;">
+                      
+                           
+                                    
+                       
                             
-                            <input class ="formfieldcontent" type="text" name="username" id="UserName" placeholder="Username" spellcheck="false" >
-                        </label>
+                             <input class="form-control" size="25" placeholder="Password" type="password" id="password" onkeyup="CheckPasswordStrength(this.value)" style="width: 55%;">
+                                <span id="password_strength" style="font-size:70%; padding-left: 25%"></span>
                         
-                        <br>
-                            
-                        <label>
-                            <input class ="formfieldcontent" type="password" name="password" id="Password" placeholder="Password" spellcheck="false" onkeyup="CheckPasswordStrength(this.value)">
-                              
-                        </label> 
-                        <span id="password_strength" style=""></span>
                         
-                        <br>
-                        <label>
-                            <input class ="formfieldcontent" type="password" name="confirmpassword" id="ConfirmPassword" placeholder="Confirm Password" spellcheck="false">
-                        </label>  
+                       
+                                <br>
                         
+                        <input class="form-control" size="25" placeholder="Confirm Password" type="password" id="password" style="width: 55%;">
+  
+                        </div> 
                     </fieldset>
                 </div>
                 
@@ -162,15 +164,12 @@ Author : Trung Pham
                         
                         <legend>Name</legend>
                         
-                        <label>
-                            
-                            <input class ="formfieldcontent"  type="text"  name="firstname" id="FirstName" placeholder="First" spellcheck="false">
-                        </label>
-                        
-                        
-                        <label>
-                            <input class ="formfieldcontent"  type="text" name="lastname" id="LastName" placeholder="Last" spellcheck="false">
-                        </label>    
+                         <div class="form-group">
+                           
+                             <input type="text" size="30" placeholder="First" maxlength ="30" class="form-control" id="firstname" name="firstname" style="width: 50%;">
+                             <input type="text" size="30" placeholder="Last" maxlength ="30" class="form-control" id="lastname" name="name" style="width: 50%;">
+                           
+                         </div> 
                         
                     </fieldset>
                 </div>
@@ -187,31 +186,31 @@ Author : Trung Pham
                         <label>
                             
                            <select name="DOBMonth">
-                                <option> - Month - </option>
-                                <option value="January">January</option>
-                                <option value="Febuary">Febuary</option>
-                                <option value="March">March</option>
-                                <option value="April">April</option>
-                                <option value="May">May</option>
-                                <option value="June">June</option>
-                                <option value="July">July</option>
-                                <option value="August">August</option>
-                                <option value="September">September</option>
-                                <option value="October">October</option>
-                                <option value="November">November</option>
-                                <option value="December">December</option>
+                                
+                                <option value="01">January</option>
+                                <option value="02">February</option>
+                                <option value="03">March</option>
+                                <option value="04">April</option>
+                                <option value="05">May</option>
+                                <option value="06">June</option>
+                                <option value="07">July</option>
+                                <option value="08">August</option>
+                                <option value="09">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
                             </select>
                         </label>
                         
                        
                         
                         <label>
-                            <input class ="formfieldcontent" type="number" size ="6" name="birthday" min = "1" max = "31" id="Birthday" placeholder="Day" >
+                            <input class ="formfieldcontent" type="text" pattern="[0-9]" maxlength="2" size="2" name="DOBday" id="Birthday" placeholder="Day" >
                         </label>  
                         
                         <label>
-                            <input class ="formfieldcontent" type="number" size="6" name="birthyear" min = "1970" max="2012" id="Birthyear" placeholder="Year"  >
-                        </label>  
+                            <input class ="formfieldcontent" type="text" pattern="[0-9]" maxlength="4" size="4" name="DOByear" id="Birthyear" placeholder="Year"  >
+                        </label>
                         
                     </fieldset>
                 </div>
@@ -231,7 +230,8 @@ Author : Trung Pham
                         
                         <label style="margin-left:5%">
                             <input type="radio" name="gender" value="female"> Female<br>
-                        </label>    
+                        </label>  
+                        
                         
                         <label style="margin-left:5%">
                             <input type="radio" name="gender" value="other"> Other
@@ -248,14 +248,10 @@ Author : Trung Pham
                         
                         <legend>Mobile Phone</legend>
                     
-                         <label>
-                            <input class ="formfieldcontent" type="text" maxlength="4" size ="4" value name="IntDial" id="IntDial" placeholder="(+)" style="text-align: right ">
-                        </label>  
-                        
-                        <span style="margin-left: 1%"> &#8211;</span>
+
                        
                         <label>
-                            <input class ="formfieldcontent" type="number"  min="0"  size="20"  id="PhoneNumber" placeholder="Phone Number" >
+                            <input class ="formfieldcontent" type="text"  name="phone"  id="PhoneNumber" placeholder="(+)-" >
                         </label>  
                         
   
@@ -284,7 +280,7 @@ Author : Trung Pham
                 <div style="margin-bottom: 4%">
                     <fieldset style="border-radius: 7px;">
                         
-                        <legend>Location</legend>
+                        <legend>Country</legend>
                         
                         <label>
                             
@@ -413,7 +409,7 @@ Author : Trung Pham
                     myIndex = 1;
                 }
                 x[myIndex - 1].style.display = "block";
-                setTimeout(carousel, 10000);
+                setTimeout(carousel, 4000);
             }
       
       
