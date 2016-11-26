@@ -6,7 +6,7 @@
 package Connect;
 
 
-import Data.Users;
+import Data.User;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -34,9 +34,9 @@ public class DBConnect {
     return conn;
 }
     // Function getUser to aquire User Object
-     public Users getUser(String username, String password){
+     public User getUser(String username, String password){
  
-        Users user = null;
+        User user = null;
         try(Connection conn = this.getConnection()){
                         
             Statement stm = conn.createStatement();
@@ -44,7 +44,7 @@ public class DBConnect {
                     
             ResultSet rs = stm.executeQuery(sql);
             while(rs.next()){
-                user = new Users();
+                user = new User();
 //                user.setUserName(rs.getString("username"));
 //                user.setUserPass(rs.getString("pass"));
 //                user.setEmail(rs.getString("email"));

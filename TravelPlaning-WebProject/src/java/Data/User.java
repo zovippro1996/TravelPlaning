@@ -11,7 +11,7 @@ import java.sql.Date;
  *
  * @author CREAT10N
  */
-public class Users {
+public class User {
     private int ID;
     private String username;
     private String password;
@@ -22,10 +22,10 @@ public class Users {
     private String email;
     private String country;
 
-    public Users() {
+    public User() {
     }
     
-    public Users(int ID, String username, String password, String fullname, Date DOB, String gender, String phone, String email, String country) {
+    public User(int ID, String username, String password, String fullname, Date DOB, String gender, String phone, String email, String country) {
         this.ID = ID;
         this.username = username;
         this.password = password;

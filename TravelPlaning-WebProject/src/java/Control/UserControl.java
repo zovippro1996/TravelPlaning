@@ -6,9 +6,8 @@
 package Control;
 
 import Connect.DBConnect;
-import Data.Users;
+import Data.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +19,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -37,12 +37,11 @@ public class UserControl extends HttpServlet {
             throws ServletException, IOException {
         Connection c = DBConnect.getConnection();
         HttpSession session = request.getSession(true);
-
+        RequestDispatcher rd;
+        
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String command = request.getParameter("command");
-
-        
         
         if ("search".equals(command)) {
             try {
@@ -53,8 +52,15 @@ public class UserControl extends HttpServlet {
 
                     Cookie cookieRealUser = new Cookie("cookieRealUser", "true");
                     response.addCookie(cookieRealUser);
-                    session.setAttribute("username", rs.getString("username"));
-                    response.sendRedirect("main.jsp");
+                                        
+                    User user = new User(rs.getInt("ID"), rs.getString("username"), rs.getString("password"), 
+                            rs.getString("fullname"), rs.getDate("DOB"), rs.getString("gender"), rs.getString("phone"), 
+                            rs.getString("email"), rs.getString("country"));
+                    
+                    session.setAttribute("user", user);
+                    
+                    rd = request.getServletContext().getRequestDispatcher("/main.jsp");
+                    rd.forward(request, response);
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(UserControl.class.getName()).log(Level.SEVERE, null, ex);
