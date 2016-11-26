@@ -32,7 +32,7 @@ Author : Trung Pham
   
   <style type="text/css">
       .signupform {
-          -webkit-clip-path: polygon(4% 0%, 96% 0%, 100% 3%, 100% 95%, 95% 100%, 5% 100%, 0% 95%, 0% 3%);
+          -webkit-clip-path: polygon(4% 0%, 96% 0%, 100% 3%, 100% 96%, 96% 100%, 4% 100%, 0% 96%, 0% 3%);
           
       }
      
@@ -124,8 +124,8 @@ Author : Trung Pham
             <!-- - - - - - - - - - FORM - - - - - - - -->
             
             
-            <div class="signupform" style="border: 5px solid #e5e5e5;  padding: 2%;
-  background: #f1f1f1; margin-left: 26%; margin-right: 26%;">
+            <div class="signupform" style="border: 5px solid #59903d;  padding: 2%;
+  background:  #daffc7 ; margin-left: 26%; margin-right: 26%;">
                 <form action="UserControl" method="POST">
                       <input type="hidden" name="command" value="signupaccount">
                 
@@ -250,9 +250,12 @@ Author : Trung Pham
                     
 
                        
-                        <label>
-                            <input class ="formfieldcontent" type="text"  name="phone"  id="PhoneNumber" placeholder="(+)-" >
-                        </label>  
+                       <div class="form-group row">
+                   
+                        <div class="col-xs-10">
+                            <input class="form-control" type="tel" name ="phone" id="phone" placeholder="(+)-">
+                    </div>
+                        </div>
                         
   
                         
@@ -267,9 +270,11 @@ Author : Trung Pham
                         
                         <legend>Email</legend>
                         
-                        <label>
-                            <input class ="formfieldcontent" name="email" type="email" id="email" placeholder=".com" maxlength="40" size="40" spellcheck="false">
-                        </label>  
+                       <div class="form-group">
+                           
+                             <input type="email" name ="email" class="form-control" id="mail1" aria-describedby="emailHelp" placeholder=".com">
+                             <small id="emailHelp" class="form-text text-muted">One account can only have one email address</small>
+                        </div>
                         
                     </fieldset>
                 </div>                
@@ -284,7 +289,7 @@ Author : Trung Pham
                         
                         <label>
                             
-                            <input class ="formfieldcontent"  type="text" name="country" id="location" placeholder="Country" maxlength="40" size="40" spellcheck="false">
+                         <input type="text" size="25" placeholder="Country" maxlength ="20" class="form-control" id="username" name="country">
                         </label>  
                         
                     </fieldset>
@@ -418,7 +423,7 @@ Author : Trung Pham
   
   
   
-  <input name="animation" type="hidden">
+ 
    <div id="scrollToTop" class="scrollToTop mbr-arrow-up"><a style="text-align: center;"><i class="mbr-arrow-up-icon"></i></a></div>
 
     
