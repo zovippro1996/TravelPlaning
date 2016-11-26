@@ -83,7 +83,7 @@ function closeNav() {
 
                     <ul class="nav-dropdown collapse pull-xs-right nav navbar-nav navbar-toggleable-sm" id="exCollapsingNavbar">
                     <li class="nav-item"><a class="nav-link link" href="#" aria-expanded="false">Contact</a></li>
-                    <li class="nav-item"><a class="nav-link link" href="index.html" aria-expanded="false">Login/Logout</a></li>
+                    <li class="nav-item"><a class="nav-link link" href="login.jsp" aria-expanded="false">Login/Logout</a></li>
                     <li class="nav-item nav-btn"><a class="nav-link btn btn-secondary-outline btn-secondary" href="booking.html">Start Travel Now!</a></li></ul>
                     <button hidden="" class="navbar-toggler navbar-close" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
                         <div class="close-icon"></div>
