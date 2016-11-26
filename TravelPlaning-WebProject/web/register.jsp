@@ -115,7 +115,7 @@ Author : Trung Pham
                 Create your  Account
                 <br>
                 <span style = "font-size : 37.5%">Fill In The Boarding Ticket
-                    And We Are Ready To Go </span>
+                    And We Are Ready</span>
             </div>
         
             
@@ -126,8 +126,8 @@ Author : Trung Pham
             
             <div class="signupform" style="border: 5px solid #e5e5e5;  padding: 2%;
   background: #f1f1f1; margin-left: 26%; margin-right: 26%;">
-                <form>
-                      <input type="hidden" name="command" value="addrecord">
+                <form action="UserControl" method="POST">
+                      <input type="hidden" name="command" value="signupaccount">
                 
                 
                 <!-- - - - - - -USERNAME + PASS - - - - - -->    
@@ -143,14 +143,14 @@ Author : Trung Pham
                                     
                        
                             
-                             <input class="form-control" size="25" placeholder="Password" type="password" id="password" onkeyup="CheckPasswordStrength(this.value)" style="width: 55%;">
+                             <input class="form-control" size="25" placeholder="Password" name="password" type="password" id="password" onkeyup="CheckPasswordStrength(this.value)" style="width: 55%;">
                                 <span id="password_strength" style="font-size:70%; padding-left: 25%"></span>
                         
                         
                        
                                 <br>
                         
-                        <input class="form-control" size="25" placeholder="Confirm Password" type="password" id="password" style="width: 55%;">
+                        <input class="form-control" size="25" placeholder="Confirm Password" name="confirmpassword" type="password" id="password" style="width: 55%;">
   
                         </div> 
                     </fieldset>
@@ -167,7 +167,7 @@ Author : Trung Pham
                          <div class="form-group">
                            
                              <input type="text" size="30" placeholder="First" maxlength ="30" class="form-control" id="firstname" name="firstname" style="width: 50%;">
-                             <input type="text" size="30" placeholder="Last" maxlength ="30" class="form-control" id="lastname" name="name" style="width: 50%;">
+                             <input type="text" size="30" placeholder="Last" maxlength ="30" class="form-control" id="lastname" name="lastname" style="width: 50%;">
                            
                          </div> 
                         
@@ -185,7 +185,7 @@ Author : Trung Pham
                         
                         <label>
                             
-                           <select name="DOBMonth">
+                           <select name="DOBmonth">
                                 
                                 <option value="01">January</option>
                                 <option value="02">February</option>
@@ -268,7 +268,7 @@ Author : Trung Pham
                         <legend>Email</legend>
                         
                         <label>
-                            <input class ="formfieldcontent" type="email" id="email" placeholder=".com" maxlength="40" size="40" spellcheck="false">
+                            <input class ="formfieldcontent" name="email" type="email" id="email" placeholder=".com" maxlength="40" size="40" spellcheck="false">
                         </label>  
                         
                     </fieldset>
@@ -284,7 +284,7 @@ Author : Trung Pham
                         
                         <label>
                             
-                            <input class ="formfieldcontent"  type="text" name="location" id="location" placeholder="Country" maxlength="40" size="40" spellcheck="false">
+                            <input class ="formfieldcontent"  type="text" name="country" id="location" placeholder="Country" maxlength="40" size="40" spellcheck="false">
                         </label>  
                         
                     </fieldset>
@@ -298,7 +298,7 @@ Author : Trung Pham
                     <input id="sumbitbutton" name="submitbuton" type="submit" value="Sign Up for Free" style="font-size : 135%; background-color:#655BFF; color: white; padding: 1.5%; border-radius: 18.5px; font-weight: 400; margin-top: 0.5%">
                     
                 </div>
-                
+                </form>
             </div>
             
         </div>
@@ -409,7 +409,7 @@ Author : Trung Pham
                     myIndex = 1;
                 }
                 x[myIndex - 1].style.display = "block";
-                setTimeout(carousel, 4000);
+                setTimeout(carousel, 5000);
             }
       
       
