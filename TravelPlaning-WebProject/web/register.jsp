@@ -150,8 +150,13 @@ Author : Trung Pham
                        
                                 <br>
                         
-                        <input class="form-control" size="25" placeholder="Confirm Password" name="confirmpassword" type="password" id="password" style="width: 55%;">
-  
+                                <input class="form-control"  size="25" placeholder="Confirm Password" name="confirmpassword" type="password" id="confirm_password" onkeyup="CheckPassword(this.value)" style="width: 55%;">
+                        <span id="confirm_pass" style="font-size:100%"> </span>
+
+
+
+                           
+                        
                         </div> 
                     </fieldset>
                 </div>
@@ -335,7 +340,7 @@ Author : Trung Pham
                 
                
                 <div style = "text-align: center" >
-                    <input id="sumbitbutton" name="submitbuton" type="submit" value="Sign Up for Free" style="font-size : 135%; background-color:#655BFF; color: white; padding: 1.5%; border-radius: 18.5px; font-weight: 400; margin-top: 0.5%">
+                    <input id="submitbutton" name="submitbuton" type="submit" value="Sign Up for Free" style="font-size : 135%; background-color:#655BFF; color: white; padding: 1.5%; border-radius: 18.5px; font-weight: 400; margin-top: 0.5%">
                     
                 </div>
                 </form>
@@ -402,6 +407,30 @@ Author : Trung Pham
         password_strength.innerHTML = strength;
         password_strength.style.color = color;
     }
+    
+    
+    
+    function CheckPassword(confirm_password) {
+         var password = document.getElementById("password");
+         var message = document.getElementById("confirm_pass");
+         
+           
+            
+          if (confirm_password === password.value)
+                {
+                    document.getElementById("submitbutton").disabled = false;
+                      message.innerHTML="True";
+                }
+
+           else {
+               message.innerHTML="Not Match" + confirm_password.value + " " +password.value;
+                 document.getElementById("submitbutton").disabled = true;
+                }
+    }
+        
+    
+    
+    
 </script> 
      
     </body>
