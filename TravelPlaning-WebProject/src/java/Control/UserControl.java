@@ -114,7 +114,6 @@ public class UserControl extends HttpServlet {
                     
         }
 
-<<<<<<< HEAD
         //SignUp Control    
         if ("signupaccount".equals(command)) {
             try {
@@ -137,8 +136,5 @@ public class UserControl extends HttpServlet {
             }
 
         }
-=======
->>>>>>> 41e29a2ae0bb613e29c69623be7e41901a271bb1
-
     }
 }
