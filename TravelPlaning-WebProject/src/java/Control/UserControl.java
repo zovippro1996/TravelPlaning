@@ -62,7 +62,7 @@ public class UserControl extends HttpServlet {
             try {
                 Statement st = c.createStatement();
                 ResultSet rs;
-                String query = "select * from VUsers where (username='" + username + "') AND password = '" + password + "' ";
+                String query = "select * from VUsers where username='" + username + "' AND password = '" + password + "' ";
                 rs = st.executeQuery(query);
                 if (rs.next()) {
 
@@ -98,7 +98,9 @@ public class UserControl extends HttpServlet {
                         + "','" + gender + "','" + phone + "','" + email + "','" + country + "')");
 
                 if (i > 0) {
-                    System.out.println("Sign up successful, please re-login to activate your account! Thank You");
+                    PrintWriter out = response.getWriter();
+                    response.setContentType("text/html");
+                    out.println("Sign up successful, please re-login to activate your account! Thank You");
                     response.sendRedirect("login.jsp");
                 } else {
                     response.sendRedirect("register.jsp");
