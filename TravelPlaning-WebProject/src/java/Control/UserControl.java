@@ -90,14 +90,14 @@ public class UserControl extends HttpServlet {
 
         } else
             
-         //SignUp Control    
+           //SignUp Control    
         if ("signupaccount".equals(command)){
                 try {
                      Statement st = c.createStatement();
                      ResultSet rs;
                      PrintWriter out = response.getWriter();
                      
-                     int i = st.executeUpdate("Insert into VUsers values ('"+username+"','"+password+"','" +fullname+"','"+DOB+"','" +gender+"','" + phone + "','" +email + "','" +  country + "')");
+                     int i = st.executeUpdate("Insert into VUsers(username,password,fullname,DOB,gender,phone,email,country) values ('"+username+"','"+password+"','" +fullname+"','"+DOB+"','" +gender+"','" + phone + "','" +email + "','" +  country + "')");
         
                      
                      if (i > 0) {
@@ -113,6 +113,7 @@ public class UserControl extends HttpServlet {
                  }
                     
         }
+
 
     }
 }
