@@ -253,14 +253,14 @@
 
                         <div id="login-form">
                             <form class="form-horizontal" action="UserControl" method="POST">
-                                <input type="hidden" name="command" value="search">
+                                <input type="hidden" name="command" value="login">
                                 
                                 <div class="col-sm-11" style="margin-bottom: 15px;">
-                                    <input type="text" name="username" class="form-control" placeholder="Username." autocomplete="off"/>
+                                    <input type="text" name="username" class="form-control" placeholder="Username." autocomplete="off" required/>
                                 </div>
 
                                 <div class="col-sm-11" style="margin-bottom: 15px;">
-                                    <input type="password" name="password" class="form-control" placeholder="Password."/>
+                                    <input type="password" name="password" class="form-control" placeholder="Password." required/>
                                 </div>                                
 
                                 <a id="reset-pass">Forgot password ?</a>
@@ -286,7 +286,7 @@
                         </div>
 
                         <div  id="register-btn" class="col-sm-offset-1">
-                            <a href="#" class="btn btn-warning" role="button" id="register-button">Create New Account</a>
+                            <a href="register.jsp" class="btn btn-warning" role="button" id="register-button">Create New Account</a>
                         </div>
                     </div>
                 </div>

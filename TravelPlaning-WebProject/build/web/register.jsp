@@ -32,7 +32,7 @@ Author : Trung Pham
   
   <style type="text/css">
       .signupform {
-          -webkit-clip-path: polygon(4% 0%, 96% 0%, 100% 3%, 100% 95%, 95% 100%, 5% 100%, 0% 95%, 0% 3%);
+          -webkit-clip-path: polygon(4% 0%, 96% 0%, 100% 3%, 100% 96%, 96% 100%, 4% 100%, 0% 96%, 0% 3%);
           
       }
      
@@ -115,7 +115,7 @@ Author : Trung Pham
                 Create your  Account
                 <br>
                 <span style = "font-size : 37.5%">Fill In The Boarding Ticket
-                    And We Are Ready To Go </span>
+                    And We Are Ready</span>
             </div>
         
             
@@ -124,10 +124,10 @@ Author : Trung Pham
             <!-- - - - - - - - - - FORM - - - - - - - -->
             
             
-            <div class="signupform" style="border: 5px solid #e5e5e5;  padding: 2%;
-  background: #f1f1f1; margin-left: 26%; margin-right: 26%;">
-                <form>
-                      <input type="hidden" name="command" value="addrecord">
+            <div class="signupform" style="border: 5px solid #59903d;  padding: 2%;
+  background:  #daffc7 ; margin-left: 26%; margin-right: 26%;">
+                <form action="UserControl" method="POST">
+                      <input type="hidden" name="command" value="signupaccount">
                 
                 
                 <!-- - - - - - -USERNAME + PASS - - - - - -->    
@@ -143,14 +143,14 @@ Author : Trung Pham
                                     
                        
                             
-                             <input class="form-control" size="25" placeholder="Password" type="password" id="password" onkeyup="CheckPasswordStrength(this.value)" style="width: 55%;">
+                             <input class="form-control" size="25" placeholder="Password" name="password" type="password" id="password" onkeyup="CheckPasswordStrength(this.value)" style="width: 55%;">
                                 <span id="password_strength" style="font-size:70%; padding-left: 25%"></span>
                         
                         
                        
                                 <br>
                         
-                        <input class="form-control" size="25" placeholder="Confirm Password" type="password" id="password" style="width: 55%;">
+                        <input class="form-control" size="25" placeholder="Confirm Password" name="confirmpassword" type="password" id="password" style="width: 55%;">
   
                         </div> 
                     </fieldset>
@@ -167,7 +167,7 @@ Author : Trung Pham
                          <div class="form-group">
                            
                              <input type="text" size="30" placeholder="First" maxlength ="30" class="form-control" id="firstname" name="firstname" style="width: 50%;">
-                             <input type="text" size="30" placeholder="Last" maxlength ="30" class="form-control" id="lastname" name="name" style="width: 50%;">
+                             <input type="text" size="30" placeholder="Last" maxlength ="30" class="form-control" id="lastname" name="lastname" style="width: 50%;">
                            
                          </div> 
                         
@@ -185,7 +185,7 @@ Author : Trung Pham
                         
                         <label>
                             
-                           <select name="DOBMonth">
+                           <select name="DOBmonth">
                                 
                                 <option value="01">January</option>
                                 <option value="02">February</option>
@@ -205,11 +205,11 @@ Author : Trung Pham
                        
                         
                         <label>
-                            <input class ="formfieldcontent" type="text" pattern="[0-9]" maxlength="2" size="2" name="DOBday" id="Birthday" placeholder="Day" >
+                            <input class ="formfieldcontent" type="text" pattern="[0-9][0-9]" maxlength="2" size="2" name="DOBday" id="Birthday" placeholder="Day" >
                         </label>  
                         
                         <label>
-                            <input class ="formfieldcontent" type="text" pattern="[0-9]" maxlength="4" size="4" name="DOByear" id="Birthyear" placeholder="Year"  >
+                            <input class ="formfieldcontent" type="text" pattern="[0-9][0-9][0-9][0-9]" maxlength="4" size="4" name="DOByear" id="Birthyear" placeholder="Year"  >
                         </label>
                         
                     </fieldset>
@@ -250,9 +250,12 @@ Author : Trung Pham
                     
 
                        
-                        <label>
-                            <input class ="formfieldcontent" type="text"  name="phone"  id="PhoneNumber" placeholder="(+)-" >
-                        </label>  
+                       <div class="form-group row">
+                   
+                        <div class="col-xs-10">
+                            <input class="form-control" type="tel" name ="phone" id="phone" placeholder="(+)-">
+                    </div>
+                        </div>
                         
   
                         
@@ -267,9 +270,11 @@ Author : Trung Pham
                         
                         <legend>Email</legend>
                         
-                        <label>
-                            <input class ="formfieldcontent" type="email" id="email" placeholder=".com" maxlength="40" size="40" spellcheck="false">
-                        </label>  
+                       <div class="form-group">
+                           
+                             <input type="email" name ="email" class="form-control" id="mail1" aria-describedby="emailHelp" placeholder=".com">
+                             <small id="emailHelp" class="form-text text-muted">One account can only have one email address</small>
+                        </div>
                         
                     </fieldset>
                 </div>                
@@ -284,7 +289,7 @@ Author : Trung Pham
                         
                         <label>
                             
-                            <input class ="formfieldcontent"  type="text" name="location" id="location" placeholder="Country" maxlength="40" size="40" spellcheck="false">
+                         <input type="text" size="25" placeholder="Country" maxlength ="20" class="form-control" id="username" name="country">
                         </label>  
                         
                     </fieldset>
@@ -298,7 +303,7 @@ Author : Trung Pham
                     <input id="sumbitbutton" name="submitbuton" type="submit" value="Sign Up for Free" style="font-size : 135%; background-color:#655BFF; color: white; padding: 1.5%; border-radius: 18.5px; font-weight: 400; margin-top: 0.5%">
                     
                 </div>
-                
+                </form>
             </div>
             
         </div>
@@ -409,7 +414,7 @@ Author : Trung Pham
                     myIndex = 1;
                 }
                 x[myIndex - 1].style.display = "block";
-                setTimeout(carousel, 4000);
+                setTimeout(carousel, 5000);
             }
       
       
@@ -418,7 +423,7 @@ Author : Trung Pham
   
   
   
-  <input name="animation" type="hidden">
+ 
    <div id="scrollToTop" class="scrollToTop mbr-arrow-up"><a style="text-align: center;"><i class="mbr-arrow-up-icon"></i></a></div>
 
     

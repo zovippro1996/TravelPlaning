@@ -8,6 +8,7 @@ package Control;
 import Connect.DBConnect;
 import Data.User;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -35,80 +36,78 @@ public class UserControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         Connection c = DBConnect.getConnection();
         HttpSession session = request.getSession(true);
         RequestDispatcher rd;
-        
-      //User Properties
+
+        //User Properties
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        String fullname = request.getParameter("firstname") +" "+ request.getParameter("lastname");
+        String fullname = request.getParameter("firstname") + " " + request.getParameter("lastname");
         String DOB = request.getParameter("DOBmonth") + " " + request.getParameter("DOBday") + " " + request.getParameter("DOByear");
         String gender = request.getParameter("gender");
         String phone = request.getParameter("String");
         String email = request.getParameter("email");
         String country = request.getParameter("country");
-              
+
         String command = request.getParameter("command");
 
-        
-        //SignIn Control
-        if ("search".equals(command)) {
+        //Login Control
+        if ("login".equals(command)) {
             try {
                 Statement st = c.createStatement();
                 ResultSet rs;
-                rs = st.executeQuery("select * from VUsers where (username='" + username + "') AND password = '" + password + "' ");
+                String query = "select * from VUsers where (username='" + username + "') AND password = '" + password + "' ";
+                rs = st.executeQuery(query);
                 if (rs.next()) {
 
-                    Cookie cookieRealUser = new Cookie("cookieRealUser", "true");
-                    response.addCookie(cookieRealUser);
-                                        
-                    User user = new User(rs.getInt("ID"), rs.getString("username"), rs.getString("password"), 
-                            rs.getString("fullname"), rs.getDate("DOB"), rs.getString("gender"), rs.getString("phone"), 
+                    User user = new User(rs.getInt("ID"), rs.getString("username"), rs.getString("password"),
+                            rs.getString("fullname"), rs.getDate("DOB"), rs.getString("gender"), rs.getString("phone"),
                             rs.getString("email"), rs.getString("country"));
-                    
+
                     session.setAttribute("user", user);
-                    
+
                     rd = request.getServletContext().getRequestDispatcher("/main.jsp");
                     rd.forward(request, response);
+                } else {
+                    PrintWriter out = response.getWriter();
+                    response.setContentType("text/html");
+                    out.println("<script type=\"text/javascript\">");
+                    out.println("alert('You have entered incorrect username or password');");
+                    out.println("location = 'login.jsp'");
+                    out.println("</script>");
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(UserControl.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
-        
-        //SignUp Control    
-        if ("signupaccount".equals(command)){
-                try {
-                     Statement st = c.createStatement();
-                     ResultSet rs;
-                     
-                     int i = st.executeUpdate("insert into VUsers(username,password,fullname,birthday,gender,phone,email,country) values ('"+ username + "','" + password + "','" +  fullname + "','" + DOB
-                             +"','" +  gender +"','" + phone + "','" +email + "','" +  country + "')");
-        
-                     
-                     if (i > 0) {
-                                 System.out.println("Sign up successful, please re-login to activate your account! Thank You");
-                                 response.sendRedirect("Login.jsp");
-                                } 
-                    else {
-                          response.sendRedirect("register.jsp");
-                        }
-                    } 
-                 catch (SQLException ex) {
-                         Logger.getLogger(UserControl.class.getName()).log(Level.SEVERE, null, ex);
-                 }
-                    
-        }
-        
-        
-    }
 
-        @Override
-        protected void doPost
-        (HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-            doGet(request, response);
+        //SignUp Control    
+        if ("signupaccount".equals(command)) {
+            try {
+                Statement st = c.createStatement();
+                ResultSet rs;
+
+                int i = st.executeUpdate("insert into VUsers(username,password,fullname,DOB,gender,phone,email,country) values ('" + username + "','" + password + "','" + fullname + "','" + DOB
+                        + "','" + gender + "','" + phone + "','" + email + "','" + country + "')");
+
+                if (i > 0) {
+                    System.out.println("Sign up successful, please re-login to activate your account! Thank You");
+                    response.sendRedirect("login.jsp");
+                } else {
+                    response.sendRedirect("register.jsp");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(UserControl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         }
+
     }
+}

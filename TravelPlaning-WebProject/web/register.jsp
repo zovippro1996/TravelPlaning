@@ -205,11 +205,11 @@ Author : Trung Pham
                        
                         
                         <label>
-                            <input class ="formfieldcontent" type="text" pattern="[0-9]" maxlength="2" size="2" name="DOBday" id="Birthday" placeholder="Day" >
+                            <input class ="formfieldcontent" type="text" pattern="[0-9][0-9]" maxlength="2" size="2" name="DOBday" id="Birthday" placeholder="Day" >
                         </label>  
                         
                         <label>
-                            <input class ="formfieldcontent" type="text" pattern="[0-9]" maxlength="4" size="4" name="DOByear" id="Birthyear" placeholder="Year"  >
+                            <input class ="formfieldcontent" type="text" pattern="[0-9][0-9][0-9][0-9]" maxlength="4" size="4" name="DOByear" id="Birthyear" placeholder="Year"  >
                         </label>
                         
                     </fieldset>
