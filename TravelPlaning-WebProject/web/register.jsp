@@ -259,17 +259,17 @@ Author : Trung Pham
                         
                         
                         <label>
-                            <input type="radio" name="gender" value="male" checked> Male<br>
+                            <input type="radio" name="gender" value="m" checked> Male<br>
                         </label>
                         
                         
                         <label style="margin-left:5%">
-                            <input type="radio" name="gender" value="female"> Female<br>
+                            <input type="radio" name="gender" value="f"> Female<br>
                         </label>  
                         
                         
                         <label style="margin-left:5%">
-                            <input type="radio" name="gender" value="other"> Other
+                            <input type="radio" name="gender" value="o"> Other
                         </label>
                         
                     </fieldset>
