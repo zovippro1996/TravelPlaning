@@ -45,12 +45,21 @@
                         <div id="mySidenav" class="sidenav" style="z-index: 3;">
                             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                             <img src ="assets/images/avatar.png" />
-                            <a href="#">Username:</a>
+                            <jsp:useBean id="user" scope="session" class="Data.User">
+                            <jsp:setProperty name="user" property="*"></jsp:setProperty>
+                            </jsp:useBean>
+                            
+                            <a href="#">Username: <%=user.getUsername()%> </a>
                             <a href="#">Email:</a>
                             <a href="#">Previous trips:</a>
                             <a href="#">Sign out</a>
                         </div>  
+                        
+                        <?
+                            if ()
 <!--                                <span style="font-size:50px;cursor:pointer" onclick="openNav()">&#9776;</span>-->
+                        
+                        ?>
                         <a class="navbar-caption text-danger" href="Main.html" style="padding: 0 0 0 50px; margin-bottom: 20px;">Travel Planning</a>
                     </div>
                 </div>
