@@ -31,7 +31,8 @@
                 margin: 0px auto;
                 width: 100%;
                 height: auto;
-                display: none;
+                display: block;
+                /*display: none;*/
             }
             #header{
                 background: #EC8585;
@@ -195,12 +196,13 @@
             }
         </style>
     </head>
-    <body onload="Loader()" style="margin:0;" >
-        <div id="loader">
+    <!--<body onload="Loader()">-->
+    <body>
+<!--        <div id="loader">
         </div>
 
         <video id="loader_video" src="img/Loader_animation.mp4" width="100%" autoplay>
-        </video>
+        </video>-->
 
         <div id="wrapper" class ="animate-bottom">
             <section id="index-menu-0">
@@ -212,7 +214,7 @@
                             <div class="mbr-table-cell">
 
                                 <div class="navbar-brand">
-                                    <a class="navbar-caption text-danger" href="Main.html" style="padding: 0 0 0 50px; margin-bottom: 20px;">Travel Planning</a>
+                                    <a class="navbar-caption text-danger" href="main.jsp" style="padding: 0 0 0 50px; margin-bottom: 20px;">Travel Planning</a>
                                 </div>
 
                             </div>
@@ -301,17 +303,17 @@
         </div>      
 
         <script>
-            var Var;
-
-            function Loader() {
-                Var = setTimeout(showPage, 2000);
-            }
-
-            function showPage() {
-                document.getElementById("loader").style.display = "none";
-                document.getElementById("loader_video").style.display = "none";
-                document.getElementById("wrapper").style.display = "block";
-            }
+//            var Var;
+//
+//            function Loader() {
+//                Var = setTimeout(showPage, 2000);
+//            }
+//
+//            function showPage() {
+//                document.getElementById("loader").style.display = "none";
+//                document.getElementById("loader_video").style.display = "none";
+//                document.getElementById("wrapper").style.display = "block";
+//            }
 
             var myIndex = 0;
             carousel();
