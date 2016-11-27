@@ -32,7 +32,7 @@ Author : Trung Pham
   
   <style type="text/css">
       .signupform {
-          -webkit-clip-path: polygon(4% 0%, 96% 0%, 100% 3%, 100% 96%, 96% 100%, 4% 100%, 0% 96%, 0% 3%);
+         
           
       }
      
@@ -202,14 +202,49 @@ Author : Trung Pham
                             </select>
                         </label>
                         
-                       
+                        <label>
+                            
+                           <select name="DOBday">
+                                
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                                <option value="03">03</option>
+                                <option value="04">04</option>
+                                <option value="05">05</option>
+                                <option value="06">06</option>
+                                <option value="07">07</option>
+                                <option value="08">08</option>
+                                <option value="09">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="24">24</option>
+                                <option value="25">25</option>
+                                <option value="26">26</option>
+                                <option value="27">27</option>
+                                <option value="28">28</option>
+                                <option value="29">29</option>
+                                <option value="30">30</option>
+                                <option value="31">31</option>
+                                
+                            </select>
+                        </label>
+                        
+                        
                         
                         <label>
-                            <input class ="formfieldcontent" type="text" pattern="[0-9][0-9]" maxlength="2" size="2" name="DOBday" id="Birthday" placeholder="Day" >
-                        </label>  
-                        
-                        <label>
-                            <input class ="formfieldcontent" type="text" pattern="[0-9][0-9][0-9][0-9]" maxlength="4" size="4" name="DOByear" id="Birthyear" placeholder="Year"  >
+                            <input class ="formfieldcontent" type="text" pattern="[0-9]{4}" maxlength="4" size="4" name="DOByear" id="Birthyear" placeholder="Year"  >
                         </label>
                         
                     </fieldset>
@@ -224,17 +259,17 @@ Author : Trung Pham
                         
                         
                         <label>
-                            <input type="radio" name="gender" value="male" checked> Male<br>
+                            <input type="radio" name="gender" value="m" checked> Male<br>
                         </label>
                         
                         
                         <label style="margin-left:5%">
-                            <input type="radio" name="gender" value="female"> Female<br>
+                            <input type="radio" name="gender" value="f"> Female<br>
                         </label>  
                         
                         
                         <label style="margin-left:5%">
-                            <input type="radio" name="gender" value="other"> Other
+                            <input type="radio" name="gender" value="o"> Other
                         </label>
                         
                     </fieldset>
