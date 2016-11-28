@@ -1,0 +1,55 @@
+*Note:
+	BaseRate: if number of userRate < 5 / 10 --> choose based on baseRage
+				otherwise, choose locations based on userRate
+
+Type location:
+	historical
+	cultural
+	artistic
+	scientific
+	industrial
+	landmark (exclusive place for a particular city)
+	
+	[mandatory]
+	hotel
+	retaurant (?)
+	themed park (> 3 days)
+	beach (optional, for coastal cities only)
+	
+Type journey:
+	Sightseeing: cultural, landmark, artistic
+	Metropolis: landmark, scientific, industrial, artistic
+	Education: historical, scientific, artistic, cultural
+	
+
+*Generate Journey*
+
+Choose country: user specifies, or choose random based on the input continent
+Get parameter 'duration' (days)
+Get 'type of journey'
+Choose cities:
+	Number of cities: (>4 days --> 2 cities ; <=4 days --> 1 city)
+		Assign days in each city:
+			User specifies (implement later), OR
+			First city --> [days / 2] ; Second city --> remaining days
+	Pick cities based on 'JourneyType' and 'Locationtype'
+		Result query:| City | NumberOfRates | AverageRate | (Tables used: Locations, Comments)
+		Pick top 2 cities
+Choose locations:
+	Query based on: City, LocationTyppe, OpeningTime-ClosedTime, Price (standard / luxury); descending order
+		Pick locations top down: morning -> afternoon -> evening
+Estimate the total budget
+Get deploy date
+
+****************************
+
+--Query for choosing cities--
+SELECT Locations.City, COUNT(Comments.Rate) as NumberOfRates, AVG(Comments.Rate) as AverageUserRate
+FROM Locations INNER JOIN Comments
+ON Locations.LocationID = Comments.LocationID
+WHERE (Locations.LocationType = '' OR Locations.LocationType = '') AND Locations.Country = ''
+GROUP BY Locations.City
+ORDER BY AverageUserRate DESC, NumberOfRates DESC;
+
+
+

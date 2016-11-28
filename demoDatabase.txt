@@ -1,0 +1,79 @@
+***Table: Users***
+INSERT INTO Users
+    (Username, Password, Fullname, DOB, Gender, Phone, Email, City, Country)
+VALUES
+	('UserA', 'usera', 'Autism', '1996-01-01', 'M', '+84090', 'usera@mail.com', 'Ho Chi Minh', 'Viet Nam'),
+	('UserB', 'userb', 'Baptism', '1996-01-01', 'M', '+84090', 'userb@mail.com', 'Ho Chi Minh', 'Viet Nam'),
+	('UserC', 'userc', 'Confroze', '1996-01-01', 'F', '+84090', 'userc@mail.com', 'Ho Chi Minh', 'Viet Nam'),
+	('UserD', 'userd', 'Duckie', '1996-02-02', 'F', '+84090', 'userd@mail.com', 'California', 'US'),
+	('UserE', 'usere', 'Eman', '1996-02-02', 'F', '+84090', 'usere@mail.com', 'California', 'US'),
+	('UserF', 'userf', 'Facker', '1996-03-02', 'M', '+84090', 'userf@mail.com', 'London', 'UK'),
+	('UserG', 'userg', 'Gamara', '1996-11-05', 'M', '+84090', 'userg@mail.com', 'Manchester', 'US'),
+	('UserH', 'userh', 'Haney', '1996-02-02', 'F', '+84090', 'userh@mail.com', 'Bangkok', 'Thailand'),
+	('UserI', 'useri', 'Idient', '1998-12-12', 'M', '+84090', 'useri@mail.com', 'Texas', 'US'),
+	('UserJ', 'userj', 'Jeejaz', '2000-05-04', 'F', '+84090', 'userj@mail.com', 'Merseyside', 'UK');
+
+
+
+***Table: Providers***
+INSERT INTO Providers
+	(LocationID, Username, Password, Fullname, DOB, Phone, Email, City, Country)
+VALUES
+	(1, 'UserK', 'userk', 'Kale', '1990-02-27', '+842134', 'userk@mail.com', 'Montreal', 'Canada'),
+	(2, 'UserL', 'userl', 'Lego', '1990-04-14', '+842134', 'userl@mail.com', 'Sydney', 'Australia'),
+	(3, 'UserM', 'userm', 'Malehony', '1980-04-01', '+842134', 'userm@mail.com', 'Melbourne', 'Australia'),
+	(4, 'UserN', 'usern', 'Nana', '1993-01-02', '+842134', 'usern@mail.com', 'Singapore', 'Singapore'),
+	(5, 'UserO', 'usero', 'Orgasm', '1986-06-21', '+842134', 'usero@mail.com', 'Moscow', 'Russia'),
+	(6, 'UserP', 'userp', 'Pesticize', '1992-05-12', '+842134', 'userp@mail.com', 'Ha Noi', 'Viet Nam'),
+	(7, 'UserQ', 'userq', 'Quantism', '1991-08-01', '+842134', 'userq@mail.com', 'Boston', 'US'),
+	(8, 'UserR', 'userr', 'Raya', '1990-02-02', '+842134', 'userr@mail.com', 'Saint Petersburg', 'Russia'),
+	(9, 'UserS', 'users', 'Saintism', '1980-02-29', '+842134', 'users@mail.com', 'Newcastle', 'UK'),
+	(10, 'UserT', 'usert', 'Teticle', '2000-11-11', '+842134', 'usert@mail.com', 'Hai Phong', 'Viet Nam');
+
+
+
+***Table: Locations***
+INSERT INTO Locations
+	(ProviderID, NameLocation, TypeLocation, OpenTime, CloseTime, City, Country, Price, Description, SpentTime* - in hours)
+VALUES
+	(1, 'LocationA', 'historical', '10:00:00', '17:00:00', 'Sydney', 'Australia', 20.00, '', 1.0),
+	(2, 'LocationB', 'cultural', '09:00:00', '21:00:00', 'Sydney', 'Australia', 10.00, '', 2.5),
+	(3, 'LocationC', 'artistic', '15:00:00', '20:30:00', 'Sydney', 'Australia', 25.00, '', 3.0),
+	(4, 'LocationD', 'scientific', '10:00:00', '17:00:00', 'Sydney', 'Australia', 10.05, '', 1.5),
+	(5, 'LocationE', 'industrial', '10:00:00', '22:00:00', 'Sydney', 'Australia', 0.0, '', 3.0),
+	(6, 'LocationF', 'landmark', '10:00:00', '18:00:00', 'Sydney', 'Australia', 15.20, '', 1.0),
+	(7, 'LocationG', 'historical', '09:00:00', '16:00:00', 'Melbourne', 'Australia', 13.25, '', 1.5),
+	(8, 'LocationH', 'cultural', '14:00:00', '20:00:00', 'Melbourne', 'Australia', 09.99, '', 3.0),
+	(9, 'LocationI', 'artistic', '10:00:00', '17:00:00', 'Melbourne', 'Australia', 24.99, '', 1.5),
+	(10, 'LocationJ', 'scientific', '08:00:00', '16:00:00', 'Melbourne', 'Australia', 13.25, 1.0),
+	(11, 'LocationK', 'industrial', '10:00:00', '21:00:00', 'Melbourne', 'Australia', 5.99, 2.5),
+	(12, 'LocationL', 'landmark', '11:00:00', '17:00:00', 'Melbourne', 'Australia', 9.99, 2.0),
+
+(ProviderID ? needed ?)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	(1, 'The Montreal Museum of Fine Arts', 'artistic', '10:00:00', '17:00:00', 'Montreal', 'Canada', 20.00, ''),
+	(2, 'Sydney Opera House', 'artistic', '09:00:00', '20:30:00', 'Sydney', 'Australia', 60.25, ''),
+	(3, 'Melbourne Cricket Ground', 'landmark', '10:00:00', '17:00:00', 'Melbourne', 'Australia', 30.50, '', 1.0),
+	(4, 'Shrine of Remembrance', 'historical', '10:00:00', '17:00:00', 'Melbourne', 'Australia', 0.0, '', 1.0),
