@@ -6,21 +6,6 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<%
-    Integer viewCount = (Integer) session.getAttribute("viewCount");
-    if (viewCount == null)      // No one has visited yet
-    {
-        viewCount = new Integer(1);
-        session.setAttribute("viewCount", viewCount);
-        session.setMaxInactiveInterval(24 * 60 * 60);
-    }
-    else
-    {
-        viewCount = new Integer(viewCount.intValue() + 1);
-        session.setAttribute("viewCount", viewCount);
-    }
-%>
-
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <link rel="stylesheet" type="text/css" href="css/input_getting_style.css">
 <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
@@ -40,9 +25,6 @@
 
 <footer class="mbr-small-footer mbr-section mbr-section-nopadding" id="main-footer1-0" style="background-color: rgb(50, 50, 50); padding-top: 1.75rem; padding-bottom: 1.75rem;">
     <div class="container">
-        <p style="font-family: monospace; font-weight: bold">
-            View counts: <%= viewCount %>
-        </p>
         <p class="text-xs-center"><strong>Copyright (c) 2016 Travel Planning.</strong></p>
     </div>
 </footer>
