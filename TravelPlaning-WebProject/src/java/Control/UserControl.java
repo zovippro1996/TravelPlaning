@@ -90,6 +90,8 @@ public class UserControl extends HttpServlet {
 
         } else
             
+            
+            
            //SignUp Control    
         if ("signupaccount".equals(command)){
                 try {
@@ -102,7 +104,7 @@ public class UserControl extends HttpServlet {
                      
                      if (i > 0) {
                                  out.println("Sign up successful, please re-login to activate your account! Thank You");
-                                 response.sendRedirect("Login.jsp");
+                                 response.sendRedirect("login.jsp");
                                 } 
                     else {
                           response.sendRedirect("register.jsp");
@@ -112,29 +114,8 @@ public class UserControl extends HttpServlet {
                          Logger.getLogger(UserControl.class.getName()).log(Level.SEVERE, null, ex);
                  }
                     
-        }
+        } //End of SignUp Control
 
-        //SignUp Control    
-        if ("signupaccount".equals(command)) {
-            try {
-                Statement st = c.createStatement();
-                ResultSet rs;
-
-                int i = st.executeUpdate("insert into VUsers(username,password,fullname,DOB,gender,phone,email,country) values ('" + username + "','" + password + "','" + fullname + "','" + DOB
-                        + "','" + gender + "','" + phone + "','" + email + "','" + country + "')");
-
-                if (i > 0) {
-                    PrintWriter out = response.getWriter();
-                    response.setContentType("text/html");
-                    out.println("Sign up successful, please re-login to activate your account! Thank You");
-                    response.sendRedirect("login.jsp");
-                } else {
-                    response.sendRedirect("register.jsp");
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(UserControl.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }
+       
     }
 }
