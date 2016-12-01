@@ -32,7 +32,7 @@
 
     function closeNav() {
         document.getElementById("mySidenav").style.width = "0";
-        document.getElementById("main").style.marginLeft= "0";
+        document.getElementById("main").style.marginLeft = "0";
         document.body.style.backgroundColor = "white";
     }
 </script>
@@ -46,21 +46,27 @@
                         <div id="mySidenav" class="sidenav" style="z-index: 3;">
                             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                             <img src ="assets/images/avatar.png" />
-                            <a href="#">Username:</a>
-                            <a href="#">Email:</a>
+                            <%
+                                // Get user from session
+                                User user = (User) session.getAttribute("user");
+
+                                if (user != null) {
+                            %>
+                            <a href="#">Username: <%=user.getUsername()%></a>
+                            <a href="#">Email: <%=user.getEmail()%></a>
                             <a href="#">Previous trips:</a>
                             <a href="#">Sign out</a>
+                            <% }%>
                         </div>
-                        
+
                         <%
                             // If user has logged in, display drop-down bar
                             // If not, hide it
-                            User user = (User) session.getAttribute("user");
-                            
-                            if (user != null) { 
+                            if (user != null) {
                         %>
                         <span style="font-size:50px;cursor:pointer" onclick="openNav()">&#9776;</span>
-                        <% } %>
+                        <% }%>
+
                         <a class="navbar-caption text-danger" href="main.html" style="padding: 0 0 0 50px; margin-bottom: 20px;">Travel Planning</a>
                     </div>
                 </div>
