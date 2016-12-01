@@ -62,9 +62,8 @@ function closeNav() {
                      <div id="mySidenav" class="sidenav" style="z-index: 3;">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
   <img src ="assets/images/avatar.png" />
-  <jsp:useBean id="user" scope="session" class="Data.User"></jsp:useBean>
-  <a href="#">Username: <%=user.getUsername()%></a>  
-  <a href="#">Email: <%=user.getEmail()%></a>
+  <a href="#">Username: </a>  
+  <a href="#">Email: </a>
   <a href="#">Previous trips:</a>
   <a href="#">Sign out</a>
 </div>  
