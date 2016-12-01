@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Data.*" %>
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <link rel="stylesheet" type="text/css" href="css/input_getting_style.css">
 <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
@@ -34,7 +35,7 @@
         document.getElementById("main").style.marginLeft= "0";
         document.body.style.backgroundColor = "white";
     }
-    </script>
+</script>
 
 <section id="index-menu-0">
     <nav class="navbar navbar-dropdown bg-color transparent navbar-fixed-top">
@@ -49,9 +50,18 @@
                             <a href="#">Email:</a>
                             <a href="#">Previous trips:</a>
                             <a href="#">Sign out</a>
-                        </div>  
-<!--                                <span style="font-size:50px;cursor:pointer" onclick="openNav()">&#9776;</span>-->
-                        <a class="navbar-caption text-danger" href="Main.html" style="padding: 0 0 0 50px; margin-bottom: 20px;">Travel Planning</a>
+                        </div>
+                        
+                        <%
+                            // If user has logged in, display drop-down bar
+                            // If not, hide it
+                            User user = (User) session.getAttribute("user");
+                            
+                            if (user != null) { 
+                        %>
+                        <span style="font-size:50px;cursor:pointer" onclick="openNav()">&#9776;</span>
+                        <% } %>
+                        <a class="navbar-caption text-danger" href="main.html" style="padding: 0 0 0 50px; margin-bottom: 20px;">Travel Planning</a>
                     </div>
                 </div>
                 <div class="mbr-table-cell">

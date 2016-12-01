@@ -45,19 +45,18 @@ public class UserControl extends HttpServlet {
         HttpSession session = request.getSession(true);
         RequestDispatcher rd;
 
-       //User Properties
+        //User Properties
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        String fullname = request.getParameter("firstname") +" "+ request.getParameter("lastname");
+        String fullname = request.getParameter("firstname") + " " + request.getParameter("lastname");
         String DOB = request.getParameter("DOByear") + "-" + request.getParameter("DOBmonth") + "-" + request.getParameter("DOBday");
         String gender = request.getParameter("gender");
         String phone = request.getParameter("phone");
         String email = request.getParameter("email");
         String country = request.getParameter("country");
-              
+
         //Command for control
         String command = request.getParameter("command");
-
 
         //Login Control
         if ("login".equals(command)) {
@@ -65,11 +64,11 @@ public class UserControl extends HttpServlet {
                 Statement st = c.createStatement();
                 ResultSet rs;
                 // Query allows login with username or email
-                String query = "select * from VUsers where username='" + username + "' OR email='" + username + 
-                        "' AND password = '" + password + "' ";
+                String query = "select * from VUsers where username='" + username + "' OR email='" + username
+                        + "' AND password = '" + password + "' ";
                 rs = st.executeQuery(query);
                 if (rs.next()) {
-                    
+
                     User user = new User(rs.getInt("ID"), rs.getString("username"), rs.getString("password"),
                             rs.getString("fullname"), rs.getDate("DOB"), rs.getString("gender"), rs.getString("phone"),
                             rs.getString("email"), rs.getString("country"));
@@ -92,29 +91,50 @@ public class UserControl extends HttpServlet {
                 Logger.getLogger(UserControl.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-        } else
+        } else //SignUp Control    
+        {
+            if ("signupaccount".equals(command)) {
+                try {
+                    Statement st = c.createStatement();
+                    ResultSet rs;
 
-        //SignUp Control    
-        if ("signupaccount".equals(command)) {
-            try {
-                Statement st = c.createStatement();
-                ResultSet rs;
+                    int i = st.executeUpdate("insert into VUsers(username,password,fullname,DOB,gender,phone,email,country) values ('" + username + "','" + password + "','" + fullname + "','" + DOB
+                            + "','" + gender + "','" + phone + "','" + email + "','" + country + "')");
 
-                int i = st.executeUpdate("insert into VUsers(username,password,fullname,DOB,gender,phone,email,country) values ('" + username + "','" + password + "','" + fullname + "','" + DOB
-                        + "','" + gender + "','" + phone + "','" + email + "','" + country + "')");
-
-                if (i > 0) {
-                    PrintWriter out = response.getWriter();
-                    response.setContentType("text/html");
-                    out.println("Sign up successful, please re-login to activate your account! Thank You");
-                    response.sendRedirect("login.jsp");
-                } else {
-                    response.sendRedirect("register.jsp");
+                    if (i > 0) {
+                        PrintWriter out = response.getWriter();
+                        response.setContentType("text/html");
+                        out.println("Sign up successful, please re-login to activate your account! Thank You");
+                        response.sendRedirect("login.jsp");
+                    } else {
+                        response.sendRedirect("register.jsp");
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(UserControl.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (SQLException ex) {
-                Logger.getLogger(UserControl.class.getName()).log(Level.SEVERE, null, ex);
-            }
 
+                //SignUp Control    
+                if ("signupaccount".equals(command)) {
+                    try {
+                        Statement st = c.createStatement();
+                        ResultSet rs;
+                        PrintWriter out = response.getWriter();
+
+                        int i = st.executeUpdate("Insert into VUsers(username,password,fullname,DOB,gender,phone,email,country) values ('" + username + "','" + password + "','" + fullname + "','" + DOB + "','" + gender + "','" + phone + "','" + email + "','" + country + "')");
+
+                        if (i > 0) {
+                            out.println("Sign up successful, please re-login to activate your account! Thank You");
+                            response.sendRedirect("login.jsp");
+                        } else {
+                            response.sendRedirect("register.jsp");
+                        }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(UserControl.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                } //End of SignUp Control
+
+            }
         }
     }
 }
