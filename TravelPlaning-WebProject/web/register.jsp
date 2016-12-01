@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+    <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!--
 Register Page 
@@ -32,6 +32,12 @@ Author : Trung Pham
   
   <style type="text/css">
       .signupform {
+          
+          border: 5px solid #59903d;  
+          padding: 2%;
+          background:  #daffc7 ; 
+          margin-left: 26%; 
+          margin-right: 26%;
          
           
       }
@@ -53,49 +59,24 @@ Author : Trung Pham
       
       fieldset{
           border-width: 1px;
+          border-radius: 10px;
       
+      }
+      
+      select{     
+          padding: 2px;
       }
       
   </style>
   
     </head>
     
+    
+    
     <body>
  <!-- Banner Copy  -->
  
-      <section id="index-menu-0">
-
-    <nav class="navbar navbar-dropdown bg-color transparent navbar-fixed-top">
-        <div class="container">
-
-            <div class="mbr-table">
-                <div class="mbr-table-cell">
-
-                    <div class="navbar-brand">
-                        <a class="navbar-caption text-danger" href="Main.html" style="padding: 0 0 0 50px; margin-bottom: 20px;">Travel Planning</a>
-                    </div>
-
-                </div>
-                <div class="mbr-table-cell">
-
-                    <button class="navbar-toggler pull-xs-right hidden-md-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
-                        <div class="hamburger-icon"></div>
-                    </button>
-
-                    <ul class="nav-dropdown collapse pull-xs-right nav navbar-nav navbar-toggleable-sm" id="exCollapsingNavbar">
-                    <li class="nav-item"><a class="nav-link link" href="#" aria-expanded="false">Contact</a></li>
-                    </ul>
-                    <button hidden="" class="navbar-toggler navbar-close" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
-                        <div class="close-icon"></div>
-                    </button>
-
-                </div>
-            </div>
-
-        </div>
-    </nav>
-
-</section>
+      <jsp:include page="_header.jsp" flush="true" />
         
         <!-- - - - - - - - - Background - - - - - - - - - - -->
         
@@ -105,7 +86,8 @@ Author : Trung Pham
                     <img class="mySlides w3-animate-fading" src="img/PicforBackgroundWLCpage/slide3.jpg" style="width: 100%">
                     <img class="mySlides w3-animate-fading" src="img/PicforBackgroundWLCpage/slide5.jpg" style="width: 100%">
                     <img class="mySlides w3-animate-fading" src="img/PicforBackgroundWLCpage/slide7.jpg" style="width: 100%">
-                </div>
+        </div>
+        
         
      <!-- - - - - - - - - - Begin OutMost Div - - - - - - - -->
      
@@ -124,48 +106,45 @@ Author : Trung Pham
             <!-- - - - - - - - - - FORM - - - - - - - -->
             
             
-            <div class="signupform" style="border: 5px solid #59903d;  padding: 2%;
-  background:  #daffc7 ; margin-left: 26%; margin-right: 26%;">
+            <div class="signupform">
                 <form action="UserControl" method="POST">
                       <input type="hidden" name="command" value="signupaccount">
                 
                 
                 <!-- - - - - - -USERNAME + PASS - - - - - -->    
                  <div style="margin-bottom: 4%">
-                    <fieldset style="border-radius: 7px;">
+                    <fieldset>
                         
                         <legend>Account Info.</legend>
                          <div class="form-group">
                            
-                             <input type="text" size="25" placeholder="Username" maxlength ="20" class="form-control" id="username" name="username" style="width: 55%;">
-                      
-                           
-                                    
-                       
-                            
-                             <input class="form-control" size="25" placeholder="Password" name="password" type="password" id="password" onkeyup="CheckPasswordStrength(this.value)" style="width: 55%;">
+                             
+                             
+                             <!-- Username -->
+                             <input type="text" size="25" placeholder="Username" maxlength ="25" class="form-control" id="username" onblur="CheckUsername_available(this.value)" name="username" style="width: 55%;" required>
+                             <span id="username_status"> </span>
+                        
+                             <!-- Password -->
+                             <input class="form-control" size="25" placeholder="Password" name="password" type="password" id="password" onkeyup="CheckPasswordStrength(this.value)" style="width: 55%;" required>
                                 <span id="password_strength" style="font-size:70%; padding-left: 25%"></span>
-                        
-                        
-                       
-                                <br>
-                        
-                                <input class="form-control"  size="25" placeholder="Confirm Password" name="confirmpassword" type="password" id="confirm_password" onkeyup="CheckPassword(this.value)" style="width: 55%;">
-                        <span id="confirm_pass" style="font-size:100%"> </span>
-
-
-
                            
+                                <br>
+                                
+                             <!-- Confirm Password -->
+                             <input class="form-control"  size="25" placeholder="Confirm Password" name="confirmpassword" type="password" id="confirm_password" onkeyup="CheckPassword(this.value)" style="width: 55%;" required>
+                                <span id="confirm_pass"> </span>
+                   
                         
                         </div> 
+                        
                     </fieldset>
-                </div>
+                 </div>
                 
                 
                 
                 <!-- - - - - - - - - NAME - - - - -  - -->
                 <div style="margin-bottom: 4%">
-                    <fieldset style="border-radius: 7px;">
+                    <fieldset>
                         
                         <legend>Name</legend>
                         
@@ -184,12 +163,15 @@ Author : Trung Pham
                 <!-- - - - - - - - Birthday - - - - - -->
                 
              <div style="margin-bottom: 4%">
-                    <fieldset style="border-radius: 7px;">
+                    <fieldset>
                         
                         <legend>Birthday</legend>
                         
                         <label>
                             
+                            
+                            
+                           <!-- - - - - - - Month - - - - - -  -->  
                            <select name="DOBmonth">
                                 
                                 <option value="01">January</option>
@@ -204,11 +186,14 @@ Author : Trung Pham
                                 <option value="10">October</option>
                                 <option value="11">November</option>
                                 <option value="12">December</option>
+                                
                             </select>
                         </label>
                         
+                        
                         <label>
                             
+                           <!-- - - - - - -DAY - - - - - - - -->  
                            <select name="DOBday">
                                 
                                 <option value="01">01</option>
@@ -248,6 +233,7 @@ Author : Trung Pham
                         
                         
                         
+                        <!-- - - - - - -YEAR - - - - - - - --> 
                         <label>
                             <input class ="formfieldcontent" type="text" pattern="[0-9]{4}" maxlength="4" size="4" name="DOByear" id="Birthyear" placeholder="Year"  >
                         </label>
@@ -256,25 +242,20 @@ Author : Trung Pham
                 </div>
                 
                 
+                
+                
                  <!-- - - - - - - - - Gender - - - - -  - -->
                 <div style="margin-bottom: 4%">
-                    <fieldset style="border-radius: 7px;">
+                    <fieldset>
                         
                         <legend>Gender</legend>
                         
-                        
                         <label>
-                            <input type="radio" name="gender" value="m" checked> Male<br>
-                        </label>
-                        
-                        
-                        <label style="margin-left:5%">
-                            <input type="radio" name="gender" value="f"> Female<br>
-                        </label>  
-                        
-                        
-                        <label style="margin-left:5%">
-                            <input type="radio" name="gender" value="o"> Other
+                           <select name="gender">      
+                                <option value="m">Male</option>
+                                <option value="f">Female</option>
+                                <option value="o">Other</option>
+                           </select>
                         </label>
                         
                     </fieldset>
@@ -284,20 +265,13 @@ Author : Trung Pham
                  
                 <!-- - - - - - - - - Mobile Phone - - - - -  - -->
                 <div style="margin-bottom: 4%">
-                    <fieldset style="border-radius: 7px;">
+                    <fieldset>
                         
-                        <legend>Mobile Phone</legend>
-                    
-
-                       
-                       <div class="form-group row">
-                   
-                        <div class="col-xs-10">
-                            <input class="form-control" type="tel" name ="phone" id="phone" placeholder="(+)-">
-                    </div>
-                        </div>
+                        <legend>Mobile Phone</legend>          
                         
-  
+                        <label>          
+                         <input class="form-control" type="text" size="25" placeholder="+" maxlength ="25"  id="phone" name="phone">
+                        </label>  
                         
                     </fieldset>
                 </div>
@@ -306,14 +280,14 @@ Author : Trung Pham
                 
                  <!-- - - - - - - - - EMAIL - - - - -  - -->
                 <div style="margin-bottom: 4%">
-                    <fieldset style="border-radius: 7px;">
+                    <fieldset>
                         
                         <legend>Email</legend>
                         
                        <div class="form-group">
                            
                              <input type="email" name ="email" class="form-control" id="mail1" aria-describedby="emailHelp" placeholder=".com">
-                             <small id="emailHelp" class="form-text text-muted">One account can only have one email address</small>
+                             <small id="emailHelp" class="text-muted">One account can only have one email address</small>
                         </div>
                         
                     </fieldset>
@@ -321,15 +295,15 @@ Author : Trung Pham
                     
                  
                     
-                    <!-- - - - - - - - - LOCATION - - - - -  - -->
-                <div style="margin-bottom: 4%">
-                    <fieldset style="border-radius: 7px;">
+                    <!-- - - - - - - - - COUNTRY - - - - -  - -->
+                <div style="margin-bottom: 2%">
+                    <fieldset>
                         
                         <legend>Country</legend>
                         
                         <label>
                             
-                         <input type="text" size="25" placeholder="Country" maxlength ="20" class="form-control" id="username" name="country">
+                         <input class="form-control" type="text" size="25" placeholder="Country" maxlength ="25"  id="country" name="country">
                         </label>  
                         
                     </fieldset>
@@ -340,7 +314,7 @@ Author : Trung Pham
                 
                
                 <div style = "text-align: center" >
-                    <input id="submitbutton" name="submitbuton" type="submit" value="Sign Up for Free" style="font-size : 135%; background-color:#655BFF; color: white; padding: 1.5%; border-radius: 18.5px; font-weight: 400; margin-top: 0.5%">
+                    <input id="submitbutton" name="submitbuton" type="submit" value="Sign Up" style="font-size : 135%; background-color:#655BFF; color: white; padding: 1.5%; border-radius: 18.5px; font-weight: 400; margin-top: 0.5%">
                     
                 </div>
                 </form>
@@ -350,109 +324,138 @@ Author : Trung Pham
      
      
      
-      <script type="text/javascript">
-    function CheckPasswordStrength(password) {
-        var password_strength = document.getElementById("password_strength");
+     
+     
+    <!-- BACK END --> 
+    <script type="text/javascript">
+          
+          
+        //---------Password Strength---------    
+        function CheckPasswordStrength(password) {
+            var password_strength = document.getElementById("password_strength");
  
-        //TextBox left blank.
-        if (password.length === 0) {
-            password_strength.innerHTML = "";
-            return;
-        }
+                //TextBox left blank.
+            if (password.length === 0) {
+                password_strength.innerHTML = "";
+                return;
+            }
  
-        //Regular Expressions.
-        var regex = new Array();
-        regex.push("[A-Z]"); //Uppercase Alphabet.
-        regex.push("[a-z]"); //Lowercase Alphabet.
-        regex.push("[0-9]"); //Digit.
-        regex.push("[$@$!%*#?&]"); //Special Character.
+        
+            var regex = new Array();
+            regex.push("[A-Z]"); //Uppercase Alphabet.
+            regex.push("[a-z]"); //Lowercase Alphabet.
+            regex.push("[0-9]"); //Digit.
+            regex.push("[$@$!%*#?&]"); //Special Character.
  
-        var passed = 0;
+            var passed = 0;
  
-        //Validate for each Regular Expression.
-        for (var i = 0; i < regex.length; i++) {
-            if (new RegExp(regex[i]).test(password)) {
+            //Validate for each Regular Expression.
+            for (var i = 0; i < regex.length; i++) {
+                if (new RegExp(regex[i]).test(password)) {
+                    passed++;
+                }
+            }
+ 
+                //Validate for length of Password.
+            if (passed > 2 && password.length > 8) {
                 passed++;
             }
-        }
  
-        //Validate for length of Password.
-        if (passed > 2 && password.length > 8) {
-            passed++;
+            //Display status.
+            var color = "";
+            var strength = "";
+            switch (passed) {
+                case 0:
+                case 1:
+                    strength = "Weak";
+                    color = "red";
+                    break;
+                case 2:
+                    strength = "Good";
+                    color = "darkorange";
+                    break;
+                case 3:
+                case 4:
+                    strength = "Strong";
+                    color = "green";
+                    break;
+                case 5:
+                    strength = "Very Strong";
+                    color = "darkgreen";
+                    break;
+            }
+            
+            password_strength.innerHTML = strength;
+            password_strength.style.color = color;
         }
- 
-        //Display status.
-        var color = "";
-        var strength = "";
-        switch (passed) {
-            case 0:
-            case 1:
-                strength = "Weak";
-                color = "red";
-                break;
-            case 2:
-                strength = "Good";
-                color = "darkorange";
-                break;
-            case 3:
-            case 4:
-                strength = "Strong";
-                color = "green";
-                break;
-            case 5:
-                strength = "Very Strong";
-                color = "darkgreen";
-                break;
-        }
-        password_strength.innerHTML = strength;
-        password_strength.style.color = color;
-    }
     
     
     
-    function CheckPassword(confirm_password) {
-         var password = document.getElementById("password");
-         var message = document.getElementById("confirm_pass");
+    
+        //------------Check Confirming Password----------
+        function CheckPassword(confirm_password) {
+            var password = document.getElementById("password");
+            var message = document.getElementById("confirm_pass");
          
            
             
-          if (confirm_password === password.value)
-                {
-                    document.getElementById("submitbutton").disabled = false;
+            if (confirm_password === password.value){                 
                       message.innerHTML="True";
+                      
                 }
 
-           else {
-               message.innerHTML="Not Match" + confirm_password.value + " " +password.value;
-                 document.getElementById("submitbutton").disabled = true;
+            else {
+               message.innerHTML="Not Match" + confirm_password + " " +password.value;
+                 
                 }
     }
+    
+    
+        
+        //----------------Check Username Availability-----
+        function CheckUsername_available(String username){
+            
+                var xmlhttp = new XMLHttpRequest();
+                
+                var message = document.getElementById("username_status");
+                
+                var url = "username_available.jsp?username="+ username;
+                
+                xmlhttp.onreadystatechange = function(){
+                    
+                    if((xmlhttp.readyState) === 4 && (xmlhttp.status === 200)){
+                        if (xmlhttp.responseText === "User exists")
+                               message.style.color = "red";
+                        else
+                                message.style.color = "green";
+                            
+                        message.innerHTML = xmlhttp.responseText;
+                        
+                    }
+                    
+                };
+                try{
+                    xmlhttp.open("GET",url,true);
+                    xmlhttp.send();
+                }
+                catch(e) { alert("unable to connect to server");}
+               
+            
+        }
+        
+       
         
     
-    
-    
-</script> 
+       
+    </script> 
+     <div id="scrollToTop" class="scrollToTop mbr-arrow-up"><a style="text-align: center;"><i class="mbr-arrow-up-icon"></i></a></div>
      
-    </body>
-    
-    
-    
-    
- 
-    
-<!-- FOOTER copy -->
-
-<footer class="mbr-small-footer mbr-section mbr-section-nopadding" id="main-footer1-0" style="background-color: rgb(50, 50, 50); padding-top: 1.75rem; padding-bottom: 1.75rem;">
-    
-    <div class="container">
-        <p class="text-xs-center"><strong>Copyright (c) 2016 Travel Planning.</strong></p>
-    </div>
-</footer>    
-
-
-<!-- Import js -->
-
- <script src="assets/web/assets/jquery/jquery.min.js"></script>
+     
+     
+     
+     
+     <!-- Import js -->
+  <script src="assets/web/assets/jquery/jquery.min.js"></script>
   <script src="assets/tether/tether.min.js"></script>
   <script src="assets/bootstrap/js/bootstrap.min.js"></script>
   <script src="assets/smooth-scroll/SmoothScroll.js"></script>
@@ -463,8 +466,7 @@ Author : Trung Pham
   <script src="assets/theme/js/script.js"></script>
   
   <script>
-      
-       var myIndex = 0;
+            var myIndex = 0;
             carousel();
 
             function carousel() {
@@ -479,19 +481,12 @@ Author : Trung Pham
                 }
                 x[myIndex - 1].style.display = "block";
                 setTimeout(carousel, 5000);
-            }
-      
-      
-      
-      </script>
+            }           
+  
+  </script>
   
   
-  
- 
-   <div id="scrollToTop" class="scrollToTop mbr-arrow-up"><a style="text-align: center;"><i class="mbr-arrow-up-icon"></i></a></div>
-
-    
-    
-
+  <jsp:include page="_footer.jsp" flush="true"/>
+</body>
 </html>
 
