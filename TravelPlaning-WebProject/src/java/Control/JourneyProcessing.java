@@ -66,11 +66,33 @@ public class JourneyProcessing extends HttpServlet
         PrintWriter out = response.getWriter();
         
         // Get country
-        String country = getCountry(request, response);
-        out.println("<h3>Country: " + country + "</h3>");
+        String country = getCountry(request);
+        out.println("Country: " + country);
+        
+        // Get number of days for each city
+        List<Integer> listDaysOfCity = getDaysCity(request);
+        ListIterator iterator = listDaysOfCity.listIterator();
+        out.println("<br>Number of city/cities: " + listDaysOfCity.size());
+        out.println("<ul>Days for each city:");
+        while (iterator.hasNext())
+        {
+            int days = (int) iterator.next();
+            out.println("<li>" + days + " days");
+        }
+        out.println("</ul>");
         
         // Get list of cities
-        String listCity = getCity(request, response);
+        List<String> listCity = getCity(request, country, listDaysOfCity);
+        iterator = listCity.listIterator();
+        out.println("<ol>List of city:");
+        while (iterator.hasNext())
+        {
+            String city = (String) iterator.next();
+            out.println("<li>" + city);
+        }
+        out.println("</ol>");
+        
+        // Get list of locations
             
         return null;
     }
@@ -78,7 +100,6 @@ public class JourneyProcessing extends HttpServlet
     /**
      * 
      * @param request
-     * @param response
      * @return String
      * @throws ServletException
      * @throws IOException 
@@ -91,8 +112,10 @@ public class JourneyProcessing extends HttpServlet
      * 
      *      If user don't know which country at all --> choose randomly worldwide
      * 
+     * Return a String specifying the Country user will visit
+     * 
      */
-    private String getCountry(HttpServletRequest request, HttpServletResponse response)
+    private String getCountry(HttpServletRequest request)
             throws ServletException, IOException
     {
         String country = "Nothing";
@@ -155,12 +178,11 @@ public class JourneyProcessing extends HttpServlet
     /**
      * 
      * @param request
-     * @param response
-     * @return String
+     * @return List<Integer>
      * @throws ServletException
      * @throws IOException 
      * 
-     * Determine number of cities (max: 2):
+     * Determine number of cities (max: 2)
      *      If number of days > 4 --> 2 cities
      *      If number of days <= 4 --> 1 city
      * 
@@ -168,15 +190,105 @@ public class JourneyProcessing extends HttpServlet
      *      First city --> round([number of days / 2])
      *      Second city --> remaining days
      * 
+     * Return a List<Integer> specifying number of days user will
+     *      spend for each visited cities
+     * 
+     */
+    private List<Integer> getDaysCity(HttpServletRequest request)
+            throws ServletException, IOException
+    {
+        List<Integer> list = new ArrayList<>();
+        int duration = 0;
+        
+        // Get duration
+        try
+        {
+            duration = Integer.parseInt(request.getParameter("duration"));
+            
+        } catch (NumberFormatException nfe) {
+            nfe.printStackTrace();
+            System.out.println("Invalid input 'duration'");
+        }
+        
+        // Decide number of cities, and assign appropriate number of days for each
+        if (duration > 4)       // choose 2 cities
+        {   
+            list.add((int) Math.round(duration / 2.0));             // first city
+            list.add(duration - (int) Math.round(duration / 2.0));  // second city
+        }
+        else                    // choose 1 city
+        {
+            list.add(duration);     // the only city
+        }
+        
+        return list;
+    }
+    
+    /**
+     * 
+     * @param request
+     * @param daysCity
+     * @return List<String>
+     * @throws ServletException
+     * @throws IOException 
+     * 
      * Choose city (cities), based on:
      *      Average rate of all users
      *      Type of journey - type of location
      *      Previous locations visited by user
      * 
+     * Return a List<String> specifying all cities selected for the trip
+     * 
      */
-    private String getCity(HttpServletRequest request, HttpServletResponse response)
+    private List<String> getCity(HttpServletRequest request, String country, List<Integer> daysCity)
             throws ServletException, IOException
     {
-        return "List cities";
+        List<String> listCity = new ArrayList<>();
+        
+        // Get database connection
+        Connection connection = DBConnect.getConnection();
+        
+        // Get number of cities
+        int numsCity = daysCity.size();
+        
+        // Get type of journey
+        String paramType = request.getParameter("type");
+        JourneyType journeyType = JourneyType.valueOf(paramType); // type of journey
+                                                                  // as enum constant
+                                             
+        // Construct query to choose city
+        String query = "SELECT Locations.City as City, "
+                + "AVG(Comments.Rate) as AvgRate, "
+                + "COUNT(Comments.Rate) as NumsRate "
+                + "FROM Locations INNER JOIN Comments "
+                + "ON Locations.LocationID = Comments.LocationID "
+                + "WHERE Locations.Country = "
+                + "'" + country + "' "                 // match country
+                + "AND Locations.TypeLocation IN"
+                + journeyType.getListLocationType()     // match location types
+                + "GROUP BY City "
+                + "ORDER BY AvgRate DESC, NumsRate DESC "
+                + "LIMIT " + numsCity + ";";            // limit number of cities
+
+        // Determine which cities based on records queried from database
+        try
+        {
+            // Create statement
+            Statement statement = connection.createStatement();
+            
+            // Execute query
+            ResultSet resultSet = statement.executeQuery(query);
+            
+            // Get top city / cities --> assign to listCity
+            while (resultSet.next())
+            {
+                listCity.add(resultSet.getString("City"));
+            }
+            
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        }
+        
+        return listCity;
     }
 }

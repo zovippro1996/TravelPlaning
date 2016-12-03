@@ -17,7 +17,7 @@ public class TestEnum {
         System.out.println("List of types of journey:");
         for (JourneyType type : JourneyType.values())
         {
-            System.out.println("# " + type.name() + ": " + type.getListLocations());
+            System.out.println("# " + type.name() + ": " + type.getListLocationType());
         }
     }
 }
