@@ -16,8 +16,10 @@ public class Journey {
     private int ID;
     private int userID;
     private List<Location> listLocation;
-    private List<String> listCountry;
+//    private List<String> listCountry;
+    private String country;
     private List<String> listCity;
+    private List<Integer> daysForCity;             // no. of days assign for each city
     private double budget;
     private Date deployDate;
     private String type;
@@ -65,18 +67,28 @@ public class Journey {
         this.listLocation = listLocation;
     }
 
-    /**
-     * @return the listCountry
-     */
-    public List<String> getListCountry() {
-        return listCountry;
+//    /**
+//     * @return the listCountry
+//     */
+//    public List<String> getListCountry() {
+//        return listCountry;
+//    }
+//
+//    /**
+//     * @param listCountry the listCountry to set
+//     */
+//    public void setListCountry(List<String> listCountry) {
+//        this.listCountry = listCountry;
+//    }
+    
+    public String getCountry()
+    {
+        return country;
     }
-
-    /**
-     * @param listCountry the listCountry to set
-     */
-    public void setListCountry(List<String> listCountry) {
-        this.listCountry = listCountry;
+    
+    public void setCountry(String country)
+    {
+        this.country = country;
     }
 
     /**
@@ -93,6 +105,16 @@ public class Journey {
         this.listCity = listCity;
     }
 
+    public List<Integer> getDaysForCity()
+    {
+        return daysForCity;
+    }
+    
+    public void setDaysForCity(List<Integer> list)
+    {
+        daysForCity = list;
+    }
+    
     /**
      * @return the budget
      */

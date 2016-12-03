@@ -27,7 +27,7 @@ public enum JourneyType
         listLocations = list;
     }
     
-    public String getListLocations()
+    public String getListLocationType()
     {
         String result = "(";
         for (int i = 0; i < listLocations.length; ++i)
@@ -36,7 +36,7 @@ public enum JourneyType
             {
                 result += ", ";
             }
-            result += listLocations[i].name();
+            result += "'" + listLocations[i].name() + "'";
         }
         result += ")";
         
