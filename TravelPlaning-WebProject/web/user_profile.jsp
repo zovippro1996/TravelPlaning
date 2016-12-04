@@ -38,6 +38,14 @@
                 margin-bottom: 3%;
                 font-size: 135%;
             }
+            
+           .divider{
+            position:absolute;
+            left:50%;
+            top:10%;
+            bottom:10%;
+            border-left:1px solid white;
+}
       
         </style>
   
@@ -56,18 +64,29 @@
         
         
         <!-- Outmost DIV -->     
-        <div style="align-content:center; background-color: gray; margin-left: 15%; margin-right: 15%; margin-top: 7.5%;  position:relative">
+        <div style="align-content:center; background-color: pink; margin-left: 15%; margin-right: 15%; margin-top: 7.5%;  position:relative ; padding-top: 1%; padding-bottom:1%;">
             
             
             
             <!-- Personal Info. -->
-            <div style="background-color:green;  margin: 8%; padding-top:2.5%; position:relative; padding-bottom: 2%">
+            <div style="background-color:#4364bb;  margin: 5%; padding-top:2%; position:relative; padding-bottom: 2%">
+                
+                <!-- Right -->
+                <div style="width:30%; float: right; left:70%; background-color: violet; text-align: center; position:auto; ">
+                    List of Recent Location
+                    
+                </div>
+                
+                <div style="bor">
+                    
+                </div>
+                
                 
                 <!-- Left -->
-                <div style="background-color: blue; margin-left:2.8%; margin-right: 45%; ">
+                <div style="; margin-left:2%; width:45%; background-color: gray ">
                     
                     <!-- Avatar + Name -->
-                    <div style = "background-color: greenyellow; margin-bottom: 2%; ">
+                    <div style = " margin-bottom: 2%; ">
                         <div>
                             <img src="img/avatartest.jpg" alt="HTML5 Icon" style="width:150px; height:150px; padding-right: 4%; padding-bottom:4%;float:left; " > 
                         </div>    
@@ -75,12 +94,12 @@
                         
                         <!-- Name + username -->
                         <div>
-                            <div style="padding-top:12.75%;  font-size: 160%; background-color: purple">
-                                First Name + Last Name
+                            <div style="padding-top:12.5%;  font-size: 160%; font-weight: 600; color: white">
+                                Full Name
                                     
                             </div>    
                             
-                            <div>                        
+                            <div style=" color:#d3ffee" >                        
                                 @username
                             </div>
                         </div>    
@@ -88,39 +107,36 @@
                     
                     
                     
-                    <!-- Personal Information -->
+                    <!-- Personal Information Form -->
                     
                     
-                    <div  style ="background-color: pink; margin-top:7%; ">
+                    <div  style =" margin-top:7%; ">
                         <div class="personalinfo">    
-                            Birthday;           
+                            Birthday : xx - xx - xxxx           
                         </div>
                         
                         <div class="personalinfo">
-                            Gender:
+                            Gender : Male
                         </div>
                             
                         <div class="personalinfo">
-                            Mobile Phone:
+                            Mobile Phone : +012345678910
                         </div>
                             
                         <div class="personalinfo">
-                            Email:
+                            Email: thisisaemail1234@gmail.com
                         </div>
                             
                         <div class="personalinfo">
-                            Country:
+                            Country: Vietnam
                         </div>
                             
                     </div>    
                 </div>
                 
                 
-                <!-- Right -->
-                <div>
-                    
-                    
-                </div>
+                
+                
                 
                 
                 
@@ -132,8 +148,8 @@
             <!-- - - - - - - - Journey HERE - - - - - - - - - - -->
             <!--         Thinh                 -->
             
-            <div style="background-color: black; color: white; font-weight: 600; margin-bottom: 5%; ">
-                This is Account's Journeys <br> Input here
+            <div style="background-color: red; color: white; font-weight: 600; margin-bottom: 5%;">
+                This is Account's Journeys <br> Input here <br><br>
             </div>
             
             
