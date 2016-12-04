@@ -12,7 +12,12 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="assets/et-line-font-plugin/style.css">
+        <link rel="stylesheet" href="assets/bootstrap-material-design-font/css/material.css">
+        <link rel="stylesheet" href="assets/tether/tether.min.css">
         <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/socicon/css/socicon.min.css">
+        <link rel="stylesheet" href="assets/animate.css/animate.min.css">
+        <link rel="stylesheet" href="assets/dropdown/css/style.css">
         <link rel="stylesheet" href="assets/theme/css/style.css">
         <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
         <style>
@@ -35,7 +40,7 @@
             }
             #background-slide{
                 position: fixed;
-                margin-top: -7%;
+                margin-top: -8%;
                 z-index: -1000;
                 width: 100%;
             }
@@ -222,7 +227,7 @@
         <div id="footer">
             <jsp:include page="_footer.jsp" flush="true"/>
         </div>
-        
+
         <script>
 //            var Var;
 //
