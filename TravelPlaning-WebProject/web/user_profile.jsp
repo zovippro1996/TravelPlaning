@@ -42,10 +42,10 @@
            .divider{
             position:absolute;
             left:50%;
-            top:10%;
-            bottom:10%;
-            border-left:1px solid white;
-}
+            top:35%;
+            bottom:5%;
+            border-left:3px solid white;
+            }
       
         </style>
   
@@ -64,37 +64,23 @@
         
         
         <!-- Outmost DIV -->     
-        <div style="align-content:center; background-color: pink; margin-left: 15%; margin-right: 15%; margin-top: 7.5%;  position:relative ; padding-top: 1%; padding-bottom:1%;">
+        <div style="align-content:center; margin-left: 15%; margin-right: 15%; margin-top: 6%;  position:relative ; padding-top: 1%; padding-bottom:1%;">
             
             
             
             <!-- Personal Info. -->
-            <div style="background-color:#4364bb;  margin: 5%; padding-top:2%; position:relative; padding-bottom: 2%">
+            <div style="background-color:#6fb89c; border-radius: 12px;  margin-left: 5%; margin-right: 5%;margin-top: 4.5%; margin-bottom: 3%; padding-top:1%; position:relative; padding-bottom: 2%">
                 
-                <!-- Right -->
-                <div style="width:30%; float: right; left:70%; background-color: violet; text-align: center; position:auto; ">
-                    List of Recent Location
-                    
-                </div>
-                
-                <div style="bor">
-                    
-                </div>
-                
-                
-                <!-- Left -->
-                <div style="; margin-left:2%; width:45%; background-color: gray ">
-                    
-                    <!-- Avatar + Name -->
-                    <div style = " margin-bottom: 2%; ">
+                <!-- Avatar + Name -->
+                    <div style="background-color: #40a0b2; padding-left: 3%; ">
                         <div>
-                            <img src="img/avatartest.jpg" alt="HTML5 Icon" style="width:150px; height:150px; padding-right: 4%; padding-bottom:4%;float:left; " > 
+                            <img src="img/avatartest.jpg" alt="HTML5 Icon" style="width:150px; height:150px; padding-right: 2%; padding-bottom:2%;float:left; " > 
                         </div>    
                         
                         
                         <!-- Name + username -->
-                        <div>
-                            <div style="padding-top:12.5%;  font-size: 160%; font-weight: 600; color: white">
+                        <div style="padding-top:6.3%;">
+                            <div style="font-size: 160%; font-weight: 600; color: white">
                                 Full Name
                                     
                             </div>    
@@ -104,6 +90,26 @@
                             </div>
                         </div>    
                     </div>
+                
+               
+                <div>    
+                <!-- Right -->
+                <div style="width:30%; float: right;  background-color: violet; text-align: center; position: relative; margin-right: 8%; font-size:150%; ">
+                    Achievements.
+                    
+                </div>
+                
+                <!-- Divider -->
+                <div class ="divider">
+                    
+                    
+                </div>
+                
+                
+                <!-- Left -->
+                <div style="margin-left:3%; width:45%; ">
+                    
+                    
                     
                     
                     
@@ -134,7 +140,7 @@
                     </div>    
                 </div>
                 
-                
+                </div>   
                 
                 
                 
