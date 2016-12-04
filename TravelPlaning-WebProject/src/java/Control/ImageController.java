@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.lang.invoke.MethodHandles.Lookup;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -43,7 +44,7 @@ public class ImageController extends HttpServlet {
      private static final String ACCESS_TOKEN = "cKh3tEi-r1AAAAAAAAAKCWzcDYB7Sm2XAJaYkzxhdvq-viW81Uk22j7hgL3-6rFU";
      
        // location to store file uploaded
-    private static final String UPLOAD_DIRECTORY = "/LocImage";
+    
     
     
      // upload settings
@@ -80,11 +81,23 @@ public class ImageController extends HttpServlet {
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException {
+        
+        String UPLOAD_DIRECTORY =  getServletContext().getRealPath("/") + "/LocImage";
+        
+        
         // checks if the request actually contains upload file
         final PrintWriter writer = response.getWriter();
         
-          final Part filePart = request.getPart("file");
+        
+        final String locationName = request.getParameter("locname");
+          final Part filePart = request.getPart("uploadFile");
             final String fileName = getFileName(filePart);
+            
+            
+            System.out.println(getServletContext().getRealPath("/"));
+            
+            
+ 
             
             
             OutputStream out = null;
@@ -104,7 +117,7 @@ public class ImageController extends HttpServlet {
             out.write(bytes, 0, read);
         }
         writer.println("New file " + fileName + " created at " + UPLOAD_DIRECTORY);
-        LOGGER.log(Level.INFO, "File{0}being uploaded to {1}",
+        LOGGER.log(Level.INFO, "File {0} being uploaded to {1}",
                 new Object[]{fileName, UPLOAD_DIRECTORY});
     } catch (FileNotFoundException fne) {
         writer.println("You either did not specify a file to upload or are "
