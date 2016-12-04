@@ -93,6 +93,15 @@ public class JourneyProcessing extends HttpServlet
         out.println("</ol>");
         
         // Get list of locations
+        List<Location> listLocations = getLocation(request, response, listCity, listDaysOfCity, country);
+        iterator = listLocations.listIterator();
+        out.println("<ul>List of locations:");
+        while (iterator.hasNext())
+        {
+            Location location = (Location) iterator.next();
+            out.println("<li>" + location.display());
+        }
+        out.println("</ul>");
             
         return null;
     }
@@ -211,14 +220,15 @@ public class JourneyProcessing extends HttpServlet
         }
         
         // Decide number of cities, and assign appropriate number of days for each
-        if (duration > 4)       // choose 2 cities
-        {   
+        String numsCityUser = request.getParameter("numsCity");
+        if (numsCityUser.equals("one") || (numsCityUser.equals("notKnown") && duration <= 4))
+        {
+            list.add(duration);
+        }
+        else
+        {
             list.add((int) Math.round(duration / 2.0));             // first city
             list.add(duration - (int) Math.round(duration / 2.0));  // second city
-        }
-        else                    // choose 1 city
-        {
-            list.add(duration);     // the only city
         }
         
         return list;
@@ -227,6 +237,7 @@ public class JourneyProcessing extends HttpServlet
     /**
      * 
      * @param request
+     * @param country
      * @param daysCity
      * @return List<String>
      * @throws ServletException
@@ -290,5 +301,139 @@ public class JourneyProcessing extends HttpServlet
         }
         
         return listCity;
+    }
+    
+    /**
+     * 
+     * @param request
+     * @param listCity
+     * @param dayCity
+     * @param country
+     * @return List<Location>
+     * @throws ServletException
+     * @throws IOException 
+     * 
+     * Note: this function only works well if there is SUFFICIENT amount of data in the database
+     *      Each type of location --> >= 5 reviews
+     *      Each country --> >= 4 cities
+     *      Multiple country
+     * 
+     * How to get locations ?
+     *      Based on selected 'country' from user
+     *      Based on generated 'city'
+     *      Based on the 'average rate' and 'number of rates' of each location
+     *      Based on different periods of day: morning | afternoon | evening
+     *      Based on the type of each location and its relation with the chosen journey type
+     *      Based on the price: standard | luxury [maybe optional]
+     *      Coastal country: choose beach for each three-day interval (3th day, 6th day) - ONE only
+     *      More than 2 days (>=3 days)--> location for last day: theme-park (if any)
+     *          Note: one theme-park for one trip only. If both locations are
+     *          sufficient --> choose the last one
+     * 
+     * Algorithm:
+     *      Get 'them-park' location (if any)
+     *      Get 'beach' location (if any)
+     *      Get list of all locations for morning
+     *      Get list of all locations for afternoon
+     *          Check for duplication
+     *      Get list of all location for evening
+     *          Check for duplication
+     * 
+     * Return a List<Location> specifying all the locations in the trip
+     * 
+     */
+    private List<Location> getLocation(HttpServletRequest request, HttpServletResponse response,
+            List<String> listCity, List<Integer> dayCity, String country)
+            throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        
+        List<Location> listLocations = new ArrayList<>();
+        
+        // Get database connection
+        Connection connection = DBConnect.getConnection();
+        
+        // Check, and get theme-park location
+        Location park = new Location();
+        if (dayCity.get(0) >= 3)
+        {
+            try
+            {
+                Statement statement = connection.createStatement();
+                
+                // Get the city
+                String city;
+                if (dayCity.size() == 2 && dayCity.get(0) > 2 && dayCity.get(1) > 2)
+                {
+                    city = listCity.get(1);
+                }
+                else
+                {
+                    city = listCity.get(0);
+                }
+                
+                // Check whether there is theme-park location registered or not
+                String query = "SELECT LocationID "
+                        + "FROM Locations "
+                        + "WHERE TypeLocation = '" + LocationType.THEMEPARK.name() + "' "
+                        + "AND City = '" + city + "' "
+                        + "AND Country = '" + country + "';";
+                ResultSet test = statement.executeQuery(query);
+                if (test.next())        // there is theme-park registered
+                {
+                    // Construct query to get location 'park'
+                    query = "SELECT Locations.LocationID as ID, "
+                            + "Locations.NameLocation as Name, "         // name
+                            + "Locations.City as City, "                 // city
+                            + "Locations.Country as Country, "           // country
+                            + "Locations.Price as Price, "               // price
+                            + "Locations.Description as Description, "   // description
+                            + "AVG(Comments.Rate) as AvgRate, "          // average rate
+                            + "COUNT(Comments.Rate) as NumsRate "        // number of rates
+                            + "FROM Locations INNER JOIN Comments "
+                            + "ON Locations.LocationID = Comments.LocationID "
+                            + "WHERE Country = '" + country + "' "       // match country
+                            + "AND City = '" + city + "' "               // match city
+                            + "AND Locations.TypeLocation = '" + LocationType.THEMEPARK.name() + "' "
+                            + "GROUP BY ID "
+                            + "ORDER BY AvgRate DESC, NumsRate DESC, Price ASC "
+                            + "LIMIT 1; ";
+                    
+                    // Get result
+                    ResultSet resultSet = statement.executeQuery(query);
+                    resultSet.next();       // move to the first, and only, result
+                    park.setID(resultSet.getInt("ID"));     // assign value for park
+                    park.setType(LocationType.THEMEPARK.name());
+                    park.setName(resultSet.getString("Name"));
+                    park.setCity(resultSet.getString("City"));
+                    park.setCountry(resultSet.getString("Country"));
+                    park.setPrice(resultSet.getDouble("Price"));
+                    park.setDescription(resultSet.getString("Description"));
+                    park.setAvgRate(resultSet.getDouble("AvgRate"));
+                    
+                    park.setMorning(true);
+                    park.setAfternoon(true);
+                    park.setEvening(true);
+                    if (city.equals(listCity.get(0)))   // last day of first / only city
+                    {
+                        park.setDay(dayCity.get(0));
+                    }
+                    else                                // last day of second city
+                    {
+                        park.setDay(dayCity.get(0) + dayCity.get(1));
+                    }
+                }
+                
+            } catch (SQLException sqle) {
+                sqle.printStackTrace();
+            }
+        }
+        
+        // Check, and get beach location
+        
+        // Assign
+        listLocations.add(park);
+        
+        return listLocations;
     }
 }
