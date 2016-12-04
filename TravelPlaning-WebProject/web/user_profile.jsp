@@ -31,6 +31,15 @@
         <link rel="stylesheet" href="assets/theme/css/style.css">
         <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
   
+        
+        <style type="text/css">
+            
+            .personalinfo{
+                margin-bottom: 3%;
+                font-size: 135%;
+            }
+      
+        </style>
   
     </head>
     
@@ -82,27 +91,27 @@
                     <!-- Personal Information -->
                     
                     
-                    <div style ="background-color: pink; margin-top:7%; ">
-                    <div>    
-                     Birthday;           
-                    </div>
-                    
-                        <div>
+                    <div  style ="background-color: pink; margin-top:7%; ">
+                        <div class="personalinfo">    
+                            Birthday;           
+                        </div>
+                        
+                        <div class="personalinfo">
                             Gender:
                         </div>
-                        
-                        <div>
+                            
+                        <div class="personalinfo">
                             Mobile Phone:
                         </div>
-                        
-                        <div>
+                            
+                        <div class="personalinfo">
                             Email:
                         </div>
-                        
-                        <div>
+                            
+                        <div class="personalinfo">
                             Country:
                         </div>
-                        
+                            
                     </div>    
                 </div>
                 
