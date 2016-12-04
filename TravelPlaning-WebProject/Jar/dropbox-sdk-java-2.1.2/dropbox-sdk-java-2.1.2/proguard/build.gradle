@@ -1,0 +1,100 @@
+apply plugin: 'maven'
+apply plugin: 'java'
+
+description = 'ProGuard minified SDK test suite for ProGuard compatibility tests.'
+group = 'com.dropbox.core.test'
+archivesBaseName = 'dropbox-proguard-test'
+version = '0-SNAPSHOT'
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+ext {
+    authInfoPropertyName = 'com.dropbox.test.authInfoFile'
+}
+
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'net.sf.proguard:proguard-gradle:5.2.1'
+        classpath 'net.sf.proguard:proguard-base:5.2.1'
+    }
+}
+
+repositories {
+    jcenter()
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'com.dropbox.core', name: 'dropbox-core-sdk', version: '0-SNAPSHOT', changing: true
+    compile 'org.testng:testng:6.9.10'
+}
+
+compileJava {
+    options.compilerArgs << '-Xlint:all'
+    options.warnings = true
+    options.deprecation = true
+    options.encoding = 'utf-8'
+}
+
+// copied from rootProject's build.gradle. We avoid using subprojects due to Android Studio bug and
+// dbapp-android integration.
+def getAuthInfoFile() {
+    if (!project.hasProperty(authInfoPropertyName)) {
+        throw new GradleException('' +
+            "These tests require the \"${authInfoPropertyName}\" " +
+            "project property be set to point to an authorization JSON file " +
+            "(e.g. ./gradlew proguardTest -P${authInfoPropertyName}=auth.json)."
+        )
+    }
+
+    def authInfoFile = file(project.property(authInfoPropertyName))
+    if (!authInfoFile.exists()) {
+        throw new GradleException('' +
+            "The test auth info file does not exist: \"${authInfoFile.absolutePath}\". " +
+            "Please ensure the \"${authInfoPropertyName}\" project property is set to point to " +
+            "the correct authorization JSON file."
+        )
+    }
+    return authInfoFile
+}
+
+task proguard(type: proguard.gradle.ProGuardTask) {
+    ext {
+        configDir = file("src/main/resources/proguard/")
+        configFile = file("../examples/android/proguard-rules.pro")
+        proguardJar = file("${project.libsDir}/${project.archivesBaseName}-${project.version}-proguard.jar")
+    }
+
+    inputs.dir configDir
+    inputs.file configFile
+
+    injars sourceSets.main.runtimeClasspath, filter:'!META-INF/*'
+    libraryjars "${System.getProperty('java.home')}/lib/rt.jar"
+    libraryjars sourceSets.main.compileClasspath.filter { file ->
+        return !sourceSets.main.runtimeClasspath.contains(file)
+    }
+
+    outjars proguardJar
+
+    fileTree(dir: configDir, include: '**/*.pro').each { file ->
+        configuration file
+    }
+    configuration configFile
+}
+
+task proguardTest(type: JavaExec) {
+    dependsOn proguard
+    classpath = files(proguard.proguardJar)
+    main = 'com.dropbox.core.test.proguard.Main'
+    ignoreExitValue false
+
+    doFirst {
+        args getAuthInfoFile().absolutePath
+    }
+}

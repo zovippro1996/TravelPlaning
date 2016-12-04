@@ -5,12 +5,22 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Data.*" %>
 
 <%
-    // Get username; or just 'guest'
-    // Maybe try to determine whether this is the first time
-    // user tries to access the page -> change 'Welcome' accordingly
-    String username = "Krankai";
+    // Get user from session
+    User user = (User) session.getAttribute("user");
+    
+    // Get user's name
+    String username;
+    if (user != null)
+    {
+        username = user.getFullname();
+    }
+    else
+    {
+        username = "Guest";
+    }
 
     // Check visit
     // If the first time --> display "Welcome, user_name"
@@ -92,72 +102,28 @@
                         <a href="#lower" style="font-size: 15px">Go to Form Section</a>
                     </button>
                 </div>
-
-                    <!-- Manager section: contain information about three managers -->
-<!--                    <div class="row">
-                        <div class="col-md-2 col-md-offset-1 manager-box">
-                            <img src="img/decker-manager.png" alt="decker-manager"
-                                 width="100" height="130" class="center-block img-responsive">
-                            <br>
-                            <div class="description center-block">
-                                Description for<br><span>Decker</span>.
-                                 Challenging trip; beautiful places 
-                            </div>
-                        </div>
-                        <div class="col-md-2 col-md-offset-2 manager-box">
-                            <img src="img/internationale-manager.png" alt="internationale-manager"
-                                 width="100" height="130" class="center-block img-responsive">
-                            <br>
-                            <div class="description center-block">
-                                Description for<br><span>Internationale</span>.
-                                 People care about cusine / food / cultures 
-                            </div>
-                        </div>
-                        <div class="col-md-2 col-md-offset-2 manager-box">
-                            <img src="img/olivia-manager.png" alt="olivia-manager"
-                                 width="100" height="130" class="center-block img-responsive">
-                            <br>
-                            <div class="description center-block">
-                                Description for<br><span>Olivia</span>.
-                                 People care about history / past 
-                            </div>
-                        </div>
-                    </div>
-                    <br clear="both">
-                    <div class="row">
-                         Button for Decker 
-                        <div class="col-md-2 col-md-offset-1">
-                            <button class="btn btn-primary choose-btn center-block">
-                                <a href="#lower"><b>Choose</b></a>
-                            </button>
-                        </div>
-                         Button for Internationale 
-                        <div class="col-md-2 col-md-offset-2">
-                            <button class="btn btn-primary choose-btn center-block">
-                                <a href="#lower"><b>Choose</b></a>
-                            </button>
-                        </div>
-                         Button for Olivia 
-                        <div class="col-md-2 col-md-offset-2">
-                            <button class="btn btn-primary choose-btn center-block">
-                                <a href="#lower"><b>Choose</b></a>
-                            </button>
-                        </div>
-                    </div>-->
-
             </div>
             
             <!-- Lower section: for getting input to plan the trip -->
             <div id="lower" class="container-fluid">
                 <h2 class="mbr-section-title display-2">Form section</h2>
                 <div id="form-wrapper">
-                    <form action="#" method="get">  <!-- Remember to switch method to post -->
+                    <form action="JourneyProcessing" method="post"> 
+                        
+                        <!-- Prompt for country -->
                         <div class="form-group">
                             <label>
                                 Where do you want to go ? 
                             </label>
                             <input type="text" class="form-control" name="country"
-                                   placeholder="Enter your preferred country">
+                                   placeholder="Enter your preferred country"
+                                   autocomplete="off">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="dest" value="knownCountry" checked>
+                                    I want to choose my preferred country
+                                </label>
+                            </div>
                             <div class="radio">
                                 <label>
                                     <input type="radio" name="dest" value="knownContinent">
@@ -181,17 +147,24 @@
                                 </label>
                             </div>
                         </div>
+                        
+                        <!-- Prompt for duration -->
                         <div class="form-group">
                             <label for="duration">
                                 How long is your journey ? <span class="required">*</span>
                             </label>
                             <div class="input-group">
-                                <input type="text" class="form-control" id="duration"
-                                       placeholder="Number of days" name="duration">
+                                <input type="number" class="form-control" id="duration"
+                                       placeholder="Number of days" name="duration"
+                                       min="1" max="7" value="1"
+                                       autocomplete="off" required>
                                 <div class="input-group-addon"> day(s)</div>
                             </div>
-                            <p class="help-block">Maximum: 7 days</p>
+                            <p class="help-block">Min: 1 day</p>
+                            <p class="help-block">Max: 7 days</p>
                         </div>
+                        
+                        <!-- Prompt for money stuff ?? -->
                         <div class="form-group">
                             <label>
                                 Money relating stuff ?? Dont know what to write <span class="required">*</span>
@@ -205,20 +178,33 @@
                                 </label>
                             </div>
                         </div>
+                        
+                        <!-- Prompt for type of journey -->
                         <div class="form-group">
                             <label for="typeJourney">
                                 Which types of journey do you prefer ? <span class="required">*</span>
                             </label>
-                            <select class="form-control input-sm" name="type" id="typeJourney">
-                                <option value="historical">Historical Trip</option>
-                                <option value="sightseeing">Sightseeing Trip</option>
-                                <option value="metropolis">Metropolis Trip</option>
+                            <select class="form-control input-sm" name="type"
+                                    id="typeJourney" style="font-family: 'Bitter', serifs"
+                                    required>
+                                
+                                <%
+                                    for (JourneyType type : JourneyType.values())
+                                    {
+                                        out.println("<option value=\"" +
+                                                type.name() + "\"" +
+                                                ">" + type.name() + " TRIP</option>");
+                                    }
+                                %>
+                                
                             </select>
                             <p class="help-block">
                                 This information will help us arrange locations
                                 that likely suit your taste.
                             </p>
                         </div>
+                        
+                        <!-- Prompt for beach ? -->
                         <div class="form-group">
                             <label>
                                 Do you want to go to beach ? <span class="required">*</span>
@@ -233,6 +219,7 @@
                             </div>
                             <p class="help-block">Only for coastal country</p>
                         </div>
+                        
                         <div style="text-align: center">
                             <p style="font-size: 20px; font-weight: bold">
                                 -----------
@@ -240,7 +227,9 @@
                                 -----------
                             </p>
                         </div>
-                        <button type="submit" class="btn btn-primary choose-btn">
+                        
+                        <button type="submit" name="action" value="generateJourney"
+                                class="btn btn-primary choose-btn">
                             Submit
                         </button>
                         <button type="reset" class="btn btn-primary choose-btn">

@@ -1,0 +1,191 @@
+#! /usr/bin/env python
+from __future__ import absolute_import, division, print_function, unicode_literals
+
+import argparse
+import errno
+import glob
+import os
+import shutil
+import subprocess
+import sys
+
+# The release script will not copy files matching
+# the patterns in this script, in addition to
+# the files excluded by the repo's main .gitignore
+IGNORE_PATTERNS = [
+    '/buildSrc', # stone gradle plugin
+    '/stone',
+    '/src/main/stone',
+    '/src/test/stone',
+    '/.arcconfig',
+    '/scripts',
+    '/generator',
+    '.gitmodules',
+    '/release.gradle', # public repo should not include signing and release information
+    '/stone.gradle',
+    '/stone_legacy.gradle', # required by dbapp-android integration until stone-gradle-plugin is public
+    '/proguard', # ProGuard tests are mostly for release testing
+    '/standalone-settings.gradle', # ugly hack due to Android Studio bug
+]
+
+cmdline_desc = """\
+Updates a local checkout of the public Java SDK repository on GitHub
+based on the spec in your local copy of the private repository.
+"""
+
+_cmdline_parser = argparse.ArgumentParser(
+    formatter_class=argparse.RawDescriptionHelpFormatter,
+    description=cmdline_desc)
+_cmdline_parser.add_argument(
+    '-v',
+    '--verbose',
+    action='store_true',
+    help='Print debugging statements.',
+)
+_cmdline_parser.add_argument(
+    '--skip-build',
+    action='store_true',
+    help='Skip compiling the SDK after copying files.',
+)
+_cmdline_parser.add_argument(
+    'repo_path',
+    type=str,
+    help='Path to a checkout of the public Java repo.',
+)
+
+def check_repo_is_clean(repo_path):
+    """
+    If repo is not clean then prints an error and exits.
+
+    Args:
+        repo_path (str): Path to a git repository.
+    """
+    status = subprocess.check_output(
+        ['git', 'status', '--porcelain'],
+        cwd=repo_path)
+    if status != "":
+        print('error: The repo (%s) is not clean.' %
+              repo_path, file=sys.stderr)
+        sys.exit(1)
+
+def get_files_in_repo(repo_path, exclude_ignored_files=False):
+    command = ['git', 'ls-files']
+    files = subprocess.check_output(command, cwd=repo_path)
+    files_list = files.split()
+    if exclude_ignored_files:
+        command += ['-i']
+        for to_ignore in IGNORE_PATTERNS:
+            command += ['-x', to_ignore]
+        ignored_files = subprocess.check_output(command, cwd=repo_path).split()
+    else:
+        ignored_files = []
+    return [file for file in files_list if file not in ignored_files]
+
+def strip_private_sections(path):
+    """Delete everything in the file between the private repo tags"""
+    lines = []
+
+    with open(path, 'r+') as f:
+        level = 0
+        modified = False
+        for line in f:
+            if line.strip() == '/* BEGIN PRIVATE REPO ONLY */':
+                level += 1
+                modified = True
+            elif line.strip() == '/* END PRIVATE REPO ONLY */':
+                level -= 1
+                if level < 0:
+                    error('Unmatched \"END PRIVATE REPO ONLY\" tag in %s' % filename)
+            elif level == 0:
+                lines.append(line)
+
+    if level != 0:
+        error('Unmatched \"BEGIN PRIVATE REPO ONLY\" tag in %s' % filename)
+    if modified:
+        print('%s modified.' % path, file=sys.stdout)
+
+    with open(path, 'w+') as f:
+        f.writelines(lines)
+
+def list_build_files(root):
+    for dirname, dir_list, file_list in os.walk(root):
+        for filename in file_list:
+            if filename.endswith('.gradle'):
+                yield os.path.join(dirname, filename)
+
+def error(msg):
+    print('error: ' + msg, file=sys.stderr)
+    sys.exit(1)
+
+def main():
+    """The entry point for the program."""
+
+    args = _cmdline_parser.parse_args()
+    cwd = os.path.dirname(os.path.dirname(__file__))
+    repo_path = args.repo_path
+    def log(msg):
+        if args.verbose:
+            print(msg)
+
+    # Sanity check repository path.
+    if not os.path.exists(repo_path):
+        error('The repo folder (%s) does not exist.' % repo_path)
+    if not os.path.isdir(repo_path):
+        error('The repo path (%s) must be a folder.' % repo_path)
+
+    # Check that repo path points to the top-level of the target repo.
+    if not os.path.exists(os.path.join(repo_path, '.git')):
+        error('The repo folder (%s) is not the base of a Git repo.'
+              % repo_path)
+
+    # Check that the current repo and the target repo are clean.
+    check_repo_is_clean('.')
+    check_repo_is_clean(repo_path)
+
+    # Remove existing files. This is useful for when we remove files
+    # from the repo.
+    for filename in get_files_in_repo(repo_path):
+        file_path = os.path.join(repo_path, filename)
+        try:
+            log('Removing %s' % filename)
+            os.remove(file_path)
+        except OSError as e:
+            if e.errno != errno.ENOENT:
+                raise
+
+    # Copy files from private repo into public repo
+    for filename in get_files_in_repo('.', exclude_ignored_files=True):
+        target = os.path.join(repo_path, filename)
+        log('Copying %s to %s' % (filename, target))
+        subprocess.check_call(['rsync', '-R', filename, repo_path], cwd=cwd)
+
+    # Generate source files and copy across to the public repo.
+    log('Regenerating source files')
+    subprocess.check_call(['rm', '-rf', 'build/generated'], cwd=cwd)
+    subprocess.check_output(['./gradlew', 'generateStone', 'generateTestStone'], cwd=cwd)
+
+    target_path = os.path.join(repo_path, 'src/')
+    log('Copying generated sources to ' + target_path)
+    subprocess.check_call(['rsync', '-r',
+                           'build/generated/stone/src/',
+                           target_path], cwd=cwd)
+
+    # Modify the gradle.build for the public repo
+    log('Modifying gradle.build for the public repo.')
+    for build_file in list_build_files(repo_path):
+        strip_private_sections(build_file)
+
+    if not args.skip_build:
+        # Check that the project compiles
+        example_folder = os.path.join(repo_path, 'examples')
+        log('Compiling the SDK.')
+        subprocess.check_output(['./gradlew', 'check', 'install',], cwd=repo_path)
+        log('Compiling the examples.')
+        subprocess.check_output(['./gradlew', 'classes'], cwd=example_folder)
+        log('Cleaning up')
+        subprocess.check_output(['./gradlew', 'clean'], cwd=example_folder)
+        subprocess.check_output(['./gradlew', 'clean'], cwd=repo_path)
+
+
+if __name__ == '__main__':
+    main()

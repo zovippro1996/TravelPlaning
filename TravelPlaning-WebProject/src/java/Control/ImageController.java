@@ -23,6 +23,32 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import org.apache.commons.io.FilenameUtils;
+
+
+
+// Dropbox import
+import com.dropbox.core.DbxAuthInfo;
+import com.dropbox.core.DbxException;
+import com.dropbox.core.DbxRequestConfig;
+import com.dropbox.core.DbxWebAuth;
+import com.dropbox.core.NetworkIOException;
+import com.dropbox.core.RetryException;
+import com.dropbox.core.json.JsonReader;
+import com.dropbox.core.v2.DbxClientV2;
+import com.dropbox.core.v2.DbxPathV2;
+import com.dropbox.core.v2.files.CommitInfo;
+import com.dropbox.core.v2.files.FileMetadata;
+import com.dropbox.core.v2.files.UploadErrorException;
+import com.dropbox.core.v2.files.UploadSessionCursor;
+import com.dropbox.core.v2.files.UploadSessionFinishErrorException;
+import com.dropbox.core.v2.files.UploadSessionLookupErrorException;
+import com.dropbox.core.v2.files.UploadSessionOffsetError;
+import com.dropbox.core.v2.files.WriteMode;
+import java.io.FileInputStream;
+import java.util.Date;
+import javax.servlet.http.HttpSession;
+
 
 
 
@@ -82,10 +108,29 @@ public class ImageController extends HttpServlet {
             HttpServletResponse response)
             throws ServletException, IOException {
         
-        String UPLOAD_DIRECTORY =  getServletContext().getRealPath("/") + "/LocImage";
+        String command = request.getParameter("command");
+        
+         HttpSession session = request.getSession(true);
+        
+         DbxRequestConfig requestConfig = new DbxRequestConfig("tp-transfer-file");
+        DbxClientV2 dbxClient = new DbxClientV2(requestConfig, ACCESS_TOKEN);
+        
+        if (command.equals("upload"))
+        {
+        // Temp upload directory
+        String UPLOAD_DIRECTORY =  getServletContext().getRealPath("/") + "LocImage";
         
         
-        // checks if the request actually contains upload file
+        
+        // checks if the temp folder is created and create it if not
+        
+        File dir = new File(UPLOAD_DIRECTORY);
+        
+        if (!dir.exists())
+        {
+            dir.mkdir();
+        }
+        
         final PrintWriter writer = response.getWriter();
         
         
@@ -102,12 +147,15 @@ public class ImageController extends HttpServlet {
             
             OutputStream out = null;
     InputStream filecontent = null;
-   
     
+   
+    String fileType = FilenameUtils.getExtension(fileName);
+    
+    String tmpfilepath = UPLOAD_DIRECTORY + File.separator
+               + locationName + "." + fileType;
     
  try {
-        out = new FileOutputStream(new File(UPLOAD_DIRECTORY + File.separator
-                + fileName));
+        out = new FileOutputStream(new File(tmpfilepath));
         filecontent = filePart.getInputStream();
 
         int read = 0;
@@ -116,7 +164,7 @@ public class ImageController extends HttpServlet {
         while ((read = filecontent.read(bytes)) != -1) {
             out.write(bytes, 0, read);
         }
-        writer.println("New file " + fileName + " created at " + UPLOAD_DIRECTORY);
+        writer.println("New file " + locationName + "." + fileType + " created at " + UPLOAD_DIRECTORY);
         LOGGER.log(Level.INFO, "File {0} being uploaded to {1}",
                 new Object[]{fileName, UPLOAD_DIRECTORY});
     } catch (FileNotFoundException fne) {
@@ -138,6 +186,39 @@ public class ImageController extends HttpServlet {
             writer.close();
         }
     }
+ 
+ 
+ 
+        // After upload image to temp directory, we upload it to dropbox
+          // Create a DbxClientV2, which is what you use to make API calls.
+       
+
+        File tmpfile = new File(tmpfilepath);
+        uploadFile(dbxClient,tmpfile, "/" + locationName + "." + fileType);
+        
+        }
+        
+        
+        
+        
+        // For downloading image
+        
+        
+        if (command.equals("download"))
+        {
+            String path = "/" + request.getParameter("Locname") + ".jpg";
+            String imageurl = null;
+            
+            try {
+                imageurl = GetTempLink(dbxClient, path);
+            } catch (DbxException ex) {
+                Logger.getLogger(ImageController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            System.out.println(imageurl);
+             session.setAttribute("imageurl", imageurl);
+        request.getRequestDispatcher("/Location.jsp").forward(request, response);
+        }
 
     }
     
@@ -166,24 +247,34 @@ public class ImageController extends HttpServlet {
     
     
 // Dropbox file upload method
-//    private static void uploadFile(DbxClientV2 dbxClient, File localFile, String dropboxPath) {
-//        try (InputStream in = new FileInputStream(localFile)) {
-//            FileMetadata metadata = dbxClient.files().uploadBuilder(dropboxPath)
-//                .withMode(WriteMode.ADD)
-//                .withClientModified(new Date(localFile.lastModified()))
-//                .uploadAndFinish(in);
-//
-//            System.out.println(metadata.toStringMultiline());
-//        } catch (UploadErrorException ex) {
-//            System.err.println("Error uploading to Dropbox: " + ex.getMessage());
-//            System.exit(1);
-//        } catch (DbxException ex) {
-//            System.err.println("Error uploading to Dropbox: " + ex.getMessage());
-//            System.exit(1);
-//        } catch (IOException ex) {
-//            System.err.println("Error reading from file \"" + localFile + "\": " + ex.getMessage());
-//            System.exit(1);
-//        }
-//    }
+    private static void uploadFile(DbxClientV2 dbxClient, File localFile, String dropboxPath) {
+        try (InputStream in = new FileInputStream(localFile)) {
+            FileMetadata metadata = dbxClient.files().uploadBuilder(dropboxPath)
+                .withMode(WriteMode.ADD)
+                .withClientModified(new Date(localFile.lastModified()))
+                .uploadAndFinish(in);
+
+            System.out.println(metadata.toStringMultiline());
+        } catch (UploadErrorException ex) {
+            System.err.println("Error uploading to Dropbox: " + ex.getMessage());
+            System.exit(1);
+        } catch (DbxException ex) {
+            System.err.println("Error uploading to Dropbox: " + ex.getMessage());
+            System.exit(1);
+        } catch (IOException ex) {
+            System.err.println("Error reading from file \"" + localFile + "\": " + ex.getMessage());
+            System.exit(1);
+        }
+    }
+    
+    private static String GetTempLink (DbxClientV2 dbxClient, String dropboxPath) throws DbxException
+    {
+        
+        
+        String tmplink = dbxClient.files().getTemporaryLink(dropboxPath).getLink();
+        
+        
+        return tmplink;
+    }
 
 }
