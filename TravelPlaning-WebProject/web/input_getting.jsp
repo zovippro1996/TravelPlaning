@@ -164,6 +164,28 @@
                             <p class="help-block">Max: 7 days</p>
                         </div>
                         
+                        <!-- Prompt for number of cities -->
+                        <div class="form-group">
+                            <label>
+                                How many cities do you want to visit ?
+                            </label>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="numsCity" value="one">One
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="numsCity" value="two">Two
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="numsCity" value="notKnown">Please decide for me
+                                </label>
+                            </div>
+                        </div>
+                        
                         <!-- Prompt for money stuff ?? -->
                         <div class="form-group">
                             <label>

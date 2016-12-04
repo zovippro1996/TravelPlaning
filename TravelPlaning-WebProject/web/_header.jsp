@@ -51,7 +51,7 @@
                         <span style="font-size:50px;cursor:pointer" onclick="openNav()">&#9776;</span>
                         <% }%>
 
-                        <a class="navbar-caption text-danger" href="main.html" style="padding: 0 0 0 50px; margin-bottom: 20px;">Travel Planning</a>
+                        <a class="navbar-caption text-danger" href="main.jsp" style="padding: 0 0 0 50px; margin-bottom: 20px;">Travel Planning</a>
                     </div>
                 </div>
                 <div class="mbr-table-cell">
