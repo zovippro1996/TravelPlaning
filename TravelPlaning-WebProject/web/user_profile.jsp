@@ -45,6 +45,55 @@
                 top:35%;
                 bottom:5%;
                 border-left:3px solid white;
+            } 
+            
+            .outmost{
+                align-content:center; 
+                margin-left: 15%; 
+                margin-right: 15%; 
+                margin-top: 6%;  
+                position:relative ; 
+                padding-top: 1%; 
+                padding-bottom:1%;
+            }
+            
+            .personalwrap{
+                background-color:#6fb89c; 
+                border-radius: 12px;  
+                margin-left: 5%; 
+                margin-right: 5%;
+                margin-top: 4.5%; 
+                margin-bottom: 3%; 
+                padding-top:1%; 
+                position:relative; 
+                padding-bottom: 2%
+            }
+            
+            .personalrightwrap{
+                
+                width:30%; 
+                float: right;
+                position: relative;
+                margin-right: 10%;
+            }
+            
+            .personalrighttitle{
+                 
+                background-color: violet; 
+                text-align: center; 
+                 
+                 
+                font-size:150%;
+            }
+            
+            
+            
+            .avatarcss{
+                width:150px; 
+                height:150px; 
+                padding-right: 2%; 
+                padding-bottom:2%;
+                float:left;
             }
             
         </style>
@@ -64,17 +113,17 @@
         
         
         <!-- Outmost DIV -->     
-        <div style="align-content:center; margin-left: 15%; margin-right: 15%; margin-top: 6%;  position:relative ; padding-top: 1%; padding-bottom:1%;">
+        <div class="outmost">
             
             
             
             <!-- Personal Info. -->
-            <div style="background-color:#6fb89c; border-radius: 12px;  margin-left: 5%; margin-right: 5%;margin-top: 4.5%; margin-bottom: 3%; padding-top:1%; position:relative; padding-bottom: 2%">
+            <div class="personalwrap">
                 
                 <!-- Avatar + Name -->
                 <div style="background-color: #40a0b2; padding-left: 3%; ">
                     <div>
-                        <img src="img/avatartest.jpg" alt="HTML5 Icon" style="width:150px; height:150px; padding-right: 2%; padding-bottom:2%;float:left; " > 
+                        <img src="img/avatartest.jpg" alt="HTML5 Icon" class="avatarcss"> 
                     </div>    
                     
                     
@@ -94,31 +143,46 @@
                 
                 <div>    
                     <!-- Right -->
-                    <div style="width:30%; float: right;  background-color: violet; text-align: center; position: relative; margin-right: 8%; font-size:150%; ">
-                        Achievements.
+                    <div class="personalrightwrap">
+                        <div class="personalrighttitle">
+                            Achievements.                      
+                        </div>
+                        
+                        <br>
+                        
+                        <div>
+                            Total days traveling:                           
+                        </div>
+                        
+                        <br>
+                        
+                        <div>
+                            Total countries visited: 
+                        </div>
+                        
+                        <br>
+                        
+                        <div>
+                            Total locations visited: 
+                        </div>
+                        
                         
                     </div>
                     
                     <!-- Divider -->
-                    <div class ="divider">
-                        
-                        
+                    <div class ="divider">               
                     </div>
                     
                     
                     <!-- Left -->
                     <div style="margin-left:3%; width:45%; ">
-                        
-                        
-                        
-                        
-                        
+                                            
                         <!-- Personal Information Form -->
                         
                         
                         <div  style =" margin-top:7%; ">
                             <div class="personalinfo">    
-                                Birthday : xx - xx - xxxx           
+                                Birthday : February 12 1996         
                             </div>
                             
                             <div class="personalinfo">
@@ -149,7 +213,7 @@
             <!-- - - - - - - - Journey HERE - - - - - - - - - - -->
             <!--         Thinh                 -->
             
-            <div style="background-color: red; color: white; font-weight: 600; margin-bottom: 5%;">
+            <div style="background-color: red; color: white; margin-bottom: 5%;">
                 This is Account's Journeys <br> Input here <br><br>
             </div>
             
