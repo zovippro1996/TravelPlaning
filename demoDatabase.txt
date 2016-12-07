@@ -61,6 +61,21 @@ VALUES
 	('LocationW', 'industrial', 'Brisbane', 'Australia', 15.00, 'Description for LocationW', 1, 1, 1),
 	('LocationX', 'landmark', 'Brisbane', 'Australia', 10.99, 'Description for LocationX', 1, 1, 0);
 
+INSERT INTO Locations
+	(NameLocation, TypeLocation, City, Country, Price, Description, Morning, Afternoon, Evening)
+VALUES
+	('Park1', 'themepark', 'Brisbane', 'Australia', 10.01, 'Description for Park1', 1, 1, 1),
+	('Park2', 'themepark', 'Canberra', 'Australia', 9.99, 'Description for Park2', 1, 1, 1),
+	('Park3', 'themepark', 'Sydney', 'Australia', 15.05, 'Description for Park3', 1, 1, 1),
+	('Park4', 'themepark', 'Melbourne', Australia', 14.99', 'Description for Park4', 1, 1, 1);	
+
+INSERT INTO Locations
+	(NameLocation, TypeLocation, City, Country, Price, Description, Morning, Afternoon, Evening)
+VALUES
+	('Beach1', 'beach', 'Sydney', 'Australia', 5.99, 'Description for Beach1', 1, 1, 0),
+	('Beach2', 'beach', 'Brisbane', 'Australia', 5.80, 'Description for Beach2', 1, 1, 0),
+	('Beach3', 'beach', 'Melbourne', 'Australia', 5.05, 'Description for Beach3', 1, 1, 0),
+	('Beach4', 'beach', 'Canberra', 'Australia', 4.99, 'Description for Beach4', 1, 1, 0);
 
 
 ***Table: Comments***
@@ -124,9 +139,30 @@ VALUES
 	(10, 14, 'Good', 4.5),
 	(10, 20, 'Suit my taste', 5.0);
 
+INSERT INTO Comments
+	(UserID, LocationID, Description, Rate)
+VALUES
+	(1,	25,	'Good',	3.0),
+	(1,	26,	'Not very good', 2.5),
+	(1,	27,	'Awesome',	3.5),
+	(1,	28,	'Fantastic', 4.5),
+	(2,	25,	'Normal', 3.0),
+	(2,	26,	'Acceptable', 3.0),
+	(2,	27,	'Nice',	3.5),
+	(2,	28,	'Hm..',	2.0);
 
 
-
+INSERT INTO Comments
+	(UserID, LocationID, Description, Rate)
+VALUES
+	(3, 29, 'Good', 3.0),
+	(3, 30, 'Not good', 2.5),
+	(3, 31, 'Nice', 4.0),
+	(3, 32, 'Pretty nice', 4.5),
+	(4, 29, 'OK', 3.5),
+	(4, 30, 'Not good at all', 2.0),
+	(4, 31, 'Well...ew', 2.0),
+	(4, 32, 'Thumbs up', 4.0);
 
 
 
