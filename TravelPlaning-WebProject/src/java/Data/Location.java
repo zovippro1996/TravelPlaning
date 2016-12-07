@@ -32,10 +32,23 @@ public class Location {
 
     public String display()
     {
-        return String.format("Name: %s&nbsp;&nbsp;City: %s&nbsp;&nbsp;Country: %s\n"
+        return String.format("Name: %s&nbsp;&nbsp;City: %s&nbsp;&nbsp;Country: %s<br>"
                 + "&nbsp;&nbsp;Day: %d&nbsp;&nbsp;Price: $%.2f&nbsp;&nbsp;Average rate: %.2f"
-                + "\n&nbsp;&nbsp;Description:\n&nbsp;&nbsp;%s"
-                , getName(), getCity(), getCountry(), getDay(), getPrice(), getAvgRate(), getDescription());
+                + "<br>&nbsp;&nbsp;Description:<br>&nbsp;&nbsp;%s"
+                , getName(), getCity(), getCountry(), getDay(), getPrice(),
+                getAvgRate(), getDescription());
+    }
+    
+    public String period()
+    {
+        String result = "";
+        if (morning)
+            result += "Morning  ";
+        if (afternoon)
+            result += "Afternoon  ";
+        if (evening)
+            result += "Evening  ";
+        return result;
     }
 
     /**

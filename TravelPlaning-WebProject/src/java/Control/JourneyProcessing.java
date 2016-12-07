@@ -100,6 +100,7 @@ public class JourneyProcessing extends HttpServlet
         {
             Location location = (Location) iterator.next();
             out.println("<li>" + location.display());
+            out.println("<br>Period: " + location.period());
         }
         out.println("</ul>");
             
@@ -489,6 +490,9 @@ public class JourneyProcessing extends HttpServlet
                 query = query + "GROUP BY City "
                         + "ORDER BY AvgRate DESC, NumsRate DESC, Price ASC "
                         + "LIMIT 1;";
+                
+                out.println(query);
+                
                 ResultSet resultSet = statement.executeQuery(query);
                 if (resultSet.next())      // there is at least a beach in either of two cities
                 {
@@ -507,16 +511,19 @@ public class JourneyProcessing extends HttpServlet
                     int day;
                     if (beach.getCity().equals(listCity.get(0)))    // first city
                     {
-                        day = dayCity.get(0) / 2;   // mid day of duration for first city
+                        day = (int) Math.round(dayCity.get(0) / 2.0);   // mid day
                     }
                     else            // second city
                     {
-                        day = dayCity.get(0) + dayCity.get(1) / 2;  // mid day of duration for second city
+                        day = dayCity.get(0) + (int) Math.round(dayCity.get(1) / 2.0);  // mid day
                     }
                     beach.setDay(day);
-                    beach.setMorning(true);
-                    beach.setAfternoon(false);
+                    
+                    // Decide period of day
                     beach.setEvening(false);
+                    Random rand = new Random(System.currentTimeMillis());
+                    beach.setMorning(rand.nextBoolean());
+                    beach.setAfternoon(!beach.isMorning());
                 }
                 else            // no beach
                 {
