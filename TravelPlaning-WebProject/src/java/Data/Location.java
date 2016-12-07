@@ -17,18 +17,26 @@ public class Location {
     private String name;
     private String city;
     private String country;
-//    private double latitudeX;
-//    private double latitudeY;
     private double price;
-//    private int providerID;
     private String description;
     private double avgRate;
-//    private List<String> review;
-    
     private boolean morning;
     private boolean afternoon;
     private boolean evening;
     private int day;
+
+//    private List<String> review;
+//    private int providerID;    
+//    private double latitudeX;
+//    private double latitudeY;
+
+    public String display()
+    {
+        return String.format("Name: %s&nbsp;&nbsp;City: %s&nbsp;&nbsp;Country: %s\n"
+                + "&nbsp;&nbsp;Day: %d&nbsp;&nbsp;Price: $%.2f&nbsp;&nbsp;Average rate: %.2f"
+                + "\n&nbsp;&nbsp;Description:\n&nbsp;&nbsp;%s"
+                , getName(), getCity(), getCountry(), getDay(), getPrice(), getAvgRate(), getDescription());
+    }
 
     /**
      * @return the ID
@@ -71,20 +79,18 @@ public class Location {
     public void setName(String name) {
         this.name = name;
     }
-    
+
     /**
      * @return the city
      */
-    public String getCity()
-    {
+    public String getCity() {
         return city;
     }
-    
+
     /**
-     * @param city 
+     * @param city the city to set
      */
-    public void setCity(String city)
-    {
+    public void setCity(String city) {
         this.city = city;
     }
 
@@ -102,34 +108,6 @@ public class Location {
         this.country = country;
     }
 
-//    /**
-//     * @return the latitudeX
-//     */
-//    public double getLatitudeX() {
-//        return latitudeX;
-//    }
-//
-//    /**
-//     * @param latitudeX the latitudeX to set
-//     */
-//    public void setLatitudeX(double latitudeX) {
-//        this.latitudeX = latitudeX;
-//    }
-//
-//    /**
-//     * @return the latitudeY
-//     */
-//    public double getLatitudeY() {
-//        return latitudeY;
-//    }
-//
-//    /**
-//     * @param latitudeY the latitudeY to set
-//     */
-//    public void setLatitudeY(double latitudeY) {
-//        this.latitudeY = latitudeY;
-//    }
-
     /**
      * @return the price
      */
@@ -143,20 +121,6 @@ public class Location {
     public void setPrice(double price) {
         this.price = price;
     }
-
-//    /**
-//     * @return the providerID
-//     */
-//    public int getProviderID() {
-//        return providerID;
-//    }
-//
-//    /**
-//     * @param providerID the providerID to set
-//     */
-//    public void setProviderID(int providerID) {
-//        this.providerID = providerID;
-//    }
 
     /**
      * @return the description
@@ -173,102 +137,72 @@ public class Location {
     }
 
     /**
-     * @return the average rate
+     * @return the avgRate
      */
     public double getAvgRate() {
         return avgRate;
     }
 
     /**
-     * @param rate the rate to set
+     * @param avgRate the avgRate to set
      */
-    public void setAvgRate(double rate) {
-        avgRate = rate;
+    public void setAvgRate(double avgRate) {
+        this.avgRate = avgRate;
     }
 
-//    /**
-//     * @return the review
-//     */
-//    public List<String> getReview() {
-//        return review;
-//    }
-//
-//    /**
-//     * @param review the review to set
-//     */
-//    public void setReview(List<String> review) {
-//        this.review = review;
-//    }
-    
     /**
-     * @return whether the location opens in morning
+     * @return the morning
      */
-    public boolean isMorning()
-    {
+    public boolean isMorning() {
         return morning;
     }
-    
+
     /**
-     * @param morning 
+     * @param morning the morning to set
      */
-    public void setMorning(boolean morning)
-    {
+    public void setMorning(boolean morning) {
         this.morning = morning;
     }
-    
+
     /**
-     * @return whether the location opens in afternoon
+     * @return the afternoon
      */
-    public boolean isAfternoon()
-    {
+    public boolean isAfternoon() {
         return afternoon;
     }
-    
+
     /**
-     * @param afternoon 
+     * @param afternoon the afternoon to set
      */
-    public void setAfternoon(boolean afternoon)
-    {
+    public void setAfternoon(boolean afternoon) {
         this.afternoon = afternoon;
     }
-    
+
     /**
-     * @return whether the location opens in evening
+     * @return the evening
      */
-    public boolean isEvening()
-    {
+    public boolean isEvening() {
         return evening;
     }
-    
+
     /**
-     * @param evening 
+     * @param evening the evening to set
      */
-    public void setEvening(boolean evening)
-    {
+    public void setEvening(boolean evening) {
         this.evening = evening;
     }
-    
+
     /**
-     * @return the day (day 1, day 2, ...) to visit the location
+     * @return the day
      */
-    public int getDay()
-    {
+    public int getDay() {
         return day;
     }
-    
+
     /**
-     * @param day 
+     * @param day the day to set
      */
-    public void setDay(int day)
-    {
+    public void setDay(int day) {
         this.day = day;
-    }
-    
-    public String display()
-    {
-        return String.format("Name: %s&nbsp;&nbsp;City: %s&nbsp;&nbsp;Country: %s\n"
-                + "&nbsp;&nbsp;Day: %d&nbsp;&nbsp;Price: $%.2f&nbsp;&nbsp;Average rate: %.2f"
-                + "\n&nbsp;&nbsp;Description:\n&nbsp;&nbsp;%s"
-                , name, city, country, day, price, avgRate, description);
     }
 }
