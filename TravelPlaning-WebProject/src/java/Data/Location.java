@@ -20,10 +20,10 @@ public class Location {
     private double price;
     private String description;
     private double avgRate;
-    private boolean morning;
-    private boolean afternoon;
-    private boolean evening;
-    private int day;
+    private boolean morning;        // state the period (morning | afternoon | evening)
+    private boolean afternoon;      // to visit this location in the trip
+    private boolean evening;        //
+    private int day;            // the day to visit the location
 
 //    private List<String> review;
 //    private int providerID;    
@@ -33,10 +33,11 @@ public class Location {
     public String display()
     {
         return String.format("Name: %s&nbsp;&nbsp;City: %s&nbsp;&nbsp;Country: %s<br>"
-                + "&nbsp;&nbsp;Day: %d&nbsp;&nbsp;Price: $%.2f&nbsp;&nbsp;Average rate: %.2f"
-                + "<br>&nbsp;&nbsp;Description:<br>&nbsp;&nbsp;%s"
+                + "&nbsp;&nbsp;Day: %d&nbsp;&nbsp;Price: $%.2f&nbsp;&nbsp;"
+                + "Type: %s&nbsp;&nbsp;Average rate: %.2f"
+                + "<br>&nbsp;&nbsp;Description:&nbsp;&nbsp;%s"
                 , getName(), getCity(), getCountry(), getDay(), getPrice(),
-                getAvgRate(), getDescription());
+                getType(), getAvgRate(), getDescription());
     }
     
     public String period()
