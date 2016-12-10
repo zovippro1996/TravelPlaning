@@ -4,6 +4,7 @@
     Author     : CREAT10N
 --%>
 
+<%@page import="Data.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -158,6 +159,14 @@
                 to{ bottom:0; opacity:1 }
             }
         </style>
+        <%
+            User user = (User) session.getAttribute("user");
+
+            if (user != null) {
+        %>
+        <jsp:forward page="main.jsp"/>
+        <%  }%>
+
     </head>
     <!--<body onload="Loader()">-->
     <body>
