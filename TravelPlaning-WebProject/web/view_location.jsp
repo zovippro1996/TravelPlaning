@@ -32,6 +32,7 @@
                 height: auto;
             }
 
+            /*Location name*/
             #title{
                 width: 100%;
                 height: 50px;
@@ -39,6 +40,7 @@
                 margin-bottom: 2%;
             }
 
+            /*Location pic*/
             #picture{
                 text-align: center;
                 width: 100%;
@@ -46,11 +48,13 @@
                 float: left;
             }
 
+            /*Location info*/
             #info{
                 width: 80%;
                 margin: 0 auto;
             }
 
+            /*Each of location info*/
             li{
                 padding-top: 3%; 
                 padding-bottom: 3%; 
@@ -58,11 +62,13 @@
                 float: left;
             }
 
+            /*Location rated star*/
             #rated{
                 margin-top: 3%;
                 margin-bottom: 3%;
             }
 
+            /*Location description*/
             #description{
                 margin-bottom: 10%;
             }
@@ -76,12 +82,14 @@
                 height: auto;
             }
 
+            /*Comment avatar*/
             .comment-avatar{
                 float: left;
                 width: 150px;
                 text-align: center;
             }
-
+            
+            /*Comment description*/
             .comment-desc{
                 float: left;
                 width: 600px;
@@ -115,14 +123,18 @@
         <jsp:include page="_header.jsp" flush="true"/>
 
         <div class="container" id="location">
+            
+            <!--Name of the location-->
             <div id="title">
                 Travel Location
             </div>
 
+            <!--Picture of the location-->
             <div id="picture">
                 <img src="img/PicforBackgroundWLCpage/slide1.jpg" class="img-responsive" width="100%" height="350px"/>
             </div>
 
+            <!--Some information of the location-->
             <div id="info">
                 <ul>
                     <li>Type</li>
@@ -134,11 +146,14 @@
                 </ul>
             </div><br>
 
+            <!--Star rating of the location-->
             <div id="rated">
                 <div class="star-ratings-sprite">
                     <span style="width:50%" class="star-ratings-sprite-rating"></span>
                 </div>
             </div>
+            
+            <!--Brief description of the location-->
             <div id="description">
                 <p>Brief Description</p>
                 <hr>
@@ -158,10 +173,16 @@
         <div class="container" id="comment">
             <p>Comment</p>
             <hr>
+            
+            <!--Using for loop to show 3 highest rated comments-->
             <%for (int i = 0; i < 3; i++) {%>
+            
+            <!--User avatar-->
             <div class="comment-avatar">
                 <img src="img/twitter.png" class="img-circle" width="75px" height="75px"/>
             </div>
+            
+            <!--User's comment description-->
             <div class="comment-desc">
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
                 Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
@@ -172,6 +193,8 @@
                 and more recently with desktop publishing software like Aldus PageMaker including 
                 versions of Lorem Ipsum
             </div>
+            
+            <!--User's comment rated-->
             <div class="comment-rate">
                 <div class="star-ratings-sprite">
                     <span style="width:50%" class="star-ratings-sprite-rating"></span>
