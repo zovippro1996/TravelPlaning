@@ -62,11 +62,14 @@
                     <ul class="nav-dropdown collapse pull-xs-right nav navbar-nav navbar-toggleable-sm" id="exCollapsingNavbar">
                         <li class="nav-item"><a class="nav-link link" href="#" aria-expanded="false">Contact</a></li>
 
-                        <!--If user is not logging in then show the login tab--> 
+                        <!--If user is not logging in then show the login link--> 
+                        <!--If user is logging in then show the logout link--> 
                         <%if (user == null) {%>
                         <li class="nav-item"><a class="nav-link link" href="login.jsp" aria-expanded="false">Login</a></li>
+                        <%} else {%>
+                        <li class="nav-item"><a class="nav-link link" href="login.jsp" aria-expanded="false">Logout</a></li>
                         <%}%>
-
+                        
                         <li class="nav-item nav-btn"><a class="nav-link btn btn-secondary-outline btn-secondary" href="booking.html">Start Travel Now!</a></li>
                     </ul>
                     <button hidden="" class="navbar-toggler navbar-close" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
