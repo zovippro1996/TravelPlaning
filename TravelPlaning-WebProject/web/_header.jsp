@@ -67,7 +67,7 @@
                         <%if (user == null) {%>
                         <li class="nav-item"><a class="nav-link link" href="login.jsp" aria-expanded="false">Login</a></li>
                         <%} else {%>
-                        <li class="nav-item"><a class="nav-link link" href="login.jsp" aria-expanded="false">Logout</a></li>
+                        <li class="nav-item"><a class="nav-link link" href="login.jsp?logout=true" aria-expanded="false">Logout</a></li>
                         <%}%>
                         
                         <li class="nav-item nav-btn"><a class="nav-link btn btn-secondary-outline btn-secondary" href="booking.html">Start Travel Now!</a></li>
