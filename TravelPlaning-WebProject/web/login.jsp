@@ -160,13 +160,20 @@
             }
         </style>
         <%
+            // Delete session when Logout link is clicked
+            String logout = request.getParameter("logout");
+            if (logout != null) {
+                session.setAttribute("user", null);
+            }
+
+            //If user has already logged in
+            //Then automatically jumps to main.jsp
             User user = (User) session.getAttribute("user");
 
             if (user != null) {
         %>
         <jsp:forward page="main.jsp"/>
         <%  }%>
-
     </head>
     <!--<body onload="Loader()">-->
     <body>
