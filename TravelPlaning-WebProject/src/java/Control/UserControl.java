@@ -112,28 +112,6 @@ public class UserControl extends HttpServlet {
                 } catch (SQLException ex) {
                     Logger.getLogger(UserControl.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
-                //SignUp Control    
-                if ("signupaccount".equals(command)) {
-                    try {
-                        Statement st = c.createStatement();
-                        ResultSet rs;
-                        PrintWriter out = response.getWriter();
-
-                        int i = st.executeUpdate("Insert into VUsers(username,password,fullname,DOB,gender,phone,email,country) values ('" + username + "','" + password + "','" + fullname + "','" + DOB + "','" + gender + "','" + phone + "','" + email + "','" + country + "')");
-
-                        if (i > 0) {
-                            out.println("Sign up successful, please re-login to activate your account! Thank You");
-                            response.sendRedirect("login.jsp");
-                        } else {
-                            response.sendRedirect("register.jsp");
-                        }
-                    } catch (SQLException ex) {
-                        Logger.getLogger(UserControl.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-
-                } //End of SignUp Control
-
             }
         }
     }
