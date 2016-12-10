@@ -41,19 +41,21 @@
 
             #picture{
                 text-align: center;
-                width: 350px;
+                width: 100%;
                 height: 350px;
                 float: left;
             }
 
             #info{
-                width: 50%;
-                float: right;
+                width: 80%;
+                margin: 0 auto;
             }
 
             li{
                 padding-top: 3%; 
                 padding-bottom: 3%; 
+                width: 33%;
+                float: left;
             }
 
             #rated{
@@ -104,7 +106,7 @@
                 background-position: 0 100%;
                 float: left;
                 height: 21px;
-                display:block;
+                display: block;
             }
 
         </style>
@@ -118,7 +120,7 @@
             </div>
 
             <div id="picture">
-                <img src="img/PicforBackgroundWLCpage/slide1.jpg" class="img-responsive" width="350px" height="350px"/>
+                <img src="img/PicforBackgroundWLCpage/slide1.jpg" class="img-responsive" width="100%" height="350px"/>
             </div>
 
             <div id="info">
@@ -126,6 +128,7 @@
                     <li>Type</li>
                     <li>Provider</li>
                     <li>Country</li>
+                    <br>
                     <li>City</li>
                     <li>Price</li>
                 </ul>
