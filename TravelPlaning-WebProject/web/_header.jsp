@@ -39,7 +39,7 @@
                             <a href="#">Username: <%=user.getUsername()%></a>
                             <a href="#">Email: <%=user.getEmail()%></a>
                             <a href="#">Previous trips:</a>
-                            <a href="#">Sign out</a>
+                            <a href="#">Logout</a>
                             <% }%>
                         </div>
 
