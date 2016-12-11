@@ -4,6 +4,11 @@
     Author     : CREAT10N
 --%>
 
+<%@page import="java.util.logging.Logger"%>
+<%@page import="java.util.logging.Level"%>
+<%@page import="Data.Location"%>
+<%@page import="Connect.DBConnect"%>
+<%@page import="java.sql.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -24,6 +29,10 @@
                 margin: 0px auto;
                 padding: 0px;
                 box-sizing: border-box;
+            }
+
+            body{
+                background-color: #FDF3E7;
             }
 
             #location{
@@ -88,7 +97,7 @@
                 width: 150px;
                 text-align: center;
             }
-            
+
             /*Comment description*/
             .comment-desc{
                 float: left;
@@ -116,17 +125,39 @@
                 height: 21px;
                 display: block;
             }
-
         </style>
+        
+        <!--Get and display Location information from database--> 
+        <%
+            Connection c = DBConnect.getConnection();
+            String ID = request.getParameter("LocationID");
+            int LocationID = 0;
+            LocationID = Integer.parseInt(ID);
+            Location l = new Location();
+
+            Statement st = c.createStatement();
+            ResultSet rs;
+            String query = "select * from Locations where LocationID='" + LocationID + "'";
+            rs = st.executeQuery(query);
+            if (rs.next()) {
+                l.setID(rs.getInt("LocationID"));
+                l.setName(rs.getString("NameLocation"));
+                l.setCity(rs.getString("City"));
+                l.setCountry(rs.getString("Country"));
+                l.setPrice(rs.getDouble("Price"));
+                l.setDescription(rs.getString("Description"));
+            }
+
+        %>
     </head>
     <body>
         <jsp:include page="_header.jsp" flush="true"/>
 
         <div class="container" id="location">
-            
+
             <!--Name of the location-->
             <div id="title">
-                Travel Location
+                <%=l.getName()%>
             </div>
 
             <!--Picture of the location-->
@@ -137,12 +168,9 @@
             <!--Some information of the location-->
             <div id="info">
                 <ul>
-                    <li>Type</li>
-                    <li>Provider</li>
-                    <li>Country</li>
-                    <br>
-                    <li>City</li>
-                    <li>Price</li>
+                    <li>Country: <%=l.getCountry()%></li>
+                    <li>City: <%=l.getCity()%></li>
+                    <li>Price: <%=l.getPrice()%>$</li>
                 </ul>
             </div><br>
 
@@ -152,20 +180,13 @@
                     <span style="width:50%" class="star-ratings-sprite-rating"></span>
                 </div>
             </div>
-            
+
             <!--Brief description of the location-->
             <div id="description">
                 <p>Brief Description</p>
                 <hr>
                 <p>
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                    when an unknown printer took a galley of type and scrambled it to make a type 
-                    specimen book. It has survived not only five centuries, but also the leap into 
-                    electronic typesetting, remaining essentially unchanged. It was popularised in 
-                    the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, 
-                    and more recently with desktop publishing software like Aldus PageMaker including 
-                    versions of Lorem Ipsum
+                    <%=l.getDescription()%>
                 </p>
             </div>
         </div>
@@ -173,15 +194,16 @@
         <div class="container" id="comment">
             <p>Comment</p>
             <hr>
-            
+
             <!--Using for loop to show 3 highest rated comments-->
-            <%for (int i = 0; i < 3; i++) {%>
-            
+            <%for (int i = 0;
+                        i < 3; i++) {%>
+
             <!--User avatar-->
             <div class="comment-avatar">
                 <img src="img/twitter.png" class="img-circle" width="75px" height="75px"/>
             </div>
-            
+
             <!--User's comment description-->
             <div class="comment-desc">
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
@@ -193,7 +215,7 @@
                 and more recently with desktop publishing software like Aldus PageMaker including 
                 versions of Lorem Ipsum
             </div>
-            
+
             <!--User's comment rated-->
             <div class="comment-rate">
                 <div class="star-ratings-sprite">
@@ -204,7 +226,7 @@
             <% }%>
 
         </div>
-            
+
         <jsp:include page="_footer.jsp" flush="true"/>
     </body>
 </html>
