@@ -99,14 +99,18 @@ public class UserControl extends HttpServlet {
                     Statement st = c.createStatement();
                     ResultSet rs;
 
-                    int i = st.executeUpdate("insert into VUsers(username,password,fullname,DOB,gender,phone,email,country) values ('" + username + "','" + password + "','" + fullname + "','" + DOB
+                    int i = st.executeUpdate("insert into Users(username,password,fullname,DOB,gender,phone,email,country) values ('" + username + "','" + password + "','" + fullname + "','" + DOB
                             + "','" + gender + "','" + phone + "','" + email + "','" + country + "')");
 
                     if (i > 0) {
                         PrintWriter out = response.getWriter();
                         response.setContentType("text/html");
-                        out.println("Sign up successful, please re-login to activate your account! Thank You");
-                        response.sendRedirect("login.jsp");
+                        
+                        out.println("<script type=\"text/javascript\">");
+                        out.println("alert('Congratulation, your account has been created successfully, please log in to continue');");
+                        out.println("location = 'login.jsp'");  //Not Sure About This "location"
+                        out.println("</script>");
+                        
                     } else {
                         response.sendRedirect("register.jsp");
                     }
