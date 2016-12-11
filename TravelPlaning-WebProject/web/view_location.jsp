@@ -4,10 +4,9 @@
     Author     : CREAT10N
 --%>
 
-<%@page import="java.util.logging.Logger"%>
-<%@page import="java.util.logging.Level"%>
-<%@page import="Data.Location"%>
+<%@page import="Data.*"%>
 <%@page import="Connect.DBConnect"%>
+<%@page import="java.util.*"%>
 <%@page import="java.sql.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -24,6 +23,7 @@
         <link rel="stylesheet" href="assets/dropdown/css/style.css">
         <link rel="stylesheet" href="assets/theme/css/style.css">
         <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <style>
             *{
                 margin: 0px auto;
@@ -126,7 +126,7 @@
                 display: block;
             }
         </style>
-        
+
         <!--Get and display Location information from database--> 
         <%
             Connection c = DBConnect.getConnection();
@@ -147,7 +147,18 @@
                 l.setPrice(rs.getDouble("Price"));
                 l.setDescription(rs.getString("Description"));
             }
+        %>
 
+        <!--Get the list of comment from the location and display the top-3 rated-->
+        <%
+            List<Comment> listComment = new ArrayList<Comment>();
+            query = "SELECT * FROM Comments WHERE LocationID='" + LocationID
+                    + "' ORDER BY Rate DESC LIMIT 3";
+            rs = st.executeQuery(query);
+            while (rs.next()) {
+                Comment comment = new Comment(rs.getString("Description"), rs.getDouble("Rate"));
+                listComment.add(comment);
+            }
         %>
     </head>
     <body>
@@ -196,8 +207,7 @@
             <hr>
 
             <!--Using for loop to show 3 highest rated comments-->
-            <%for (int i = 0;
-                        i < 3; i++) {%>
+            <%for (int i = 0; i < listComment.size(); i++) {%>
 
             <!--User avatar-->
             <div class="comment-avatar">
@@ -206,25 +216,17 @@
 
             <!--User's comment description-->
             <div class="comment-desc">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                when an unknown printer took a galley of type and scrambled it to make a type 
-                specimen book. It has survived not only five centuries, but also the leap into 
-                electronic typesetting, remaining essentially unchanged. It was popularised in 
-                the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, 
-                and more recently with desktop publishing software like Aldus PageMaker including 
-                versions of Lorem Ipsum
+                <%=listComment.get(i).getDescription()%>
             </div>
 
             <!--User's comment rated-->
             <div class="comment-rate">
                 <div class="star-ratings-sprite">
-                    <span style="width:50%" class="star-ratings-sprite-rating"></span>
+                    <span style="width:<%=listComment.get(i).getRate() * 100 / 5%>%;" class="star-ratings-sprite-rating"></span>
                 </div>
             </div><br>
             <hr>
             <% }%>
-
         </div>
 
         <jsp:include page="_footer.jsp" flush="true"/>
