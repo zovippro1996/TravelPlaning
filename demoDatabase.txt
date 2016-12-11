@@ -60,7 +60,6 @@ VALUES
 	('LocationV', 'scientific', 'Brisbane', 'Australia', 8.10, 'Description for LocationV', 1, 1, 0),
 	('LocationW', 'industrial', 'Brisbane', 'Australia', 15.00, 'Description for LocationW', 1, 1, 1),
 	('LocationX', 'landmark', 'Brisbane', 'Australia', 10.99, 'Description for LocationX', 1, 1, 0);
-
 INSERT INTO Locations
 	(NameLocation, TypeLocation, City, Country, Price, Description, Morning, Afternoon, Evening)
 VALUES
@@ -68,7 +67,6 @@ VALUES
 	('Park2', 'themepark', 'Canberra', 'Australia', 9.99, 'Description for Park2', 1, 1, 1),
 	('Park3', 'themepark', 'Sydney', 'Australia', 15.05, 'Description for Park3', 1, 1, 1),
 	('Park4', 'themepark', 'Melbourne', Australia', 14.99', 'Description for Park4', 1, 1, 1);	
-
 INSERT INTO Locations
 	(NameLocation, TypeLocation, City, Country, Price, Description, Morning, Afternoon, Evening)
 VALUES
@@ -76,6 +74,60 @@ VALUES
 	('Beach2', 'beach', 'Brisbane', 'Australia', 5.80, 'Description for Beach2', 1, 1, 0),
 	('Beach3', 'beach', 'Melbourne', 'Australia', 5.05, 'Description for Beach3', 1, 1, 0),
 	('Beach4', 'beach', 'Canberra', 'Australia', 4.99, 'Description for Beach4', 1, 1, 0);
+
+
+INSERT INTO Locations
+	(NameLocation, TypeLocation, City, Country, Price, Description, Morning, Afternoon, Evening)
+VALUES
+	('LocationAA', 'historical', 'Sydney', 'Australia', 16.75, 'Description for LocationAA', 1, 1, 0),
+	('LocationAAA', 'historical', 'Sydney', 'Australia', 18.55, 'Description for LocationAAA', 1, 1, 0),
+	('LocationBB', 'cultural', 'Sydney', 'Australia', 5.66, 'Description for LocationBB', 0, 1, 1),
+	('LocationBBB', 'cultural', 'Sydney', 'Australia', 7.56, 'Description for LocationBBB', 1, 1, 1),
+	('LocationCC', 'artistic', 'Sydney', 'Australia', 10.00, 'Description for LocationCC', 0, 0, 1),
+	('LocationCCC', 'artistic', 'Sydney', 'Australia', 12.45, 'Description for LocationCCC', 1, 1, 0),
+	('LocationDD', 'scientific', 'Sydney', 'Australia', 4.99, 'Description for LocationDD', 1, 1, 0),
+	('LocationDDD', 'scientific', 'Sydney', 'Australia', 6.55, 'Description for LocationDDD', 1, 0, 0),
+	('LocationEE', 'industrial', 'Sydney', 'Australia', 6.54, 'Description for LocationEE', 0, 1, 1),
+	('LocationEEE', 'industrial', 'Sydney', 'Australia', 9.99, 'Description for LocationEEE', 1, 1, 1),
+	('LocationFF', 'landmark', 'Sydney', 'Australia', 11.04, 'Description for LocationFF', 1, 1, 0),
+	('LocationFFF', 'landmark', 'Sydney', 'Australia', 8.15, 'Description for LocationFFF', 1, 1, 1),
+	('LocationGG', 'historical', 'Melbourne', 'Australia', 0.00, 'Description for LocationGG', 1, 1, 0),
+	('LocationGGG', 'historical', 'Melbourne', 'Australia', 4.09, 'Description for LocationGGG', 0, 1, 0),
+	('LocationHH', 'cultural', 'Melbourne', 'Australia', 0.00, 'Description for LocationHH', 1, 1, 0),
+	('LocationHHH', 'cultural', 'Melbourne', 'Australia', 5.99, 'Description for LocationHHH', 1, 0, 0),
+	('LocationII', 'artistic', 'Melbourne', 'Australia', 15.67, 'Description for LocationII', 1, 1, 0),
+	('LocationIII', 'artistic', 'Melbourne', 'Australia', 10.99, 'Description for LocationIII', 1, 0, 0),
+	('LocationJJ', 'scientific', 'Melbourne', 'Australia', 3.15, 'Description for LocationJJ', 1, 0, 0),
+	('LocationJJJ', 'scientific', 'Melbourne', 'Australia', 5.65, 'Description for LocationJJJ', 1, 1, 0),
+	('LocationKK', 'industrial', 'Melbourne', 'Australia', 7.00, 'Description for LocationKK', 1, 1, 1),
+	('LocationKKK', 'industrial', 'Melbourne', 'Australia', 0.00, 'Description for LocationKKK', 1, 1, 1),
+	('LocationLL', 'landmark', 'Melbourne', 'Australia', 12.11, 'Description for LocationLL', 0, 1, 1),
+	('LocationLLL', 'landmark', 'Melbourne', 'Australia', 8.99, 'Description for LocationLLL', 1, 1, 0),
+	('LocationMM', 'historical', 'Canberra', 'Australia', 7.77, 'Description for LocationMM', 1, 1, 0),
+	('LocationMMM', 'historical', 'Canberra', 'Australia', 8.18, 'Description for LocationMMM', 1, 1, 0),
+	('LocationNN', 'cultural', 'Canberra', 'Australia', 4.25, 'Description for LocationNN', 0, 1, 1),
+	('LocationNNN', 'cultural', 'Canberra', 'Australia', 12.21, 'Description for LocationNNN', 1, 1, 0),
+	('LocationOO', 'artistic', 'Canberra', 'Australia', 15.00, 'Description for LocationOO', 0, 1, 1),
+	('LocationOOO', 'artistic', 'Canberra', 'Australia', 20.00, 'Description for LocationOOO', 0, 0, 1),
+	('LocationPP', 'scientific', 'Canberra', 'Australia', 6.56, 'Description for LocationPP', 1, 1, 0),
+	('LocationPPP', 'scientific', 'Canberra', 'Australia', 8.00, 'Description for LocationPPP', 1, 1, 0),
+	('LocationQQ', 'industrial', 'Canberra', 'Australia', 5.00, 'Description for LocationQQ', 1, 1, 1),
+	('LocationQQQ', 'industrial', 'Canberra', 'Australia', 10.00, 'Description for LocationQQQ', 0, 1, 1),
+	('LocationRR', 'landmark', 'Canberra', 'Australia', 5.99, 'Description for LocationRR', 1, 0, 0),
+	('LocationRRR', 'landmark', 'Canberra', 'Australia', 0.00, 'Description for LocationRRR', 0, 1, 1),
+	('LocationSS', 'historical', 'Brisbane', 'Australia', 6.75, 'Description for LocationSS', 1, 1, 0),
+	('LocationSSS', 'historical', 'Brisbane', 'Australia', 8.88, 'Description for LocationSSS', 1, 1, 0),
+	('LocationTT', 'cultural', 'Brisbane', 'Australia', 4.12, 'Description for LocationTT', 1, 1, 0),
+	('LocationTTT', 'cultural', 'Brisbane', 'Australia', 5.67, 'Description for LocationTTT', 0, 1, 1),
+	('LocationUU', 'artistic', 'Brisbane', 'Australia', 12.05, 'Description for LocationUU', 0, 1, 1),
+	('LocationUUU', 'artistic', 'Brisbane', 'Australia', 8.88, 'Description for LocationUUU', 1, 0, 0),
+	('LocationVV', 'scientific', 'Brisbane', 'Australia', 9.00, 'Description for LocationVV', 1, 1, 0),
+	('LocationVVV', 'scientific', 'Brisbane', 'Australia', 0.00, 'Description for LocationVVV', 1, 1, 1),
+	('LocationWW', 'industrial', 'Brisbane', 'Australia', 8.15, 'Description for LocationWW', 0, 1, 1),
+	('LocationWWW', 'industrial', 'Brisbane', 'Australia', 9.99, 'Description for LocationWWW', 1, 1, 1),
+	('LocationXX', 'landmark', 'Brisbane', 'Australia', 0.00, 'Description for LocationXX', 1, 1, 0),
+	('LocationXXX', 'landmark', 'Brisbane', 'Australia', 5.45, 'Description for LocationXXX', 0, 1, 1);
+	
 
 
 ***Table: Comments***
@@ -138,7 +190,6 @@ VALUES
 	(10, 8, 'Hmm...', 2.5),
 	(10, 14, 'Good', 4.5),
 	(10, 20, 'Suit my taste', 5.0);
-
 INSERT INTO Comments
 	(UserID, LocationID, Description, Rate)
 VALUES
@@ -150,8 +201,6 @@ VALUES
 	(2,	26,	'Acceptable', 3.0),
 	(2,	27,	'Nice',	3.5),
 	(2,	28,	'Hm..',	2.0);
-
-
 INSERT INTO Comments
 	(UserID, LocationID, Description, Rate)
 VALUES
@@ -165,19 +214,105 @@ VALUES
 	(4, 32, 'Thumbs up', 4.0);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+INSERT INTO Comments
+	(UserID, LocationID, Description, Rate)
+VALUES
+	(1, 33, 'Quite good', 3.5),
+	(2, 33, 'Interesting', 3.0),
+	(3, 34, 'Uhm... its ok', 3.0),
+	(4, 34, 'Not good', 2.5),
+	(5, 35, 'Wow, fantastic for me', 4.5),
+	(6, 35, '100% perfect', 5.0),
+	(7, 36, 'Still not perfect, but its enough for us', 3.5),
+	(8, 36, 'You should reconsider this crap', 2.5),
+	(9, 37, 'I will never ...', 1.5),
+	(10, 37, 'Have to improve a lot of things', 2.5),
+	(1, 38, 'Its fine', 3.0),
+	(2, 38, 'Quite legit', 3.5),
+	(3, 39, 'Wow, unexpectedly good', 4.5),
+	(4, 39, 'PogChamp', 5.0),
+	(5, 40, 'I will give this a credit', 4.0),
+	(6, 40, 'Still have to improve', 3.5),
+	(7, 41, 'This should not be suggested', 2.0),
+	(8, 41, 'Decent...only', 3.0),
+	(9, 42, 'There are lots of better places to consider', 2.5),
+	(10, 42, 'I haven thought it is that good', 4.0),
+	(1, 43, 'Good enough for me', 4.0),
+	(2, 43, 'Nah thanks. Once is enough', 2.5),
+	(3, 44, 'Well, i will give this a good score', 4.5),
+	(4, 44, 'SeemsGood', 4.0),
+	(5, 45, 'Need improvements', 3.0),
+	(6, 45, 'Can be better, but its ok for now', 3.5),
+	(7, 46, 'Should have been better', 3.0),
+	(8, 46, 'Awful', 2.0),
+	(9, 47, 'Very good', 5.0),
+	(10, 47, 'Decent for me', 4.0),
+	(1, 48, 'Normal', 3.0),
+	(2, 48, 'This is not my favorite place anymore', 2.0),
+	(3, 49, 'Disappointed', 1.0),
+	(4, 49, 'Well, still good as new', 4.0),
+	(5, 50, 'Never seen anythings better', 5.0),
+	(6, 50, 'Best place I have gone to for a while', 5.0),
+	(7, 51, 'Awsome men, tho still lacks some details', 4.0),
+	(8, 51, 'Good', 4.0),
+	(9, 52, 'Too mainstream to me', 2.5),
+	(10, 52, 'Normal', 3.0),
+	(1, 53, 'This type is too obsolete', 2.0),
+	(2, 53, 'I like this idea', 3.5),
+	(3, 54, 'Not good', 2.5),
+	(4, 54, 'Ehhh', 3.0),
+	(5, 55, 'There are room for improvements', 3.5),
+	(6, 55, 'Keep it up', 3.5),
+	(7, 56, 'Wow surprisingly good to me', 4.5),
+	(8, 56, 'Definitely best place', 5.0),
+	(9, 57, 'Kind of good', 4.0),
+	(10, 57, 'Too much ...', 3.0),
+	(1, 58, 'Here, take my cookie', 4.0),
+	(2, 58, 'I will definitely comeback', 4.5),
+	(3, 59, 'Weird, but i like this', 4.5),
+	(4, 59, 'Uhm, not my type', 2.5),
+	(5, 60, 'High class location', 5.0),
+	(6, 60, 'Fantastic place', 4.5),
+	(7, 61, 'I like it', 4.0),
+	(8, 61, 'Does not suit my taste', 2.0),
+	(9, 62, 'Im sick of the theme at this place', 1.0),
+	(10, 62, 'This place gives me new feelings. Keep it up', 4.0),
+	(1, 63, 'This location has changed alot these past years', 4.5),
+	(2, 63, 'Naw I dont like this changes', 1.5),
+	(3, 64, 'Good good good', 4.0),
+	(4, 64, 'Good place to visit', 4.0),
+	(5, 65, 'Third times here. Still not disappointed', 4.5),
+	(6, 65, 'So f***ing good', 5.0),
+	(7, 66, 'This gives me the creep', 2.0),
+	(8, 66, 'I like the theme here Kreygasm', 4.0),
+	(9, 67, 'Decent place', 3.0),
+	(10, 67, 'Not enough for me', 2.5),
+	(1, 68, 'Nice', 3.5),
+	(2, 68, 'I root for this', 4.0),
+	(3, 69, 'Will comeback, if improve this .. that', 3.5),
+	(4, 69, 'Worth the money', 4.0),
+	(5, 70, 'Waste my time', 1.0),
+	(6, 70, 'This place should be better than this', 1.5),
+	(7, 71, 'I dont like this', 3.0),
+	(8, 71, 'Not really what I expected, but still ok', 3.5),
+	(9, 72, 'Never think I would say this, but this place is amazing', 5.0),
+	(10, 72, 'High value place eva', 5.0),
+	(1, 73, 'Best thing happen today to me', 4.5),
+	(2, 73, 'Good', 4.0),
+	(3, 74, 'Good idea, but terrible implementation', 2.5),
+	(4, 74, 'Can be better. What a waste!', 3.0),
+	(5, 75, 'I will consider returning to this', 4.0),
+	(6, 75, 'The price threw me off', 2.0),
+	(7, 76, 'Worth my money and time. Thank you for suggesting me this', 4.5),
+	(8, 76, 'Soo good', 4.5),
+	(9, 77, 'This should be the icon of the city', 5.0),
+	(10, 77, 'LIKE', 4.0),
+	(1, 78, 'Good place. Will visit again', 4.5),
+	(2, 78, 'My favorite place <3', 5.0),
+	(3, 79, 'Not very good to me', 3.0),
+	(4, 79, 'Need to fix lots of things', 2.0),
+	(5, 80, 'Here. Take my credit', 4.0),
+	(6, 80, 'Not my taste, but still good', 3.5);
 
 
 
