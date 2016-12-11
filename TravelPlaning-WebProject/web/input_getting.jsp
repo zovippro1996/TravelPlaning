@@ -113,7 +113,7 @@
                         <!-- Prompt for country -->
                         <div class="form-group">
                             <label>
-                                Where do you want to go ? 
+                                Where do you want to go ? <span class="required">*</span>
                             </label>
                             <input type="text" class="form-control" name="country"
                                    placeholder="Enter your preferred country"
@@ -167,7 +167,7 @@
                         <!-- Prompt for number of cities -->
                         <div class="form-group">
                             <label>
-                                How many cities do you want to visit ?
+                                How many cities do you want to visit ? <span class="required">*</span>
                             </label>
                             <div class="radio">
                                 <label>
@@ -181,12 +181,13 @@
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="numsCity" value="notKnown">Please decide for me
+                                    <input type="radio" name="numsCity" value="notKnown" checked>
+                                    Please decide for me
                                 </label>
                             </div>
                         </div>
                         
-                        <!-- Prompt for money stuff ?? -->
+<!--                         Prompt for money stuff ?? 
                         <div class="form-group">
                             <label>
                                 Money relating stuff ?? Dont know what to write <span class="required">*</span>
@@ -199,7 +200,7 @@
                                     <input type="radio" name="wealthyStyle" value="luxury"> Luxury
                                 </label>
                             </div>
-                        </div>
+                        </div>-->
                         
                         <!-- Prompt for type of journey -->
                         <div class="form-group">
@@ -225,18 +226,33 @@
                                 that likely suit your taste.
                             </p>
                         </div>
+                                
+                        <!-- Prompt for park ? -->
+                        <div class="form-group">
+                            <label>
+                                Do you like visiting theme-park ?
+                            </label>
+                            <div>
+                                <label class="radio-inline">
+                                    <input type="radio" name="parkPrefer" value="yes"> Yes
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="parkPrefer" value="no" checked> No
+                                </label>
+                            </div>
+                        </div>
                         
                         <!-- Prompt for beach ? -->
                         <div class="form-group">
                             <label>
-                                Do you want to go to beach ? <span class="required">*</span>
+                                Do you like visiting beach ?
                             </label>
                             <div>
                                 <label class="radio-inline">
                                     <input type="radio" name="beachPrefer" value="yes"> Yes
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="beachPrefer" value="no"> No
+                                    <input type="radio" name="beachPrefer" value="no" checked> No
                                 </label>
                             </div>
                             <p class="help-block">Only for coastal country</p>
