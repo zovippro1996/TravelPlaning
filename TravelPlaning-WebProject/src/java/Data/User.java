@@ -21,11 +21,12 @@ public class User {
     private String phone;
     private String email;
     private String country;
+    private String User_Avatar;
 
     public User() {
     }
     
-    public User(int ID, String username, String password, String fullname, Date DOB, String gender, String phone, String email, String country) {
+    public User(int ID, String username, String password, String fullname, Date DOB, String gender, String phone, String email, String country, String User_Avatar) {
         this.ID = ID;
         this.username = username;
         this.password = password;
@@ -35,6 +36,7 @@ public class User {
         this.phone = phone;
         this.email = email;
         this.country = country;
+        this.User_Avatar = User_Avatar;
     }
     
     /**
@@ -154,6 +156,14 @@ public class User {
      */
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public String getUser_Avatar() {
+        return User_Avatar;
+    }
+
+    public void setUser_Avatar(String User_Avatar) {
+        this.User_Avatar = User_Avatar;
     }
     
     

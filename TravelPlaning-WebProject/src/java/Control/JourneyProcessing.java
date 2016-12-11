@@ -93,7 +93,8 @@ public class JourneyProcessing extends HttpServlet
         out.println("</ol>");
         
         // Get list of locations
-        List<Location> listLocations = getLocation(request, response, listCity, listDaysOfCity, country);
+        List<Location> listLocations = getLocation(request, response, listCity,
+                listDaysOfCity, country);
         iterator = listLocations.listIterator();
         out.println("<ul>List of locations:");
         while (iterator.hasNext())
@@ -368,36 +369,72 @@ public class JourneyProcessing extends HttpServlet
         PrintWriter out = response.getWriter();
         
         List<Location> listLocations = new ArrayList<>();
+        List<Integer> chosenID = new ArrayList<>();  // list of chosen locations's IDs
         
         // Check, and get theme-park location
-        Location park = getPark(dayCity, listCity, country);
+        String parkPrefer = request.getParameter("parkPrefer");
+        Location park = getPark(parkPrefer, dayCity, listCity, country);
         
         // Check, and get beach location
         String beachPrefer = request.getParameter("beachPrefer");
         Location beach = getBeach(beachPrefer, dayCity, listCity, country);
         
-        // Get list of locations for morning
-        List<Integer> chosenID = null;
+        // Get the type of journey
         JourneyType type = JourneyType.valueOf(request.getParameter("type"));
         
+        // Get list of locations for evening
+        List<Location> eveningList = getLocationsPeriod(type, chosenID, country,
+                listCity, dayCity, park, beach, "evening", response);
+        for (int i = 0; i < eveningList.size(); ++i)
+        {
+            chosenID.add(eveningList.get(i).getID());
+        }
+        
+//        out.println("ChosenID: ");
+//        for (int i = 0; i < chosenID.size(); ++i)
+//        {
+//            out.print(chosenID.get(i) + " ");
+//        }
+//        out.println("<br>");
+        
+        // Get list of locations for afternoon
+        List<Location> afternoonList = getLocationsPeriod(type, chosenID, country,
+                listCity, dayCity, park, beach, "afternoon", response);
+        for (int i = 0; i < afternoonList.size(); ++i)
+        {
+            chosenID.add(afternoonList.get(i).getID());
+        }
+        
+//        out.println("ChosenID: ");
+//        for (int i = 0; i < chosenID.size(); ++i)
+//        {
+//            out.print(chosenID.get(i) + " ");
+//        }
+//        out.println("<br>");
+        
+        // Get list of locations for morning
         List<Location> morningList = getLocationsPeriod(type, chosenID, country,
                 listCity, dayCity, park, beach, "morning", response);
+        for (int i = 0; i < morningList.size(); ++i)
+        {
+            chosenID.add(morningList.get(i).getID());   // add chosen location's ID to the list
+        }
         
-        out.println("Number of morning: " + morningList.size() + "<br>");
-
-//        String morning, afternoon, evening;
-//        morning = getLocationsPeriod(type, chosenID, country, listCity, dayCity,
-//                park, beach, "morning");
-//        afternoon = getLocationsPeriod(type, chosenID, country, listCity, dayCity,
-//                park, beach, "afternoon");
-//        evening = getLocationsPeriod(type, chosenID, country, listCity, dayCity,
-//                park, beach, "evening");
-//        
-//        out.println(morning + "<br>");
-//        out.println(afternoon + "<br>");
-//        out.println(evening + "<br>");
+//        out.println("ChosenID: ");
+//        for (int i = 0; i < chosenID.size(); ++i)
+//        {
+//            out.print(chosenID.get(i) + " ");
+//        }
+//        out.println("<br>");
         
-        // Assign
+//        out.println("Number of morning locations: " + morningList.size() + "<br>");
+//        out.println("Number of afternoon locations: " + afternoonList.size() + "<br>");
+//        out.println("Number of evening locations: " + eveningList.size() + "<br>");
+        
+        // Assign locations to the list
+        listLocations.addAll(morningList);
+        listLocations.addAll(afternoonList);
+        listLocations.addAll(eveningList);
         if (park != null)
         {
             listLocations.add(park);
@@ -406,7 +443,6 @@ public class JourneyProcessing extends HttpServlet
         {
             listLocations.add(beach);
         }
-        listLocations.addAll(morningList);
         
         return listLocations;
     }
@@ -427,7 +463,8 @@ public class JourneyProcessing extends HttpServlet
      * Based on the selected city, choose the park with the highest rate
      * 
      */
-    public Location getPark(List<Integer> dayCity, List<String> listCity, String country)
+    public Location getPark(String parkPrefer, List<Integer> dayCity,
+            List<String> listCity, String country)
     {
         Connection connection = null;
         Statement statement = null;
@@ -437,7 +474,8 @@ public class JourneyProcessing extends HttpServlet
         // Get database connection
         connection = DBConnect.getConnection();
         
-        if (dayCity.get(0) >= 3)
+        // If duration >= 3 days, and user does like visiting a park
+        if (dayCity.get(0) >= 3 && parkPrefer.equals("yes"))
         {
             try
             {
@@ -543,7 +581,8 @@ public class JourneyProcessing extends HttpServlet
             totalDays += dayCity.get(1);
         boolean haveBeach;
         
-        if (totalDays > 3 && beachPrefer.equals("yes")) // user wish + more than 3-day trip
+        // If duration > 3 days, and user does like visiting a beach
+        if (totalDays > 3 && beachPrefer.equals("yes"))
         {
             haveBeach = true;
         }
@@ -664,9 +703,6 @@ public class JourneyProcessing extends HttpServlet
             Location park, Location beach, String period,
             HttpServletResponse response)
             throws ServletException, IOException
-//    private String getLocationsPeriod(JourneyType type, List<Integer> chosenID,
-//            String country, List<String> listCity, List<Integer> dayCity,
-//            Location park, Location beach, String period)
     {
         Connection connection = null;
         Statement statement = null;
@@ -762,12 +798,14 @@ public class JourneyProcessing extends HttpServlet
         }
         if (chosenID != null && chosenID.size() > 0)   // exclude chosen locations
         {
-            query1 += "AND ID NOT IN " + listID + " ";
+            query1 += "AND Locations.LocationID NOT IN " + listID + " ";
         }
         query1 += "GROUP BY ID "
                 + "ORDER BY AvgRate DESC, NumsRate DESC, Price ASC "
                 + "LIMIT " + numsLocations + ";";
         
+//        PrintWriter out = response.getWriter();
+//        out.println(query1 + "<br><br>");
         
         // If two cities
         if (listCity.size() > 1)
@@ -835,11 +873,13 @@ public class JourneyProcessing extends HttpServlet
             }
             if (chosenID != null && chosenID.size() > 0) // exclude chosen locations
             {
-                query2 += "AND ID NOT IN " + listID + " ";
+                query2 += "AND Locations.LocationID NOT IN " + listID + " ";
             }
             query2 += "GROUP BY ID "
                     + "ORDER BY AvgRate DESC, NumsRate DESC, Price ASC "
                     + "LIMIT " + numsLocations + ";";
+            
+//            out.println(query2 + "<br><br>");
         }
         
         
@@ -945,7 +985,6 @@ public class JourneyProcessing extends HttpServlet
             try {connection.close();} catch (Exception e) {}
         }
         
-//        return query1 + "<br>" + query2;
-          return listLocations;
+        return listLocations;
     }
 }
