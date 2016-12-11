@@ -4,6 +4,7 @@
     Author     : zovippro1996
 --%>
 
+<%@page import="Control.UserControl"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -110,7 +111,7 @@
         
         <!-- Banner -->
         <jsp:include page="_header.jsp" flush="true" />
-        
+        <jsp:useBean id="user" scope="session" class="UserControl" />
         
         <!-- Outmost DIV -->     
         <div class="outmost">
@@ -130,12 +131,12 @@
                     <!-- Name + username -->
                     <div style="padding-top:6.3%;">
                         <div style="font-size: 160%; font-weight: 600; color: white">
-                            Full Name
+                           <jsp:getProperty name="user" property="fullname" />
                             
                         </div>    
                         
                         <div style=" color:#d3ffee" >                        
-                            @username
+                            <jsp:getProperty name="user" property="username" />
                         </div>
                     </div>    
                 </div>
@@ -151,19 +152,19 @@
                         <br>
                         
                         <div>
-                            Total days traveling:                           
+                            DAYS of travel:                           
                         </div>
                         
                         <br>
                         
                         <div>
-                            Total countries visited: 
+                            Total COUNTRIES visited: 
                         </div>
                         
                         <br>
                         
                         <div>
-                            Total locations visited: 
+                            Total LOCATION visited: 
                         </div>
                         
                         
@@ -182,23 +183,23 @@
                         
                         <div  style =" margin-top:7%; ">
                             <div class="personalinfo">    
-                                Birthday : February 12 1996         
+                                Birthday : <jsp:getProperty name="user" property="DOB" />       
                             </div>
                             
                             <div class="personalinfo">
-                                Gender : Male
+                                Gender : <jsp:getProperty name="user" property="gender" />
                             </div>
                             
                             <div class="personalinfo">
-                                Mobile Phone : +012345678910
+                                Mobile Phone : <jsp:getProperty name="user" property="phone" />
                             </div>
                             
                             <div class="personalinfo">
-                                Email: thisisaemail1234@gmail.com
+                                Email: <jsp:getProperty name="user" property="email" />
                             </div>
                             
                             <div class="personalinfo">
-                                Country: Vietnam
+                                Country: <jsp:getProperty name="user" property="country" />
                             </div>
                             
                         </div>    
@@ -210,8 +211,7 @@
             
             
             
-            <!-- - - - - - - - Journey HERE - - - - - - - - - - -->
-            <!--         Thinh                 -->
+            <!-- - - - - - - - Journey HERE - - - - - - - - - - -->         
             
             <div style="background-color: red; color: white; margin-bottom: 5%;">
                 This is Account's Journeys <br> Input here <br><br>
