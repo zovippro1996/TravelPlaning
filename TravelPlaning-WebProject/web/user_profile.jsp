@@ -111,7 +111,7 @@
         
         <!-- Banner -->
         <jsp:include page="_header.jsp" flush="true" />
-        <jsp:useBean id="user" scope="session" class="UserControl" />
+        <jsp:useBean id="user" scope="session" class="Data.User" />
         
         <!-- Outmost DIV -->     
         <div class="outmost">
@@ -124,7 +124,7 @@
                 <!-- Avatar + Name -->
                 <div style="background-color: #40a0b2; padding-left: 3%; ">
                     <div>
-                        <img src="img/avatartest.jpg" alt="HTML5 Icon" class="avatarcss"> 
+                        <img src="<jsp:getProperty name="user" property="User_Avatar" />" alt="HTML5 Icon" class="avatarcss"> 
                     </div>    
                     
                     
