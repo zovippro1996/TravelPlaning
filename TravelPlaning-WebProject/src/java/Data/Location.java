@@ -5,7 +5,8 @@
  */
 package Data;
 
-//import java.util.List;
+import java.util.Collections;
+import java.util.List;
 
 /**
  *
@@ -24,7 +25,8 @@ public class Location {
     private boolean afternoon;      // to visit this location in the trip
     private boolean evening;        //
     private int day;            // the day to visit the location
-
+    private List<Comment> listComment; // store all the comments of the location
+    
 //    private List<String> review;
 //    private int providerID;    
 //    private double latitudeX;
@@ -218,5 +220,28 @@ public class Location {
      */
     public void setDay(int day) {
         this.day = day;
+    }
+
+    /**
+     * @return the listComment
+     */
+    public List<Comment> getListComment() {
+        return listComment;
+    }
+
+    /**
+     * @param comment to add comment to the listComment set
+     */
+    public void addComment(Comment comment) {
+        listComment.add(comment);
+    }
+    
+    /**
+     * @param description the description of the comment 
+     * @param rate the rate of the comment
+     */
+    public void addComment(String description, double rate) {
+        Comment comment = new Comment(description, rate);
+        listComment.add(comment);
     }
 }
