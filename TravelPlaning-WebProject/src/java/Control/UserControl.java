@@ -54,6 +54,7 @@ public class UserControl extends HttpServlet {
         String phone = request.getParameter("phone");
         String email = request.getParameter("email");
         String country = request.getParameter("country");
+        String User_Avatar = request.getParameter("User_Avatar");
 
         //Command for control
         String command = request.getParameter("command");
@@ -71,7 +72,7 @@ public class UserControl extends HttpServlet {
 
                     User user = new User(rs.getInt("ID"), rs.getString("username"), rs.getString("password"),
                             rs.getString("fullname"), rs.getDate("DOB"), rs.getString("gender"), rs.getString("phone"),
-                            rs.getString("email"), rs.getString("country"));
+                            rs.getString("email"), rs.getString("country"), rs.getString("User_Avatar"));
 
                     session.setAttribute("user", user);
 
