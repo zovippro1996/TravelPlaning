@@ -70,9 +70,9 @@ public class UserControl extends HttpServlet {
                 rs = st.executeQuery(query);
                 if (rs.next()) {
 
-                    User user = new User(rs.getInt("ID"), rs.getString("username"), rs.getString("password"),
-                            rs.getString("fullname"), rs.getDate("DOB"), rs.getString("gender"), rs.getString("phone"),
-                            rs.getString("email"), rs.getString("country"), rs.getString("User_Avatar"));
+                    User user = new User(rs.getInt("UserID"), rs.getString("Username"), rs.getString("Password"),
+                            rs.getString("Fullname"), rs.getDate("DOB"), rs.getString("Gender"), rs.getString("Phone"),
+                            rs.getString("Email"), rs.getString("City"), rs.getString("Country"), rs.getString("User_Avatar"));
 
                     session.setAttribute("user", user);
 
