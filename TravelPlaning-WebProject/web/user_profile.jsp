@@ -124,7 +124,7 @@
                 <!-- Avatar + Name -->
                 <div style="background-color: #40a0b2; padding-left: 3%; ">
                     <div>
-                        <img src="<jsp:getProperty name="user" property="User_Avatar" />" alt="HTML5 Icon" class="avatarcss"> 
+                        
                     </div>    
                     
                     
