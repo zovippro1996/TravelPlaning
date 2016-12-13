@@ -20,13 +20,14 @@ public class User {
     private String gender;
     private String phone;
     private String email;
+    private String city;
     private String country;
     private String User_Avatar;
 
     public User() {
     }
     
-    public User(int ID, String username, String password, String fullname, Date DOB, String gender, String phone, String email, String country, String User_Avatar) {
+    public User(int ID, String username, String password, String fullname, Date DOB, String gender, String phone, String email, String city, String country, String User_Avatar) {
         this.ID = ID;
         this.username = username;
         this.password = password;
@@ -35,6 +36,7 @@ public class User {
         this.gender = gender;
         this.phone = phone;
         this.email = email;
+        this.city = city;
         this.country = country;
         this.User_Avatar = User_Avatar;
     }
@@ -145,6 +147,20 @@ public class User {
     }
 
     /**
+     * @return the city
+     */
+    public String getCity() {
+        return city;
+    }
+
+    /**
+     * @param city the city to set
+     */
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    /**
      * @return the country
      */
     public String getCountry() {
@@ -158,13 +174,17 @@ public class User {
         this.country = country;
     }
 
+    /**
+     * @return the User_Avatar
+     */
     public String getUser_Avatar() {
         return User_Avatar;
     }
 
+    /**
+     * @param User_Avatar the User_Avatar to set
+     */
     public void setUser_Avatar(String User_Avatar) {
         this.User_Avatar = User_Avatar;
     }
-    
-    
 }
