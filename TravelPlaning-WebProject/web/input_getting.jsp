@@ -44,7 +44,6 @@
     if (!found)
     {
         Cookie cookie = new Cookie("visit", "on");
-        cookie.setMaxAge(24 * 60 * 60);     // remember user for a day
         response.addCookie(cookie);
 
         welcome = "Welcome, ";
@@ -59,8 +58,8 @@
         <meta name="generator" content="Mobirise v3.7.3, mobirise.com">
         <meta name="description" content="Getting inputs from user to generate journey.">
         <link rel="shortcut icon" href="assets/images/hexa1-128x128-80.png" type="image/x-icon">
-        <title>Plan Generate Interface</title>
-        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <title>Generating Plan for a Trip Interface</title>
+<!--        <link rel="stylesheet" type="text/css" href="css/style.css">-->
         <link rel="stylesheet" type="text/css" href="css/input_getting_style.css">
         <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">

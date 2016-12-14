@@ -6,7 +6,7 @@
 package Data;
 
 import java.sql.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  *
@@ -14,18 +14,36 @@ import java.util.List;
  */
 public class Journey {
     private int ID;
-    private int userID;
-    private List<Location> listLocation;
-    private String country;
-    private List<String> listCity;
-    private List<Integer> daysForCity;             // no. of days assign for each city
+    private int userID;         
     private double budget;
     private Date deployDate;
-    private String type;
     private int duration;
+    private String type;
     
-//    private List<String> listCountry;
+    private List<Day> listDays;             // specified list of locations
+                                            // based on which day to visit
+    private String country;                 // destination country for the journey
+    private List<String> listCity;          // list of cities visited in the journey
+    private List<Integer> daysCity;         // number of days spent on each city
 
+//    private List<String> listCountry;
+//    private List<Location> listLocation;
+    
+    public Journey()
+    {
+        
+    }
+    
+    public void computeBudget()
+    {
+        double totalBudget = 0;
+        for (int i = 0; i < listDays.size(); ++i)
+        {
+            totalBudget += listDays.get(i).getTotalPrice();
+        }
+        this.budget = totalBudget;
+    }
+    
     /**
      * @return the ID
      */
@@ -52,62 +70,6 @@ public class Journey {
      */
     public void setUserID(int userID) {
         this.userID = userID;
-    }
-
-    /**
-     * @return the listLocation
-     */
-    public List<Location> getListLocation() {
-        return listLocation;
-    }
-
-    /**
-     * @param listLocation the listLocation to set
-     */
-    public void setListLocation(List<Location> listLocation) {
-        this.listLocation = listLocation;
-    }
-
-    /**
-     * @return the country
-     */
-    public String getCountry() {
-        return country;
-    }
-
-    /**
-     * @param country the country to set
-     */
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    /**
-     * @return the listCity
-     */
-    public List<String> getListCity() {
-        return listCity;
-    }
-
-    /**
-     * @param listCity the listCity to set
-     */
-    public void setListCity(List<String> listCity) {
-        this.listCity = listCity;
-    }
-
-    /**
-     * @return the daysForCity
-     */
-    public List<Integer> getDaysForCity() {
-        return daysForCity;
-    }
-
-    /**
-     * @param daysForCity the daysForCity to set
-     */
-    public void setDaysForCity(List<Integer> daysForCity) {
-        this.daysForCity = daysForCity;
     }
 
     /**
@@ -139,6 +101,20 @@ public class Journey {
     }
 
     /**
+     * @return the duration
+     */
+    public int getDuration() {
+        return duration;
+    }
+
+    /**
+     * @param duration the duration to set
+     */
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    /**
      * @return the type
      */
     public String getType() {
@@ -153,16 +129,58 @@ public class Journey {
     }
 
     /**
-     * @return the duration
+     * @return the listDays
      */
-    public int getDuration() {
-        return duration;
+    public List<Day> getListDays() {
+        return listDays;
     }
 
     /**
-     * @param duration the duration to set
+     * @param listDays the listDays to set
      */
-    public void setDuration(int duration) {
-        this.duration = duration;
+    public void setListDays(List<Day> listDays) {
+        this.listDays = listDays;
+    }
+
+    /**
+     * @return the country
+     */
+    public String getCountry() {
+        return country;
+    }
+
+    /**
+     * @param country the country to set
+     */
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    /**
+     * @return the listCity
+     */
+    public List<String> getListCity() {
+        return listCity;
+    }
+
+    /**
+     * @param listCity the listCity to set
+     */
+    public void setListCity(List<String> listCity) {
+        this.listCity = listCity;
+    }
+
+    /**
+     * @return the daysCity
+     */
+    public List<Integer> getDaysCity() {
+        return daysCity;
+    }
+
+    /**
+     * @param daysCity the daysCity to set
+     */
+    public void setDaysCity(List<Integer> daysCity) {
+        this.daysCity = daysCity;
     }
 }
