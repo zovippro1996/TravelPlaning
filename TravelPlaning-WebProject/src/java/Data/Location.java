@@ -12,6 +12,7 @@ package Data;
  * @author CREAT10N
  */
 public class Location {
+    private final String DEFAULT_IMAGE = "default image";
     private int ID;
     private String type;
     private String name;
@@ -20,10 +21,11 @@ public class Location {
     private double price;
     private String description;
     private double avgRate;
-    private boolean morning;        // state the period (morning | afternoon | evening)
-    private boolean afternoon;      // to visit this location in the trip
-    private boolean evening;        //
-    private int day;            // the day to visit the location
+    private boolean morning;            // state the period (morning | afternoon | evening)
+    private boolean afternoon;          // to visit this location in the trip
+    private boolean evening;            //
+    private int day;                    // the day to visit the location
+    private String image;               // link to image registered for the location
 
 //    private List<String> review;
 //    private int providerID;    
@@ -35,9 +37,10 @@ public class Location {
         return String.format("Name: %s&nbsp;&nbsp;City: %s&nbsp;&nbsp;Country: %s<br>"
                 + "&nbsp;&nbsp;Day: %d&nbsp;&nbsp;Price: $%.2f&nbsp;&nbsp;"
                 + "Type: %s&nbsp;&nbsp;Average rate: %.2f"
-                + "<br>&nbsp;&nbsp;Description:&nbsp;&nbsp;%s"
+                + "<br>&nbsp;&nbsp;Description: %s"
+                + "<br>&nbsp;&nbsp;Image URL: %s\n"
                 , getName(), getCity(), getCountry(), getDay(), getPrice(),
-                getType(), getAvgRate(), getDescription());
+                getType(), getAvgRate(), getDescription(), getImage());
     }
     
     public String period()
@@ -218,5 +221,21 @@ public class Location {
      */
     public void setDay(int day) {
         this.day = day;
+    }
+
+    /**
+     * @return the image
+     */
+    public String getImage() {
+        if (image == null || image.length() == 0)   // not specified --> return default image
+            return DEFAULT_IMAGE;
+        return image;
+    }
+
+    /**
+     * @param image the image to set
+     */
+    public void setImage(String image) {
+        this.image = image;
     }
 }
