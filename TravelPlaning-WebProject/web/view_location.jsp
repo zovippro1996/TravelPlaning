@@ -4,10 +4,13 @@
     Author     : CREAT10N
 --%>
 
+<%@page import="com.dropbox.core.v2.DbxClientV2"%>
+<%@page import="com.dropbox.core.*"%>
 <%@page import="Data.*"%>
 <%@page import="Connect.DBConnect"%>
 <%@page import="java.util.*"%>
 <%@page import="java.sql.*"%>
+<%@page import="Control.ImageController"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -137,7 +140,7 @@
 
             Statement st = c.createStatement();
             ResultSet rs;
-            String query = "select * from Locations where LocationID='" + LocationID + "'";
+            String query = "SELECT * FROM Locations WHERE LocationID='" + LocationID + "'";
             rs = st.executeQuery(query);
             if (rs.next()) {
                 l.setID(rs.getInt("LocationID"));
@@ -152,12 +155,25 @@
         <!--Get the list of comment from the location and display the top-3 rated-->
         <%
             List<Comment> listComment = new ArrayList<Comment>();
-            query = "SELECT * FROM Comments WHERE LocationID='" + LocationID
-                    + "' ORDER BY Rate DESC LIMIT 3";
+            query = "SELECT * FROM Comments WHERE LocationID='" + LocationID + "' ORDER BY Rate DESC LIMIT 3";
             rs = st.executeQuery(query);
             while (rs.next()) {
                 Comment comment = new Comment(rs.getString("Description"), rs.getDouble("Rate"));
                 listComment.add(comment);
+            }
+        %>
+
+        <!--Get the location image from dropbox repository-->
+        <%
+            String ACCESS_TOKEN = "cKh3tEi-r1AAAAAAAAAKCWzcDYB7Sm2XAJaYkzxhdvq-viW81Uk22j7hgL3-6rFU";
+            DbxRequestConfig requestConfig = new DbxRequestConfig("tp-transfer-file");
+            DbxClientV2 dbxClient = new DbxClientV2(requestConfig, ACCESS_TOKEN);
+            String image_url = null;
+            try {
+                String path = "/User_Avatar/" + LocationID + ".png";
+                image_url = dbxClient.files().getTemporaryLink(path).getLink();
+            } catch(DbxException e) {
+               
             }
         %>
     </head>
@@ -173,7 +189,8 @@
 
             <!--Picture of the location-->
             <div id="picture">
-                <img src="img/PicforBackgroundWLCpage/slide1.jpg" class="img-responsive" width="100%" height="350px"/>
+                <img src="<%=image_url%>" alt="This location image has been removed" 
+                     class="img-responsive" width="100%" height="350px"/>
             </div>
 
             <!--Some information of the location-->
@@ -222,7 +239,8 @@
             <!--User's comment rated-->
             <div class="comment-rate">
                 <div class="star-ratings-sprite">
-                    <span style="width:<%=listComment.get(i).getRate() * 100 / 5%>%;" class="star-ratings-sprite-rating"></span>
+                    <span style="width:<%=listComment.get(i).getRate() * 100 / 5%>%;" 
+                          class="star-ratings-sprite-rating"></span>
                 </div>
             </div><br>
             <hr>
