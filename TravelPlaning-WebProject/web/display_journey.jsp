@@ -19,6 +19,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic&amp;subset=latin">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
+        <link href="https://fonts.googleapis.com/css?family=Lato:700" rel="stylesheet">
         <link rel="stylesheet" href="assets/et-line-font-plugin/style.css">
         <link rel="stylesheet" href="assets/bootstrap-material-design-font/css/material.css">
         <link rel="stylesheet" href="assets/tether/tether.min.css">
@@ -38,18 +39,41 @@
             <div id="panel">
                 <div class="wrapper">
                     <div id="title-block">
-                        <div class="days">
-                            <span class="num-class">8</span>
+                        <span class="days">
+                            <span class="num-class">9</span>
                             <span class="text-class">DAYS</span>
-                        </div>
-                        <div class="title">
+                        </span>
+                        <span class="border"></span>
+                        <span class="title">
                             Australia
-                        </div>
+                        </span>
                     </div>
                 </div>
             </div>
             
+            <br>
+            
             <!-- Display visited cities -->
+            <div class="row">
+                <div class="col-md-offset-1 col-md-4 city-block">
+                    <span class="number">5</span>
+                    <i>days in</i>
+                    <span class="text-city">Sydney</span>
+                </div>
+                <div class="col-md-offset-2 col-md-4 city-block">
+                    <span class="number">4</span>
+                    <i>days in</i>
+                    <span class="text-city">Canberra</span>
+                </div>
+            </div>
+            
+            <br>
+            
+            <!-- Display list of locations grouped by day visit -->
+            <div class="wrapper-locations">
+                
+            </div>
+            
         </div>
         <div id="footer">
             <jsp:include page="_footer.jsp" flush="true" />
