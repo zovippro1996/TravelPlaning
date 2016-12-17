@@ -4,9 +4,7 @@
     Author     : krankai
 --%>
 
-<%@page import="com.dropbox.core.DbxException"%>
-<%@page import="com.dropbox.core.v2.DbxClientV2"%>
-<%@page import="com.dropbox.core.DbxRequestConfig"%>
+<%@page import="Control.ImageControl"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Data.*" %>
 
@@ -37,19 +35,11 @@
                                 User user = (User) session.getAttribute("user");
 
                                 if (user != null) {
-                                    String ACCESS_TOKEN = "cKh3tEi-r1AAAAAAAAAKCWzcDYB7Sm2XAJaYkzxhdvq-viW81Uk22j7hgL3-6rFU";
-                                    DbxRequestConfig requestConfig = new DbxRequestConfig("tp-transfer-file");
-                                    DbxClientV2 dbxClient = new DbxClientV2(requestConfig, ACCESS_TOKEN);
-                                    String image_url = null;
-                                    try {
-                                        String path = "/User_Avatar/" + Integer.toString(user.getID()) + ".png";
-                                        image_url = dbxClient.files().getTemporaryLink(path).getLink();
-                                    } catch (DbxException e) {
-
-                                    }
                             %>
                             <div style="text-align: center;">
-                                <img src="<%=image_url%>" width="100" height="100"/>
+                                <!--Getting User Avatar from dropbox repository-->
+                                <img src="<%=ImageControl.importUserAvatar(user.getID())%>" 
+                                     alt="This user avatar has been removed" width="100" height="100"/>
                                 <a href="#">Username: <%=user.getUsername()%></a>
                                 <a href="#">Email: <%=user.getEmail()%></a>
                                 <a href="#">Previous trips:</a>
