@@ -11,15 +11,63 @@ package Data;
  */
 public class Comment{
 
+    private int commentID;
+    private int userID;
+    private int locationID;
     private String description;
     private double rate;
 
     public Comment() {
     }
 
-    public Comment(String description, double rate) {
+    public Comment(int commentID, int userID, int locationID, String description, double rate) {
+        this.commentID = commentID;
+        this.userID = userID;
+        this.locationID = locationID;
         this.description = description;
         this.rate = rate;
+    }
+
+    /**
+     * @return the commentID
+     */
+    public int getCommentID() {
+        return commentID;
+    }
+
+    /**
+     * @param commentID the commentID to set
+     */
+    public void setCommentID(int commentID) {
+        this.commentID = commentID;
+    }
+
+    /**
+     * @return the userID
+     */
+    public int getUserID() {
+        return userID;
+    }
+
+    /**
+     * @param userID the userID to set
+     */
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
+    /**
+     * @return the locationID
+     */
+    public int getLocationID() {
+        return locationID;
+    }
+
+    /**
+     * @param locationID the locationID to set
+     */
+    public void setLocationID(int locationID) {
+        this.locationID = locationID;
     }
 
     /**
@@ -48,5 +96,5 @@ public class Comment{
      */
     public void setRate(double rate) {
         this.rate = rate;
-    }    
+    }
 }

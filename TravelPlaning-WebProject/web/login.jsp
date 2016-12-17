@@ -46,6 +46,7 @@
                 width: 100%;
             }
             #content{
+                height: 90vh;
                 z-index: 1;
             }           
             #login{
@@ -325,9 +326,7 @@
             </div>
         </div>
 
-        <div id="footer">
-            <jsp:include page="_footer.jsp" flush="true"/>
-        </div>
+        <jsp:include page="_footer.jsp" flush="true"/>
 
         <script>
 //            var Var;

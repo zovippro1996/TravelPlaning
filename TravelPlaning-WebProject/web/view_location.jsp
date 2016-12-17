@@ -150,13 +150,14 @@
             }
         %>
 
-        <!--Get the list of comment from the location and display the top-3 rated-->
+        <!--Get the list of comment from the location-->
         <%
             List<Comment> listComment = new ArrayList<Comment>();
-            query = "SELECT * FROM Comments WHERE LocationID='" + LocationID + "' ORDER BY Rate DESC LIMIT 3";
+            query = "SELECT * FROM Comments WHERE LocationID='" + LocationID + "' ORDER BY Rate DESC";
             rs = st.executeQuery(query);
             while (rs.next()) {
-                Comment comment = new Comment(rs.getString("Description"), rs.getDouble("Rate"));
+                Comment comment = new Comment(rs.getInt("CommentID"), rs.getInt("UserID"),
+                        rs.getInt("LocationID"), rs.getString("Description"), rs.getDouble("Rate"));
                 listComment.add(comment);
             }
         %>
@@ -191,7 +192,15 @@
             <!--Star rating of the location-->
             <div id="rated">
                 <div class="star-ratings-sprite">
-                    <span style="width:50%" class="star-ratings-sprite-rating"></span>
+                    <!--Calculate the location average rating--> 
+                    <%
+                        double avg = 0;
+                        for (int i = 0; i < listComment.size(); i++) {
+                            avg += listComment.get(i).getRate();
+                        }
+                        avg = avg / listComment.size();
+                    %>
+                    <span style="width:<%=avg * 100 / 5%>%" class="star-ratings-sprite-rating"></span>
                 </div>
             </div>
 
@@ -210,11 +219,17 @@
             <hr>
 
             <!--Using for loop to show 3 highest rated comments-->
-            <%for (int i = 0; i < listComment.size(); i++) {%>
+            <%
+                for (int i = 0; i < listComment.size(); i++) {
+                    if (i == 3) {
+                        break;
+                    }
+            %>
 
             <!--User avatar-->
             <div class="comment-avatar">
-                <img src="img/twitter.png" class="img-circle" width="75px" height="75px"/>
+                <img src="<%=ImageControl.importUserAvatar(listComment.get(i).getUserID())%>" 
+                     class="img-circle" width="75px" height="75px"/>
             </div>
 
             <!--User's comment description-->
