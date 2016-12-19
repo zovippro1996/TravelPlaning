@@ -14,6 +14,10 @@
         <link rel="shortcut icon" href="assets/images/hexa1-128x128-80.png" type="image/x-icon">
         <title>Display Journey</title>
         <link rel="stylesheet" type="text/css" href="css/display_journey_style.css">
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
+        <script src="js/jquery-3.1.1.min.js"></script>
+        <script type="text/javascript" src="assets/bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic&amp;subset=latin">
@@ -37,7 +41,7 @@
         <div class="container" id="body-display">
             <!-- Panel -->
             <div id="panel">
-                <div class="wrapper">
+                <div class="wrapper-title">
                     <div id="title-block">
                         <span class="days">
                             <span class="num-class">9</span>
@@ -57,12 +61,15 @@
             <div class="row">
                 <div class="col-md-offset-1 col-md-4 city-block">
                     <span class="number">5</span>
-                    <i>days in</i>
+                    <i style="font-size: 1.3em">days in</i>
                     <span class="text-city">Sydney</span>
                 </div>
-                <div class="col-md-offset-2 col-md-4 city-block">
+                <div class="col-md-2">
+                    <img src="img/black-plane.png" class="center-block">
+                </div>
+                <div class="col-md-4 city-block">
                     <span class="number">4</span>
-                    <i>days in</i>
+                    <i style="font-size: 1.3em">days in</i>
                     <span class="text-city">Canberra</span>
                 </div>
             </div>
@@ -71,9 +78,109 @@
             
             <!-- Display list of locations grouped by day visit -->
             <div class="wrapper-locations">
-                
+                <div>
+
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs nav-style" role="tablist">
+                        <li role="presentation" class="active"><a href="#overview" aria-controls="overview" role="tab" data-toggle="tab">Overview</a></li>
+                        <li role="presentation"><a href="#sydney" aria-controls="sydney" role="tab" data-toggle="tab">Sydney</a></li>
+                        <li role="presentation"><a href="#canberra" aria-controls="canberra" role="tab" data-toggle="tab">Canberra</a></li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade in active" id="overview">
+                            <ul>
+                                <li class="block-text"><strong><em>Country</em>:</strong> Australia</li>
+                                <li class="block-text"><strong><em>Cities</em>:</strong> Sydney and Canberra</li>
+                                <li class="block-text"><strong><em>Duration</em>:</strong> 9 days</li>
+                                <li class="block-text"><strong><em>Estimated budget</em>:</strong> $900</li>
+                                <li class="block-text"><strong><em>Type</em>:</strong> Sightseeing</li>
+                                <li class="block-text"><strong><em>Deploy date</em>:</strong> Unknown</li>
+                            </ul>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="sydney">
+                            <table width="100%">
+                                <tr><h1 class="day-title">Day 1</h1></tr>
+                                <tr>
+                                    <td class="period-block">
+                                        Morning
+                                    </td>
+                                    <td class="img-block"><img src="http://placehold.it/250x250"
+                                            class="img-thumbnail" alt="location-img"</td>
+                                    <td class="location-block">
+                                        <h2>Location</h2>
+                                        <p>Lorem ipsum dolor sit amet, consectetur
+                                            adipiscing elit. Nulla vitae mi rutrum,
+                                            ultricies augue ac, faucibus sapien.
+                                            Ut feugiat justo eu libero interdum blandit.
+                                            In rhoncus cursus nunc, quis maximus
+                                            neque viverra quis. Donec tempor dictum
+                                            metus quis efficitur. Morbi id eros diam.
+                                            Maecenas fermentum nisl at pulvinar tristique.
+                                            Sed ante turpis, egestas ac risus non,
+                                            fringilla ultrices urna. Morbi pharetra
+                                            consectetur ligula, posuere fermentum
+                                            ante lobortis a. Donec quis fermentum erat.
+                                            Mauris facilisis facilisis scelerisque.
+                                            In sed lobortis felis.</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="period-block">
+                                        Afternoon
+                                    </td>
+                                    <td class="img-block"><img src="http://placehold.it/250x250"
+                                            class="img-thumbnail" alt="location-img"</td>
+                                    <td class="location-block">
+                                        <h2>Location</h2>
+                                        <p>Lorem ipsum dolor sit amet, consectetur
+                                            adipiscing elit. Nulla vitae mi rutrum,
+                                            ultricies augue ac, faucibus sapien.
+                                            Ut feugiat justo eu libero interdum blandit.
+                                            In rhoncus cursus nunc, quis maximus
+                                            neque viverra quis. Donec tempor dictum
+                                            metus quis efficitur. Morbi id eros diam.
+                                            Maecenas fermentum nisl at pulvinar tristique.
+                                            Sed ante turpis, egestas ac risus non,
+                                            fringilla ultrices urna. Morbi pharetra
+                                            consectetur ligula, posuere fermentum
+                                            ante lobortis a. Donec quis fermentum erat.
+                                            Mauris facilisis facilisis scelerisque.
+                                            In sed lobortis felis.</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="period-block">Evening</td>
+                                    <td class="img-block"><img src="http://placehold.it/250x250"
+                                            class="img-thumbnail" alt="location-img"</td>
+                                    <td class="location-block">
+                                        <h2>Location</h2>
+                                        <p>Lorem ipsum dolor sit amet, consectetur
+                                            adipiscing elit. Nulla vitae mi rutrum,
+                                            ultricies augue ac, faucibus sapien.
+                                            Ut feugiat justo eu libero interdum blandit.
+                                            In rhoncus cursus nunc, quis maximus
+                                            neque viverra quis. Donec tempor dictum
+                                            metus quis efficitur. Morbi id eros diam.
+                                            Maecenas fermentum nisl at pulvinar tristique.
+                                            Sed ante turpis, egestas ac risus non,
+                                            fringilla ultrices urna. Morbi pharetra
+                                            consectetur ligula, posuere fermentum
+                                            ante lobortis a. Donec quis fermentum erat.
+                                            Mauris facilisis facilisis scelerisque.
+                                            In sed lobortis felis.</p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="canberra">
+                            Locations visit in Canberra
+                        </div>
+                    </div>
+
+                </div>
             </div>
-            
         </div>
         <div id="footer">
             <jsp:include page="_footer.jsp" flush="true" />
