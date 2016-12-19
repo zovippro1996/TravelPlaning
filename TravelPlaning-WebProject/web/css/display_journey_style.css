@@ -109,7 +109,6 @@ span.text-class {
 
 .wrapper-locations {
     height: auto;
-    border: black thin solid;
     box-shadow: 0px 3px 3px 5px #888888;
 }
 
@@ -144,10 +143,6 @@ span.text-class {
 
 .day-title {
     font-weight: 600;
-    font-style: oblique;
-    padding-left: 30px;
-}
-
-table {
-    border: 1px solid black;
+    font-style: italic;
+    padding-left: 60px;
 }

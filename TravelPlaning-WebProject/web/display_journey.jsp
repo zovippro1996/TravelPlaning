@@ -14,9 +14,7 @@
         <link rel="shortcut icon" href="assets/images/hexa1-128x128-80.png" type="image/x-icon">
         <title>Display Journey</title>
         <link rel="stylesheet" type="text/css" href="css/display_journey_style.css">
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
         <script src="js/jquery-3.1.1.min.js"></script>
-        <script type="text/javascript" src="assets/bootstrap/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -33,6 +31,7 @@
         <link rel="stylesheet" href="assets/dropdown/css/style.css">
         <link rel="stylesheet" href="assets/theme/css/style.css">
         <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+        <link rel="stylesheet" href="css/weather-icons.min.css" type="text/css">
     </head>
     <body>
         <div id ="header">
@@ -92,7 +91,7 @@
                         <div role="tabpanel" class="tab-pane fade in active" id="overview">
                             <ul>
                                 <li class="block-text"><strong><em>Country</em>:</strong> Australia</li>
-                                <li class="block-text"><strong><em>Cities</em>:</strong> Sydney and Canberra</li>
+                                <li class="block-text"><strong><em>Cities</em>:</strong> Sydney <em>and</em> Canberra</li>
                                 <li class="block-text"><strong><em>Duration</em>:</strong> 9 days</li>
                                 <li class="block-text"><strong><em>Estimated budget</em>:</strong> $900</li>
                                 <li class="block-text"><strong><em>Type</em>:</strong> Sightseeing</li>
@@ -100,14 +99,16 @@
                             </ul>
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="sydney">
+                            <!-- Day 1 -->
+                            <h1 class="day-title">Day 1</h1>
                             <table width="100%">
-                                <tr><h1 class="day-title">Day 1</h1></tr>
                                 <tr>
                                     <td class="period-block">
                                         Morning
+                                        <i class="wi wi-sunrise"></i>
                                     </td>
                                     <td class="img-block"><img src="http://placehold.it/250x250"
-                                            class="img-thumbnail" alt="location-img"</td>
+                                           class="img-thumbnail" alt="location-img"></td>
                                     <td class="location-block">
                                         <h2>Location</h2>
                                         <p>Lorem ipsum dolor sit amet, consectetur
@@ -129,9 +130,10 @@
                                 <tr>
                                     <td class="period-block">
                                         Afternoon
+                                        <i class="wi wi-day-sunny"></i>
                                     </td>
                                     <td class="img-block"><img src="http://placehold.it/250x250"
-                                            class="img-thumbnail" alt="location-img"</td>
+                                           class="img-thumbnail" alt="location-img"></td>
                                     <td class="location-block">
                                         <h2>Location</h2>
                                         <p>Lorem ipsum dolor sit amet, consectetur
@@ -151,9 +153,122 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="period-block">Evening</td>
+                                    <td class="period-block">
+                                        Evening
+                                        <i class="wi wi-night-clear"></i>
+                                    </td>
                                     <td class="img-block"><img src="http://placehold.it/250x250"
-                                            class="img-thumbnail" alt="location-img"</td>
+                                           class="img-thumbnail" alt="location-img"></td>
+                                    <td class="location-block">
+                                        <h2>Location</h2>
+                                        <p>Lorem ipsum dolor sit amet, consectetur
+                                            adipiscing elit. Nulla vitae mi rutrum,
+                                            ultricies augue ac, faucibus sapien.
+                                            Ut feugiat justo eu libero interdum blandit.
+                                            In rhoncus cursus nunc, quis maximus
+                                            neque viverra quis. Donec tempor dictum
+                                            metus quis efficitur. Morbi id eros diam.
+                                            Maecenas fermentum nisl at pulvinar tristique.
+                                            Sed ante turpis, egestas ac risus non,
+                                            fringilla ultrices urna. Morbi pharetra
+                                            consectetur ligula, posuere fermentum
+                                            ante lobortis a. Donec quis fermentum erat.
+                                            Mauris facilisis facilisis scelerisque.
+                                            In sed lobortis felis.</p>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <!-- Day 2 -->
+                            <h1 class="day-title">Day 2</h1>
+                            <table width="100%">
+                                <tr>
+                                    <td class="period-block">
+                                        Morning
+                                        <i class="wi wi-sunrise"></i>
+                                    </td>
+                                    <td class="img-block"><img src="http://placehold.it/250x250"
+                                           class="img-thumbnail" alt="location-img"></td>
+                                    <td class="location-block">
+                                        <h2>Location</h2>
+                                        <p>Lorem ipsum dolor sit amet, consectetur
+                                            adipiscing elit. Nulla vitae mi rutrum,
+                                            ultricies augue ac, faucibus sapien.
+                                            Ut feugiat justo eu libero interdum blandit.
+                                            In rhoncus cursus nunc, quis maximus
+                                            neque viverra quis. Donec tempor dictum
+                                            metus quis efficitur. Morbi id eros diam.
+                                            Maecenas fermentum nisl at pulvinar tristique.
+                                            Sed ante turpis, egestas ac risus non,
+                                            fringilla ultrices urna. Morbi pharetra
+                                            consectetur ligula, posuere fermentum
+                                            ante lobortis a. Donec quis fermentum erat.
+                                            Mauris facilisis facilisis scelerisque.
+                                            In sed lobortis felis.</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="period-block">
+                                        Afternoon
+                                        <i class="wi wi-day-sunny"></i>
+                                    </td>
+                                    <td class="img-block"><img src="http://placehold.it/250x250"
+                                           class="img-thumbnail" alt="location-img"></td>
+                                    <td class="location-block">
+                                        <h2>Location</h2>
+                                        <p>Lorem ipsum dolor sit amet, consectetur
+                                            adipiscing elit. Nulla vitae mi rutrum,
+                                            ultricies augue ac, faucibus sapien.
+                                            Ut feugiat justo eu libero interdum blandit.
+                                            In rhoncus cursus nunc, quis maximus
+                                            neque viverra quis. Donec tempor dictum
+                                            metus quis efficitur. Morbi id eros diam.
+                                            Maecenas fermentum nisl at pulvinar tristique.
+                                            Sed ante turpis, egestas ac risus non,
+                                            fringilla ultrices urna. Morbi pharetra
+                                            consectetur ligula, posuere fermentum
+                                            ante lobortis a. Donec quis fermentum erat.
+                                            Mauris facilisis facilisis scelerisque.
+                                            In sed lobortis felis.</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="period-block">
+                                        Evening
+                                        <i class="wi wi-night-clear"></i>
+                                    </td>
+                                    <td class="img-block"><img src="http://placehold.it/250x250"
+                                           class="img-thumbnail" alt="location-img"></td>
+                                    <td class="location-block">
+                                        <h2>Location</h2>
+                                        <p>Lorem ipsum dolor sit amet, consectetur
+                                            adipiscing elit. Nulla vitae mi rutrum,
+                                            ultricies augue ac, faucibus sapien.
+                                            Ut feugiat justo eu libero interdum blandit.
+                                            In rhoncus cursus nunc, quis maximus
+                                            neque viverra quis. Donec tempor dictum
+                                            metus quis efficitur. Morbi id eros diam.
+                                            Maecenas fermentum nisl at pulvinar tristique.
+                                            Sed ante turpis, egestas ac risus non,
+                                            fringilla ultrices urna. Morbi pharetra
+                                            consectetur ligula, posuere fermentum
+                                            ante lobortis a. Donec quis fermentum erat.
+                                            Mauris facilisis facilisis scelerisque.
+                                            In sed lobortis felis.</p>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <!-- Day 3 -->
+                            <h1 class="day-title">Day 3</h1>
+                            <table width="100%">
+                                <tr>
+                                    <td class="period-block">
+                                        All day
+                                        <i class="wi wi-time-3"></i>
+                                    </td>
+                                    <td class="img-block"><img src="http://placehold.it/250x250"
+                                           class="img-thumbnail" alt="location-img"></td>
                                     <td class="location-block">
                                         <h2>Location</h2>
                                         <p>Lorem ipsum dolor sit amet, consectetur
