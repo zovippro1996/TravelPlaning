@@ -30,6 +30,11 @@ Author : Trung Pham
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <link rel="stylesheet" type="text/css" href="css/w3.css">
   
+  <script type= "text/javascript" src = "country_city_list.js"></script>
+  
+  
+      
+      
   <style type="text/css">
       .signupform {
           
@@ -38,16 +43,11 @@ Author : Trung Pham
           background:  #daffc7 ; 
           margin-left: 26%; 
           margin-right: 26%;
-         
-          
+               
       }
      
-      .formfieldcontent{
-          padding: 1%;
-          font-size: 100%;
-          margin-left: 3%;
-          margin-bottom: 1%;
-      }
+      #parallelogram {  -webkit-transform: skew(20deg); -moz-transform: skew(20deg); -o-transform: skew(20deg); background: whitesmoke; }
+     
       
       legend{
           
@@ -63,9 +63,31 @@ Author : Trung Pham
       
       }
       
-      select{     
-          padding: 2px;
+    
+      
+      .outmost{
+          margin-left: 15%; 
+          margin-right:15%;
+          padding-top:5%; 
+          margin-bottom: 10%; 
+          align-content: center;
+          position: relative;
+          
       }
+          
+       .error{   
+           color:#D8000C;
+           font-size: 70%; 
+           padding-left: 17%
+          }    
+          
+       .success{
+           color:#4F8A10;
+           font-size: 70%;
+           padding-left: 23.5%;   
+          }
+       
+         
       
   </style>
   
@@ -73,11 +95,11 @@ Author : Trung Pham
     
     
     
-    <body>
+    <body onload="initialize();">
  <!-- Banner Copy  -->
- 
+
       <jsp:include page="_header.jsp" flush="true" />
-        
+
         <!-- - - - - - - - - Background - - - - - - - - - - -->
         
         <div id="background-slide" style="position: fixed">
@@ -91,26 +113,29 @@ Author : Trung Pham
         
      <!-- - - - - - - - - - Begin OutMost Div - - - - - - - -->
      
-        <div  style="margin-left: 15%; margin-right:15%;padding-top:5%; margin-bottom: 10%; align-content: center;">
+        <div  class="outmost" >
             
-            <div style="text-align: center; font-size: 340%; margin-bottom:1%; font-style: oblique;">
+            <div style="text-align: center; font-size: 340%; font-style: oblique " id="parallelogram">
                 Create your  Account
                 <br>
-                <span style = "font-size : 37.5%">Fill In The Boarding Ticket
-                    And We Are Ready</span>
+                <span style = "font-size : 37.5%">
+                    Fill In The Boarding Ticket
+                    And We Are Ready
+                </span>
             </div>
         
-            
+            <br>
            
             
             <!-- - - - - - - - - - FORM - - - - - - - -->
             
             
             <div class="signupform">
-                <form action="UserControl" method="POST">
+                <form action="UserControl" method="POST" onsubmit="return validateForm();">
                       <input type="hidden" name="command" value="signupaccount">
                 
-                
+                      
+                      
                 <!-- - - - - - -USERNAME + PASS - - - - - -->    
                  <div style="margin-bottom: 4%">
                     <fieldset>
@@ -121,18 +146,18 @@ Author : Trung Pham
                              
                              
                              <!-- Username -->
-                             <input type="text" size="25" placeholder="Username" maxlength ="25" class="form-control" id="username" onblur="CheckUsername_available(this.value)" name="username" style="width: 55%;" required>
-                             <span id="username_status"> </span>
+                             <input type="text" size="25" placeholder="Username" maxlength ="25" class="form-control" id="username" name="username" style="width: 55%;">
+                             
                         
                              <!-- Password -->
-                             <input class="form-control" size="25" placeholder="Password" name="password" type="password" id="password" onkeyup="CheckPasswordStrength(this.value)" style="width: 55%;" required>
+                             <input class="form-control" size="25" placeholder="Password" name="password" type="password" id="password" onkeyup="CheckPasswordStrength(this.value);CheckPassword()" style="width: 55%;">
                                 <span id="password_strength" style="font-size:70%; padding-left: 25%"></span>
                            
                                 <br>
                                 
                              <!-- Confirm Password -->
-                             <input class="form-control"  size="25" placeholder="Confirm Password" name="confirmpassword" type="password" id="confirm_password" onkeyup="CheckPassword(this.value)" style="width: 55%;" required>
-                                <span id="confirm_pass"> </span>
+                             <input class="form-control"  size="25" placeholder="Confirm Password" type="password" id="confirm_password" onkeyup="CheckPassword()" style="width: 55%;">
+                             <span id="confirm_pass"> </span>
                    
                         
                         </div> 
@@ -150,8 +175,9 @@ Author : Trung Pham
                         
                          <div class="form-group">
                            
-                             <input type="text" size="30" placeholder="First" maxlength ="30" class="form-control" id="firstname" name="firstname" style="width: 50%;">
-                             <input type="text" size="30" placeholder="Last" maxlength ="30" class="form-control" id="lastname" name="lastname" style="width: 50%;">
+                            
+                             <input type="text" size="30" placeholder="First" maxlength ="30" class="form-control" id="firstname" name="firstname" style="width: 48%; float:left;">
+                             <input type="text" size="30" placeholder="Last" maxlength ="30" class="form-control" id="lastname" name="lastname" style="width: 48%; float: right">
                            
                          </div> 
                         
@@ -162,17 +188,17 @@ Author : Trung Pham
                 
                 <!-- - - - - - - - Birthday - - - - - -->
                 
-             <div style="margin-bottom: 4%">
+             <div >
                     <fieldset>
                         
                         <legend>Birthday</legend>
-                        
-                        <label>
+                         
                             
                             
-                            
+                          
                            <!-- - - - - - - Month - - - - - -  -->  
-                           <select name="DOBmonth">
+                           <label>
+                           <select name="DOBmonth" class="form-control" style="float: left">
                                 
                                 <option value="01">January</option>
                                 <option value="02">February</option>
@@ -188,13 +214,13 @@ Author : Trung Pham
                                 <option value="12">December</option>
                                 
                             </select>
-                        </label>
+                           </label>
                         
                         
                         <label>
                             
                            <!-- - - - - - -DAY - - - - - - - -->  
-                           <select name="DOBday">
+                           <select name="DOBday" class="form-control" style="float:left">
                                 
                                 <option value="01">01</option>
                                 <option value="02">02</option>
@@ -231,12 +257,13 @@ Author : Trung Pham
                             </select>
                         </label>
                         
+                         <!-- - - - - - -YEAR - - - - - - - --> 
+                         <label>
+                            <input class ="form-control"  type="text" pattern="[0-9]{4}" maxlength="4" size="4" name="DOByear" id="birthyear" placeholder="Year">
+                         </label>
                         
                         
-                        <!-- - - - - - -YEAR - - - - - - - --> 
-                        <label>
-                            <input class ="formfieldcontent" type="text" pattern="[0-9]{4}" maxlength="4" size="4" name="DOByear" id="Birthyear" placeholder="Year"  >
-                        </label>
+                      
                         
                     </fieldset>
                 </div>
@@ -245,13 +272,13 @@ Author : Trung Pham
                 
                 
                  <!-- - - - - - - - - Gender - - - - -  - -->
-                <div style="margin-bottom: 4%">
+                <div style="margin-bottom: 4%" >
                     <fieldset>
                         
                         <legend>Gender</legend>
                         
                         <label>
-                           <select name="gender">      
+                           <select name="gender" class="form-control">      
                                 <option value="m">Male</option>
                                 <option value="f">Female</option>
                                 <option value="o">Other</option>
@@ -270,7 +297,7 @@ Author : Trung Pham
                         <legend>Mobile Phone</legend>          
                         
                         <label>          
-                         <input class="form-control" type="text" size="25" placeholder="+" maxlength ="25"  id="phone" name="phone">
+                         <input class="form-control" type="text" size="25" placeholder="+(00)-(0000)" maxlength ="25"  id="phone" name="phone">
                         </label>  
                         
                     </fieldset>
@@ -302,17 +329,52 @@ Author : Trung Pham
                         <legend>Country</legend>
                         
                         <label>
-                            
-                         <input class="form-control" type="text" size="25" placeholder="Country" maxlength ="25"  id="country" name="country">
+                            <select class="form-control" id="country" name ="country"></select> 
+                         
                         </label>  
                         
                     </fieldset>
                 </div>
                 
+                    
+                    <br>  
+                    
+                    
+                      <!-- - - - - - - - - City - - - - -  - -->
+                <div style="margin-bottom: 2%">
+                    <fieldset>
+                        
+                        <legend>City/State</legend>
+                        
+                        <label>
+                            
+                         <select class="form-control" name ="city" id ="state"></select> 
+                         
+                        </label>  
+                        
+                    </fieldset>
+                </div>
+                
+                    
+                      
+                    <br><br>    
+                    
+                    <div id="nortification_submit">Please check the following section(s) : </div>
+                    
+                    <div class="error" id="username_submit">-Username.</div>
+                    <div class="error" id="password_submit">-Password.</div>
+                    <div class="error" id="confirm_password_submit">-Password Confirmation.</div>
+                    <div class="error" id="matching_password_submit">-Password Matching (Password and Confirmation)</div>
+                    <div class="error" id="name_submit">-Name</div>
+                    <div class="error" id="year_submit">-Birthday</div>
+                    <div class="error" id="phone_submit">-Phone</div>
+                    <div class="error" id="email_submit">-Email</div>
+                    <div class="error" id="country_submit">-Country</div>
+                    <div class="error" id="city_submit">-City</div>
+                     
+                   
+                    <br>
                 <!-- - - - - - - BUTTON - - - - - - -->
-                
-                
-               
                 <div style = "text-align: center" >
                     <input id="submitbutton" name="submitbuton" type="submit" value="Sign Up" style="font-size : 135%; background-color:#655BFF; color: white; padding: 1.5%; border-radius: 18.5px; font-weight: 400; margin-top: 0.5%">
                     
@@ -327,7 +389,36 @@ Author : Trung Pham
      
      
     <!-- BACK END --> 
+    
+    <script language="javascript">
+        //------------------Setting Combo Box for Country---------------------//
+	populateCountries("country", "state"); // first parameter is id of country drop-down and second parameter is id of state drop-down
+	
+    </script>
+    
+    
     <script type="text/javascript">
+        var error_count;
+    
+    
+        //-----------Initialize Page OnLoad-------------//
+        function initialize(){
+            document.getElementById("username").focus();
+            error_count=0;
+            
+            document.getElementById("nortification_submit").style.display = "none";
+            
+            document.getElementById("username_submit").style.display = "none";
+            document.getElementById("password_submit").style.display = "none";
+            document.getElementById("confirm_password_submit").style.display = "none";
+            document.getElementById("matching_password_submit").style.display = "none";
+            document.getElementById("name_submit").style.display = "none";
+            document.getElementById("year_submit").style.display = "none";
+            document.getElementById("phone_submit").style.display = "none";
+            document.getElementById("email_submit").style.display = "none";
+            document.getElementById("country_submit").style.display = "none";
+            document.getElementById("city_submit").style.display = "none";         
+        }  
           
           
         //---------Password Strength---------    
@@ -393,59 +484,125 @@ Author : Trung Pham
     
     
         //------------Check Confirming Password----------
-        function CheckPassword(confirm_password) {
-            var password = document.getElementById("password");
+        function CheckPassword() {
+            var confirm_password = document.getElementById("confirm_password").value;
+            var password = document.getElementById("password").value;
             var message = document.getElementById("confirm_pass");
          
            
             
-            if (confirm_password === password.value){                 
-                      message.innerHTML="True";
+            if (confirm_password === password){
+                      message.setAttribute("class","success");
+                      message.innerHTML="Matched";
                       
                 }
 
             else {
-               message.innerHTML="Not Match" + confirm_password + " " +password.value;
-                 
+                
+                message.setAttribute("class","error");
+                message.innerHTML="Password not matched";        
                 }
-    }
-    
-    
-        
-        //----------------Check Username Availability-----
-        function CheckUsername_available(String username){
-            
-                var xmlhttp = new XMLHttpRequest();
-                
-                var message = document.getElementById("username_status");
-                
-                var url = "username_available.jsp?username="+ username;
-                
-                xmlhttp.onreadystatechange = function(){
-                    
-                    if((xmlhttp.readyState) === 4 && (xmlhttp.status === 200)){
-                        if (xmlhttp.responseText === "User exists")
-                               message.style.color = "red";
-                        else
-                                message.style.color = "green";
-                            
-                        message.innerHTML = xmlhttp.responseText;
-                        
-                    }
-                    
-                };
-                try{
-                    xmlhttp.open("GET",url,true);
-                    xmlhttp.send();
-                }
-                catch(e) { alert("unable to connect to server");}
-               
-            
         }
         
-       
         
+        function validateForm() {
+            
+            error_count = 0;
+            
+            var username = document.getElementById("username");
+            var password = document.getElementById("password");
+            var confirm_password = document.getElementById("confirm_password");
+            var name = document.getElementById("firstname");
+            var birthyear = document.getElementById("birthyear");
+            var phone= document.getElementById("phone");
+            var email = document.getElementById("email");
+            var country = document.getElementById("country");
+            
+            if (username.value === "")
+            {        
+                error_count = error_count + 1;
+                document.getElementById("username_submit").style.display = "block";
+                username.style.borderColor = "red";
+            }
+                else
+                {                  
+                    error_count = error_count - 1;
+                    document.getElementById("username_submit").style.display = "none";
+                    username.style.borderColor = "#4F8A10";
+                }
+            
+            if (password.value === "")
+            {        
+                error_count = error_count + 1;
+                document.getElementById("password_submit").style.display = "block";
+                password.style.borderColor = "red";
+            }
+                else
+                    {                  
+                        error_count = error_count - 1;
+                        document.getElementById("password_submit").style.display = "none";
+                        password.style.borderColor = "#4F8A10";
+                    }
+                    
+            if (confirm_password.value === "")
+            {        
+                error_count = error_count + 1;
+                document.getElementById("confirm_password_submit").style.display = "block";
+                confirm_password.style.borderColor = "red";
+            }
+                else
+                    {                  
+                        error_count = error_count - 1;
+                        document.getElementById("confirm_password_submit").style.display = "none";
+                        confirm_password.style.borderColor = "#4F8A10";
+                    }
+                    
+            if (password.value !== confirm_password.value)
+            {        
+                error_count = error_count + 1;
+                document.getElementById("matching_password_submit").style.display = "block";
+                password.style.borderColor = "red";
+                confirm_password.style.borderColor = "red";
+            }
+                else
+                    {
+                        if (confirm_password.value !== "")
+                        {
+                            error_count = error_count - 1;
+                            document.getElementById("matching_password_submit").style.display = "none";
+                            password.style.borderColor = "#4F8A10";
+                            confirm_password.style.borderColor = "#4F8A10";
+                        }
+                    }
+                    
+                    
+                    <!-- - - - - - - - - To BE CONTINUE - - - - - - - - -->
+                    
+            if (password.value === "")
+            {        
+                error_count = error_count + 1;
+                document.getElementById("password_submit").style.display = "block";
+                password.style.borderColor = "red";
+            }
+                else
+                    {                  
+                        error_count = error_count - 1;
+                        document.getElementById("password_submit").style.display = "none";
+                        password.style.borderColor = "#4F8A10";
+                    }
+            
+            if (error_count !== -2)
+            {
+                document.getElementById("nortification_submit").style.display = "block";
+                return false;
+                
+            }
+                
+        }
     
+    
+        
+       
        
     </script> 
      <div id="scrollToTop" class="scrollToTop mbr-arrow-up"><a style="text-align: center;"><i class="mbr-arrow-up-icon"></i></a></div>
@@ -454,17 +611,11 @@ Author : Trung Pham
      
      
      
-     <!-- Import js -->
-  <script src="assets/web/assets/jquery/jquery.min.js"></script>
-  <script src="assets/tether/tether.min.js"></script>
-  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-  <script src="assets/smooth-scroll/SmoothScroll.js"></script>
-  <script src="assets/viewportChecker/jquery.viewportchecker.js"></script>
-  <script src="assets/dropdown/js/script.min.js"></script>
-  <script src="assets/touchSwipe/jquery.touchSwipe.min.js"></script>
-  <script src="assets/jarallax/jarallax.js"></script>
-  <script src="assets/theme/js/script.js"></script>
+ 
+     
+     
   
+ <!-- - - - - - - - Background Transition - - - - - - - --> 
   <script>
             var myIndex = 0;
             carousel();
