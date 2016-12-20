@@ -123,7 +123,7 @@
                                     I want to choose my preferred country
                                 </label>
                             </div>
-                            <div class="radio">
+<!--                            <div class="radio">
                                 <label>
                                     <input type="radio" name="dest" value="knownContinent">
                                     I don't know which country, but I want to go to
@@ -137,7 +137,7 @@
                                     <option value="europe"> Europe</option>
                                     <option value="australia">Australia</option>
                                 </select>
-                            </div>
+                            </div>-->
                             <div class="radio">
                                 <label>
                                     <input type="radio" name="dest" value="notKnown">

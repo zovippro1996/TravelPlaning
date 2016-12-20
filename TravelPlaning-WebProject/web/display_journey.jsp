@@ -6,6 +6,14 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.*, Data.*, Control.*" %>
+<%
+    // Retrive journey from session (if being forwared to for generating journey purpose)
+    Journey journey = (Journey) session.getAttribute("currentJourney");
+%>
+<%
+    // Display if journey is available
+    if (journey != null) {
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -43,13 +51,15 @@
                 <div class="wrapper-title">
                     <div id="title-block">
                         <span class="days">
-                            <span class="num-class">9</span>
+                            <!-- Sample -->
+                            <!-- <span class="num-class">9</span> -->
+                            <span class="num-class"><%= journey.getDuration() %></span>
                             <span class="text-class">DAYS</span>
                         </span>
                         <span class="border"></span>
-                        <span class="title">
-                            Australia
-                        </span>
+                        <!-- Sample -->
+                        <!-- <span class="title">Australia</span> -->
+                        <span class="title text-capitalize"><%= journey.getCountry().toLowerCase() %></span>
                     </div>
                 </div>
             </div>
@@ -57,7 +67,9 @@
             <br>
             
             <!-- Display visited cities -->
-            <div class="row">
+
+            <!-- Sample -->
+            <!-- <div class="row">
                 <div class="col-md-offset-1 col-md-4 city-block">
                     <span class="number">5</span>
                     <i style="font-size: 1.3em">days in</i>
@@ -71,36 +83,146 @@
                     <i style="font-size: 1.3em">days in</i>
                     <span class="text-city">Canberra</span>
                 </div>
+            </div> -->
+
+            <% if (journey.getListCity().size() >= 2) {  /* 2 cities */ %>
+
+            <div class="row">
+                <div class="col-md-offset-1 col-md-4 city-block">
+                    <span class="number"><%= journey.getDaysCity().get(0) %></span>
+                    <i style="font-size: 1.3em">days in</i>
+                    <span class="text-city text-capitalize"><%= journey.getListCity().get(0).toLowerCase() %></span>
+                </div>
+                <div class="col-md-2">
+                    <img src="img/black-plane.png" class="center-block">
+                </div>
+                <div class="col-md-4 city-block">
+                    <span class="number"><%= journey.getDaysCity().get(1) %></span>
+                    <i style="font-size: 1.3em">days in</i>
+                    <span class="text-city text-capitalize"><%= journey.getListCity().get(1).toLowerCase() %></span>
+                </div>
+            </div>
+
+            <!-- Sample -->
+            <!-- <div class="row">
+                <div class="col-md-offset-4 col-md-4 city-block">
+                    <span class="number">6</span>
+                    <i style="font-size: 1.3em">days in</i>
+                    <span class="text-city">Melbourne</span>
+                </div>
+            </div> -->
+
+            <% } else { /* 1 city */ %>
+
+            <div class="row">
+                <div class="col-md-offset-4 col-md-4 city-block">
+                    <span class="number"><%= journey.getDaysCity().get(0) %></span>
+                    <i style="font-size: 1.3em">days in</i>
+                    <span class="text-city text-capitalize"><%= journey.getListCity().get(0).toLowerCase() %></span>
+                </div>
             </div>
             
+            <% }    /* end of if .. else .. */ %>
+
             <br>
             
-            <!-- Display list of locations grouped by day visit -->
+            <!-- Display list of locations grouped by day -->
             <div class="wrapper-locations">
                 <div>
 
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs nav-style" role="tablist">
+                        <!-- Overview tab -->
                         <li role="presentation" class="active"><a href="#overview" aria-controls="overview" role="tab" data-toggle="tab">Overview</a></li>
-                        <li role="presentation"><a href="#sydney" aria-controls="sydney" role="tab" data-toggle="tab">Sydney</a></li>
-                        <li role="presentation"><a href="#canberra" aria-controls="canberra" role="tab" data-toggle="tab">Canberra</a></li>
+
+                        <!-- Sample -->
+                        <!-- <li role="presentation"><a href="#sydney" aria-controls="sydney" role="tab" data-toggle="tab">Sydney</a></li>
+                        <li role="presentation"><a href="#canberra" aria-controls="canberra" role="tab" data-toggle="tab">Canberra</a></li> -->
+
+                        <!-- if 1 city -> 1 city tab only -->
+                        <li role="presentation">
+                            <a href="#first_city" aria-controls="first_city" role="tab" data-toggle="tab">
+                                <span class="text-capitalize"><%= journey.getListCity().get(0) %></span>
+                            </a>
+                        </li>
+
+                        <% if (journey.getListCity().size() >= 2) {  /* 2 cities --> 1 more city tab */ %>
+                        
+                        <li role="presentation">
+                            <a href="#second_city" aria-controls="second_city" role="tab" data-toggle="tab">
+                                <span class="text-capitalize"><%= journey.getListCity().get(1).toLowerCase() %></span>
+                            </a>
+                        </li>
+
+                        <% } %>
+
                     </ul>
 
                     <!-- Tab panes -->
                     <div class="tab-content">
+                        <!-- Overview tab content -->
                         <div role="tabpanel" class="tab-pane fade in active" id="overview">
-                            <ul>
+                            <!-- Sample -->
+                            <!-- <ul>
                                 <li class="block-text"><strong><em>Country</em>:</strong> Australia</li>
                                 <li class="block-text"><strong><em>Cities</em>:</strong> Sydney <em>and</em> Canberra</li>
                                 <li class="block-text"><strong><em>Duration</em>:</strong> 9 days</li>
                                 <li class="block-text"><strong><em>Estimated budget</em>:</strong> $900</li>
                                 <li class="block-text"><strong><em>Type</em>:</strong> Sightseeing</li>
                                 <li class="block-text"><strong><em>Deploy date</em>:</strong> Unknown</li>
+                            </ul> -->
+
+                            <ul>
+                                <li class="block-text">
+                                    <strong><em>Country</em>:</strong>&nbsp;
+                                    <span class="text-capitalize"><%= journey.getCountry().toLowerCase() %></span>
+                                </li>
+                                <li class="block-text">
+                                    <strong><em>Cities</em>:</strong>&nbsp;
+                                    <span class="text-capitalize"><%= journey.getListCity().get(0).toLowerCase() %></span>&nbsp;
+
+                                    <% if (journey.getListCity().size() >= 2) { %>
+
+                                    <em>and</em>&nbsp;
+                                    <span class="text-capitalize"><%= journey.getListCity().get(1).toLowerCase() %></span>
+
+                                    <% } %>
+                                </li>
+                                <li class="block-text">
+                                    <strong><em>Duration</em>:</strong>&nbsp;
+                                    <%= journey.getDuration() %>&nbsp;day(s)
+                                </li>
+                                <li class="block-text">
+                                    <strong><em>Estimated budget</em>:</strong>&nbsp;
+                                    $<%= Math.round((journey.getBudget() + 5) / 10.0) * 10.0 %>
+                                </li>
+                                <li class="block-text">
+                                    <strong><em>Type</em>:</strong>&nbsp;
+                                    <span class="text-capitalize"><%= journey.getType().toLowerCase() %></span>
+                                </li>
+                                <li class="block-text">
+                                    <strong><em>Deploy date</em>:</strong>&nbsp;
+
+                                    <% if (journey.getDeployDate() == null) { %>
+
+                                    <span>Unknown</span>
+
+                                    <% } else { %>
+
+                                    <span><%= journey.getDeployDate() %></span>
+                                    
+                                    <% }    /* end of if - deployDate */ %>
+                                    
+                                </li>
                             </ul>
+
                         </div>
-                        <div role="tabpanel" class="tab-pane fade" id="sydney">
-                            <!-- Day 1 -->
-                            <h1 class="day-title">Day 1</h1>
+
+                        <!-- First city tab content -->
+                        <div role="tabpanel" class="tab-pane fade" id="first_city">
+
+                            <!-- Sample - Day 1 -->
+                            <!-- <h1 class="day-title">Day 1</h1>
                             <table width="100%">
                                 <tr>
                                     <td class="period-block">
@@ -116,15 +238,7 @@
                                             ultricies augue ac, faucibus sapien.
                                             Ut feugiat justo eu libero interdum blandit.
                                             In rhoncus cursus nunc, quis maximus
-                                            neque viverra quis. Donec tempor dictum
-                                            metus quis efficitur. Morbi id eros diam.
-                                            Maecenas fermentum nisl at pulvinar tristique.
-                                            Sed ante turpis, egestas ac risus non,
-                                            fringilla ultrices urna. Morbi pharetra
-                                            consectetur ligula, posuere fermentum
-                                            ante lobortis a. Donec quis fermentum erat.
-                                            Mauris facilisis facilisis scelerisque.
-                                            In sed lobortis felis.</p>
+                                            neque viverra quis.</p>
                                     </td>
                                 </tr>
                                 <tr>
@@ -141,15 +255,7 @@
                                             ultricies augue ac, faucibus sapien.
                                             Ut feugiat justo eu libero interdum blandit.
                                             In rhoncus cursus nunc, quis maximus
-                                            neque viverra quis. Donec tempor dictum
-                                            metus quis efficitur. Morbi id eros diam.
-                                            Maecenas fermentum nisl at pulvinar tristique.
-                                            Sed ante turpis, egestas ac risus non,
-                                            fringilla ultrices urna. Morbi pharetra
-                                            consectetur ligula, posuere fermentum
-                                            ante lobortis a. Donec quis fermentum erat.
-                                            Mauris facilisis facilisis scelerisque.
-                                            In sed lobortis felis.</p>
+                                            neque viverra quis.</p>
                                     </td>
                                 </tr>
                                 <tr>
@@ -166,21 +272,13 @@
                                             ultricies augue ac, faucibus sapien.
                                             Ut feugiat justo eu libero interdum blandit.
                                             In rhoncus cursus nunc, quis maximus
-                                            neque viverra quis. Donec tempor dictum
-                                            metus quis efficitur. Morbi id eros diam.
-                                            Maecenas fermentum nisl at pulvinar tristique.
-                                            Sed ante turpis, egestas ac risus non,
-                                            fringilla ultrices urna. Morbi pharetra
-                                            consectetur ligula, posuere fermentum
-                                            ante lobortis a. Donec quis fermentum erat.
-                                            Mauris facilisis facilisis scelerisque.
-                                            In sed lobortis felis.</p>
+                                            neque viverra quis.</p>
                                     </td>
                                 </tr>
-                            </table>
+                            </table> -->
                             
-                            <!-- Day 2 -->
-                            <h1 class="day-title">Day 2</h1>
+                            <!-- Sample - Day 2 -->
+                            <!-- <h1 class="day-title">Day 2</h1>
                             <table width="100%">
                                 <tr>
                                     <td class="period-block">
@@ -196,15 +294,7 @@
                                             ultricies augue ac, faucibus sapien.
                                             Ut feugiat justo eu libero interdum blandit.
                                             In rhoncus cursus nunc, quis maximus
-                                            neque viverra quis. Donec tempor dictum
-                                            metus quis efficitur. Morbi id eros diam.
-                                            Maecenas fermentum nisl at pulvinar tristique.
-                                            Sed ante turpis, egestas ac risus non,
-                                            fringilla ultrices urna. Morbi pharetra
-                                            consectetur ligula, posuere fermentum
-                                            ante lobortis a. Donec quis fermentum erat.
-                                            Mauris facilisis facilisis scelerisque.
-                                            In sed lobortis felis.</p>
+                                            neque viverra quis.</p>
                                     </td>
                                 </tr>
                                 <tr>
@@ -221,15 +311,7 @@
                                             ultricies augue ac, faucibus sapien.
                                             Ut feugiat justo eu libero interdum blandit.
                                             In rhoncus cursus nunc, quis maximus
-                                            neque viverra quis. Donec tempor dictum
-                                            metus quis efficitur. Morbi id eros diam.
-                                            Maecenas fermentum nisl at pulvinar tristique.
-                                            Sed ante turpis, egestas ac risus non,
-                                            fringilla ultrices urna. Morbi pharetra
-                                            consectetur ligula, posuere fermentum
-                                            ante lobortis a. Donec quis fermentum erat.
-                                            Mauris facilisis facilisis scelerisque.
-                                            In sed lobortis felis.</p>
+                                            neque viverra quis.</p>
                                     </td>
                                 </tr>
                                 <tr>
@@ -246,21 +328,13 @@
                                             ultricies augue ac, faucibus sapien.
                                             Ut feugiat justo eu libero interdum blandit.
                                             In rhoncus cursus nunc, quis maximus
-                                            neque viverra quis. Donec tempor dictum
-                                            metus quis efficitur. Morbi id eros diam.
-                                            Maecenas fermentum nisl at pulvinar tristique.
-                                            Sed ante turpis, egestas ac risus non,
-                                            fringilla ultrices urna. Morbi pharetra
-                                            consectetur ligula, posuere fermentum
-                                            ante lobortis a. Donec quis fermentum erat.
-                                            Mauris facilisis facilisis scelerisque.
-                                            In sed lobortis felis.</p>
+                                            neque viverra quis.</p>
                                     </td>
                                 </tr>
-                            </table>
+                            </table> -->
                             
-                            <!-- Day 3 -->
-                            <h1 class="day-title">Day 3</h1>
+                            <!-- Sample - Day 3 -->
+                            <!-- <h1 class="day-title">Day 3</h1>
                             <table width="100%">
                                 <tr>
                                     <td class="period-block">
@@ -276,22 +350,186 @@
                                             ultricies augue ac, faucibus sapien.
                                             Ut feugiat justo eu libero interdum blandit.
                                             In rhoncus cursus nunc, quis maximus
-                                            neque viverra quis. Donec tempor dictum
-                                            metus quis efficitur. Morbi id eros diam.
-                                            Maecenas fermentum nisl at pulvinar tristique.
-                                            Sed ante turpis, egestas ac risus non,
-                                            fringilla ultrices urna. Morbi pharetra
-                                            consectetur ligula, posuere fermentum
-                                            ante lobortis a. Donec quis fermentum erat.
-                                            Mauris facilisis facilisis scelerisque.
-                                            In sed lobortis felis.</p>
+                                            neque viverra quis.</p>
                                     </td>
                                 </tr>
+                            </table> -->
+
+                            <%
+                                // list through all days spent for the first city
+                                for (int i = 0; i < journey.getDaysCity().get(0); ++i)
+                                {
+                                    Day day = journey.getListDays().get(i);  // current Day
+                            %>
+
+                            <h1 class="day-title">Day <%= day.getDayNumber() %></h1>
+                            <table width="100%">
+
+                            <% if (day.hasPark()) { /* day spent for park */ %>
+
+                                <tr>
+                                    <td class="period-block">
+                                        All day&nbsp;<i class="wi wi-time-3"></i>
+                                    </td>
+                                    <td class="img-block">
+                                        <a href="#"><img src="http://placehold.it/250x250" class="img-thumbnail" alt="location-image"></a>
+                                    </td>
+                                    <td class="location-block">
+                                        <h2 class="text-capitalize"><%= day.getPark().getName().toLowerCase() %></h2>
+                                        <p class="text-capitalize"><%= day.getPark().getDescription().toLowerCase() %></p>
+                                    </td>
+                                </tr>
+
+                            <% } else /* normal day */ { %>
+
+                                <% if (day.hasMorning()) {  /* suggest location for morning */ %>
+
+                                <tr>
+                                    <td class="period-block">
+                                        Morning&nbsp;<i class="wi wi-sunrise"></i>
+                                    </td>
+                                    <td class="img-block">
+                                        <a href="#"><img src="http://placehold.it/250x250" class="img-thumbnail" alt="location-img"></a>
+                                    </td>
+                                    <td class="location-block">
+                                        <h2 class="text-capitalize"><%= day.getMorningLocation().getName().toLowerCase() %></h2>
+                                        <p class="text-capitalize"><%= day.getMorningLocation().getDescription().toLowerCase() %></p>
+                                    </td>
+                                </tr>
+
+                                <% }    /* end of 'morning' */ %>
+                                <% if (day.hasAfternoon()) {    /* for afternoon */ %>
+
+                                <tr>
+                                    <td class="period-block">
+                                        Afternoon&nbsp;<i class="wi wi-day-sunny"></i>
+                                    </td>
+                                    <td class="img-block">
+                                        <a href="#"><img src="http://placehold.it/250x250" class="img-thumbnail" alt="location-img"></a>
+                                    </td>
+                                    <td class="location-block">
+                                        <h2 class="text-capitalize"><%= day.getAfternoonLocation().getName().toLowerCase() %></h2>
+                                        <p class="text-capitalize"><%= day.getAfternoonLocation().getDescription().toLowerCase() %></p>
+                                    </td>
+                                </tr>
+
+                                <% }    /* end of 'afternoon' */ %>
+                                <% if (day.hasEvening()) {  /* for evening */ %>
+
+                                <tr>
+                                    <td class="period-block">
+                                        Evening&nbsp;<i class="wi wi-night-clear"></i>
+                                    </td>
+                                    <td class="img-block">
+                                        <a href="#"><img src="http://placehold.it/250x250" class="img-thumbnail" alt="location-img"></a>
+                                    </td>
+                                    <td class="location-block">
+                                        <h2 class="text-capitalize"><%= day.getEveningLocation().getName().toLowerCase() %></h2>
+                                        <p class="text-capitalize"><%= day.getEveningLocation().getDescription().toLowerCase() %></p>
+                                    </td>
+                                </tr>
+
+                                <% }    /* end of 'evening' */ %>
+
+                            <% }    /* end of normal day */%>
+
                             </table>
+
+                            <% }    /* end of loop */ %>
+
                         </div>
-                        <div role="tabpanel" class="tab-pane fade" id="canberra">
-                            Locations visit in Canberra
+
+                        <% if (journey.getListCity().size() >= 2) {  /* 2 cities */ %>
+
+                        <!-- Second city tab content, if exist -->
+                        <div role="tabpanel" class="tab-pane fade" id="second_city">
+                            
+                            <%
+                                // list through all days spent for the second city
+                                for (int j = journey.getDaysCity().get(0); j < journey.getDuration(); ++j)
+                                {
+                                    Day day = journey.getListDays().get(j);  // current Day
+                            %>
+
+                            <h1 class="day-title">Day <%= day.getDayNumber() %></h1>
+                            <table width="100%">
+
+                            <% if (day.hasPark()) { /* day spent for park */ %>
+
+                                <tr>
+                                    <td class="period-block">
+                                        All day&nbsp;<i class="wi wi-time-3"></i>
+                                    </td>
+                                    <td class="img-block">
+                                        <a href="#"><img src="http://placehold.it/250x250" class="img-thumbnail" alt="location-image"></a>
+                                    </td>
+                                    <td class="location-block">
+                                        <h2 class="text-capitalize"><%= day.getPark().getName().toLowerCase() %></h2>
+                                        <p class="text-capitalize"><%= day.getPark().getDescription().toLowerCase() %></p>
+                                    </td>
+                                </tr>
+
+                            <% } else /* normal day */ { %>
+
+                                <% if (day.hasMorning()) {  /* suggest location for morning */ %>
+
+                                <tr>
+                                    <td class="period-block">
+                                        Morning&nbsp;<i class="wi wi-sunrise"></i>
+                                    </td>
+                                    <td class="img-block">
+                                        <a href="#"><img src="http://placehold.it/250x250" class="img-thumbnail" alt="location-img"></a>
+                                    </td>
+                                    <td class="location-block">
+                                        <h2 class="text-capitalize"><%= day.getMorningLocation().getName().toLowerCase() %></h2>
+                                        <p class="text-capitalize"><%= day.getMorningLocation().getDescription().toLowerCase() %></p>
+                                    </td>
+                                </tr>
+
+                                <% }    /* end of 'morning' */ %>
+                                <% if (day.hasAfternoon()) {    /* for afternoon */ %>
+
+                                <tr>
+                                    <td class="period-block">
+                                        Afternoon&nbsp;<i class="wi wi-day-sunny"></i>
+                                    </td>
+                                    <td class="img-block">
+                                        <a href="#"><img src="http://placehold.it/250x250" class="img-thumbnail" alt="location-img"></a>
+                                    </td>
+                                    <td class="location-block">
+                                        <h2 class="text-capitalize"><%= day.getAfternoonLocation().getName().toLowerCase() %></h2>
+                                        <p class="text-capitalize"><%= day.getAfternoonLocation().getDescription().toLowerCase() %></p>
+                                    </td>
+                                </tr>
+
+                                <% }    /* end of 'afternoon' */ %>
+                                <% if (day.hasEvening()) {  /* for evening */ %>
+
+                                <tr>
+                                    <td class="period-block">
+                                        Evening&nbsp;<i class="wi wi-night-clear"></i>
+                                    </td>
+                                    <td class="img-block">
+                                        <a href="#"><img src="http://placehold.it/250x250" class="img-thumbnail" alt="location-img"></a>
+                                    </td>
+                                    <td class="location-block">
+                                        <h2 class="text-capitalize"><%= day.getEveningLocation().getName().toLowerCase() %></h2>
+                                        <p class="text-capitalize"><%= day.getEveningLocation().getDescription().toLowerCase() %></p>
+                                    </td>
+                                </tr>
+
+                                <% }    /* end of 'evening' */ %>
+
+                            <% }    /* end of normal day */%>
+
+                            </table>
+
+                            <% }    /* end of loop */ %>
+
                         </div>
+
+                        <% }    /* end of if - check second city */ %>
+
                     </div>
 
                 </div>
@@ -302,3 +540,8 @@
         </div>
     </body>
 </html>
+<% } else { %>
+
+<!DOCTYPE html><html><head></head><body><h1>No journey in session</h1></body></html>
+
+<% } %>

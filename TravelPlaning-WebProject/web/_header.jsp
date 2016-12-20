@@ -75,7 +75,7 @@
                         <li class="nav-item"><a class="nav-link link" href="login.jsp?logout=true" aria-expanded="false">Logout</a></li>
                             <%}%>
 
-                        <li class="nav-item nav-btn"><a class="nav-link btn btn-secondary-outline btn-secondary" href="booking.html">Start Travel Now!</a></li>
+                        <li class="nav-item nav-btn"><a class="nav-link btn btn-secondary-outline btn-secondary" href="input_getting.jsp">Start Travel Now!</a></li>
                     </ul>
                     <button hidden="" class="navbar-toggler navbar-close" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
                         <div class="close-icon"></div>

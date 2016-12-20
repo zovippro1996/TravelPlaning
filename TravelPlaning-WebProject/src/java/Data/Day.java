@@ -29,6 +29,7 @@ public class Day {
         this.dayNumber = dayNumber;
     }
     
+    // Compute the total price for the day
     public void computeTotalPrice()
     {
         double totalPrice = 0;
@@ -54,6 +55,7 @@ public class Day {
         setTotalPrice(totalPrice);
     }
     
+    // Display the location visited for each period - For debugging
     public String visitedLocations()
     {
         String result = "Day " + dayNumber + "<br>";
@@ -77,6 +79,38 @@ public class Day {
             }
         }
         return result;
+    }
+
+    // Check whether the current day is spent for visiting park
+    public boolean hasPark()
+    {
+        if (park == null)
+            return false;
+        return true;
+    }
+
+    // Check whether the morning is busy (i.e visit any location in the morning ?)
+    public boolean hasMorning()
+    {
+        if (morningLocation == null)
+            return false;
+        return true;
+    }
+
+    // Check whether the afternoon is busy
+    public boolean hasAfternoon()
+    {
+        if (afternoonLocation == null)
+            return false;
+        return true;
+    }
+
+    // Check whether the evening is busy
+    public boolean hasEvening()
+    {
+        if (eveningLocation == null)
+            return false;
+        return true;
     }
 
     /**
