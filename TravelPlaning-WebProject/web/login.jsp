@@ -52,6 +52,8 @@
             #login{
                 text-align: center;
                 margin-top: 8%;
+                padding-top: 2%;
+                padding-bottom: 3%;
                 width: 25%;
                 border-radius: 20px;
                 background: white;
@@ -306,18 +308,18 @@
                         </form>
                     </div>
 
-                    <div id="social-link">
+<!--                    <div id="social-link">
                         <div id="social-text">
                             Or login with 
                         </div>
                         <div class="social-logo">
-                            <!--<img src="img/facebook.png" alt="Facebook" width="35" height="35"/>-->
+                            <img src="img/facebook.png" alt="Facebook" width="35" height="35"/>
                             <div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="false"></div>
                         </div>
                         <div class="social-logo">
-                            <!--<img src="img/twitter.png" alt="Twitter" width="35" height="35"/>-->
+                            <img src="img/twitter.png" alt="Twitter" width="35" height="35"/>
                         </div>
-                    </div>
+                    </div>-->
 
                     <div  id="register-btn" class="col-sm-offset-1">
                         <a href="register.jsp" class="btn btn-warning" role="button" id="register-button">Create New Account</a>

@@ -8,9 +8,13 @@
         <servlet-name>JourneyProcessing</servlet-name>
         <servlet-class>Control.JourneyProcessing</servlet-class>
     </servlet>
-     <servlet>
+    <servlet>
         <servlet-name>ImageController</servlet-name>
         <servlet-class>Control.ImageController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CommentControl</servlet-name>
+        <servlet-class>Control.CommentControl</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UserControl</servlet-name>
@@ -20,9 +24,13 @@
         <servlet-name>JourneyProcessing</servlet-name>
         <url-pattern>/JourneyProcessing</url-pattern>
     </servlet-mapping>
-     <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ImageController</servlet-name>
         <url-pattern>/ImageController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CommentControl</servlet-name>
+        <url-pattern>/CommentControl</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>main.jsp</welcome-file>

@@ -36,7 +36,7 @@ public class ImageControl {
         String image_url = null;
         try {
 //            path to folder location image
-            String path = "/Location/" + Integer.toString(locationID) + ".png";
+            String path = "/Location/Loc" + Integer.toString(locationID) + ".png";
             image_url = DBX_CLIENT.files().getTemporaryLink(path).getLink();
         } catch (DbxException e) {
 

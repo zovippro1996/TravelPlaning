@@ -15,7 +15,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>View Location Page</title>
-        <link rel="stylesheet" href="assets/et-line-font-plugin/style.css">
+        <script src="js/jquery-3.1.1.min.js"></script>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="assets/bootstrap-material-design-font/css/material.css">
         <link rel="stylesheet" href="assets/tether/tether.min.css">
         <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
@@ -24,7 +26,8 @@
         <link rel="stylesheet" href="assets/dropdown/css/style.css">
         <link rel="stylesheet" href="assets/theme/css/style.css">
         <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="css/star-rating.min.css">
+        <script type="text/javascript" src="js/star-rating.min.js"></script>
         <style>
             *{
                 margin: 0px auto;
@@ -38,6 +41,7 @@
 
             #location{
                 margin-top: 7%;
+                padding-top: 9%;
                 width: 1000px;
                 height: auto;
             }
@@ -54,7 +58,6 @@
             #picture{
                 text-align: center;
                 width: 100%;
-                height: 350px;
                 float: left;
             }
 
@@ -74,8 +77,8 @@
 
             /*Location rated star*/
             #rated{
-                margin-top: 3%;
                 margin-bottom: 3%;
+                text-align: center;
             }
 
             /*Location description*/
@@ -92,10 +95,19 @@
                 height: auto;
             }
 
+            .comment-block{
+                display: none;
+            }
+
+            .comment-block.active{
+                display: block;
+            }
+
             /*Comment avatar*/
             .comment-avatar{
                 float: left;
                 width: 150px;
+                padding-top: 1%;
                 text-align: center;
             }
 
@@ -105,26 +117,46 @@
                 width: 600px;
             }
 
-            /*Show location star rating*/
-            /*Empty star*/
-            .star-ratings-sprite {
-                background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/2605/star-rating-sprite.png") repeat-x;
-                font-size: 0;
-                height: 21px;
-                line-height: 0;
-                overflow: hidden;
-                text-indent: -999em;
-                width: 110px;
-                margin: 0 auto;
+            /*Comment rating*/
+            .comment-rate{
+                text-align: right;
+                padding-top: 4%;
             }
 
-            /*Filled star*/
-            .star-ratings-sprite-rating {
-                background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/2605/star-rating-sprite.png") repeat-x;
-                background-position: 0 100%;
-                float: left;
-                height: 21px;
+            /*Load More Comments button*/
+            a#loadMore, a#loadMore:visited {
+                text-decoration: none;
                 display: block;
+                margin: 10px 0;
+            }
+
+            a#loadMore:hover {
+                text-decoration: none;
+            }
+
+            #loadMore {
+                padding: 10px;
+                text-align: center;
+                background-color: #33739E;
+                color: #fff;
+                border-width: 0 1px 1px 0;
+                border-style: solid;
+                border-color: #fff;
+                box-shadow: 0 1px 1px #ccc;
+                transition: all 600ms ease-in-out;
+                -webkit-transition: all 600ms ease-in-out;
+                -moz-transition: all 600ms ease-in-out;
+                -o-transition: all 600ms ease-in-out;
+            }
+
+            #loadMore:hover {
+                background-color: #fff;
+                color: #33739E;
+            }
+
+            /*User comment form*/
+            #comment-form{
+                margin: 10% 0;
             }
         </style>
 
@@ -168,86 +200,144 @@
         <div class="container" id="location">
 
             <!--Name of the location-->
-            <div id="title">
-                <%=l.getName()%>
-            </div>
+            <div id="title"><b><%=l.getName()%></b></div>
 
             <!--Picture of the location-->
             <div id="picture">
                 <!--Getting Location Image from dropbox repository-->
                 <img src="<%=ImageControl.importLocationImage(LocationID)%>" 
                      alt="This location image has been removed" 
-                     class="img-responsive" width="100%" height="350px"/>
+                     class="img-responsive" style="width: 100%; height: 450px;"/>
             </div>
 
             <!--Some information of the location-->
             <div id="info">
                 <ul>
-                    <li>Country: <%=l.getCountry()%></li>
-                    <li>City: <%=l.getCity()%></li>
-                    <li>Price: <%=l.getPrice()%>$</li>
+                    <li><b>Country:</b> <%=l.getCountry()%></li>
+                    <li><b>City:</b> <%=l.getCity()%></li>
+                    <li><b>Price:</b> <%=l.getPrice()%>$</li>
                 </ul>
             </div><br>
 
             <!--Star rating of the location-->
             <div id="rated">
-                <div class="star-ratings-sprite">
-                    <!--Calculate the location average rating--> 
-                    <%
-                        double avg = 0;
-                        for (int i = 0; i < listComment.size(); i++) {
-                            avg += listComment.get(i).getRate();
-                        }
-                        avg = avg / listComment.size();
-                    %>
-                    <span style="width:<%=avg * 100 / 5%>%" class="star-ratings-sprite-rating"></span>
-                </div>
+                <!--Calculate the location average rating--> 
+                <%
+                    double avg = 0;
+                    for (Comment comment : listComment) {
+                        avg += comment.getRate();
+                    }
+                    avg = avg / listComment.size();
+                %>
+                <input id="location-rating" value="<%=avg%>" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs">
             </div>
 
             <!--Brief description of the location-->
             <div id="description">
-                <p>Brief Description</p>
+                <p><b>Brief Description</b></p>
                 <hr>
-                <p>
-                    <%=l.getDescription()%>
-                </p>
+                <p><%=l.getDescription()%></p>
             </div>
         </div>
 
         <div class="container" id="comment">
-            <p>Comment</p>
+            <p><b>Comments</b></p>
             <hr>
 
-            <!--Using for loop to show 3 highest rated comments-->
+            <!--Using for loop to show comments-->
             <%
-                for (int i = 0; i < listComment.size(); i++) {
-                    if (i == 3) {
-                        break;
-                    }
+                for (Comment comment : listComment) {
             %>
-
-            <!--User avatar-->
-            <div class="comment-avatar">
-                <img src="<%=ImageControl.importUserAvatar(listComment.get(i).getUserID())%>" 
-                     class="img-circle" width="75px" height="75px"/>
-            </div>
-
-            <!--User's comment description-->
-            <div class="comment-desc">
-                <%=listComment.get(i).getDescription()%>
-            </div>
-
-            <!--User's comment rated-->
-            <div class="comment-rate">
-                <div class="star-ratings-sprite">
-                    <span style="width:<%=listComment.get(i).getRate() * 100 / 5%>%;" 
-                          class="star-ratings-sprite-rating"></span>
+            <div class="comment-block">
+                <!--User avatar-->
+                <div class="comment-avatar">
+                    <img src="<%=ImageControl.importUserAvatar(comment.getUserID())%>" 
+                         class="img-circle" width="75px" height="75px"/>
                 </div>
-            </div><br>
-            <hr>
+
+                <!--User's comment description-->
+                <div class="comment-desc">
+                    <%
+                        String username = null;
+                        int userID = comment.getUserID();
+                        query = "SELECT * FROM Users WHERE UserID='" + userID + "'";
+                        rs = st.executeQuery(query);
+                        if (rs.next()) {
+                            username = rs.getString("Username");
+                        }
+                    %>
+                    <b><%=username%></b>
+                    <hr>
+                    <p><%=comment.getDescription()%></p>
+                </div>
+
+                <!--User's comment rated-->
+                <div class="comment-rate">
+                    <input value="<%=comment.getRate()%>" type="number" 
+                           class="user-rating rating" min=0 max=5 step=0.5 data-size="xs">      
+                </div>
+                <br><hr>
+            </div>
+            <% }%>
+            <a href="" id="loadMore">Load More</a>
+
+
+            <%
+                // Get user from session
+                User user = (User) session.getAttribute("user");
+
+                if (user != null) {
+            %>
+            <form id="comment-form" action="CommentControl" method="post">
+                <input type="hidden" name="locationID" value="<%=LocationID%>">
+                <input type="hidden" name="url" value="view_location.jsp?LocationID=<%=LocationID%>">
+
+                <p><b>Leave your comment</b></p>
+                <hr>
+                <div class="comment-avatar">
+                    <img src="<%=ImageControl.importUserAvatar(user.getID())%>" 
+                         class="img-circle" width="75px" height="75px"/>
+                </div>
+                <div class="comment-desc">
+                    <textarea name="comment" class="form-control" rows="5" id="comment" style="width: 100%; background: #FFFFFF;"></textarea>
+                </div>
+                <div class="comment-rate">
+                    <input name="rating" id="input-rating" value="3" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs">
+                </div>
+                <div>
+                    <input style="margin-left: 80%;" class="btn btn-default" type="submit" value="Post Comment"/>
+                </div>
+            </form>
             <% }%>
         </div>
 
         <jsp:include page="_footer.jsp" flush="true"/>
     </body>
+    <script>
+        var $j = jQuery.noConflict();
+        $j(document).ready(function () {
+            $("#location-rating").rating({
+                showCaption: false,
+                showClear: false,
+                displayOnly: true
+            });
+            $(".user-rating").rating({
+                showCaption: false,
+                showClear: false,
+                displayOnly: true
+            });
+            $("#input-rating").rating({
+                showCaption: false,
+                showClear: false
+            });
+
+            $(".comment-block").slice(0, 1).show();
+            $('#loadMore').click(function () {
+                $(".comment-block:hidden").slice(0, 1).slideDown();
+                if ($(".comment-block:hidden").length === 0) {
+                    $("#loadMore").fadeOut('slow');
+                }
+            });
+        });
+    </script>
 </html>

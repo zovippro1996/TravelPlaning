@@ -43,7 +43,7 @@ public class UserControl extends HttpServlet {
             throws ServletException, IOException {
         Connection c = DBConnect.getConnection();
         HttpSession session = request.getSession(true);
-        RequestDispatcher rd;
+//        RequestDispatcher rd;
 
         //User Properties
         String username = request.getParameter("username");
@@ -76,8 +76,9 @@ public class UserControl extends HttpServlet {
 
                     session.setAttribute("user", user);
 
-                    rd = request.getServletContext().getRequestDispatcher("/main.jsp");
-                    rd.forward(request, response);
+//                    rd = request.getServletContext().getRequestDispatcher("/main.jsp");
+//                    rd.forward(request, response);
+                response.sendRedirect("main.jsp");
                 } else {
                     // Pop up if invalid login
                     // Then redirect to login page
