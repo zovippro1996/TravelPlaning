@@ -48,6 +48,9 @@ public class JourneyProcessing extends HttpServlet
             session.setAttribute("currentJourney", journey);
             
             // Forward to new page to display the generated journey
+             RequestDispatcher dispatcher =
+                     request.getServletContext().getRequestDispatcher("/display_journey.jsp");
+             dispatcher.forward(request, response);
         }
     }
     
