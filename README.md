@@ -36,3 +36,7 @@
  - [System Structure](https://www.lucidchart.com/invitations/accept/8f748d35-d18b-4ec2-9481-b1df6573820c)
  - [Class Diagram](https://creately.com/diagram/ivdqiqri1/ulttzavy7BTQoOvJL1uqSnkSBQ%3D)
  - [Database Designing](https://creately.com/diagram/ivq1r3sv1/e1H33CrqaS8GnxXGCkzKJF64%3D)
+
+
+**Report and Manual** 
+https://drive.google.com/drive/folders/0B2N-L-HKEuX6clRTdTdhVFpfdHM?usp=sharing 
