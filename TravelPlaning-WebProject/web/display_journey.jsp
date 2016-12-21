@@ -378,7 +378,11 @@
                                         <a href="#"><img src="http://placehold.it/250x250" class="img-thumbnail" alt="location-image"></a>
                                     </td>
                                     <td class="location-block">
-                                        <h2 class="text-capitalize"><%= day.getPark().getName().toLowerCase() %></h2>
+                                        <h2 class="text-capitalize">
+                                            <a href="view_location.jsp?LocationID=<%= day.getPark().getID() %>" target="_blank">
+                                                <%= day.getPark().getName().toLowerCase() %>
+                                            </a>
+                                        </h2>
                                         <p class="text-capitalize"><%= day.getPark().getDescription().toLowerCase() %></p>
                                     </td>
                                 </tr>
@@ -395,7 +399,11 @@
                                         <a href="#"><img src="http://placehold.it/250x250" class="img-thumbnail" alt="location-img"></a>
                                     </td>
                                     <td class="location-block">
-                                        <h2 class="text-capitalize"><%= day.getMorningLocation().getName().toLowerCase() %></h2>
+                                        <h2 class="text-capitalize">
+                                            <a href="view_location.jsp?LocationID=<%= day.getMorningLocation().getID() %>" target="_blank">
+                                                <%= day.getMorningLocation().getName().toLowerCase() %>
+                                            </a>
+                                        </h2>
                                         <p class="text-capitalize"><%= day.getMorningLocation().getDescription().toLowerCase() %></p>
                                     </td>
                                 </tr>
@@ -411,7 +419,11 @@
                                         <a href="#"><img src="http://placehold.it/250x250" class="img-thumbnail" alt="location-img"></a>
                                     </td>
                                     <td class="location-block">
-                                        <h2 class="text-capitalize"><%= day.getAfternoonLocation().getName().toLowerCase() %></h2>
+                                        <h2 class="text-capitalize">
+                                            <a href="view_location.jsp?LocationID=<%= day.getAfternoonLocation().getID() %>" target="_blank">
+                                                <%= day.getAfternoonLocation().getName().toLowerCase() %>
+                                            </a>
+                                        </h2>
                                         <p class="text-capitalize"><%= day.getAfternoonLocation().getDescription().toLowerCase() %></p>
                                     </td>
                                 </tr>
@@ -427,7 +439,11 @@
                                         <a href="#"><img src="http://placehold.it/250x250" class="img-thumbnail" alt="location-img"></a>
                                     </td>
                                     <td class="location-block">
-                                        <h2 class="text-capitalize"><%= day.getEveningLocation().getName().toLowerCase() %></h2>
+                                        <h2 class="text-capitalize">
+                                            <a href="view_location.jsp?LocationID=<%= day.getEveningLocation().getID() %>" target="_blank">
+                                                <%= day.getEveningLocation().getName().toLowerCase() %>
+                                            </a>
+                                        </h2>
                                         <p class="text-capitalize"><%= day.getEveningLocation().getDescription().toLowerCase() %></p>
                                     </td>
                                 </tr>
@@ -467,7 +483,11 @@
                                         <a href="#"><img src="http://placehold.it/250x250" class="img-thumbnail" alt="location-image"></a>
                                     </td>
                                     <td class="location-block">
-                                        <h2 class="text-capitalize"><%= day.getPark().getName().toLowerCase() %></h2>
+                                        <h2 class="text-capitalize">
+                                            <a href="view_location.jsp?LocationID=<%= day.getPark().getID() %>" target="_blank">
+                                                <%= day.getPark().getName().toLowerCase() %>
+                                            </a>
+                                        </h2>
                                         <p class="text-capitalize"><%= day.getPark().getDescription().toLowerCase() %></p>
                                     </td>
                                 </tr>
@@ -484,7 +504,11 @@
                                         <a href="#"><img src="http://placehold.it/250x250" class="img-thumbnail" alt="location-img"></a>
                                     </td>
                                     <td class="location-block">
-                                        <h2 class="text-capitalize"><%= day.getMorningLocation().getName().toLowerCase() %></h2>
+                                        <h2 class="text-capitalize">
+                                            <a href="view_location.jsp?LocationID=<%= day.getMorningLocation().getID() %>" target="_blank">
+                                                <%= day.getMorningLocation().getName().toLowerCase() %>
+                                            </a>
+                                        </h2>
                                         <p class="text-capitalize"><%= day.getMorningLocation().getDescription().toLowerCase() %></p>
                                     </td>
                                 </tr>
@@ -500,7 +524,11 @@
                                         <a href="#"><img src="http://placehold.it/250x250" class="img-thumbnail" alt="location-img"></a>
                                     </td>
                                     <td class="location-block">
-                                        <h2 class="text-capitalize"><%= day.getAfternoonLocation().getName().toLowerCase() %></h2>
+                                        <h2 class="text-capitalize">
+                                            <a href="view_location.jsp?LocationID=<%= day.getAfternoonLocation().getID() %>" target="_blank">
+                                                <%= day.getAfternoonLocation().getName().toLowerCase() %>
+                                            </a>
+                                        </h2>
                                         <p class="text-capitalize"><%= day.getAfternoonLocation().getDescription().toLowerCase() %></p>
                                     </td>
                                 </tr>
@@ -516,7 +544,11 @@
                                         <a href="#"><img src="http://placehold.it/250x250" class="img-thumbnail" alt="location-img"></a>
                                     </td>
                                     <td class="location-block">
-                                        <h2 class="text-capitalize"><%= day.getEveningLocation().getName().toLowerCase() %></h2>
+                                        <h2 class="text-capitalize">
+                                            <a href="view_location.jsp?LocationID=<%= day.getEveningLocation().getID() %>" target="_blank">
+                                                <%= day.getEveningLocation().getName().toLowerCase() %>
+                                            </a>
+                                        </h2>
                                         <p class="text-capitalize"><%= day.getEveningLocation().getDescription().toLowerCase() %></p>
                                     </td>
                                 </tr>
@@ -550,8 +582,9 @@
         </div>
     </body>
 </html>
+
 <% } else { %>
 
-<!DOCTYPE html><html><head></head><body><h1>No journey in session</h1></body></html>
+No journey in session
 
 <% } %>

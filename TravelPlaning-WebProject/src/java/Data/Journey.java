@@ -16,7 +16,7 @@ public class Journey {
     private int ID;
     private int userID;         
     private double budget;
-    private Date deployDate;
+    private String deployDate;
     private int duration;
     private String type;
     
@@ -89,14 +89,14 @@ public class Journey {
     /**
      * @return the deployDate
      */
-    public Date getDeployDate() {
+    public String getDeployDate() {
         return deployDate;
     }
 
     /**
      * @param deployDate the deployDate to set
      */
-    public void setDeployDate(Date deployDate) {
+    public void setDeployDate(String deployDate) {
         this.deployDate = deployDate;
     }
 
