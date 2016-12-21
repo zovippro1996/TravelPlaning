@@ -59,13 +59,13 @@
         <meta name="description" content="Getting inputs from user to generate journey.">
         <link rel="shortcut icon" href="assets/images/hexa1-128x128-80.png" type="image/x-icon">
         <title>Generating Plan for a Trip Interface</title>
-<!--        <link rel="stylesheet" type="text/css" href="css/style.css">-->
+        <!--<link rel="stylesheet" type="text/css" href="css/style.css">-->
         <link rel="stylesheet" type="text/css" href="css/input_getting_style.css">
         <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!--        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic&amp;subset=latin">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">-->
         <link rel="stylesheet" href="assets/et-line-font-plugin/style.css">
         <link rel="stylesheet" href="assets/bootstrap-material-design-font/css/material.css">
         <link rel="stylesheet" href="assets/tether/tether.min.css">
@@ -75,11 +75,7 @@
         <link rel="stylesheet" href="assets/dropdown/css/style.css">
         <link rel="stylesheet" href="assets/theme/css/style.css">
         <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
-        <script>
-            function focusForm() {
-                document.getElementById("lower").focus();
-            }
-        </script>
+        <script type= "text/javascript" src = "js/country_city_list.js"></script>
     </head>
     <body>
         <!-- Open nav drawer extensive js -->
@@ -102,8 +98,8 @@
                         <span style="font-size: 35px; font-weight: bolder">Please</span>
                         fill in the form below so we can plan a suitable journey for you.
                     </p>
-                    <button class="btn btn-primary choose-btn center-block" onclick="focusForm()">
-                        Go to Form Section
+                    <button class="btn btn-primary choose-btn center-block">
+                        <a href="#lower">Go to Form Section</a>
                     </button>
                 </div>
             </div>
@@ -119,9 +115,7 @@
                             <label>
                                 Where do you want to go ? <span class="required">*</span>
                             </label>
-                            <input type="text" class="form-control" name="country"
-                                   placeholder="Enter your preferred country"
-                                   autocomplete="off">
+                            <select class="form-control" name="country" id="country"></select>
                             <div class="radio">
                                 <label>
                                     <input type="radio" name="dest" value="knownCountry" checked>
@@ -164,8 +158,8 @@
                                        autocomplete="off" required>
                                 <div class="input-group-addon"> day(s)</div>
                             </div>
-                            <p class="help-block">Min: 1 day</p>
-                            <p class="help-block">Max: 7 days</p>
+                            <p class="help-block" style="display: inline; margin-right: 50px">Min: 1 day</p>
+                            <p class="help-block" style="display: inline">Max: 7 days</p>
                         </div>
                         
                         <!-- Prompt for number of cities -->
@@ -262,6 +256,11 @@
                             <p class="help-block">Only for coastal country</p>
                         </div>
                         
+                        <div style="margin-top: -10px">
+                            <p style="color: red">Information with <span class="required">*</span>
+                                is required</p>
+                        </div>
+                        
                         <div style="text-align: center">
                             <p style="font-size: 20px; font-weight: bold">
                                 -----------
@@ -284,6 +283,14 @@
             <!-- Footer -->
             <jsp:include page="_footer.jsp" flush="true" />
         </div>
+        
+        <script>
+            function focusForm() {
+                document.getElementById("lower").focus();
+            }
+            
+            populateCountries("country", "");
+        </script>
     </body>
 </html>
 

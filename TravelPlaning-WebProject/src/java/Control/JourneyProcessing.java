@@ -55,22 +55,39 @@ public class JourneyProcessing extends HttpServlet
         }
         else if (action.equals("saveJourney"))
         {
-            // Retrieve journey from database
             HttpSession session = request.getSession(true);
+            
+            // Retrieve journey from database
             Journey journey = (Journey) session.getAttribute("currentJourney");
             if (journey ==  null)   // no journey in session
             {
                 out.println("Error: No journey in session");
                 return;
             }
+            
+            // Set deplotDate for journey
+            java.sql.Date currentDate = new java.sql.Date(new java.util.Date().getTime());
+            String deployDate = currentDate.toString();
+            journey.setDeployDate(deployDate);
+            
+            // Retrieve user from database
+            User user = (User) session.getAttribute("user");
+            if (user == null)   // no user, or user has not logged in
+            {
+                out.println("<script type=\"text/javascript\">");
+                out.println("alert('You need to login to save the journey')");
+                out.println("location = 'login.jsp'");  // redirect user to login page
+                out.println("</script>");
+                out.println("Need to login");
+            }
 
             // Save journey to database
-            saveJourney(journey);
+            saveJourney(journey, user, out);
 
-            // Notify user, then redirects to main page ?
+            // Notify user, then redirects to profile page ?
             out.println("<script type=\"text/javascript\">");
-            out.println("alert(\"Your journey has been saved successfully!\n"
-                + "Go into your profile to see\"");
+            out.println("alert(('Your journey has been saved successfully!\n"
+                + "Go into your profile to see')");
             out.println("location = 'user_profile.jsp'");
             out.println("</script>");
         }
@@ -172,7 +189,7 @@ public class JourneyProcessing extends HttpServlet
         // Save to Journey (Note: journeyID, userID and deployDate are not set here)
         Journey journey = new Journey();
         journey.setDuration(duration);
-        journey.setType(journeyType.name());
+        journey.setType(journeyType.name().toLowerCase());
         journey.setListDays(listLocationsPerDay);
         journey.setCountry(country);
         journey.setListCity(listCity);
@@ -184,13 +201,98 @@ public class JourneyProcessing extends HttpServlet
     
     /**
      * @param journey 
+     * @param user
      * 
      * Save the generated journey (in session) into the related database
      * Including tables: Journey, JourneysFETCHLocations
      */
-    private void saveJourney(Journey journey)
+    private void saveJourney(Journey journey, User user, PrintWriter out)
     {
+        // Get database connection
+        Connection connection = DBConnect.getConnection();
         
+        // Construct query to save data into Journeys table
+        String queryJourney = "INSERT INTO Journeys (UserID, Budget, DeployDate, DurationDate, TypeJourney) "
+                + "VALUES ";
+        queryJourney += "('" + user.getID() + "', "
+                + "'" + journey.getBudget() + "', "
+                + "'" + journey.getDeployDate() + "', "
+                + "'" + journey.getDuration() + "', "
+                + "'" + journey.getType() + "');";
+        out.println(queryJourney);
+        
+        // Construct query to save data into JourneysFETCHLocations table
+        String queryJourneyLocation = "INSERT INTO JourneysFETCHLocations (JourneyID, LocationID, VisitDay, Period) "
+                + "VALUES ";
+        for (int i = 0; i < journey.getListDays().size(); ++i)  // loop through all days in the trip
+        {
+            Day currentDay = journey.getListDays().get(i);  // get each day
+            
+            // If park --> assign park location: period = all_day
+            if (currentDay.hasPark())
+            {
+                queryJourneyLocation += "('" + journey.getID() + "', "
+                        + "'" + currentDay.getPark().getID() + "', "
+                        + "'" + currentDay.getDayNumber() + "', 'all_day')";
+                
+                if (i != journey.getListDays().size() - 1)
+                {
+                    queryJourneyLocation += ", ";
+                }
+            }
+            // If normal day
+            else
+            {
+                // Has morning --> assign morning location: period = morning
+                if (currentDay.hasMorning())
+                {
+                    queryJourneyLocation += "('" + journey.getID() + "', "
+                            + "'" + currentDay.getMorningLocation().getID() + "', "
+                            + "'" + currentDay.getDayNumber() + "', 'morning')";
+                    
+                    if ((i != journey.getListDays().size() - 1) || currentDay.hasAfternoon())
+                    {
+                        queryJourneyLocation += ", ";
+                    }
+                }
+                
+
+                // Has afternoon --> assign afternoon location: period = afternoon
+                if (currentDay.hasAfternoon())
+                {
+                    queryJourneyLocation += "('" + journey.getID() + "', "
+                            + "'" + currentDay.getAfternoonLocation().getID() + "', "
+                            + "'" + currentDay.getDayNumber() + ", 'afternoon'')";
+                    
+                    if ((i != journey.getListDays().size() - 1) || currentDay.hasEvening())
+                    {
+                        queryJourneyLocation += ", ";
+                    }
+                }
+
+                // Has evening --> assign afternoon location: period = evening
+                if (currentDay.hasEvening())
+                {
+                    queryJourneyLocation += "('" + journey.getID() + "', "
+                            + "'" + currentDay.getEveningLocation().getID() + "', "
+                            + "'" + currentDay.getDayNumber() + "', 'evening')";
+                    
+                    if (i != journey.getListDays().size() - 1)
+                    {
+                        queryJourneyLocation += ", ";
+                    }
+                }
+            }
+        }
+        queryJourneyLocation += ";";
+        out.println(queryJourneyLocation);
+        
+        // Close database connection
+        try {
+            connection.close();
+        } catch (Exception e) {
+            
+        }
     }
     
     
