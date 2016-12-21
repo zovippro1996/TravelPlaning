@@ -75,6 +75,11 @@
         <link rel="stylesheet" href="assets/dropdown/css/style.css">
         <link rel="stylesheet" href="assets/theme/css/style.css">
         <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+        <script>
+            function focusForm() {
+                document.getElementById("lower").focus();
+            }
+        </script>
     </head>
     <body>
         <!-- Open nav drawer extensive js -->
@@ -97,14 +102,14 @@
                         <span style="font-size: 35px; font-weight: bolder">Please</span>
                         fill in the form below so we can plan a suitable journey for you.
                     </p>
-                    <button class="btn btn-primary choose-btn center-block">
-                        <a href="#lower" style="font-size: 15px">Go to Form Section</a>
+                    <button class="btn btn-primary choose-btn center-block" onclick="focusForm()">
+                        Go to Form Section
                     </button>
                 </div>
             </div>
             
             <!-- Lower section: for getting input to plan the trip -->
-            <div id="lower" class="container-fluid">
+            <div id="lower" class="container-fluid" tabindex="-1">
                 <h2 class="mbr-section-title display-2">Form section</h2>
                 <div id="form-wrapper">
                     <form action="JourneyProcessing" method="post"> 
@@ -260,7 +265,7 @@
                         <div style="text-align: center">
                             <p style="font-size: 20px; font-weight: bold">
                                 -----------
-                                That's all. Thank you for your cooperation!
+                                That's all. Click Submit and wait for your journey
                                 -----------
                             </p>
                         </div>

@@ -145,3 +145,19 @@ span.text-class {
     font-style: italic;
     padding-left: 60px;
 }
+
+.choose-btn {
+    background-color: #5c5c8a !important;
+    border-color: #5c5c8a !important;
+    font-size: 1.5em !important;
+    font-weight: 900 !important;
+}
+
+.choose-btn:hover {
+    background-color: #333399 !important;
+}
+
+#form-button {
+    text-align: center;
+    padding-top: 20px;
+}
