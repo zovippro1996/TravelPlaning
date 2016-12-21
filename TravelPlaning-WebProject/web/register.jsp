@@ -30,7 +30,7 @@ Author : Trung Pham
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <link rel="stylesheet" type="text/css" href="css/w3.css">
   
-  <script type= "text/javascript" src = "country_city_list.js"></script>
+  <script type= "text/javascript" src = "js/country_city_list.js"></script>
   
   
       
@@ -310,13 +310,11 @@ Author : Trung Pham
                     <fieldset>
                         
                         <legend>Email</legend>
-                        
-                       <div class="form-group">
-                           
-                             <input type="email" name ="email" class="form-control" id="mail1" aria-describedby="emailHelp" placeholder=".com">
-                             <small id="emailHelp" class="text-muted">One account can only have one email address</small>
-                        </div>
-                        
+                                                
+                             <input type="email" id="email" name ="email" class="form-control"  placeholder=".com" onkeyup="test_email()">
+                             <small>*One Email for One Account Only</small>
+                             
+                                 
                     </fieldset>
                 </div>                
                     
@@ -329,10 +327,16 @@ Author : Trung Pham
                         <legend>Country</legend>
                         
                         <label>
-                            <select class="form-control" id="country" name ="country"></select> 
-                         
+                            <select class="form-control" id="country" name ="country" ></select> 
+                           
+                            
+                            
                         </label>  
                         
+                            
+                             
+                             
+                             
                     </fieldset>
                 </div>
                 
@@ -364,13 +368,13 @@ Author : Trung Pham
                     <div class="error" id="username_submit">-Username.</div>
                     <div class="error" id="password_submit">-Password.</div>
                     <div class="error" id="confirm_password_submit">-Password Confirmation.</div>
-                    <div class="error" id="matching_password_submit">-Password Matching (Password and Confirmation)</div>
-                    <div class="error" id="name_submit">-Name</div>
-                    <div class="error" id="year_submit">-Birthday</div>
-                    <div class="error" id="phone_submit">-Phone</div>
-                    <div class="error" id="email_submit">-Email</div>
-                    <div class="error" id="country_submit">-Country</div>
-                    <div class="error" id="city_submit">-City</div>
+                    <div class="error" id="matching_password_submit">-Password Matching (Password and Confirmation).</div>
+                    <div class="error" id="name_submit">-Name.</div>
+                    <div class="error" id="year_submit">-Birthday.</div>
+                    <div class="error" id="phone_submit">-Phone.</div>
+                    <div class="error" id="email_submit">-Email.</div>
+                    <div class="error" id="country_submit">-Country.</div>
+                    
                      
                    
                     <br>
@@ -398,8 +402,8 @@ Author : Trung Pham
     
     
     <script type="text/javascript">
-        var error_count;
-    
+        
+        
     
         //-----------Initialize Page OnLoad-------------//
         function initialize(){
@@ -417,14 +421,16 @@ Author : Trung Pham
             document.getElementById("phone_submit").style.display = "none";
             document.getElementById("email_submit").style.display = "none";
             document.getElementById("country_submit").style.display = "none";
-            document.getElementById("city_submit").style.display = "none";         
+                   
         }  
           
           
         //---------Password Strength---------    
         function CheckPasswordStrength(password) {
             var password_strength = document.getElementById("password_strength");
- 
+            
+           
+            
                 //TextBox left blank.
             if (password.length === 0) {
                 password_strength.innerHTML = "";
@@ -485,6 +491,9 @@ Author : Trung Pham
     
         //------------Check Confirming Password----------
         function CheckPassword() {
+            
+            
+            
             var confirm_password = document.getElementById("confirm_password").value;
             var password = document.getElementById("password").value;
             var message = document.getElementById("confirm_pass");
@@ -507,7 +516,7 @@ Author : Trung Pham
         
         function validateForm() {
             
-            error_count = 0;
+            var error_count = 0;
             
             var username = document.getElementById("username");
             var password = document.getElementById("password");
@@ -515,8 +524,8 @@ Author : Trung Pham
             var name = document.getElementById("firstname");
             var birthyear = document.getElementById("birthyear");
             var phone= document.getElementById("phone");
-            var email = document.getElementById("email");
-            var country = document.getElementById("country");
+            var email=document.getElementById("email");
+            var country = document.getElementById("country").options[document.getElementById("country").selectedIndex].value;
             
             if (username.value === "")
             {        
@@ -576,22 +585,77 @@ Author : Trung Pham
                     }
                     
                     
-                    <!-- - - - - - - - - To BE CONTINUE - - - - - - - - -->
+                   
                     
-            if (password.value === "")
+            if (name.value === "")
             {        
                 error_count = error_count + 1;
-                document.getElementById("password_submit").style.display = "block";
-                password.style.borderColor = "red";
+                document.getElementById("name_submit").style.display = "block";
+                name.style.borderColor = "red";
             }
                 else
                     {                  
                         error_count = error_count - 1;
-                        document.getElementById("password_submit").style.display = "none";
-                        password.style.borderColor = "#4F8A10";
+                        document.getElementById("name_submit").style.display = "none";
+                        name.style.borderColor = "#4F8A10";
                     }
             
-            if (error_count !== -2)
+            
+            
+            if (birthyear.value === "")
+            {        
+                error_count = error_count + 1;
+                document.getElementById("year_submit").style.display = "block";
+                birthyear.style.borderColor = "red";
+            }
+                else
+                    {                  
+                        error_count = error_count - 1;
+                        document.getElementById("year_submit").style.display = "none";
+                        birthyear.style.borderColor = "#4F8A10";
+                    }
+                    
+            if (phone.value === "")
+            {        
+                error_count = error_count + 1;
+                document.getElementById("phone_submit").style.display = "block";
+                phone.style.borderColor = "red";
+            }
+                else
+                    {                  
+                        error_count = error_count - 1;
+                        document.getElementById("phone_submit").style.display = "none";
+                        phone.style.borderColor = "#4F8A10";
+                    }
+                    
+            if ((email.value === "") || (email.indexOf('@') === -1))
+            {        
+                error_count = error_count + 1;
+                document.getElementById("email_submit").style.display = "block";
+                email.style.borderColor = "red";
+            }
+                else
+                    {                  
+                        error_count = error_count - 1;
+                        document.getElementById("email_submit").style.display = "none";
+                        email.style.borderColor = "#4F8A10";
+                    }
+            
+            
+            if (country === "-1")
+            {
+                error_count = error_count + 1;
+                document.getElementById("country_submit").style.display = "block";
+                document.getElementById("country").style.borderColor = "red";
+            }
+            else
+                    {                  
+                        error_count = error_count - 1;
+                        document.getElementById("country_submit").style.display = "none";
+                        document.getElementById("country").style.borderColor = "#4F8A10";
+                    }
+            
+            if (error_count !== -15)
             {
                 document.getElementById("nortification_submit").style.display = "block";
                 return false;
@@ -607,11 +671,6 @@ Author : Trung Pham
     </script> 
      <div id="scrollToTop" class="scrollToTop mbr-arrow-up"><a style="text-align: center;"><i class="mbr-arrow-up-icon"></i></a></div>
      
-     
-     
-     
-     
- 
      
      
   
@@ -636,7 +695,7 @@ Author : Trung Pham
   
   </script>
   
-  
+  <!-- - - - - - - - - - - Footer - - - - - - - -->
   <jsp:include page="_footer.jsp" flush="true"/>
 </body>
 </html>
