@@ -3,7 +3,11 @@
     Created on : Dec 3, 2016, 10:39:38 PM
     Author     : zovippro1996
 --%>
-
+<%@page import="Control.ImageControl"%>
+<%@page import="Data.*"%>
+<%@page import="Connect.DBConnect"%>
+<%@page import="java.util.*"%>
+<%@page import="java.sql.*"%>
 <%@page import="Control.UserControl"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -90,28 +94,54 @@
             
             
             .avatarcss{
-                width:150px; 
-                height:150px; 
+                width:162px; 
+                height:162px; 
                 padding-right: 2%; 
                 padding-bottom:2%;
                 float:left;
             }
             
         </style>
-        
+          <!-- Initialize Connection and Object-->
+         <%
+            Connection c = DBConnect.getConnection();
+            String ID = request.getParameter("UserID");
+            int UserID = 0;
+            UserID = Integer.parseInt(ID);
+            User u = new User();
+
+            Statement st = c.createStatement();
+            ResultSet rs;
+            String query = "SELECT * FROM Users WHERE UserID='" +UserID + "'";
+            rs = st.executeQuery(query);
+            if (rs.next()) {
+                u.setUsername(rs.getString("Username"));
+                u.setFullname(rs.getString("Fullname"));
+                u.setDOB(rs.getDate("DOB"));
+                u.setGender(rs.getString("Gender"));
+                u.setPhone(rs.getString("Phone"));
+                u.setEmail(rs.getString("Email"));
+                u.setCountry(rs.getString("Country"));
+                u.setCity(rs.getString("City"));
+                
+               
+            }
+        %>
     </head>
     
-    
-    
-    
-    
-    
+       
     <body>
         
         
         <!-- Banner -->
         <jsp:include page="_header.jsp" flush="true" />
-        <jsp:useBean id="user" scope="session" class="Data.User" />
+        
+      
+
+        
+        
+        
+        
         
         <!-- Outmost DIV -->     
         <div class="outmost">
@@ -124,19 +154,24 @@
                 <!-- Avatar + Name -->
                 <div style="background-color: #40a0b2; padding-left: 3%; ">
                     <div>
-                        
+                         <div id="picture">
+                <!--Getting User Avatar from Dropbox repository-->
+                <img src="<%=ImageControl.importUserAvatar(UserID)%>" 
+                     alt="img/avatartest.jpg" class="avatarcss" />
+                
+            </div>
                     </div>    
                     
                     
                     <!-- Name + username -->
                     <div style="padding-top:6.3%;">
-                        <div style="font-size: 160%; font-weight: 600; color: white">
-                           <jsp:getProperty name="user" property="fullname" />
+                        <div style="font-size: 190%; font-weight: 600; color: white">
+                            <%=u.getFullname()%>
                             
                         </div>    
                         
-                        <div style=" color:#d3ffee" >                        
-                            <jsp:getProperty name="user" property="username" />
+                        <div style="color:#d3ffee; margin-bottom: 3%;" >                        
+                            @<%=u.getUsername()%>
                         </div>
                     </div>    
                 </div>
@@ -183,24 +218,53 @@
                         
                         <div  style =" margin-top:7%; ">
                             <div class="personalinfo">    
-                                Birthday : <jsp:getProperty name="user" property="DOB" />       
+                                Birthday : 
+                                <% Calendar cal = Calendar.getInstance();
+                                cal.setTime(u.getDOB());
+                                int month = cal.get(Calendar.MONTH) + 1;
+                                String monString = new String();
+                                
+                                if(month==1) monString="January";
+                                else if(month==2) monString="February";
+                                    else if(month==3) monString="March";
+                                        else if(month==4) monString="April";
+                                            else if(month==5) monString="May";
+                                                else if(month==6) monString="June";
+                                                    else if(month==7) monString="July";
+                                                       else if(month==2) monString="August";
+                                                            else if(month==2) monString="September";
+                                                                else if(month==2) monString="October";
+                                                                    else if(month==2) monString="November";
+                                                                         else if(month==2) monString="December";
+                                
+                                int day = cal.get(Calendar.DAY_OF_MONTH);
+                                int year = cal.get(Calendar.YEAR); 
+                                out.print(monString +" "+ day+", "+ year); %>
+                
                             </div>
                             
                             <div class="personalinfo">
-                                Gender : <jsp:getProperty name="user" property="gender" />
+                                Gender : 
+                                    <%
+                                    if (u.getGender().equals("M")) out.print("Male");
+                                    else if (u.getGender().equals("F")) out.print("Female");
+                                    else if (u.getGender().equals("O")) out.print("Other");
+                                    %>
                             </div>
                             
                             <div class="personalinfo">
-                                Mobile Phone : <jsp:getProperty name="user" property="phone" />
+                                Mobile Phone : <%=u.getPhone()%>
                             </div>
                             
                             <div class="personalinfo">
-                                Email: <jsp:getProperty name="user" property="email" />
+                                Email: <%=u.getEmail()%>
                             </div>
                             
                             <div class="personalinfo">
-                                Country: <jsp:getProperty name="user" property="country" />
+                                Country: <%=u.getCountry()%>
                             </div>
+                            
+                            
                             
                         </div>    
                     </div>

@@ -30,7 +30,8 @@ Author : Trung Pham
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <link rel="stylesheet" type="text/css" href="css/w3.css">
   
-  <script type= "text/javascript" src = "country_city_list.js"></script>
+  <!-- Country+City List js -->
+  <script type= "text/javascript" src = "js/country_city_list.js"></script>
   
   
       
@@ -63,8 +64,7 @@ Author : Trung Pham
       
       }
       
-    
-      
+         
       .outmost{
           margin-left: 15%; 
           margin-right:15%;
@@ -127,9 +127,7 @@ Author : Trung Pham
             <br>
            
             
-            <!-- - - - - - - - - - FORM - - - - - - - -->
-            
-            
+            <!-- - - - - - - - - - FORM - - - - - - - -->       
             <div class="signupform">
                 <form action="UserControl" method="POST" onsubmit="return validateForm();">
                       <input type="hidden" name="command" value="signupaccount">
@@ -142,13 +140,10 @@ Author : Trung Pham
                         
                         <legend>Account Info.</legend>
                          <div class="form-group">
-                           
-                             
-                             
+                                          
                              <!-- Username -->
                              <input type="text" size="25" placeholder="Username" maxlength ="25" class="form-control" id="username" name="username" style="width: 55%;">
-                             
-                        
+                            
                              <!-- Password -->
                              <input class="form-control" size="25" placeholder="Password" name="password" type="password" id="password" onkeyup="CheckPasswordStrength(this.value);CheckPassword()" style="width: 55%;">
                                 <span id="password_strength" style="font-size:70%; padding-left: 25%"></span>
@@ -160,8 +155,7 @@ Author : Trung Pham
                              <span id="confirm_pass"> </span>
                    
                         
-                        </div> 
-                        
+                        </div>  
                     </fieldset>
                  </div>
                 
@@ -169,18 +163,15 @@ Author : Trung Pham
                 
                 <!-- - - - - - - - - NAME - - - - -  - -->
                 <div style="margin-bottom: 4%">
-                    <fieldset>
-                        
+                    <fieldset> 
                         <legend>Name</legend>
                         
                          <div class="form-group">
-                           
-                            
+           
                              <input type="text" size="30" placeholder="First" maxlength ="30" class="form-control" id="firstname" name="firstname" style="width: 48%; float:left;">
                              <input type="text" size="30" placeholder="Last" maxlength ="30" class="form-control" id="lastname" name="lastname" style="width: 48%; float: right">
                            
-                         </div> 
-                        
+                         </div>                    
                     </fieldset>
                 </div>
              
@@ -189,8 +180,7 @@ Author : Trung Pham
                 <!-- - - - - - - - Birthday - - - - - -->
                 
              <div >
-                    <fieldset>
-                        
+                    <fieldset>   
                         <legend>Birthday</legend>
                          
                             
@@ -261,10 +251,7 @@ Author : Trung Pham
                          <label>
                             <input class ="form-control"  type="text" pattern="[0-9]{4}" maxlength="4" size="4" name="DOByear" id="birthyear" placeholder="Year">
                          </label>
-                        
-                        
-                      
-                        
+            
                     </fieldset>
                 </div>
                 
@@ -307,16 +294,12 @@ Author : Trung Pham
                 
                  <!-- - - - - - - - - EMAIL - - - - -  - -->
                 <div style="margin-bottom: 4%">
-                    <fieldset>
-                        
+                    <fieldset>     
                         <legend>Email</legend>
-                        
-                       <div class="form-group">
-                           
-                             <input type="email" name ="email" class="form-control" id="mail1" aria-describedby="emailHelp" placeholder=".com">
-                             <small id="emailHelp" class="text-muted">One account can only have one email address</small>
-                        </div>
-                        
+                                                
+                             <input type="email" id="email" name ="email" class="form-control"  placeholder=".com" onkeyup="test_email()">
+                             <small>*One Email for One Account Only</small>
+                                                
                     </fieldset>
                 </div>                
                     
@@ -325,14 +308,12 @@ Author : Trung Pham
                     <!-- - - - - - - - - COUNTRY - - - - -  - -->
                 <div style="margin-bottom: 2%">
                     <fieldset>
-                        
                         <legend>Country</legend>
                         
                         <label>
-                            <select class="form-control" id="country" name ="country"></select> 
-                         
+                            <select class="form-control" id="country" name ="country" ></select>                    
                         </label>  
-                        
+                                  
                     </fieldset>
                 </div>
                 
@@ -343,7 +324,6 @@ Author : Trung Pham
                       <!-- - - - - - - - - City - - - - -  - -->
                 <div style="margin-bottom: 2%">
                     <fieldset>
-                        
                         <legend>City/State</legend>
                         
                         <label>
@@ -359,21 +339,21 @@ Author : Trung Pham
                       
                     <br><br>    
                     
+                    <!-- - - - - - - Error Notification - - - - - - - - - -->
                     <div id="nortification_submit">Please check the following section(s) : </div>
                     
                     <div class="error" id="username_submit">-Username.</div>
                     <div class="error" id="password_submit">-Password.</div>
                     <div class="error" id="confirm_password_submit">-Password Confirmation.</div>
-                    <div class="error" id="matching_password_submit">-Password Matching (Password and Confirmation)</div>
-                    <div class="error" id="name_submit">-Name</div>
-                    <div class="error" id="year_submit">-Birthday</div>
-                    <div class="error" id="phone_submit">-Phone</div>
-                    <div class="error" id="email_submit">-Email</div>
-                    <div class="error" id="country_submit">-Country</div>
-                    <div class="error" id="city_submit">-City</div>
-                     
-                   
+                    <div class="error" id="matching_password_submit">-Password Matching (Password and Confirmation).</div>
+                    <div class="error" id="name_submit">-Name.</div>
+                    <div class="error" id="year_submit">-Birthday.</div>
+                    <div class="error" id="phone_submit">-Phone.</div>
+                    <div class="error" id="email_submit">-Email.</div>
+                    <div class="error" id="country_submit">-Country.</div>
+                             
                     <br>
+                    
                 <!-- - - - - - - BUTTON - - - - - - -->
                 <div style = "text-align: center" >
                     <input id="submitbutton" name="submitbuton" type="submit" value="Sign Up" style="font-size : 135%; background-color:#655BFF; color: white; padding: 1.5%; border-radius: 18.5px; font-weight: 400; margin-top: 0.5%">
@@ -398,13 +378,12 @@ Author : Trung Pham
     
     
     <script type="text/javascript">
-        var error_count;
-    
+        
+        
     
         //-----------Initialize Page OnLoad-------------//
         function initialize(){
             document.getElementById("username").focus();
-            error_count=0;
             
             document.getElementById("nortification_submit").style.display = "none";
             
@@ -417,14 +396,16 @@ Author : Trung Pham
             document.getElementById("phone_submit").style.display = "none";
             document.getElementById("email_submit").style.display = "none";
             document.getElementById("country_submit").style.display = "none";
-            document.getElementById("city_submit").style.display = "none";         
+                   
         }  
           
           
         //---------Password Strength---------    
         function CheckPasswordStrength(password) {
             var password_strength = document.getElementById("password_strength");
- 
+            
+           
+            
                 //TextBox left blank.
             if (password.length === 0) {
                 password_strength.innerHTML = "";
@@ -483,8 +464,11 @@ Author : Trung Pham
     
     
     
-        //------------Check Confirming Password----------
+        //------------Check Confirming Password----------//
         function CheckPassword() {
+            
+            
+            
             var confirm_password = document.getElementById("confirm_password").value;
             var password = document.getElementById("password").value;
             var message = document.getElementById("confirm_pass");
@@ -505,19 +489,29 @@ Author : Trung Pham
         }
         
         
+        //--------------Validate the Form Submit-------------/
         function validateForm() {
             
+            //------------------- Declare Error Count -------------------//
+            var error_count;
             error_count = 0;
             
-            var username = document.getElementById("username");
-            var password = document.getElementById("password");
-            var confirm_password = document.getElementById("confirm_password");
-            var name = document.getElementById("firstname");
-            var birthyear = document.getElementById("birthyear");
-            var phone= document.getElementById("phone");
-            var email = document.getElementById("email");
-            var country = document.getElementById("country");
+            //---------------Declare value variable of input in FORM ----------//
+            /* Username */         var username = document.getElementById("username");  
+            /* Password */         var password = document.getElementById("password");
+            /* Confirm_Password */ var confirm_password = document.getElementById("confirm_password");
+            /* Name */             var name = document.getElementById("firstname");
+            /* Birthyear */        var birthyear = document.getElementById("birthyear");
+            /* Phone */            var phone= document.getElementById("phone");
+            /* Email */            var email=document.getElementById("email");
+            /* Country */          var country = document.getElementById("country").options[document.getElementById("country").selectedIndex].value;
             
+            
+            
+            //-----------------Checking Input in Detail ------------------//
+            //------------------------------------------------------------//
+            
+            //-----Username--------//
             if (username.value === "")
             {        
                 error_count = error_count + 1;
@@ -526,11 +520,11 @@ Author : Trung Pham
             }
                 else
                 {                  
-                    error_count = error_count - 1;
                     document.getElementById("username_submit").style.display = "none";
                     username.style.borderColor = "#4F8A10";
                 }
             
+            //---------Password---------//
             if (password.value === "")
             {        
                 error_count = error_count + 1;
@@ -538,12 +532,12 @@ Author : Trung Pham
                 password.style.borderColor = "red";
             }
                 else
-                    {                  
-                        error_count = error_count - 1;
+                    {                          
                         document.getElementById("password_submit").style.display = "none";
                         password.style.borderColor = "#4F8A10";
                     }
-                    
+            
+            //-------Confirm_Password-----------//
             if (confirm_password.value === "")
             {        
                 error_count = error_count + 1;
@@ -551,12 +545,13 @@ Author : Trung Pham
                 confirm_password.style.borderColor = "red";
             }
                 else
-                    {                  
-                        error_count = error_count - 1;
+                    {                     
                         document.getElementById("confirm_password_submit").style.display = "none";
                         confirm_password.style.borderColor = "#4F8A10";
                     }
-                    
+            
+        
+            //-------------Matching Password -----------//
             if (password.value !== confirm_password.value)
             {        
                 error_count = error_count + 1;
@@ -567,54 +562,100 @@ Author : Trung Pham
                 else
                     {
                         if (confirm_password.value !== "")
-                        {
-                            error_count = error_count - 1;
+                        {       
                             document.getElementById("matching_password_submit").style.display = "none";
                             password.style.borderColor = "#4F8A10";
                             confirm_password.style.borderColor = "#4F8A10";
                         }
                     }
                     
-                    
-                    <!-- - - - - - - - - To BE CONTINUE - - - - - - - - -->
-                    
-            if (password.value === "")
+                                    
+            //-------------Firstname Existence -----------//        
+            if (name.value === "")
             {        
                 error_count = error_count + 1;
-                document.getElementById("password_submit").style.display = "block";
-                password.style.borderColor = "red";
+                document.getElementById("name_submit").style.display = "block";
+                name.style.borderColor = "red";
             }
                 else
                     {                  
-                        error_count = error_count - 1;
-                        document.getElementById("password_submit").style.display = "none";
-                        password.style.borderColor = "#4F8A10";
+                     
+                        document.getElementById("name_submit").style.display = "none";
+                        name.style.borderColor = "#4F8A10";
                     }
             
-            if (error_count !== -2)
+            
+            //-------------Year Input -----------//
+            if (birthyear.value === "")
+            {        
+                error_count = error_count + 1;
+                document.getElementById("year_submit").style.display = "block";
+                birthyear.style.borderColor = "red";
+            }
+                else
+                    {                  
+                        
+                        document.getElementById("year_submit").style.display = "none";
+                        birthyear.style.borderColor = "#4F8A10";
+                    }
+            
+	    //-------Phone--------//
+            if (phone.value === "")
+            {        
+                error_count = error_count + 1;
+                document.getElementById("phone_submit").style.display = "block";
+                phone.style.borderColor = "red";
+            }
+                else
+                    {                  
+                       
+                        document.getElementById("phone_submit").style.display = "none";
+                        phone.style.borderColor = "#4F8A10";
+                    }
+            
+		
+	    //-----------Email--------//	
+            if (email.value === "")
+            {        
+                error_count = error_count + 1;
+                document.getElementById("email_submit").style.display = "block";
+                email.style.borderColor = "red";
+            }
+                else
+                    {                       
+                        document.getElementById("email_submit").style.display = "none";
+                        email.style.borderColor = "#4F8A10";
+                    }
+            
+		
+            //-------------Picking Country-----------//
+            if (country === "-1")
+            {
+                error_count = error_count + 1;
+                document.getElementById("country_submit").style.display = "block";
+                document.getElementById("country").style.borderColor = "red";
+            }
+            else
+                    {                  
+                       
+                        document.getElementById("country_submit").style.display = "none";
+                        document.getElementById("country").style.borderColor = "#4F8A10";
+                    }
+            
+	    //----Final Result of Error---//	
+            if (error_count > 0)
             {
                 document.getElementById("nortification_submit").style.display = "block";
-                return false;
-                
+                return false;  
             }
                 
         }
-    
-    
-        
-       
-       
+     
     </script> 
      <div id="scrollToTop" class="scrollToTop mbr-arrow-up"><a style="text-align: center;"><i class="mbr-arrow-up-icon"></i></a></div>
      
      
      
-     
-     
- 
-     
-     
-  
  <!-- - - - - - - - Background Transition - - - - - - - --> 
   <script>
             var myIndex = 0;
@@ -636,7 +677,7 @@ Author : Trung Pham
   
   </script>
   
-  
+  <!-- - - - - - - - - - - Footer - - - - - - - -->
   <jsp:include page="_footer.jsp" flush="true"/>
 </body>
 </html>
