@@ -34,6 +34,7 @@ public class JourneyProcessing extends HttpServlet
             throws ServletException, IOException
     {
         response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
         
         // Check action: generateJourney, or ...
         String action = request.getParameter("action");
@@ -52,6 +53,27 @@ public class JourneyProcessing extends HttpServlet
                      request.getServletContext().getRequestDispatcher("/display_journey.jsp");
              dispatcher.forward(request, response);
         }
+        else if (action.equals("saveJourney"))
+        {
+            // Retrieve journey from database
+            HttpSession session = request.getSession(true);
+            Journey journey = (Journey) session.getAttribute("currentJourney");
+            if (journey ==  null)   // no journey in session
+            {
+                out.println("Error: No journey in session");
+                return;
+            }
+
+            // Save journey to database
+            saveJourney(journey);
+
+            // Notify user, then redirects to main page ?
+            out.println("<script type=\"text/javascript\">");
+            out.println("alert(\"Your journey has been saved successfully!\n"
+                + "Go into your profile to see\"");
+            out.println("location = 'user_profile.jsp'");
+            out.println("</script>");
+        }
     }
     
     /**
@@ -69,6 +91,9 @@ public class JourneyProcessing extends HttpServlet
     {
         // For debugging
         PrintWriter out = response.getWriter();
+
+        // Create database connection
+        Connection connection = DBConnect.getConnection();
         
         // Get duration
         int duration = 0;
@@ -86,31 +111,31 @@ public class JourneyProcessing extends HttpServlet
                                                                   // as enum constant
 
         // Get country
-        String country = getCountry(request);
-        out.println("Country: " + country);
+        String country = getCountry(request, connection);
+        // out.println("Country: " + country);
         
         // Get number of days for each city
         List<Integer> listDaysOfCity = getDaysCity(request, duration);
-        ListIterator iterator = listDaysOfCity.listIterator();
-        out.println("<br>Number of city/cities: " + listDaysOfCity.size());
-        out.println("<ul>Days for each city:");
-        while (iterator.hasNext())
-        {
-            int days = (int) iterator.next();
-            out.println("<li>" + days + " days");
-        }
-        out.println("</ul>");
+        // ListIterator iterator = listDaysOfCity.listIterator();
+        // out.println("<br>Number of city/cities: " + listDaysOfCity.size());
+        // out.println("<ul>Days for each city:");
+        // while (iterator.hasNext())
+        // {
+        //     int days = (int) iterator.next();
+        //     out.println("<li>" + days + " days");
+        // }
+        // out.println("</ul>");
         
         // Get list of cities
-        List<String> listCity = getCity(country, listDaysOfCity, journeyType);
-        iterator = listCity.listIterator();
-        out.println("<ol>List of city:");
-        while (iterator.hasNext())
-        {
-            String city = (String) iterator.next();
-            out.println("<li>" + city);
-        }
-        out.println("</ol>");
+        List<String> listCity = getCity(country, listDaysOfCity, journeyType, connection);
+        // iterator = listCity.listIterator();
+        // out.println("<ol>List of city:");
+        // while (iterator.hasNext())
+        // {
+        //     String city = (String) iterator.next();
+        //     out.println("<li>" + city);
+        // }
+        // out.println("</ol>");
         
 //        // Get list of locations
 //        List<Location> listLocations = getLocation(request, response, listCity,
@@ -126,16 +151,23 @@ public class JourneyProcessing extends HttpServlet
 //        out.println("</ul>");
 
         // Get list of all locations, grouped according to the day they are visited in the journey
-        List<Day> listLocationsPerDay = getLocationsPerDay(request,
+        List<Day> listLocationsPerDay = getLocationsPerDay(request, connection,
                 listCity, listDaysOfCity, country, journeyType, duration);
-        iterator = listLocationsPerDay.listIterator();
-        out.println("<ul>List of locations per day:");
-        while (iterator.hasNext())
-        {
-            Day day = (Day) iterator.next();
-            out.println("<li>" + day.visitedLocations());
+        // iterator = listLocationsPerDay.listIterator();
+        // out.println("<ul>List of locations per day:");
+        // while (iterator.hasNext())
+        // {
+        //     Day day = (Day) iterator.next();
+        //     out.println("<li>" + day.visitedLocations());
+        // }
+        // out.println("</ul>");
+
+        // Close database connection
+        try {
+            connection.close();
+        } catch (Exception e) {
+
         }
-        out.println("</ul>");
         
         // Save to Journey (Note: journeyID, userID and deployDate are not set here)
         Journey journey = new Journey();
@@ -151,8 +183,23 @@ public class JourneyProcessing extends HttpServlet
     }
     
     /**
+     * @param journey 
+     * 
+     * Save the generated journey (in session) into the related database
+     * Including tables: Journey, JourneysFETCHLocations
+     */
+    private void saveJourney(Journey journey)
+    {
+        
+    }
+    
+    
+    
+    
+    /**
      * 
      * @param request
+     * @param connection
      * @return String
      * @throws ServletException
      * @throws IOException 
@@ -168,17 +215,13 @@ public class JourneyProcessing extends HttpServlet
      * Return a String specifying the Country user will visit
      * 
      */
-    private String getCountry(HttpServletRequest request)
+    private String getCountry(HttpServletRequest request, Connection connection)
             throws ServletException, IOException
     {
         Statement statement = null;
         ResultSet resultSet = null;
-        Connection connection = null;
         
         String country = "Nothing";
-        
-        // Get database connection
-        connection = DBConnect.getConnection();
         
         // Decide how to set the country
         String destination = request.getParameter("dest");
@@ -196,8 +239,8 @@ public class JourneyProcessing extends HttpServlet
         }
         else if (destination.equals("notKnown"))    // randomly worldwide
         {
-            int numsCountry = 0, id;
-            Random random = new Random(System.currentTimeMillis());
+            // int numsCountry = 0, id;
+            // Random random = new Random(System.currentTimeMillis());
             String query;
 
             try
@@ -205,19 +248,21 @@ public class JourneyProcessing extends HttpServlet
                 statement = connection.createStatement();
 
                 // Get number of countries registered in the system
-                query = "SELECT COUNT(DISTINCT Country) AS Nums FROM Locations";
-                resultSet = statement.executeQuery(query);
-                resultSet.next();
-                numsCountry = resultSet.getInt("Nums");
+                // query = "SELECT COUNT(DISTINCT Country) AS Nums FROM Locations";
+                // resultSet = statement.executeQuery(query);
+                // resultSet.next();
+                // numsCountry = resultSet.getInt("Nums");
 
                 // Pick a random country
-                id = random.nextInt(numsCountry) + 1;   // Determine country's entry
-                query = "SELECT DISTINCT Country FROM Locations ORDER BY Country";
+                // id = random.nextInt(numsCountry) + 1;   // Determine country's entry
+                // query = "SELECT DISTINCT Country FROM Locations ORDER BY Country";
+                query = "SELECT Country FROM Locations GROUP BY Country ORDER BY RAND();";
                 resultSet = statement.executeQuery(query);
-                while (id-- > 0)        // Get the record in the determined entry
-                {
-                    resultSet.next();
-                }
+                resultSet.next();
+                // while (id-- > 0)        // Get the record in the determined entry
+                // {
+                //     resultSet.next();
+                // }
                 country = resultSet.getString("Country");
 
             } catch (SQLException sqle) {
@@ -225,7 +270,6 @@ public class JourneyProcessing extends HttpServlet
             } finally {
                 try {resultSet.close();} catch (Exception e) {}
                 try {statement.close();} catch (Exception e) {}
-                try {connection.close();} catch (Exception e) {}
             }
         }
         else        // invalid input
@@ -281,6 +325,7 @@ public class JourneyProcessing extends HttpServlet
      * @param country
      * @param daysCity
      * @param journeyType
+     * @param connection
      * @return List<String>
      * @throws ServletException
      * @throws IOException 
@@ -293,16 +338,12 @@ public class JourneyProcessing extends HttpServlet
      * Return a List<String> specifying all cities selected for the trip
      * 
      */
-    private List<String> getCity(String country, List<Integer> daysCity, JourneyType journeyType)
+    private List<String> getCity(String country, List<Integer> daysCity, JourneyType journeyType, Connection connection)
     {
-        Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
         
         List<String> listCity = new ArrayList<>();
-        
-        // Get database connection
-        connection = DBConnect.getConnection();
         
         // Get number of cities
         int numsCity = daysCity.size();
@@ -341,7 +382,6 @@ public class JourneyProcessing extends HttpServlet
         } finally {
             try {resultSet.close();} catch (Exception e) {}
             try {statement.close();} catch (Exception e) {}
-            try {connection.close();} catch (Exception e) {}
         }
         
         return listCity;
@@ -350,6 +390,7 @@ public class JourneyProcessing extends HttpServlet
     /**
      * 
      * @param request
+     * @param connection
      * @param listCity
      * @param dayCity
      * @param country
@@ -391,7 +432,7 @@ public class JourneyProcessing extends HttpServlet
      * Return a List<Day>, with each Day specifying locations user will visit in the trip
      * 
      */
-    private List<Day> getLocationsPerDay(HttpServletRequest request,
+    private List<Day> getLocationsPerDay(HttpServletRequest request, Connection connection,
             List<String> listCity, List<Integer> dayCity, String country,
             JourneyType type, int duration)
     {
@@ -401,15 +442,15 @@ public class JourneyProcessing extends HttpServlet
         
         // Check, and get theme-park location
         String parkPrefer = request.getParameter("parkPrefer");
-        Location park = getPark(parkPrefer, dayCity, listCity, country);
+        Location park = getPark(parkPrefer, dayCity, listCity, country, connection);
         
         // Check, and get beach location
         String beachPrefer = request.getParameter("beachPrefer");
-        Location beach = getBeach(beachPrefer, dayCity, listCity, country, duration);
+        Location beach = getBeach(beachPrefer, dayCity, listCity, country, duration, connection);
         
         // Get list of locations for evening
         List<Location> eveningList = getLocationsPeriod(type, chosenID, country,
-                listCity, dayCity, park, beach, "evening");
+                listCity, dayCity, park, beach, "evening", connection);
         for (int i = 0; i < eveningList.size(); ++i)    // construct list of current chosen locationIDs
         {
             chosenID.add(eveningList.get(i).getID());
@@ -424,7 +465,7 @@ public class JourneyProcessing extends HttpServlet
         
         // Get list of locations for afternoon
         List<Location> afternoonList = getLocationsPeriod(type, chosenID, country,
-                listCity, dayCity, park, beach, "afternoon");
+                listCity, dayCity, park, beach, "afternoon", connection);
         for (int i = 0; i < afternoonList.size(); ++i)  // construct list of current chosen locationIDs
         {
             chosenID.add(afternoonList.get(i).getID());
@@ -439,7 +480,7 @@ public class JourneyProcessing extends HttpServlet
         
         // Get list of locations for morning
         List<Location> morningList = getLocationsPeriod(type, chosenID, country,
-                listCity, dayCity, park, beach, "morning");
+                listCity, dayCity, park, beach, "morning", connection);
         for (int i = 0; i < morningList.size(); ++i)
         {
             chosenID.add(morningList.get(i).getID());   // add chosen location's ID to the list
@@ -531,6 +572,7 @@ public class JourneyProcessing extends HttpServlet
      * @param dayCity
      * @param listCity
      * @param country
+     * @param connection
      * @return a Location object representing the chosen Park for the trip
      * 
      * Condition: If duration >= 3 days -> Suggest a park location for the trip
@@ -543,15 +585,11 @@ public class JourneyProcessing extends HttpServlet
      * 
      */
     public Location getPark(String parkPrefer, List<Integer> dayCity,
-            List<String> listCity, String country)
+            List<String> listCity, String country, Connection connection)
     {
-        Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
         Location park = null;
-        
-        // Get database connection
-        connection = DBConnect.getConnection();
         
         // If duration >= 3 days, and user does like visiting a park
         if (dayCity.get(0) >= 3 && parkPrefer.equals("yes"))
@@ -624,7 +662,6 @@ public class JourneyProcessing extends HttpServlet
             } finally {
                 try {resultSet.close();} catch (Exception e) {}
                 try {statement.close();} catch (Exception e) {}
-                try {connection.close();} catch (Exception e) {}
             }
         }
         
@@ -638,6 +675,7 @@ public class JourneyProcessing extends HttpServlet
      * @param listCity
      * @param country
      * @param totalDays
+     * @param connection
      * @return a Location object representing a beach for the trip (if possible)
      * 
      * Condition:
@@ -651,9 +689,8 @@ public class JourneyProcessing extends HttpServlet
      * 
      */
     public Location getBeach(String beachPrefer, List<Integer> dayCity,
-            List<String> listCity, String country, int totalDays)
+            List<String> listCity, String country, int totalDays, Connection connection)
     {
-        Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
         Location beach = null;
@@ -672,7 +709,6 @@ public class JourneyProcessing extends HttpServlet
         
         if (haveBeach)      //  include beach
         {
-            connection = DBConnect.getConnection();
             try
             {
                 statement = connection.createStatement();
@@ -743,7 +779,6 @@ public class JourneyProcessing extends HttpServlet
             } finally {
                 try {resultSet.close();} catch (Exception e) {}
                 try {statement.close();} catch (Exception e) {}
-                try {connection.close();} catch (Exception e) {}
             }
         }
         
@@ -760,6 +795,7 @@ public class JourneyProcessing extends HttpServlet
      * @param park
      * @param beach
      * @param period
+     * @param connection
      * @return a List<Location> indicating all locations visited in the specified period
      * 
      * Determine locations to visit in the specified period (morning|afternoon|evening),
@@ -780,9 +816,8 @@ public class JourneyProcessing extends HttpServlet
      */
     private List<Location> getLocationsPeriod(JourneyType type, List<Integer> chosenID,
             String country, List<String> listCity, List<Integer> dayCity,
-            Location park, Location beach, String period)
+            Location park, Location beach, String period, Connection connection)
     {
-        Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
         
@@ -970,9 +1005,7 @@ public class JourneyProcessing extends HttpServlet
 //            out.println(query2 + "<br><br>");
         }
         
-        
-        // Query from the database list of locations
-        connection = DBConnect.getConnection();
+
         try
         {
             Location location;
@@ -1072,7 +1105,6 @@ public class JourneyProcessing extends HttpServlet
         } finally {
             try {resultSet.close();} catch (Exception e) {}
             try {statement.close();} catch (Exception e) {}
-            try {connection.close();} catch (Exception e) {}
         }
         
         return listLocations;

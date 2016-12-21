@@ -42,9 +42,12 @@
         <link rel="stylesheet" href="css/weather-icons.min.css" type="text/css">
     </head>
     <body>
+        <!-- Header -->
         <div id ="header">
             <jsp:include page="_header.jsp" flush="true" />
         </div>
+
+        <!-- Body -->
         <div class="container" id="body-display">
             <!-- Panel -->
             <div id="panel">
@@ -534,7 +537,14 @@
 
                 </div>
             </div>
+
+            <!-- Save journey button -->
+            <form action="JourneyProcessing" method="post" id="form-button">
+                <button type="submit" name="action" value="saveJourney" class="btn btn-primary choose-btn">Save your journey</button>
+            </form>
         </div>
+
+        <!-- Footer -->
         <div id="footer">
             <jsp:include page="_footer.jsp" flush="true" />
         </div>
