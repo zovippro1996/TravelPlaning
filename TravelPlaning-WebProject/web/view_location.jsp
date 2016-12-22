@@ -279,7 +279,7 @@
                 <br><hr>
             </div>
             <% }%>
-            <a href="" id="loadMore">Load More</a>
+            <a id="loadMore">Load More</a>
 
 
             <%
@@ -292,7 +292,7 @@
                 <input type="hidden" name="locationID" value="<%=LocationID%>">
                 <input type="hidden" name="url" value="view_location.jsp?LocationID=<%=LocationID%>">
 
-                <p><b>Leave your comment</b></p>
+                <p><b>Your Review</b></p>
                 <hr>
                 <div class="comment-avatar">
                     <img src="<%=ImageControl.importUserAvatar(user.getID())%>" 
@@ -302,10 +302,10 @@
                     <textarea name="comment" class="form-control" rows="5" id="comment" style="width: 100%; background: #FFFFFF;"></textarea>
                 </div>
                 <div class="comment-rate">
-                    <input name="rating" id="input-rating" value="3" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs">
+                    <input name="rating" id="input-rating" value="3" type="number" class="rating" min=1 max=5 step=0.5 data-size="xs">
                 </div>
                 <div>
-                    <input style="margin-left: 80%;" class="btn btn-default" type="submit" value="Post Comment"/>
+                    <input style="margin-left: 80%;" class="btn btn-default" type="submit" value="Post Review"/>
                 </div>
             </form>
             <% }%>

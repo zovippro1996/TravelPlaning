@@ -65,8 +65,8 @@ public class UserControl extends HttpServlet {
                 Statement st = c.createStatement();
                 ResultSet rs;
                 // Query allows login with username or email
-                String query = "select * from Users where username='" + username + "' OR email='" + username
-                        + "' AND password = '" + password + "' ";
+                String query = "SELECT * FROM Users WHERE (Username='" + username + "' OR Email='" + username
+                        + "') AND (Password = '" + password + "') ";
                 rs = st.executeQuery(query);
                 if (rs.next()) {
 
