@@ -16,9 +16,9 @@ public enum JourneyType
     SIGHTSEEING(new LocationType[] {LocationType.CULTURAL, LocationType.LANDMARK,
         LocationType.ARTISTIC, LocationType.NATURE }),
     METROPOLIS(new LocationType[] {LocationType.LANDMARK, LocationType.SCIENTIFIC,
-        LocationType.INDUSTRIAL, LocationType.ARTISTIC, LocationType.ENTERTAIMENT }),
+        LocationType.INDUSTRIAL, LocationType.ARTISTIC, LocationType.ENTERTAINMENT }),
     EDUCATION(new LocationType[] {LocationType.HISTORICAL, LocationType.SCIENTIFIC,
-        LocationType.ARTISTIC, LocationType.CULTURAL, LocationType.ENTERTAIMENT });
+        LocationType.ARTISTIC, LocationType.CULTURAL, LocationType.ENTERTAINMENT });
     
     LocationType[] listLocations;
     
