@@ -61,11 +61,15 @@ public class JourneyProcessing extends HttpServlet
             Journey journey = (Journey) session.getAttribute("currentJourney");
             if (journey ==  null)   // no journey in session
             {
-                out.println("Error: No journey in session");
+                out.println("<script type=\"text/javascript\">");
+                out.println("alert('There is an error in generating the journey. "
+                        + "Please try again.');");
+                out.println("window.location.replace('input_getting.jsp');");
+                out.println("</script>");
                 return;
             }
             
-            // Set deplotDate for journey
+            // Set deployDate for journey
             java.sql.Date currentDate = new java.sql.Date(new java.util.Date().getTime());
             String deployDate = currentDate.toString();
             journey.setDeployDate(deployDate);
@@ -75,10 +79,12 @@ public class JourneyProcessing extends HttpServlet
             if (user == null)   // no user, or user has not logged in
             {
                 out.println("<script type=\"text/javascript\">");
-                out.println("alert('You need to login to save the journey')");
-                out.println("location = 'login.jsp'");  // redirect user to login page
+                out.println("alert('You need to login to save the journey. "
+                    + "You will be redirected to the Login page shortly...');");
+                // Redirect user to login page
+                out.println("window.location.replace('login.jsp');");
                 out.println("</script>");
-                out.println("Need to login");
+                return;
             }
 
             // Save journey to database
@@ -86,9 +92,10 @@ public class JourneyProcessing extends HttpServlet
 
             // Notify user, then redirects to profile page ?
             out.println("<script type=\"text/javascript\">");
-            out.println("alert(('Your journey has been saved successfully!\n"
-                + "Go into your profile to see')");
-            out.println("location = 'user_profile.jsp'");
+            out.println("alert('Your journey has been saved successfully! "
+                + "Go into your profile to see. You will be redirected to your Profile page shortly...');");
+            // Redirect to user profile page
+            out.println("window.location.replace('user_profile.jsp?UserID=" + user.getID() + "');");
             out.println("</script>");
         }
     }
@@ -154,18 +161,18 @@ public class JourneyProcessing extends HttpServlet
         // }
         // out.println("</ol>");
         
-//        // Get list of locations
-//        List<Location> listLocations = getLocation(request, response, listCity,
-//                listDaysOfCity, country);
-//        iterator = listLocations.listIterator();
-//        out.println("<ul>List of locations:");
-//        while (iterator.hasNext())
-//        {
-//            Location location = (Location) iterator.next();
-//            out.println("<li>" + location.display());
-//            out.println("<br>Period: " + location.period());
-//        }
-//        out.println("</ul>");
+        // Get list of locations
+        // List<Location> listLocations = getLocation(request, response, listCity,
+        //         listDaysOfCity, country);
+        // iterator = listLocations.listIterator();
+        // out.println("<ul>List of locations:");
+        // while (iterator.hasNext())
+        // {
+        //     Location location = (Location) iterator.next();
+        //     out.println("<li>" + location.display());
+        //     out.println("<br>Period: " + location.period());
+        // }
+        // out.println("</ul>");
 
         // Get list of all locations, grouped according to the day they are visited in the journey
         List<Day> listLocationsPerDay = getLocationsPerDay(request, connection,
@@ -286,15 +293,22 @@ public class JourneyProcessing extends HttpServlet
         }
         queryJourneyLocation += ";";
         out.println(queryJourneyLocation);
-        
-        // Close database connection
+
+        // Execute update in the corresponding database
+        Statement statement = null;
         try {
-            connection.close();
-        } catch (Exception e) {
+            statement = connection.createStatement();
+            statement.executeUpdate(queryJourney);  // execute query for Journeys database
+            statement.executeUpdate(queryJourneyLocation);  // execute query for JourneysFETCHLocations database
+        } catch (SQLException sqle) {
             
+        } finally {
+            try { statement.close(); } catch (Exception e) {}
         }
+        
+        // Close statement and database connection
+        try { connection.close(); } catch (Exception e) {}
     }
-    
     
     
     

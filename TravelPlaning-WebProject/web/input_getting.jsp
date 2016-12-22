@@ -154,11 +154,11 @@
                             <div class="input-group">
                                 <input type="number" class="form-control" id="duration"
                                        placeholder="Number of days" name="duration"
-                                       min="1" max="7" value="1"
+                                       min="2" max="7" value="2"
                                        autocomplete="off" required>
                                 <div class="input-group-addon"> day(s)</div>
                             </div>
-                            <p class="help-block" style="display: inline; margin-right: 50px">Min: 1 day</p>
+                            <p class="help-block" style="display: inline; margin-right: 50px">Min: 2 day</p>
                             <p class="help-block" style="display: inline">Max: 7 days</p>
                         </div>
                         
