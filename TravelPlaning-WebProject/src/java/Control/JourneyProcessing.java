@@ -16,11 +16,33 @@ public class JourneyProcessing extends HttpServlet
             throws ServletException, IOException
     {
         // Warning user: do not support GET method
-        response.setContentType("text/plain");
+//        response.setContentType("text/plain");
+//        PrintWriter out = response.getWriter();
+//        
+//        out.println("Our system do not support get method. There must be"
+//                + "something wrong...");
+        
+        response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         
-        out.println("Our system do not support get method. There must be"
-                + "something wrong...");
+        // Get and check action parameter: view (view saved journey)
+        String action = request.getParameter("action");
+        
+        if (action.equalsIgnoreCase("view"))    // view saved journey
+        {
+            // Retrieve journey ID
+            String journeyID = request.getParameter("id");
+            
+            // Query journey from the database, and save to session
+            Journey journey = queryJourney(journeyID, out);
+//            HttpSession session = request.getSession(true);
+//            session.setAttribute("currentJourney", journey);
+//            
+//            // Forward to the Display Journey Page
+//            RequestDispatcher dispatcher =
+//                    getServletContext().getRequestDispatcher("/display_journey.jsp");
+//            dispatcher.forward(request, response);
+        }
     }
     
     /**
@@ -38,7 +60,7 @@ public class JourneyProcessing extends HttpServlet
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         
-        // Check action: generateJourney, or ...
+        // Get and check action parameter: generateJourney, or saveJourney, or
         String action = request.getParameter("action");
         
         if (action.equals("generateJourney"))
@@ -336,6 +358,82 @@ public class JourneyProcessing extends HttpServlet
         
         // Close statement and database connection
         try { connection.close(); } catch (Exception e) {}
+    }
+    
+    /**
+     * @param journeyID
+     * @return a Journey indicating the saved journey user wants to view
+     */
+    private Journey queryJourney(String journeyID, PrintWriter out)
+    {
+        Journey journey = new Journey();
+        List<String> listCity = new ArrayList<>();
+        List<Integer> daysCity = new ArrayList<>();
+        int day1 = 0, day2 = 0;
+        
+        
+        // Get database connection
+        Connection connection = DBConnect.getConnection();
+        
+        // Construct query to get information from Journeys table
+        String queryJourney = "SELECT UserID, Budget, DeployDate, "
+                + "DurationDate as Duration, TypeJourney as Type "
+                + "FROM Journeys "
+                + "WHERE JourneyID = '" + journeyID + "';";
+        
+        // Construct query to get information from JourneysFETCHLocations table
+        String queryJourneyLocation = "SELECT "
+                + "JourneysFETCHLocations.VisitDay as VisitDay, "   // get information for Day
+                + "JourneysFETCHLocations.Period as DayPeriod, "
+                + "Locations.LocationID as LocationID, "
+                + "Locations.NameLocation as NameLocation, "        // get information for Location
+                + "Locations.TypeLocation as Type, "
+                + "Locations.City as City, "
+                + "Locations.Country as Country, "
+                + "Locations.Price as Price, "
+                + "Locations.Description as Description, "
+                + "Locations.Morning as Morning, "
+                + "Locations.Afternoon as Afternoon, "
+                + "Locations.Evening as Evening "                  // done getting information
+                + "FROM JourneysFETCHLocations INNER JOIN Locations "
+                + "ON JourneysFETCHLocations.LocationID = Locations.LocationID "
+                + "WHERE JourneysFETCHLocations.JourneyID = '" + journeyID + "' "
+                + "ORDER BY VisitDay ASC;";
+        
+        // Construct query to get country
+        
+        // Construct query to get names of cities and number of days spent on each
+        
+//        out.println(queryJourney + "<br>");
+//        out.println(queryJourneyLocation);
+
+        // Query from database
+        Statement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.createStatement();
+            
+            // First query
+            resultSet = statement.executeQuery(queryJourney);
+            resultSet.next();
+            
+            // Extract information and save into Journey object
+            journey.setUserID(resultSet.getInt("UserID"));
+            journey.setBudget(resultSet.getDouble("Budget"));
+            journey.setDeployDate(resultSet.getString("DeployDate"));
+            journey.setDuration(resultSet.getInt("Duration"));
+            journey.setType(resultSet.getString("Type"));
+            
+            // Second query
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(JourneyProcessing.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        // Close database connection
+        try { connection.close(); } catch (Exception e) {}
+        
+        return null;
     }
     
     
@@ -760,7 +858,7 @@ public class JourneyProcessing extends HttpServlet
                             + "Locations.Country as Country, "           // country
                             + "Locations.Price as Price, "               // price
                             + "Locations.Description as Description, "   // description
-                            + "Locations.LocationImage as Image, "       // image for the location
+//                            + "Locations.LocationImage as Image, "       // image for the location
                             + "AVG(Comments.Rate) as AvgRate, "          // average rate
                             + "COUNT(Comments.Rate) as NumsRate "        // number of rates
                             + "FROM Locations INNER JOIN Comments "
@@ -785,7 +883,7 @@ public class JourneyProcessing extends HttpServlet
                     park.setCountry(resultSet.getString("Country"));
                     park.setPrice(resultSet.getDouble("Price"));
                     park.setDescription(resultSet.getString("Description"));
-                    park.setImage(resultSet.getString("Image"));
+//                    park.setImage(resultSet.getString("Image"));
                     park.setAvgRate(resultSet.getDouble("AvgRate"));
                     
                     park.setMorning(true);
@@ -896,7 +994,7 @@ public class JourneyProcessing extends HttpServlet
                     beach.setCountry(resultSet.getString("Country"));
                     beach.setPrice(resultSet.getDouble("Price"));
                     beach.setDescription(resultSet.getString("Description"));
-                    beach.setImage(resultSet.getString("Image"));
+//                    beach.setImage(resultSet.getString("Image"));
                     beach.setAvgRate(resultSet.getDouble("AvgRate"));
                     
                     // Determine the day
@@ -1169,7 +1267,7 @@ public class JourneyProcessing extends HttpServlet
                 location.setCountry(resultSet.getString("Country"));
                 location.setPrice(resultSet.getDouble("Price"));
                 location.setDescription(resultSet.getString("Description"));
-                location.setImage(resultSet.getString("Image"));
+//                location.setImage(resultSet.getString("Image"));
                 location.setAvgRate(resultSet.getDouble("AvgRate"));
                 
                 if (period.equalsIgnoreCase("morning"))     // assign period
@@ -1215,7 +1313,7 @@ public class JourneyProcessing extends HttpServlet
                     location.setCountry(resultSet.getString("Country"));
                     location.setPrice(resultSet.getDouble("Price"));
                     location.setDescription(resultSet.getString("Description"));
-                    location.setImage(resultSet.getString("Image"));
+//                    location.setImage(resultSet.getString("Image"));
                     location.setAvgRate(resultSet.getDouble("AvgRate"));
 
                     if (period.equalsIgnoreCase("morning")) // assign period

@@ -5,7 +5,6 @@
  */
 package Data;
 
-import java.sql.Date;
 import java.util.*;
 
 /**
@@ -22,6 +21,9 @@ public class Journey {
     
     private List<Day> listDays;             // specified list of locations
                                             // based on which day to visit
+                                            // day ith is at index i - 1
+                                            // e.g day 1 is at index 0
+    
     private String country;                 // destination country for the journey
     private List<String> listCity;          // list of cities visited in the journey
     private List<Integer> daysCity;         // number of days spent on each city
