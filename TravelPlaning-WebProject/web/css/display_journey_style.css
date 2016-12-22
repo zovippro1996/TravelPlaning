@@ -147,17 +147,39 @@ span.text-class {
 }
 
 .choose-btn {
-    background-color: #5c5c8a !important;
-    border-color: #5c5c8a !important;
+    background-color: #4d4d4d !important;
+    border-color: #4d4d4d !important;
     font-size: 1.5em !important;
-    font-weight: 900 !important;
+    font-weight: 200 !important;
 }
 
 .choose-btn:hover {
-    background-color: #333399 !important;
+    background-color: #262626 !important;
+    font-weight: 900 !important;
 }
 
 #form-button {
     text-align: center;
     padding-top: 20px;
+}
+
+h2 a {
+    color: black;
+    text-decoration: none;
+}
+
+h2 a:hover {
+    text-decoration: none;
+    font-weight: bolder;
+    color: black;
+}
+
+h2 a:visited {
+    color: black;
+    text-decoration: none;
+}
+
+h2 a:active {
+    color: black;
+    text-decoration: none;
 }

@@ -7,6 +7,8 @@ import java.sql.*;
 import java.util.*;
 import Data.*;
 import Connect.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class JourneyProcessing extends HttpServlet
 {
@@ -217,6 +219,8 @@ public class JourneyProcessing extends HttpServlet
     {
         // Get database connection
         Connection connection = DBConnect.getConnection();
+        Statement statement = null;
+        int journeyID = 0;
         
         // Construct query to save data into Journeys table
         String queryJourney = "INSERT INTO Journeys (UserID, Budget, DeployDate, DurationDate, TypeJourney) "
@@ -226,7 +230,33 @@ public class JourneyProcessing extends HttpServlet
                 + "'" + journey.getDeployDate() + "', "
                 + "'" + journey.getDuration() + "', "
                 + "'" + journey.getType() + "');";
-        out.println(queryJourney);
+//        out.println(queryJourney);
+        
+        // Using the query to update the Journeys table -> then get journeyID
+        ResultSet resultSet = null;
+        try {
+            // Update database
+            statement = connection.createStatement();
+            statement.executeUpdate(queryJourney);
+            
+            // Construct query to get journeyID
+            String query = "SELECT JourneyID FROM Journeys WHERE "
+                    + "UserID = '" + user.getID() + "' "
+                    + "AND DeployDate = '" + journey.getDeployDate() + "' "
+                    + "AND DurationDate = '" + journey.getDuration() + "' "
+                    + "AND TypeJourney = '" + journey.getType() + "' "
+                    + "ORDER BY JourneyID DESC "
+                    + "LIMIT 1;";
+//            out.println(query);
+            resultSet = statement.executeQuery(query);
+            resultSet.next();
+            journeyID = resultSet.getInt("JourneyID");
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(JourneyProcessing.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try { resultSet.close(); } catch (Exception e) {}
+        }
         
         // Construct query to save data into JourneysFETCHLocations table
         String queryJourneyLocation = "INSERT INTO JourneysFETCHLocations (JourneyID, LocationID, VisitDay, Period) "
@@ -238,7 +268,7 @@ public class JourneyProcessing extends HttpServlet
             // If park --> assign park location: period = all_day
             if (currentDay.hasPark())
             {
-                queryJourneyLocation += "('" + journey.getID() + "', "
+                queryJourneyLocation += "('" + journeyID + "', "
                         + "'" + currentDay.getPark().getID() + "', "
                         + "'" + currentDay.getDayNumber() + "', 'all_day')";
                 
@@ -253,7 +283,7 @@ public class JourneyProcessing extends HttpServlet
                 // Has morning --> assign morning location: period = morning
                 if (currentDay.hasMorning())
                 {
-                    queryJourneyLocation += "('" + journey.getID() + "', "
+                    queryJourneyLocation += "('" + journeyID + "', "
                             + "'" + currentDay.getMorningLocation().getID() + "', "
                             + "'" + currentDay.getDayNumber() + "', 'morning')";
                     
@@ -267,9 +297,9 @@ public class JourneyProcessing extends HttpServlet
                 // Has afternoon --> assign afternoon location: period = afternoon
                 if (currentDay.hasAfternoon())
                 {
-                    queryJourneyLocation += "('" + journey.getID() + "', "
+                    queryJourneyLocation += "('" + journeyID + "', "
                             + "'" + currentDay.getAfternoonLocation().getID() + "', "
-                            + "'" + currentDay.getDayNumber() + ", 'afternoon'')";
+                            + "'" + currentDay.getDayNumber() + "', 'afternoon')";
                     
                     if ((i != journey.getListDays().size() - 1) || currentDay.hasEvening())
                     {
@@ -280,7 +310,7 @@ public class JourneyProcessing extends HttpServlet
                 // Has evening --> assign afternoon location: period = evening
                 if (currentDay.hasEvening())
                 {
-                    queryJourneyLocation += "('" + journey.getID() + "', "
+                    queryJourneyLocation += "('" + journeyID + "', "
                             + "'" + currentDay.getEveningLocation().getID() + "', "
                             + "'" + currentDay.getDayNumber() + "', 'evening')";
                     
@@ -292,16 +322,14 @@ public class JourneyProcessing extends HttpServlet
             }
         }
         queryJourneyLocation += ";";
-        out.println(queryJourneyLocation);
+//        out.println(queryJourneyLocation);
 
-        // Execute update in the corresponding database
-        Statement statement = null;
+        // Using the query to update the JourneysFETCHLocations table
         try {
             statement = connection.createStatement();
-            statement.executeUpdate(queryJourney);  // execute query for Journeys database
-            statement.executeUpdate(queryJourneyLocation);  // execute query for JourneysFETCHLocations database
-        } catch (SQLException sqle) {
-            
+            statement.executeUpdate(queryJourneyLocation);
+        } catch (SQLException ex) {
+            Logger.getLogger(JourneyProcessing.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try { statement.close(); } catch (Exception e) {}
         }
