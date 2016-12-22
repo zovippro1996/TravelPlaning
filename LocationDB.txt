@@ -1,0 +1,55 @@
+﻿------------------------------------------Viet Nam----------------------------------------------
+Cities: Quảng Ninh, Huế, Đà Năng, Kiên Giang
+Location:
+	Quảng Ninh
+		Morning: Động Thiên Cung, Hang Đầu Gỗ, Chùa Ba Vàng, Chùa Cái Bầu, Hải Đăng Cô Tô, Bảo tàng Quảng Ninh, khu di tích Danh thắng núi Yên Tử, khu du lịch sinh thái Lựng Xanh, Bãi Cháy
+		Afternoon: Động Thiên Cung, Hang Đầu Gỗ, Chùa Ba Vàng, Chùa Cái Bầu, Hải Đăng Cô Tô, Bảo tàng Quảng Ninh, khu di tích Danh thắng núi Yên Tử, khu du lịch sinh thái Lựng Xanh, Bãi Cháy
+		Evening: Chợ đêm Hạ Long, chùa Ba Vàng, Đình Quan Lạn, Đền Cửa Ông, Chùa Thánh Mẫu Trà Cổ
+		Park: Khu vui chơi giải trí đảo Tuần Châu, Sun World Hạ Long Park, Công Viên Hà Lan
+		Beach: bãi tắm Hạ Long, bãi tắm Quan Lạn
+	Huế
+		Morning: chùa Thiên Mụ, Hoàng Thành Huế, Quốc Tử Giám, bảo tàng hồ chí minh, Vườn Cơ Hạ, du lịch sông Hương, Chùa Huyền Không Sơn Thượng, Lăng Khải Định, Núi Ngự Bình
+		Afternoon: chùa Thiên Mụ, Hoàng Thành Huế, Quốc Tử Giám, bảo tàng hồ chí minh, Vườn Cơ Hạ, du lịch sông Hương, Chùa Huyền Không Sơn Thượng, Lăng Khải Định, Núi Ngự Bình 
+		Evening: chùa Thiên Mụ, Hoàng Thành Huế, Chùa Huyền Không Sơn Thượng, du lịch sông Hương
+		Park: đồi Vọng Cảnh, hồ Thủy Tiên
+		Beach: Bãi Biển Lăng Cô, Bãi Biển Thuận An
+	Đà Nẵng
+		Morning: Ngũ Hành Sơn, đèo Hải Vân, Linh Ứng Bãi Bụt, Đèo Hải Vân, Bảo tàng Đà Nẵng, Nhà thờ chính tòa Đà Nẵng, Bảo tàng Chăm Pa
+		Afternoon: Ngũ Hành Sơn, đèo Hải Vân, Linh Ứng Bãi Bụt, Đèo Hải Vân, Bảo tàng Đà Nẵng, Nhà thờ chính tòa Đà Nẵng, Phố cổ Hội An, Bảo tàng Chăm Pa
+		Evening: cầu quay Sông Hàn, vòng quay Mặt Trời, cầu Rồng, Khu vui chơi giải trí Helio Center, Phố cổ Hội An
+		Park: khu DL Bà Nà Hills, khu DL Hòa Phú Thành
+		Beach: bãi biển Mỹ Khê, suối Hoa
+	Kiên Giang
+		Morning: Công viên Chăm sóc và Bảo tồn Động vật Vinpearl Safari, Suối Tranh, Di tích Lịch sử nhà tù Phú Quốc, Thiền viện Trúc Lâm - Chùa Hộ Quốc, Thạch Động, U Minh Thượng, Núi Đá Dựng, Jeep Tour
+		Afternoon: Công viên Chăm sóc và Bảo tồn Động vật Vinpearl Safari, Suối Tranh, Di tích Lịch sử nhà tù Phú Quốc, Thiền viện Trúc Lâm - Chùa Hộ Quốc, Thạch Động, U Minh Thượng,  Núi Đá Dựng, Jeep Tour
+		Evening: Suối Tranh, Thiền viện Trúc Lâm - Chùa Hộ Quốc, chợ Dương Đông, Jeep Tour 
+		Park: Vinpearl Land, Khu du lịch Hòn Phụ Tử
+		Beach: Bãi Sao, Bãi Khem
+
+------------------------------------------Australia----------------------------------------------
+Cities: Brisbane, Melbourne, Sydney, Perth
+Locations:
+	Brisbane
+		Morning: Lone Pine Koala Sanctuary, City Botanic Gardens, Wheel of Brisbane, Queensland Art Gallery, Museum of Brisbane, Workshops Rail Museum, Musgrave Park, Portside Wharf
+		Afternoon: Lone Pine Koala Sanctuary, City Botanic Gardens, Wheel of Brisbane, Queensland Art Gallery, Museum of Brisbane, Workshops Rail Museum, Musgrave Park, Portside Wharf
+		Evening: City Botanic Gardens, Wheel of Brisbane, Musgrave Park, Portside Wharf 
+		Park: Roma Street Parkland, Rocks Riverside Park
+		Beach: 
+	Melbourne
+		Morning:Sở thú Melbourne, Sea Life Melbourne Aquarium, National Gallery of Victoria, Royal Botanic Gardens, Eureka Tower, Flagstaff Gardens, Melbourne Star, Queen Victoria Market
+		Afternoon: Sở thú Melbourne, Sea Life Melbourne Aquarium, National Gallery of Victoria, Royal Botanic Gardens, Eureka Tower, Flagstaff Gardens, Melbourne Star, Queen Victoria Market
+		Evening: Royal Botanic Gardens, Eureka Tower, Flagstaff Gardens, Melbourne Star
+		Park: Yarra Bend Park, Dandenong Ranges National Park
+		Beach: St Kilda Beach, Elwood Beach
+	Sydney
+		Morning: Sydney Opera House, Darling Harbour, Sydney Tower, Sydney Observatory, Featherdale Wildlife Park, Taronga Zoo, Wild Life Sydney
+		Afternoon: Sydney Opera House, Darling Harbour, Sydney Tower, Sydney Observatory, Capitol Theatre, Featherdale Wildlife Park, Taronga Zoo, Wild Life Sydney
+		Evening: Sydney Opera House, Darling Harbour, Sydney Tower, Sydney Observatory, Capitol Theatre
+		Park: Wet'n'Wild Sydney, Luna Park
+		Beach: Bondi Beach, Coogee Beach, Bronte Beach, Tamarama Beach, Manly Beach
+	Perth
+		Morning: Art Gallery of Western Australia, Perth Mint, Scitech, Perth Zoo, Aquarium of Western Australia, Cohunu Koala Park, Central Park Tower, Harbour Town, Fremantle Prison
+		Afternoon: Art Gallery of Western Australia, Perth Mint, Scitech, Perth Zoo, Aquarium of Western Australia,  Cohunu Koala Park, Central Park Tower, Harbour Town, Fremantle Prison
+		Evening: Harbour Town, Hillarys Boat Harbour, Fremantle Prison, Lake Monger
+		Park: Kings Park, John Forrest National Park
+		Beach: Floreat Beach, Cape Peron
