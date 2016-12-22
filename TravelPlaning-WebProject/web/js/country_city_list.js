@@ -266,8 +266,8 @@ function populateStates( countryElementId, stateElementId ){
 
 	var stateElement = document.getElementById( stateElementId );
 	
-	stateElement.length=0;	// Fixed by Julian Woods
-	stateElement.options[0] = new Option('Your City/State','');
+	stateElement.length=0;	
+	stateElement.options[0] = new Option('Select City/State','');
 	stateElement.selectedIndex = 0;
 	
 	var state_arr = s_a[selectedCountryIndex].split("|");
@@ -281,7 +281,7 @@ function populateCountries(countryElementId, stateElementId){
 	// given the id of the <select> tag as function argument, it inserts <option> tags
 	var countryElement = document.getElementById(countryElementId);
 	countryElement.length=0;
-	countryElement.options[0] = new Option('Your Country','-1');
+	countryElement.options[0] = new Option('Select Country','-1');
 	countryElement.selectedIndex = 0;
 	for (var i=0; i<country_arr.length; i++) {
 		countryElement.options[countryElement.length] = new Option(country_arr[i],country_arr[i]);
