@@ -1,13 +1,14 @@
-    <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+   <!DOCTYPE html>
 <!--
 Register Page 
 TravelPlaning Project
 Author : Trung Pham
 -->
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Data.*" %>
 
 <html>
-    <head>
+<head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="Mobirise v3.7.3, mobirise.com">
@@ -30,6 +31,8 @@ Author : Trung Pham
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <link rel="stylesheet" type="text/css" href="css/w3.css">
   
+  <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.css">
+  
   <!-- Country+City List js -->
   <script type= "text/javascript" src = "js/country_city_list.js"></script>
   
@@ -39,32 +42,28 @@ Author : Trung Pham
   <style type="text/css">
       .signupform {
           
-          border: 5px solid #59903d;  
+          border: 3px solid #59903d;  
           padding: 2%;
           background:  #daffc7 ; 
           margin-left: 26%; 
           margin-right: 26%;
-               
+          border-radius: 10px;
       }
      
       #parallelogram {  -webkit-transform: skew(20deg); -moz-transform: skew(20deg); -o-transform: skew(20deg); background: whitesmoke; }
      
       
       legend{
-          
           font-size: 160%; 
           font-family: Courier New, Courier, monospace;
-          
-          
-      }
-      
-      fieldset{
-          border-width: 1px;
+          border-width: 1.5px;
           border-radius: 10px;
-      
+          border-color: black;
+          font-weight: 600;
+          padding-left: 1.5%;
       }
       
-         
+               
       .outmost{
           margin-left: 15%; 
           margin-right:15%;
@@ -72,23 +71,54 @@ Author : Trung Pham
           margin-bottom: 10%; 
           align-content: center;
           position: relative;
+          font-size: 90%;
           
       }
           
        .error{   
            color:#D8000C;
-           font-size: 70%; 
+            
            padding-left: 17%
           }    
           
        .success{
            color:#4F8A10;
-           font-size: 70%;
+           
            padding-left: 23.5%;   
           }
        
+          small{
+              color:#a9a9a9;
+              font-weight: 800;
+          }
          
+          hr{
+               display: block;
+               height: 2px;
+               border: 0;
+               border-top: 1px solid #cc7c7c;
+               margin: 1em 0;
+               padding: 0;
+          }
+          
+          .locationtitle{
+              text-align: center;
+              font-size: 240%;
+              font-family: Brush Script MT;
+          }
+          
+          .outmostlocation{
+              background-color: #d8c2ff;
+              padding:2%;
+              margin-bottom: 4%;   
+          }
       
+          .provider_description {
+              text-align: center; 
+              color:#D8000C;
+              font-size: 75%;
+          }
+          
   </style>
   
     </head>
@@ -120,7 +150,7 @@ Author : Trung Pham
                 <br>
                 <span style = "font-size : 37.5%">
                     Fill In The Boarding Ticket
-                    And We Are Ready
+                    , We Are Ready
                 </span>
             </div>
         
@@ -135,7 +165,7 @@ Author : Trung Pham
                       
                       
                 <!-- - - - - - -USERNAME + PASS - - - - - -->    
-                 <div style="margin-bottom: 4%">
+                 <div style="margin-bottom: 2%">
                     <fieldset>
                         
                         <legend>Account Info.</legend>
@@ -145,24 +175,23 @@ Author : Trung Pham
                              <input type="text" size="25" placeholder="Username" maxlength ="25" class="form-control" id="username" name="username" style="width: 55%;">
                             
                              <!-- Password -->
-                             <input class="form-control" size="25" placeholder="Password" name="password" type="password" id="password" onkeyup="CheckPasswordStrength(this.value);CheckPassword()" style="width: 55%;">
-                                <span id="password_strength" style="font-size:70%; padding-left: 25%"></span>
+                             <input class="form-control " size="25" placeholder="Password" name="password" type="password" id="password" onkeyup="CheckPasswordStrength(this.value);CheckPassword()" style="width: 55%;">
+                                <span id="password_strength" style="font-size:80%; padding-left: 25%"></span>
                            
                                 <br>
                                 
                              <!-- Confirm Password -->
                              <input class="form-control"  size="25" placeholder="Confirm Password" type="password" id="confirm_password" onkeyup="CheckPassword()" style="width: 55%;">
-                             <span id="confirm_pass"> </span>
+                             <span id="confirm_pass"></span>
                    
-                        
+                              <br>
                         </div>  
                     </fieldset>
                  </div>
                 
-                
-                
+               
                 <!-- - - - - - - - - NAME - - - - -  - -->
-                <div style="margin-bottom: 4%">
+                <div style="margin-bottom: 2%">
                     <fieldset> 
                         <legend>Name</legend>
                         
@@ -175,7 +204,7 @@ Author : Trung Pham
                     </fieldset>
                 </div>
              
-                
+                <br>
                 
                 <!-- - - - - - - - Birthday - - - - - -->
                 
@@ -256,10 +285,10 @@ Author : Trung Pham
                 </div>
                 
                 
-                
+                <br>
                 
                  <!-- - - - - - - - - Gender - - - - -  - -->
-                <div style="margin-bottom: 4%" >
+                <div style="margin-bottom: 2%" >
                     <fieldset>
                         
                         <legend>Gender</legend>
@@ -275,10 +304,11 @@ Author : Trung Pham
                     </fieldset>
                 </div>
                  
-                 
+                
+                 <br> 
                  
                 <!-- - - - - - - - - Mobile Phone - - - - -  - -->
-                <div style="margin-bottom: 4%">
+                <div style="margin-bottom: 2%">
                     <fieldset>
                         
                         <legend>Mobile Phone</legend>          
@@ -291,9 +321,11 @@ Author : Trung Pham
                 </div>
                 
                 
+                <br>
+                
                 
                  <!-- - - - - - - - - EMAIL - - - - -  - -->
-                <div style="margin-bottom: 4%">
+                <div style="margin-bottom: 2%">
                     <fieldset>     
                         <legend>Email</legend>
                                                 
@@ -303,7 +335,8 @@ Author : Trung Pham
                     </fieldset>
                 </div>                
                     
-                 
+                
+                 <br>
                     
                     <!-- - - - - - - - - COUNTRY - - - - -  - -->
                 <div style="margin-bottom: 2%">
@@ -311,9 +344,9 @@ Author : Trung Pham
                         <legend>Country</legend>
                         
                         <label>
-                            <select class="form-control" id="country" name ="country" ></select>                    
-                        </label>  
-                                  
+                            <select class="form-control" id="country" name ="country" ></select>   
+                        </label>    
+                                    
                     </fieldset>
                 </div>
                 
@@ -326,21 +359,19 @@ Author : Trung Pham
                     <fieldset>
                         <legend>City/State</legend>
                         
-                        <label>
-                            
-                         <select class="form-control" name ="city" id ="state"></select> 
-                         
-                        </label>  
-                        
+                        <label>    
+                            <select class="form-control" name ="city" id ="state"></select> 
+                        </label>    
+                                  
                     </fieldset>
                 </div>
                 
                     
                       
-                    <br><br>    
+                    <br>   
                     
                     <!-- - - - - - - Error Notification - - - - - - - - - -->
-                    <div id="nortification_submit">Please check the following section(s) : </div>
+                    <div id="nortification_submit" style="font-size: 115%;">The following section(s) contain error(s). Please check again : </div>
                     
                     <div class="error" id="username_submit">-Username.</div>
                     <div class="error" id="password_submit">-Password.</div>
@@ -352,7 +383,113 @@ Author : Trung Pham
                     <div class="error" id="email_submit">-Email.</div>
                     <div class="error" id="country_submit">-Country.</div>
                              
+                    
                     <br>
+                    
+                    <div>
+                        <label class="checkbox-inline"><input type="checkbox" id="provider_register" onchange="provider_check()" value="">
+                            Register as a PROVIDER
+                        </label>
+                        
+                        <br>
+                        <small><b>(You will be asked to fill in your location information)</b></small>
+                    </div>   
+                    
+                    <hr>
+                    
+                    
+                    <!-- - - - - - - - - - - - - - - PROVIDER LOCATION - - - - - - - - - - -->
+                    
+                    <div class="outmostlocation" id="location_information">
+                          
+                    <div class="locationtitle">Location Information
+                        <br> 
+                    </div>
+                        <div class="provider_description">ALL Informations in this Section must be Filled and Guaranteed </div>
+                    
+                    <br>
+                    <br>
+                    
+                    
+                    <!-- - - - - - - - - - - - -Location Name- - - - - - - - - - - - - - -->
+                   <div style="form-group">
+                        <label for="usr">Name:</label>
+                        <input type="text" class="form-control" id="usr" name="loc_name">
+                   </div>
+                    
+                    <br>
+                    <br>
+                    
+                    
+                    
+                     <div class="form-group">
+                        <label for="loc_description">Description:</label>
+                        <textarea class="form-control" rows="5" id="loc_description"></textarea>
+                     </div>
+                    
+                    <br>
+                    <br>
+                    
+                    <label>Type:</label>
+                    <label>
+                    <select class="form-control input-sm" name="type"
+                                    id="typeJourney" style="font-family: 'Bitter', serifs"
+                                    required>
+                                
+                                <%
+                                    for (LocationType type : LocationType.values())
+                                    {
+                                        out.println("<option value=\"" +
+                                                type.name() + "\"" +
+                                                ">" + type.name()+ "</option>");
+                                    }
+                                %>
+                                
+                            </select>
+                    </label>
+                                
+                    <br>
+                    <br>
+                    
+                    <label for="loc_country">Country:</label>
+                    <label>
+                            <select class="form-control" name ="loc_country" id ="loc_country" style="margin-left: 2%;"></select> 
+                    </label>
+                    
+                    <br>
+                    <br>
+                    
+                    <label for="loc_state">City/State:</label>
+                    <label>    
+                            <select class="form-control" name ="loc_city" id ="loc_state"></select> 
+                    </label>    
+                    
+                    <br>
+                    <br>
+                    
+                     
+                    <label for="loc_price">Price:</label>
+                        <div>
+                        <input class="form-control" type="number" value="0" step="0.01" id="loc_price">
+                        </div>
+
+                    
+                      <br>
+                       
+                      
+                      <label>Opening Period:</label>  &nbsp;
+                      
+                     <label class="checkbox-inline"><input type="checkbox" value="">Morning</label>
+                     <label class="checkbox-inline"><input type="checkbox" value="">Afternoon</label>
+                     <label class="checkbox-inline"><input type="checkbox" value="">Evening</label>
+                    <br>
+                    
+                  
+                    
+                    
+                    </div>
+                    
+                    
                     
                 <!-- - - - - - - BUTTON - - - - - - -->
                 <div style = "text-align: center" >
@@ -373,16 +510,27 @@ Author : Trung Pham
     <script language="javascript">
         //------------------Setting Combo Box for Country---------------------//
 	populateCountries("country", "state"); // first parameter is id of country drop-down and second parameter is id of state drop-down
-	
+	populateCountries("loc_country","loc_state");
     </script>
     
     
     <script type="text/javascript">
         
+        function provider_check(){
+        if (document.getElementById("provider_register").checked === false)
+                document.getElementById("location_information").style.display = "none";
+            else document.getElementById("location_information").style.display ="block";
+        }
+        
+        
         
     
         //-----------Initialize Page OnLoad-------------//
         function initialize(){
+            if (document.getElementById("provider_register").checked === false)
+                document.getElementById("location_information").style.display = "none";
+            else document.getElementById("location_information").style.display ="block";
+            
             document.getElementById("username").focus();
             
             document.getElementById("nortification_submit").style.display = "none";
@@ -466,9 +614,7 @@ Author : Trung Pham
     
         //------------Check Confirming Password----------//
         function CheckPassword() {
-            
-            
-            
+              
             var confirm_password = document.getElementById("confirm_password").value;
             var password = document.getElementById("password").value;
             var message = document.getElementById("confirm_pass");
