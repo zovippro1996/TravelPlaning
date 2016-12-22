@@ -6,7 +6,7 @@
 package Control;
 
 import Connect.DBConnect;
-import Data.User;
+import Data.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -47,7 +47,8 @@ public class UserControl extends HttpServlet {
 
         //User Properties
         String username = request.getParameter("username");
-        String password = request.getParameter("password");
+        
+        String password_encrypt = MD5.getMD5(request.getParameter("password")); 
         String fullname = request.getParameter("firstname") + " " + request.getParameter("lastname");
         String DOB = request.getParameter("DOByear") + "-" + request.getParameter("DOBmonth") + "-" + request.getParameter("DOBday");
         String gender = request.getParameter("gender");
@@ -65,8 +66,8 @@ public class UserControl extends HttpServlet {
                 Statement st = c.createStatement();
                 ResultSet rs;
                 // Query allows login with username or email
-                String query = "SELECT * FROM Users WHERE (Username='" + username + "' OR Email='" + username
-                        + "') AND (Password = '" + password + "') ";
+                String query = "select * from Users where username='" + username + "' OR email='" + username
+                        + "' AND password = '" + password_encrypt + "' ";
                 rs = st.executeQuery(query);
                 if (rs.next()) {
 
@@ -100,7 +101,7 @@ public class UserControl extends HttpServlet {
                     Statement st = c.createStatement();
                     ResultSet rs;
 
-                    int i = st.executeUpdate("insert into Users(username,password,fullname,DOB,gender,phone,email,country) values ('" + username + "','" + password + "','" + fullname + "','" + DOB
+                    int i = st.executeUpdate("insert into Users(username,password,fullname,DOB,gender,phone,email,country) values ('" + username + "','" + password_encrypt + "','" + fullname + "','" + DOB
                             + "','" + gender + "','" + phone + "','" + email + "','" + country + "')");
 
                     if (i > 0) {
