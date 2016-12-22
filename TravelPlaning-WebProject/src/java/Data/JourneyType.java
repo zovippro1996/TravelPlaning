@@ -14,11 +14,11 @@ import java.util.*;
 public enum JourneyType
 {
     SIGHTSEEING(new LocationType[] {LocationType.CULTURAL, LocationType.LANDMARK,
-        LocationType.ARTISTIC }),
+        LocationType.ARTISTIC, LocationType.NATURE }),
     METROPOLIS(new LocationType[] {LocationType.LANDMARK, LocationType.SCIENTIFIC,
-        LocationType.INDUSTRIAL, LocationType.ARTISTIC }),
+        LocationType.INDUSTRIAL, LocationType.ARTISTIC, LocationType.ENTERTAIMENT }),
     EDUCATION(new LocationType[] {LocationType.HISTORICAL, LocationType.SCIENTIFIC,
-        LocationType.ARTISTIC, LocationType.CULTURAL });
+        LocationType.ARTISTIC, LocationType.CULTURAL, LocationType.ENTERTAIMENT });
     
     LocationType[] listLocations;
     
