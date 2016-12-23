@@ -59,8 +59,8 @@
                             <div class="mbr-section col-md-10 col-md-offset-1 text-xs-center">
 
                                 <h1 class="mbr-section-title display-1">Your Travel Plan with Click of a Button</h1>
-                                <p class="mbr-section-lead lead"><br> "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."&nbsp;</p>
-                                <div class="mbr-section-btn"> <a class="btn btn-lg btn-primary" href="#">Start Travelling</a> </div>
+                                <p class="mbr-section-lead lead"><br> "Travel Planning is the travel organizing web app that automagically creates a master itinerary for every trip so you can access all your travel plans, anytime, on any device."&nbsp;</p>
+                                <div class="mbr-section-btn"> <a class="btn btn-lg btn-primary" href="input_getting.jsp">Start Travelling</a> </div>
                             </div>
                         </div>
                     </div>
@@ -94,7 +94,7 @@
                                     <h4 class="card-title">VietNam</h4>
                                     <h5 class="card-subtitle">Viet Nam template plans</h5>
                                     <p class="card-text">Lorem ipsum dolor sit amet.</p>
-                                    <div class="card-btn"><a href="main.html" class="btn btn-primary">BOOK IT</a></div>
+                                    <div class="card-btn"><a href="input_getting.jsp?location=Vietnam" class="btn btn-primary">BOOK IT</a></div>
                                 </div>
                             </div>
                         </div>
@@ -107,7 +107,7 @@
                                     <h4 class="card-title">Thailand</h4>
                                     <h5 class="card-subtitle">Thailand template plans</h5>
                                     <p class="card-text">Lorem ipsum dolor sit amet.</p>
-                                    <div class="card-btn"><a href="main.html" class="btn btn-primary">BOOK IT</a></div>
+                                    <div class="card-btn"><a href="input_getting.jsp?location=Thailand" class="btn btn-primary">BOOK IT</a></div>
                                 </div>
                             </div>
                         </div>
@@ -120,7 +120,7 @@
                                     <h4 class="card-title">France</h4>
                                     <h5 class="card-subtitle">France template plans</h5>
                                     <p class="card-text">Lorem ipsum dolor sit amet.</p>
-                                    <div class="card-btn"><a href="main.html" class="btn btn-primary">BOOK IT</a></div>
+                                    <div class="card-btn"><a href="input_getting.jsp?location=France" class="btn btn-primary">BOOK IT</a></div>
                                 </div>
                             </div>
                         </div>
@@ -151,10 +151,10 @@
                                         <h3 class="mbr-section-title display-2">Feature Travelers</h3>
 
                                         <div class="mbr-section-text lead">
-                                            <p>Full screen intro with parallax image background and color overlay and a picture on right.</p>
+                                            <p>See all previous trips from our selected travelers.</p>
                                         </div>
 
-                                        <div class="mbr-section-btn"><a class="btn btn-primary" href="main.html">MORE</a></div>
+                                        <div class="mbr-section-btn"><a class="btn btn-primary" href="user_profile.jsp?UserID=1">MORE</a></div>
 
                                     </div>
                                     <div class="mbr-table-cell mbr-valign-top col-md-7">
@@ -259,3 +259,4 @@
         </section>
     </body>
 </html>
+
