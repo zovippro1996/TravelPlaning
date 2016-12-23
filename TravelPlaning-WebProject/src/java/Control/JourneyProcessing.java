@@ -35,13 +35,14 @@ public class JourneyProcessing extends HttpServlet
             
             // Query journey from the database, and save to session
             Journey journey = queryJourney(journeyID, out);
-//            HttpSession session = request.getSession(true);
-//            session.setAttribute("currentJourney", journey);
-//            
-//            // Forward to the Display Journey Page
+            HttpSession session = request.getSession(true);
+            session.setAttribute("currentJourney", journey);
+            
+            // Forward to the Display Journey Page
 //            RequestDispatcher dispatcher =
 //                    getServletContext().getRequestDispatcher("/display_journey.jsp");
 //            dispatcher.forward(request, response);
+            response.sendRedirect("display_journey.jsp");
         }
     }
     
@@ -72,10 +73,15 @@ public class JourneyProcessing extends HttpServlet
             HttpSession session = request.getSession(true);
             session.setAttribute("currentJourney", journey);
             
+            // Add checking param in session: generated
+            // If generated = yes -> display save button
+            // Otherwise, hide save button
+            session.setAttribute("generated", "yes");
+            
             // Forward to new page to display the generated journey
-             RequestDispatcher dispatcher =
-                     request.getServletContext().getRequestDispatcher("/display_journey.jsp");
-             dispatcher.forward(request, response);
+            RequestDispatcher dispatcher =
+                    request.getServletContext().getRequestDispatcher("/display_journey.jsp");
+            dispatcher.forward(request, response);
         }
         else if (action.equals("saveJourney"))
         {
@@ -369,12 +375,11 @@ public class JourneyProcessing extends HttpServlet
         Journey journey = new Journey();
         List<String> listCity = new ArrayList<>();
         List<Integer> daysCity = new ArrayList<>();
-        int day1 = 0, day2 = 0;
-        
-        
+        List<Day> listDays = new ArrayList<>();
+
         // Get database connection
         Connection connection = DBConnect.getConnection();
-        
+
         // Construct query to get information from Journeys table
         String queryJourney = "SELECT UserID, Budget, DeployDate, "
                 + "DurationDate as Duration, TypeJourney as Type "
@@ -392,20 +397,32 @@ public class JourneyProcessing extends HttpServlet
                 + "Locations.Country as Country, "
                 + "Locations.Price as Price, "
                 + "Locations.Description as Description, "
-                + "Locations.Morning as Morning, "
-                + "Locations.Afternoon as Afternoon, "
-                + "Locations.Evening as Evening "                  // done getting information
+                + "AVG(Comments.Rate) as AvgRate "                  // done getting information
+                + "FROM Locations "
+                + "INNER JOIN JourneysFETCHLocations "
+                + "ON Locations.LocationID = JourneysFETCHLocations.LocationID "
+                + "INNER JOIN Comments ON Locations.LocationID = Comments.LocationID "
+                + "WHERE JourneysFETCHLocations.JourneyID = '" + journeyID + "' "
+                + "GROUP BY LocationID "
+                + "ORDER BY VisitDay ASC;";
+        
+        // Construct query to get country (? maybe unnecessary)
+        String queryCountry = "SELECT "
+                + "Locations.Country as Country "
                 + "FROM JourneysFETCHLocations INNER JOIN Locations "
                 + "ON JourneysFETCHLocations.LocationID = Locations.LocationID "
                 + "WHERE JourneysFETCHLocations.JourneyID = '" + journeyID + "' "
-                + "ORDER BY VisitDay ASC;";
-        
-        // Construct query to get country
+                + "GROUP BY Country;";
         
         // Construct query to get names of cities and number of days spent on each
-        
-//        out.println(queryJourney + "<br>");
-//        out.println(queryJourneyLocation);
+        String queryCity = "SELECT "
+                + "Locations.City as City, "
+                + "COUNT(DISTINCT JourneysFETCHLocations.VisitDay) as NumsDay "
+                + "FROM JourneysFETCHLocations INNER JOIN Locations "
+                + "ON JourneysFETCHLocations.LocationID = Locations.LocationID "
+                + "WHERE JourneysFETCHLocations.JourneyID = '" + journeyID + "' "
+                + "GROUP BY City "
+                + "ORDER BY AVG(DISTINCT JourneysFETCHLocations.VisitDay) ASC;";
 
         // Query from database
         Statement statement = null;
@@ -413,27 +430,128 @@ public class JourneyProcessing extends HttpServlet
         try {
             statement = connection.createStatement();
             
-            // First query
+            // First query: extract basic information about the journey
             resultSet = statement.executeQuery(queryJourney);
             resultSet.next();
             
-            // Extract information and save into Journey object
+            // Get data and save into Journey object
             journey.setUserID(resultSet.getInt("UserID"));
             journey.setBudget(resultSet.getDouble("Budget"));
             journey.setDeployDate(resultSet.getString("DeployDate"));
             journey.setDuration(resultSet.getInt("Duration"));
             journey.setType(resultSet.getString("Type"));
+
+            // Initialize listDays based on duration
+            for (int i = 0; i < journey.getDuration(); ++i)
+            {
+                Day day = new Day();
+                day.setDayNumber(i + 1);    // set dayNumber
+                listDays.add(day);          // add to listDays
+            }
             
-            // Second query
-            
+            // Second query: extract information about country (? may be unnecessary)
+            resultSet = statement.executeQuery(queryCountry);
+            resultSet.next();
+
+            // Get and save country into Journey object
+            journey.setCountry(resultSet.getString("Country"));
+
+            // Third query: extract information about visited cities
+            resultSet = statement.executeQuery(queryCity);
+            while (resultSet.next())
+            {
+                // Asign data of city
+                listCity.add(resultSet.getString("City"));
+                daysCity.add(resultSet.getInt("NumsDay"));
+            }
+
+            // Fourth, and final, query: extract information about locations
+            resultSet = statement.executeQuery(queryJourneyLocation);
+            while (resultSet.next())
+            {
+                // Get data about the location
+                Location location = new Location();
+                location.setID(resultSet.getInt("LocationID"));
+                location.setType(resultSet.getString("Type"));
+                location.setName(resultSet.getString("NameLocation"));
+                location.setCity(resultSet.getString("City"));
+                location.setCountry(resultSet.getString("Country"));
+                location.setPrice(resultSet.getDouble("Price"));
+                location.setDescription(resultSet.getString("Description"));
+                location.setAvgRate(resultSet.getDouble("AvgRate"));
+
+                // Get the day and period of day of the current location
+                int day = resultSet.getInt("VisitDay");
+                String period = resultSet.getString("DayPeriod");
+                location.setDay(day);                       // asign these values into location
+                if (period.equalsIgnoreCase("morning"))
+                {
+                    location.setMorning(true);
+                    location.setAfternoon(false);
+                    location.setEvening(false);
+                }
+                else if (period.equalsIgnoreCase("afternoon"))
+                {
+                    location.setMorning(false);
+                    location.setAfternoon(true);
+                    location.setEvening(false);
+                }
+                else if (period.equalsIgnoreCase("evening"))
+                {
+                    location.setMorning(false);
+                    location.setAfternoon(false);
+                    location.setEvening(true);
+                }
+                else        // period = "all_day"
+                {
+                    location.setMorning(true);
+                    location.setAfternoon(true);
+                    location.setEvening(true);
+                }
+
+                // Assign the location to the corresponding day in listDays
+                Day currentDay = listDays.get(day - 1);
+                if (period.equalsIgnoreCase("morning"))
+                {
+                    currentDay.setMorningLocation(location);
+                }
+                else if (period.equalsIgnoreCase("afternoon"))
+                {
+                    currentDay.setAfternoonLocation(location);
+                }
+                else if (period.equalsIgnoreCase("evening"))
+                {
+                    currentDay.setEveningLocation(location);
+                }
+                else            // period = "all_day"
+                {
+                    currentDay.setPark(location);
+                }
+            }
+
+            // Compute total price of each day
+            for (int i = 0; i < listDays.size(); ++i)
+            {
+                Day day = listDays.get(i);
+                day.computeTotalPrice();
+            }
+
+            // Assign listDays, listCity, and daysCity into Journey object
+            journey.setListDays(listDays);
+            journey.setListCity(listCity);
+            journey.setDaysCity(daysCity);
+
         } catch (SQLException ex) {
             Logger.getLogger(JourneyProcessing.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try { resultSet.close(); } catch (Exception e) {}
+            try { statement.close(); } catch (Exception e) {}
         }
         
         // Close database connection
         try { connection.close(); } catch (Exception e) {}
         
-        return null;
+        return journey;
     }
     
     
@@ -540,6 +658,8 @@ public class JourneyProcessing extends HttpServlet
      * 
      * Return a List<Integer> specifying number of days user will
      *      spend for each visited cities
+     *
+     * Convention: First city -> index 0        ;       Second city -> index 1
      * 
      */
     private List<Integer> getDaysCity(HttpServletRequest request, int duration)
@@ -578,6 +698,8 @@ public class JourneyProcessing extends HttpServlet
      *      Previous locations visited by user
      * 
      * Return a List<String> specifying all cities selected for the trip
+     *
+     * Convention: First city -> index 0        ;       Second city -> index 1
      * 
      */
     private List<String> getCity(String country, List<Integer> daysCity, JourneyType journeyType, Connection connection)
