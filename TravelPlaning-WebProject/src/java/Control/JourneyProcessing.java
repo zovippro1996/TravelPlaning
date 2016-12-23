@@ -24,6 +24,7 @@ public class JourneyProcessing extends HttpServlet
         
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
+        HttpSession session = request.getSession(true);
         
         // Get and check action parameter: view (view saved journey)
         String action = request.getParameter("action");
@@ -34,15 +35,14 @@ public class JourneyProcessing extends HttpServlet
             String journeyID = request.getParameter("id");
             
             // Query journey from the database, and save to session
-            Journey journey = queryJourney(journeyID, out);
-            HttpSession session = request.getSession(true);
-            session.setAttribute("currentJourney", journey);
+            Journey journey = queryJourney(journeyID);
+            session.setAttribute("viewJourney", journey);
             
             // Forward to the Display Journey Page
-//            RequestDispatcher dispatcher =
-//                    getServletContext().getRequestDispatcher("/display_journey.jsp");
-//            dispatcher.forward(request, response);
-            response.sendRedirect("display_journey.jsp");
+            RequestDispatcher dispatcher =
+                    getServletContext().getRequestDispatcher("/display_journey.jsp");
+            dispatcher.forward(request, response);
+//            response.sendRedirect("display_journey.jsp");
         }
     }
     
@@ -60,8 +60,9 @@ public class JourneyProcessing extends HttpServlet
     {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
+        HttpSession session = request.getSession(true);
         
-        // Get and check action parameter: generateJourney, or saveJourney, or
+        // Get and check action parameter: generateJourney, or saveJourney, or deleteJourney
         String action = request.getParameter("action");
         
         if (action.equals("generateJourney"))
@@ -70,8 +71,7 @@ public class JourneyProcessing extends HttpServlet
             Journey journey = generateJourney(request, response);
             
             // Save journey in session
-            HttpSession session = request.getSession(true);
-            session.setAttribute("currentJourney", journey);
+            session.setAttribute("generatedJourney", journey);
             
             // Add checking param in session: generated
             // If generated = yes -> display save button
@@ -84,16 +84,13 @@ public class JourneyProcessing extends HttpServlet
             dispatcher.forward(request, response);
         }
         else if (action.equals("saveJourney"))
-        {
-            HttpSession session = request.getSession(true);
-            
-            // Retrieve journey from database
-            Journey journey = (Journey) session.getAttribute("currentJourney");
+        {   
+            // Retrieve journey from session
+            Journey journey = (Journey) session.getAttribute("generatedJourney");
             if (journey ==  null)   // no journey in session
             {
                 out.println("<script type=\"text/javascript\">");
-                out.println("alert('There is an error in generating the journey. "
-                        + "Please try again.');");
+                out.println("alert('Something went wrong. Please try again.');");
                 out.println("window.location.replace('input_getting.jsp');");
                 out.println("</script>");
                 return;
@@ -104,13 +101,12 @@ public class JourneyProcessing extends HttpServlet
             String deployDate = currentDate.toString();
             journey.setDeployDate(deployDate);
             
-            // Retrieve user from database
+            // Retrieve user from session
             User user = (User) session.getAttribute("user");
             if (user == null)   // no user, or user has not logged in
             {
                 out.println("<script type=\"text/javascript\">");
-                out.println("alert('You need to login to save the journey. "
-                    + "You will be redirected to the Login page shortly...');");
+                out.println("alert('You need to login to save the journey.');");
                 // Redirect user to login page
                 out.println("window.location.replace('login.jsp');");
                 out.println("</script>");
@@ -118,13 +114,48 @@ public class JourneyProcessing extends HttpServlet
             }
 
             // Save journey to database
-            saveJourney(journey, user, out);
+            saveJourney(journey, user);
+
+            // Delete journey in session after saving successfully
+            session.removeAttribute("generatedJourney");
 
             // Notify user, then redirects to profile page ?
             out.println("<script type=\"text/javascript\">");
             out.println("alert('Your journey has been saved successfully! "
-                + "Go into your profile to see. You will be redirected to your Profile page shortly...');");
+                + "Go into your profile to see.');");
             // Redirect to user profile page
+            out.println("window.location.replace('user_profile.jsp?UserID=" + user.getID() + "');");
+            out.println("</script>");
+        }
+        else if (action.equalsIgnoreCase("backProfile"))
+        {
+            // Delete current journey in session
+            session.removeAttribute("viewJourney");
+
+            // Retrieve user from session
+            User user = (User) session.getAttribute("user");
+
+            // Redirect to user_profile page
+            // RequestDispatcher dispatcher =
+            //         getServletContext().getRequestDispatcher("/user_profile.jsp?UserID=" + user.getID());
+            RequestDispatcher dispatcher =
+                        getServletContext().getRequestDispatcher("/test_display_saved_journey.html");
+            dispatcher.forward(request, response);
+        }
+        else if (action.equalsIgnoreCase("deleteJourney"))
+        {
+            // Get journeyID parameter
+            String journeyID = request.getParameter("id");
+
+            // Retrieve user from session
+            User user = (User) session.getAttribute("user");
+
+            // Delete the selected journey in the database
+            deleteJourney(journeyID);
+
+            // Notify user, and redirect back to the user profile page
+            out.println("<script type=\"text/javascript\">");
+            out.println("alert('The journey has been removed successfully!');");
             out.println("window.location.replace('user_profile.jsp?UserID=" + user.getID() + "');");
             out.println("</script>");
         }
@@ -237,13 +268,14 @@ public class JourneyProcessing extends HttpServlet
     }
     
     /**
+     *
      * @param journey 
      * @param user
      * 
      * Save the generated journey (in session) into the related database
      * Including tables: Journey, JourneysFETCHLocations
      */
-    private void saveJourney(Journey journey, User user, PrintWriter out)
+    private void saveJourney(Journey journey, User user)
     {
         // Get database connection
         Connection connection = DBConnect.getConnection();
@@ -258,7 +290,7 @@ public class JourneyProcessing extends HttpServlet
                 + "'" + journey.getDeployDate() + "', "
                 + "'" + journey.getDuration() + "', "
                 + "'" + journey.getType() + "');";
-//        out.println(queryJourney);
+        // out.println(queryJourney);
         
         // Using the query to update the Journeys table -> then get journeyID
         ResultSet resultSet = null;
@@ -275,7 +307,7 @@ public class JourneyProcessing extends HttpServlet
                     + "AND TypeJourney = '" + journey.getType() + "' "
                     + "ORDER BY JourneyID DESC "
                     + "LIMIT 1;";
-//            out.println(query);
+            // out.println(query);
             resultSet = statement.executeQuery(query);
             resultSet.next();
             journeyID = resultSet.getInt("JourneyID");
@@ -350,7 +382,7 @@ public class JourneyProcessing extends HttpServlet
             }
         }
         queryJourneyLocation += ";";
-//        out.println(queryJourneyLocation);
+        // out.println(queryJourneyLocation);
 
         // Using the query to update the JourneysFETCHLocations table
         try {
@@ -367,10 +399,17 @@ public class JourneyProcessing extends HttpServlet
     }
     
     /**
+     *
      * @param journeyID
      * @return a Journey indicating the saved journey user wants to view
+     *
+     * Query the Journey from the following tables:
+     *      Journeys
+     *      JourneysFETCHLocations
+     *      Locations
+     *      Comments
      */
-    private Journey queryJourney(String journeyID, PrintWriter out)
+    private Journey queryJourney(String journeyID)
     {
         Journey journey = new Journey();
         List<String> listCity = new ArrayList<>();
@@ -554,7 +593,41 @@ public class JourneyProcessing extends HttpServlet
         return journey;
     }
     
-    
+    /**
+     * 
+     * @param journeyID 
+     * 
+     * Delete the journey with the specified journeyID from the
+     *      Journeys table and JourneysFETCHLocations table
+     */
+    private void deleteJourney(String journeyID)
+    {
+        // Get database connection
+        Connection connection = DBConnect.getConnection();
+
+        // Construct query to delete data in the Journeys table
+        String queryJourney = "DELETE FROM Journeys WHERE JourneyID = '" + journeyID + "';";
+
+        // Construct query to delete data in the JourneysFETCHLocations table
+        String queryJourneyLocation = "DELETE FROM JourneysFETCHLocations WHERE JourneyID = '" + journeyID + "';";
+
+        // Execute commands
+        Statement statement = null;
+        try {
+            statement = connection.createStatement();
+            statement.executeUpdate(queryJourney);              // execute first query
+            statement.executeUpdate(queryJourneyLocation);      // execute second query
+
+        } catch (SQLException ex) {
+            Logger.getLogger(JourneyProcessing.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try { statement.close(); } catch (Exception e) {}
+        }
+
+        // Close database connection
+        try { connection.close(); } catch (Exception e) {}
+    }
+
     
     /**
      * 
