@@ -17,7 +17,7 @@ public class Journey {
     private double budget;
     private String deployDate;
     private int duration;
-    private String type;
+    private JourneyType type;
     
     private List<Day> listDays;             // specified list of locations
                                             // based on which day to visit
@@ -119,14 +119,14 @@ public class Journey {
     /**
      * @return the type
      */
-    public String getType() {
+    public JourneyType getType() {
         return type;
     }
 
     /**
      * @param type the type to set
      */
-    public void setType(String type) {
+    public void setType(JourneyType type) {
         this.type = type;
     }
 

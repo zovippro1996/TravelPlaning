@@ -80,8 +80,8 @@
         <!--       Fix animation disable page reset scrolling to top -->
         <script type= "text/javascript">
         window.onbeforeunload = function () {
-        window.scrollTo(0, 0);
-        }
+            window.scrollTo(0, 0);
+        };
         </script>
         
         

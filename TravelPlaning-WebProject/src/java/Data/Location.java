@@ -13,7 +13,7 @@ package Data;
  */
 public class Location {
     private int ID;
-    private String type;
+    private LocationType type;
     private String name;
     private String city;
     private String country;
@@ -70,14 +70,14 @@ public class Location {
     /**
      * @return the type
      */
-    public String getType() {
+    public LocationType getType() {
         return type;
     }
 
     /**
      * @param type the type to set
      */
-    public void setType(String type) {
+    public void setType(LocationType type) {
         this.type = type;
     }
 

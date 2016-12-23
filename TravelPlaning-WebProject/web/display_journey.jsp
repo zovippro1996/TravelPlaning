@@ -7,6 +7,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.*, Data.*, Control.*" %>
 <%
+    final int MAX_SIZE_STRING = 250;
+    
     // Retrieve checking parameter
     String checkParam = (String) session.getAttribute("generated");
     Journey journey = null;
@@ -52,6 +54,12 @@
         <link rel="stylesheet" href="assets/theme/css/style.css">
         <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
         <link rel="stylesheet" href="css/weather-icons.min.css" type="text/css">
+        <!--       Fix animation disable page reset scrolling to top -->
+        <script type= "text/javascript">
+        window.onbeforeunload = function () {
+            window.scrollTo(0, 0);
+        };
+        </script>
     </head>
     <body>
         <!-- Header -->
@@ -213,7 +221,7 @@
                                 </li>
                                 <li class="block-text">
                                     <strong><em>Type</em>:</strong>&nbsp;
-                                    <span class="text-capitalize"><%= journey.getType().toLowerCase() %></span>
+                                    <span class="text-capitalize"><%= journey.getType().name().toLowerCase() %></span>
                                 </li>
                                 <li class="block-text">
                                     <strong><em>Deploy date</em>:</strong>&nbsp;
@@ -395,7 +403,16 @@
                                                 <%= day.getPark().getName().toLowerCase() %>
                                             </a>
                                         </h2>
-                                        <p class="text-capitalize"><%= day.getPark().getDescription().toLowerCase() %></p>
+                                        <p class="text-capitalize">
+                                            <%
+                                                String description = day.getPark().getDescription().toLowerCase();
+                                                int size = description.length() < MAX_SIZE_STRING ? description.length() : MAX_SIZE_STRING;
+                                            %>
+                                            <%= description.substring(0, size) %>...
+                                            <a href="view_location.jsp?LocationID=<%= day.getPark().getID() %>" target="_blank">
+                                                More
+                                            </a>
+                                        </p>
                                     </td>
                                 </tr>
 
@@ -416,7 +433,17 @@
                                                 <%= day.getMorningLocation().getName().toLowerCase() %>
                                             </a>
                                         </h2>
-                                        <p class="text-capitalize"><%= day.getMorningLocation().getDescription().toLowerCase() %></p>
+                                        <p class="text-capitalize">
+                                            <%
+                                                String description = day.getMorningLocation().getDescription().toLowerCase();
+                                                int size = description.length() < MAX_SIZE_STRING ? description.length() : MAX_SIZE_STRING;
+                                            %>
+                                            <%= description.substring(0, size) %>...
+                                            <a href="view_location.jsp?LocationID=<%= day.getMorningLocation().getID() %>" target="_blank">
+                                                More
+                                            </a>
+                                        </p>
+                                        
                                     </td>
                                 </tr>
 
@@ -436,7 +463,16 @@
                                                 <%= day.getAfternoonLocation().getName().toLowerCase() %>
                                             </a>
                                         </h2>
-                                        <p class="text-capitalize"><%= day.getAfternoonLocation().getDescription().toLowerCase() %></p>
+                                        <p class="text-capitalize">
+                                            <%
+                                                String description = day.getAfternoonLocation().getDescription().toLowerCase();
+                                                int size = description.length() < MAX_SIZE_STRING ? description.length() : MAX_SIZE_STRING;
+                                            %>
+                                            <%= description.substring(0, size) %>...
+                                            <a href="view_location.jsp?LocationID=<%= day.getAfternoonLocation().getID() %>" target="_blank">
+                                                More
+                                            </a>
+                                        </p>
                                     </td>
                                 </tr>
 
@@ -456,7 +492,16 @@
                                                 <%= day.getEveningLocation().getName().toLowerCase() %>
                                             </a>
                                         </h2>
-                                        <p class="text-capitalize"><%= day.getEveningLocation().getDescription().toLowerCase() %></p>
+                                        <p class="text-capitalize">
+                                            <%
+                                                String description = day.getEveningLocation().getDescription().toLowerCase();
+                                                int size = description.length() < 100 ? description.length() : 100;
+                                            %>
+                                            <%= description.substring(0, size) %>...
+                                            <a href="view_location.jsp?LocationID=<%= day.getEveningLocation().getID() %>" target="_blank">
+                                                More
+                                            </a>
+                                        </p>
                                     </td>
                                 </tr>
 
@@ -500,7 +545,16 @@
                                                 <%= day.getPark().getName().toLowerCase() %>
                                             </a>
                                         </h2>
-                                        <p class="text-capitalize"><%= day.getPark().getDescription().toLowerCase() %></p>
+                                        <p class="text-capitalize">
+                                            <%
+                                                String description = day.getPark().getDescription().toLowerCase();
+                                                int size = description.length() < MAX_SIZE_STRING ? description.length() : MAX_SIZE_STRING;
+                                            %>
+                                            <%= description.substring(0, size) %>...
+                                            <a href="view_location.jsp?LocationID=<%= day.getPark().getID() %>" target="_blank">
+                                                More
+                                            </a>
+                                        </p>
                                     </td>
                                 </tr>
 
@@ -521,7 +575,16 @@
                                                 <%= day.getMorningLocation().getName().toLowerCase() %>
                                             </a>
                                         </h2>
-                                        <p class="text-capitalize"><%= day.getMorningLocation().getDescription().toLowerCase() %></p>
+                                        <p class="text-capitalize">
+                                            <%
+                                                String description = day.getMorningLocation().getDescription().toLowerCase();
+                                                int size = description.length() < MAX_SIZE_STRING ? description.length() : MAX_SIZE_STRING;
+                                            %>
+                                            <%= description.substring(0, size) %>...
+                                            <a href="view_location.jsp?LocationID=<%= day.getMorningLocation().getID() %>" target="_blank">
+                                                More
+                                            </a>
+                                        </p>
                                     </td>
                                 </tr>
 
@@ -541,7 +604,16 @@
                                                 <%= day.getAfternoonLocation().getName().toLowerCase() %>
                                             </a>
                                         </h2>
-                                        <p class="text-capitalize"><%= day.getAfternoonLocation().getDescription().toLowerCase() %></p>
+                                        <p class="text-capitalize">
+                                            <%
+                                                String description = day.getAfternoonLocation().getDescription().toLowerCase();
+                                                int size = description.length() < MAX_SIZE_STRING ? description.length() : MAX_SIZE_STRING;
+                                            %>
+                                            <%= description.substring(0, size) %>...
+                                            <a href="view_location.jsp?LocationID=<%= day.getAfternoonLocation().getID() %>" target="_blank">
+                                                More
+                                            </a>
+                                        </p>
                                     </td>
                                 </tr>
 
@@ -561,7 +633,16 @@
                                                 <%= day.getEveningLocation().getName().toLowerCase() %>
                                             </a>
                                         </h2>
-                                        <p class="text-capitalize"><%= day.getEveningLocation().getDescription().toLowerCase() %></p>
+                                        <p class="text-capitalize">
+                                            <%
+                                                String description = day.getEveningLocation().getDescription().toLowerCase();
+                                                int size = description.length() < 100 ? description.length() : 100;
+                                            %>
+                                            <%= description.substring(0, size) %>...
+                                            <a href="view_location.jsp?LocationID=<%= day.getEveningLocation().getID() %>" target="_blank">
+                                                More
+                                            </a>
+                                        </p>
                                     </td>
                                 </tr>
 
