@@ -76,6 +76,15 @@
         <link rel="stylesheet" href="assets/theme/css/style.css">
         <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
         <script type= "text/javascript" src = "js/country_city_list.js"></script>
+        
+        <!--       Fix animation disable page reset scrolling to top -->
+        <script type= "text/javascript">
+        window.onbeforeunload = function () {
+        window.scrollTo(0, 0);
+        }
+        </script>
+        
+        
     </head>
     <body>
         <!-- Open nav drawer extensive js -->
