@@ -13,9 +13,9 @@
     </head>
     <body>
         <ul>
-            <li><a href="view_location.jsp?LocationID=1" target="_blank">Location A</a></li>
-            <li><a href="view_location.jsp?LocationID=2" target="_blank">Location B</a></li>
-            <li><a href="view_location.jsp?LocationID=3" target="_blank">Location C</a></li>
+            <li><a href="view_location.jsp?LocationID=101" target="_blank">Location A</a></li>
+            <li><a href="view_location.jsp?LocationID=1" target="_blank">Location B</a></li>
+            <li><a href="view_location.jsp?LocationID=103" target="_blank">Location C</a></li>
         </ul>
     </body>
 </html>

@@ -115,6 +115,8 @@
             .comment-desc{
                 float: left;
                 width: 600px;
+                background: #FFFFFF;
+                padding: 2%;
             }
 
             /*Comment rating*/
@@ -179,6 +181,7 @@
                 l.setCountry(rs.getString("Country"));
                 l.setPrice(rs.getDouble("Price"));
                 l.setDescription(rs.getString("Description"));
+                l.setType(rs.getString("TypeLocation"));
             }
         %>
 
@@ -216,6 +219,7 @@
                     <li><b>Country:</b> <%=l.getCountry()%></li>
                     <li><b>City:</b> <%=l.getCity()%></li>
                     <li><b>Price:</b> <%=l.getPrice()%>$</li>
+                    <li class="text-capitalize"><b>Type:</b> <%=l.getType().toLowerCase()%></li>
                 </ul>
             </div><br>
 
@@ -241,7 +245,7 @@
         </div>
 
         <div class="container" id="comment">
-            <p><b>Comments</b></p>
+            <p><b>Comments / Reviews</b></p>
             <hr>
 
             <!--Using for loop to show comments-->
@@ -266,7 +270,7 @@
                             username = rs.getString("Username");
                         }
                     %>
-                    <b><%=username%></b>
+                    <a href="user_profile.jsp?UserID=<%=userID%>" target="_blank"><b><%=username%></b></a>
                     <hr>
                     <p><%=comment.getDescription()%></p>
                 </div>
@@ -280,7 +284,6 @@
             </div>
             <% }%>
             <a id="loadMore">Load More</a>
-
 
             <%
                 // Get user from session
@@ -331,9 +334,9 @@
                 showClear: false
             });
 
-            $(".comment-block").slice(0, 1).show();
+            $(".comment-block").slice(0, 3).show();
             $('#loadMore').click(function () {
-                $(".comment-block:hidden").slice(0, 1).slideDown();
+                $(".comment-block:hidden").slice(0, 5).slideDown();
                 if ($(".comment-block:hidden").length === 0) {
                     $("#loadMore").fadeOut('slow');
                 }

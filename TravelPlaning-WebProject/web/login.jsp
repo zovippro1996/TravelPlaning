@@ -291,14 +291,14 @@
                             <input type="hidden" name="command" value="login">
 
                             <div class="col-sm-11" style="margin-bottom: 15px;">
-                                <input type="text" name="username" class="form-control" placeholder="Username." autocomplete="off" required/>
+                                <input type="text" name="username" class="form-control" placeholder="Username or Email" autocomplete="off" required/>
                             </div>
 
                             <div class="col-sm-11" style="margin-bottom: 15px;">
-                                <input type="password" name="password" class="form-control" placeholder="Password." required/>
+                                <input type="password" name="password" class="form-control" placeholder="Password" required/>
                             </div>                                
 
-                            <a id="reset-pass">Forgot password ?</a>
+                            <!--<a id="reset-pass">Forgot password ?</a>-->
 
                             <div class="form-group" style="clear: both; padding-top: 10px;">
                                 <div class="col-sm-offset-0">
