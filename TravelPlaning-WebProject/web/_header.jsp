@@ -9,9 +9,9 @@
 <%@page import="Data.*" %>
 
 <script>
-    function openNav() {
-        document.getElementById("mySidenav").style.width = "250px";
-        document.getElementById("main").style.marginLeft = "250px";
+     function openNav() {
+        document.getElementById("mySidenav").style.width = "500px";
+        document.getElementById("main").style.marginLeft = "500px";
         document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
     }
 
@@ -38,11 +38,11 @@
                             %>
                             <div style="text-align: center;">
                                 <!--Getting User Avatar from dropbox repository-->
-                                <img src="<%=ImageControl.importUserAvatar(user.getID())%>" 
+                                 <img src="<%=ImageControl.importUserAvatar(user.getID())%>" 
                                      alt="This user avatar has been removed" width="100" height="100"/>
-                                <a href="#">Username: <%=user.getUsername()%></a>
-                                <a href="#">Email: <%=user.getEmail()%></a>
-                                <a href="#">Previous trips:</a>
+                                <a>Username: <%=user.getUsername()%></a>
+                                <a>Email: <%=user.getEmail()%></a>
+                                <a href="user_profile.jsp?UserID=<%=user.getID()%>">Your Profile</a>
                                 <a href="login.jsp?logout=true">Logout</a>
                             </div>
                             <% }%>
