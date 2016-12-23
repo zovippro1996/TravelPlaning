@@ -38,6 +38,9 @@ public class JourneyProcessing extends HttpServlet
             Journey journey = queryJourney(journeyID);
             session.setAttribute("viewJourney", journey);
             
+            // Set checking parameter
+            session.setAttribute("generated", "no");
+            
             // Forward to the Display Journey Page
             RequestDispatcher dispatcher =
                     getServletContext().getRequestDispatcher("/display_journey.jsp");
@@ -74,8 +77,8 @@ public class JourneyProcessing extends HttpServlet
             session.setAttribute("generatedJourney", journey);
             
             // Add checking param in session: generated
-            // If generated = yes -> display save button
-            // Otherwise, hide save button
+            // If generated = yes -> display save button, get journey from generatedJourney
+            // Otherwise, hide save button and display 'Back to profile' button; get journey from viewJourney
             session.setAttribute("generated", "yes");
             
             // Forward to new page to display the generated journey
@@ -118,13 +121,15 @@ public class JourneyProcessing extends HttpServlet
 
             // Delete journey in session after saving successfully
             session.removeAttribute("generatedJourney");
+            session.removeAttribute("generated");       // remove checking parameter
 
             // Notify user, then redirects to profile page ?
             out.println("<script type=\"text/javascript\">");
             out.println("alert('Your journey has been saved successfully! "
                 + "Go into your profile to see.');");
             // Redirect to user profile page
-            out.println("window.location.replace('user_profile.jsp?UserID=" + user.getID() + "');");
+//            out.println("window.location.replace('user_profile.jsp?UserID=" + user.getID() + "');");
+            out.println("window.location.replace('main.jsp');");
             out.println("</script>");
         }
         else if (action.equalsIgnoreCase("backProfile"))
@@ -156,7 +161,8 @@ public class JourneyProcessing extends HttpServlet
             // Notify user, and redirect back to the user profile page
             out.println("<script type=\"text/javascript\">");
             out.println("alert('The journey has been removed successfully!');");
-            out.println("window.location.replace('user_profile.jsp?UserID=" + user.getID() + "');");
+//            out.println("window.location.replace('user_profile.jsp?UserID=" + user.getID() + "');");
+            out.println("window.location.replace('test_delete_journey.html');");
             out.println("</script>");
         }
     }
@@ -257,7 +263,7 @@ public class JourneyProcessing extends HttpServlet
         // Save to Journey (Note: journeyID, userID and deployDate are not set here)
         Journey journey = new Journey();
         journey.setDuration(duration);
-        journey.setType(journeyType.name().toLowerCase());
+        journey.setType(journeyType);
         journey.setListDays(listLocationsPerDay);
         journey.setCountry(country);
         journey.setListCity(listCity);
@@ -478,7 +484,7 @@ public class JourneyProcessing extends HttpServlet
             journey.setBudget(resultSet.getDouble("Budget"));
             journey.setDeployDate(resultSet.getString("DeployDate"));
             journey.setDuration(resultSet.getInt("Duration"));
-            journey.setType(resultSet.getString("Type"));
+            journey.setType(JourneyType.valueOf(resultSet.getString("Type").toUpperCase()));
 
             // Initialize listDays based on duration
             for (int i = 0; i < journey.getDuration(); ++i)
@@ -511,7 +517,7 @@ public class JourneyProcessing extends HttpServlet
                 // Get data about the location
                 Location location = new Location();
                 location.setID(resultSet.getInt("LocationID"));
-                location.setType(resultSet.getString("Type"));
+                location.setType(LocationType.valueOf(resultSet.getString("Type").toUpperCase()));
                 location.setName(resultSet.getString("NameLocation"));
                 location.setCity(resultSet.getString("City"));
                 location.setCountry(resultSet.getString("Country"));
@@ -1072,7 +1078,7 @@ public class JourneyProcessing extends HttpServlet
                 {
                     park = new Location();
                     park.setID(resultSet.getInt("ID"));     // assign value for park
-                    park.setType(LocationType.THEMEPARK.name());
+                    park.setType(LocationType.THEMEPARK);
                     park.setName(resultSet.getString("Name"));
                     park.setCity(resultSet.getString("City"));
                     park.setCountry(resultSet.getString("Country"));
@@ -1183,7 +1189,7 @@ public class JourneyProcessing extends HttpServlet
                     // Get the highest-rate (and only) beach
                     beach = new Location();
                     beach.setID(resultSet.getInt("ID"));
-                    beach.setType(LocationType.BEACH.name());
+                    beach.setType(LocationType.BEACH);
                     beach.setName(resultSet.getString("Name"));
                     beach.setCity(resultSet.getString("City"));
                     beach.setCountry(resultSet.getString("Country"));
@@ -1456,7 +1462,7 @@ public class JourneyProcessing extends HttpServlet
                 
                 // Get location's information from database
                 location.setID(resultSet.getInt("ID"));
-                location.setType(resultSet.getString("Type").toUpperCase());
+                location.setType(LocationType.valueOf(resultSet.getString("Type").toUpperCase()));
                 location.setName(resultSet.getString("Name"));
                 location.setCity(resultSet.getString("City"));
                 location.setCountry(resultSet.getString("Country"));
@@ -1502,7 +1508,7 @@ public class JourneyProcessing extends HttpServlet
 
                     // Get location's information from database
                     location.setID(resultSet.getInt("ID"));
-                    location.setType(resultSet.getString("Type").toUpperCase());
+                    location.setType(LocationType.valueOf(resultSet.getString("Type").toUpperCase()));
                     location.setName(resultSet.getString("Name"));
                     location.setCity(resultSet.getString("City"));
                     location.setCountry(resultSet.getString("Country"));
