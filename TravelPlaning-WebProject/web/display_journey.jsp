@@ -7,8 +7,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.*, Data.*, Control.*" %>
 <%
-    // Retrive journey from session (if being forwared to for generating journey purpose)
+    // Retrieve journey from session (if being forwared to for generating journey purpose)
     Journey journey = (Journey) session.getAttribute("currentJourney");
+    
+    // Retrieve checking parameter
+    String checkParam = (String) session.getAttribute("generated");
 %>
 <%
     // Display if journey is available
@@ -570,10 +573,14 @@
                 </div>
             </div>
 
+            <% if (checkParam != null && checkParam.equalsIgnoreCase("yes")) { %>
+            
             <!-- Save journey button -->
             <form action="JourneyProcessing" method="post" id="form-button">
                 <button type="submit" name="action" value="saveJourney" class="btn btn-primary choose-btn">Save your journey</button>
             </form>
+            
+            <% } %>
         </div>
 
         <!-- Footer -->
