@@ -7,11 +7,20 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.*, Data.*, Control.*" %>
 <%
-    // Retrieve journey from session (if being forwared to for generating journey purpose)
-    Journey journey = (Journey) session.getAttribute("currentJourney");
-    
     // Retrieve checking parameter
     String checkParam = (String) session.getAttribute("generated");
+    Journey journey = null;
+
+    if (checkParam != null && checkParam.equalsIgnoreCase("yes"))   // generated journey
+    {
+        // Retrieve generated journey from session
+        journey = (Journey) session.getAttribute("generatedJourney");
+    }
+    else        // view journey
+    {
+        // Retrieve view journey from session
+        journey = (Journey) session.getAttribute("viewJourney");
+    }
 %>
 <%
     // Display if journey is available
@@ -580,7 +589,15 @@
                 <button type="submit" name="action" value="saveJourney" class="btn btn-primary choose-btn">Save your journey</button>
             </form>
             
+            <% } else { %>
+
+            <!-- Back to previous page button -->
+            <form action="JourneyProcessing" method="post" id="form-button">
+                <button type="submit" name="action" value="backProfile" class="btn btn-primary choose-btn">Return to profile</button>
+            </form>
+
             <% } %>
+
         </div>
 
         <!-- Footer -->
@@ -592,6 +609,9 @@
 
 <% } else { %>
 
-No journey in session
+<script>
+    alert('No journey in session');
+    window.location.replace('input_getting.jsp');
+</script>
 
 <% } %>
