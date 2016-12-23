@@ -35,9 +35,31 @@
         <link rel="stylesheet" href="assets/dropdown/css/style.css">
         <link rel="stylesheet" href="assets/theme/css/style.css">
         <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
-        
+        <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.css">
         
         <style type="text/css">
+            
+            img.bg {
+            /* Set rules to fill background */
+                min-height: 100%;
+                min-width: 1024px;
+	
+            /* Set up proportionate scaling */
+                width: 100%;
+                height: auto;
+	
+            /* Set up positioning */
+                position: fixed;
+                top: 0;
+                left: 0;
+            }
+
+            @media screen and (max-width: 1024px) { /* Specific to this particular image */
+                img.bg {
+                    left: 50%;
+                    margin-left: -512px;   /* 50% */
+                }
+            }
             
             .personalinfo{
                 margin-bottom: 3%;
@@ -75,7 +97,11 @@
             }
             
             .personalrightwrap{
-                
+                border-radius: 12px;
+                background-color: #92ffc2;
+                padding-left: 3%;
+                padding-right: 3%;
+                padding-bottom:2%;
                 width:30%; 
                 float: right;
                 position: relative;
@@ -86,19 +112,37 @@
                  
                 background-color: violet; 
                 text-align: center; 
-                 
-                 
-                font-size:150%;
+                font-size:185%;
             }
             
             
             
             .avatarcss{
-                width:162px; 
-                height:162px; 
+                position: relative;
+                width:145px; 
+                height:130px ; 
                 padding-right: 2%; 
-                padding-bottom:2%;
+                
                 float:left;
+            }
+            
+            .achievenumber{
+                margin-left: 3.5%;
+                font-size: 150%;
+                font-weight: 500;
+            }
+            
+            .journey_index{
+                font-size:140%;
+                
+                
+                
+            }
+            
+            .journey_type{
+                font-size: 80%;
+                color:green;
+               font-weight: 600;
             }
             
         </style>
@@ -135,13 +179,8 @@
         
         <!-- Banner -->
         <jsp:include page="_header.jsp" flush="true" />
-        
-      
-
-        
-        
-        
-        
+         
+        <img class="bg" src="img/background_user_profile.jpg" alt="img/avatartest.jsp">
         
         <!-- Outmost DIV -->     
         <div class="outmost">
@@ -157,9 +196,9 @@
                          <div id="picture">
                 <!--Getting User Avatar from Dropbox repository-->
                 <img src="<%=ImageControl.importUserAvatar(UserID)%>" 
-                     alt="img/avatartest.jpg" class="avatarcss" />
+                     alt="img/avatartest.jpg" class="avatarcss " />
                 
-            </div>
+                </div>
                     </div>    
                     
                     
@@ -185,23 +224,11 @@
                         </div>
                         
                         <br>
-                        
-                        <div>
-                            DAYS of travel:                           
-                        </div>
-                        
-                        <br>
-                        
-                        <div>
-                            Total COUNTRIES visited: 
-                        </div>
-                        
-                        <br>
-                        
-                        <div>
-                            Total LOCATION visited: 
-                        </div>
-                        
+                        <ul>
+                            <li><b>DAYS</b> of travel: <span class="achievenumber">11</span> </li>                          
+                            <li>Total <b>COUNTRIES</b> visited: <span class="achievenumber">3</span></li>
+                            <li>Total <b>LOCATIONS</b> visited: <span class="achievenumber">9</span></li>  
+                        </ul>
                         
                     </div>
                     
@@ -262,6 +289,7 @@
                             
                             <div class="personalinfo">
                                 Country: <%=u.getCountry()%>
+                                <% if (!u.getCity().isEmpty()) out.print(" ("+u.getCity()+")"); %>
                             </div>
                             
                             
@@ -273,12 +301,42 @@
             </div>
             <!-- END of Personal Information -->
             
-            
+            <br>
             
             <!-- - - - - - - - Journey HERE - - - - - - - - - - -->         
             
-            <div style="background-color: red; color: white; margin-bottom: 5%;">
-                This is Account's Journeys <br> Input here <br><br>
+            <div style="background-color: #74b38b; margin-bottom: 5%; padding:2%;  border: 4.5px solid #378a80; border-radius: 8px; ">
+                
+                <div style="color:white; font-family: Comic Sans MS; font-weight: 600; text-align: center; font-size: 350%">The Journey</div>
+                
+                <br>
+                <br>
+                
+                  <div class="panel panel-default">
+                    <div class="panel-heading journey_index">
+                        <a href="display_journey.jsp?action=view&amp;id=1">No. #1</a>
+                          
+                    </div>
+                    
+                    <div class="panel-body">
+                        Educational
+                        
+                        <br>
+                        
+                        Deploy Date: December 12, 2016
+                        
+                        <br>
+                        
+                        Duration: 4 days
+                        
+                        <br>
+                        
+                                
+                        
+                    </div>
+                </div>
+                      
+                
             </div>
             
             
