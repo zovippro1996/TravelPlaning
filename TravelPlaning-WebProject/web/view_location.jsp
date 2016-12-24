@@ -181,7 +181,7 @@
                 l.setCountry(rs.getString("Country"));
                 l.setPrice(rs.getDouble("Price"));
                 l.setDescription(rs.getString("Description"));
-                l.setType(rs.getString("TypeLocation"));
+                l.setType(LocationType.valueOf(rs.getString("TypeLocation").toUpperCase()));
             }
         %>
 
@@ -219,7 +219,7 @@
                     <li><b>Country:</b> <%=l.getCountry()%></li>
                     <li><b>City:</b> <%=l.getCity()%></li>
                     <li><b>Price:</b> <%=l.getPrice()%>$</li>
-                    <li class="text-capitalize"><b>Type:</b> <%=l.getType().toLowerCase()%></li>
+                    <li class="text-capitalize"><b>Type:</b> <%=l.getType().name().toLowerCase()%></li>
                 </ul>
             </div><br>
 
