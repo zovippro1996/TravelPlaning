@@ -22,6 +22,12 @@
         <link rel="stylesheet" href="assets/dropdown/css/style.css">
         <link rel="stylesheet" href="assets/theme/css/style.css">
         <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+        
+        <%@page import="Control.ImageControl"%>
+<%@page import="Data.*"%>
+<%@page import="Connect.DBConnect"%>
+<%@page import="java.util.*"%>
+<%@page import="java.sql.*"%>
 
 
 
@@ -74,7 +80,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-xs-12">
-                            <h3 class="mbr-section-title display-2">Some feature travel plans!</h3>
+                            <h3 class="mbr-section-title display-2">Newest destination to travel!</h3>
                             <small class="mbr-section-subtitle"></small>
                         </div>
                     </div>
@@ -82,24 +88,39 @@
             </section>
 
             <section class="mbr-cards mbr-section mbr-section-nopadding" id="index-features3-0" style="background-color: rgb(255, 255, 255);">
+<div class="mbr-cards-row row">
+                     <!--Get newest Location objects from database--> 
+        <%
+            Connection c = DBConnect.getConnection();
 
-
-
-                <div class="mbr-cards-row row">
-                    <div class="mbr-cards-col col-xs-12 col-lg-4" style="padding-top: 80px; padding-bottom: 80px;">
+            Statement st = c.createStatement();
+            ResultSet rs;
+            String query = "SELECT * FROM Locations ORDER BY LocationID DESC LIMIT 3";
+            rs = st.executeQuery(query);
+            while (rs.next()) {
+               %> 
+               <div class="mbr-cards-col col-xs-12 col-lg-4" style="padding-top: 80px; padding-bottom: 80px;">
                         <div class="container">
                             <div class="card cart-block">
-                                <div class="card-img"><img src="assets/images/Vietnam.JPG" class="card-img-top"></div>
+                                <div class="card-img"><img src="<%=ImageControl.importLocationImage(rs.getInt("LocationID"))%>" class="card-img-top"></div>
                                 <div class="card-block">
-                                    <h4 class="card-title">VietNam</h4>
-                                    <h5 class="card-subtitle">Viet Nam template plans</h5>
-                                    <p class="card-text">Lorem ipsum dolor sit amet.</p>
-                                    <div class="card-btn"><a href="input_getting.jsp?location=Vietnam" class="btn btn-primary">BOOK IT</a></div>
+                                    <h4 class="card-title"><%=rs.getString("NameLocation")%></h4>
+                                    <h5 class="card-subtitle"><%=rs.getString("TypeLocation")%></h5>
+                                    <p class="card-text"><%=rs.getString("Description")%></p>
+                                    <div class="card-btn"><a href="view_location.jsp?LocationID=<%=rs.getInt("LocationID")%>" class="btn btn-primary">VIEW LOCATION</a></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="mbr-cards-col col-xs-12 col-lg-4" style="padding-top: 80px; padding-bottom: 80px;">
+                                            <%
+               
+                
+            }
+        %>
+
+                
+                    
+<!--                    <div class="mbr-cards-col col-xs-12 col-lg-4" style="padding-top: 80px; padding-bottom: 80px;">
                         <div class="container">
                             <div class="card cart-block">
                                 <div class="card-img"><img src="assets/images/Thailand.jpg" class="card-img-top"></div>
@@ -124,7 +145,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
 
 
 
