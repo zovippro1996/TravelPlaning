@@ -4,32 +4,30 @@
     Author     : zovippro1996
 --%>
 
-<%@page import="java.sql.DriverManager"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.PreparedStatement"%>
-<%@page import="java.sql.Connection"%>
+<%@ page import="java.io.*,java.sql.*" %>
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
 
+<% 
+                    String sn=request.getParameter("ver");
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%
-    try{
-        
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con =(Connection) DriverManager.getConnection("jdbc:mysql://db4free.net:3306/usertp_db","traveladmin","travel123");
-        
-            PreparedStatement ps = con.prepareStatement("SELECT  * FROM VUsers WHERE username = ?");
-            
-            ps.setString(1,request.getParameter("username"));
-            
-            ResultSet rs = ps.executeQuery();
-            
-            if(rs.first()){
-                out.print("User exists");
-            }else{
-                out.print("User name is valid");
-            }
-            
-        }catch (Exception e){
-            System.out.println(e);  
-        }
-%>
+                    Class.forName("com.mysql.jdbc.Driver");
+                    Connection con =DriverManager.getConnection("jdbc:mysql://db4free.net:3306/usertp_db","traveladmin","travel123");
+                    Statement st=con.createStatement();
+                    ResultSet rs = st.executeQuery("select * from Users where username='"+sn+"'");  // this is for name
+                    if(rs.next())
+                    {    
+                        out.println("<font color=red>");
+                        out.println("Name already taken");
+                        out.println("</font>");
+
+                    }else {
+                        out.println("<font color=green>");
+                        out.println("Available");
+                        out.println("</font>");
+
+                    }
+rs.close();
+st.close();
+con.close();
+%> 
+
