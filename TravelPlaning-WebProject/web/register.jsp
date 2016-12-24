@@ -40,6 +40,28 @@ Author : Trung Pham
       
       
   <style type="text/css">
+      
+       img.bg {
+            /* Set rules to fill background */
+                min-height: 100%;
+                min-width: 1024px;
+	
+            /* Set up proportionate scaling */
+                width: 100%;
+                height: auto;
+	
+            /* Set up positioning */
+                position: fixed;
+                top: 0;
+                left: 0;
+            }
+
+            @media screen and (max-width: 1024px) { /* Specific to this particular image */
+                img.bg {
+                    left: 50%;
+                    margin-left: -512px;   /* 50% */
+                }
+            }
       .signupform {
           
           border: 3px solid #59903d;  
@@ -132,13 +154,9 @@ Author : Trung Pham
 
         <!-- - - - - - - - - Background - - - - - - - - - - -->
         
-        <div id="background-slide" style="position: fixed">
-                    <img class="mySlides w3-animate-fading" src="img/PicforBackgroundWLCpage/slide1.jpg" style="width: 100%">
-                    <img class="mySlides w3-animate-fading" src="img/PicforBackgroundWLCpage/slide2.jpg" style="width: 100%">
-                    <img class="mySlides w3-animate-fading" src="img/PicforBackgroundWLCpage/slide3.jpg" style="width: 100%">
-                    <img class="mySlides w3-animate-fading" src="img/PicforBackgroundWLCpage/slide5.jpg" style="width: 100%">
-                    <img class="mySlides w3-animate-fading" src="img/PicforBackgroundWLCpage/slide7.jpg" style="width: 100%">
-        </div>
+        <img class="bg" src="img/PicforBackgroundWLCpage/slide1.jpg" alt="img/avatartest.jsp">
+        
+        
         
         
      <!-- - - - - - - - - - Begin OutMost Div - - - - - - - -->
@@ -172,8 +190,9 @@ Author : Trung Pham
                          <div class="form-group">
                                           
                              <!-- Username -->
-                             <input type="text" size="25" placeholder="Username" maxlength ="25" class="form-control" id="username" name="username" style="width: 55%;">
-                            
+                             <input type="text" size="25" placeholder="Username" maxlength ="25" class="form-control" onkeyup="username_available()" id="username" name="username" style="width: 55%;">
+                             <span id="username_available_label"></span>
+                             
                              <!-- Password -->
                              <input class="form-control " size="25" placeholder="Password" name="password" type="password" id="password" onkeyup="CheckPasswordStrength(this.value);CheckPassword()" style="width: 55%;">
                                 <span id="password_strength" style="font-size:80%; padding-left: 25%"></span>
@@ -278,7 +297,7 @@ Author : Trung Pham
                         
                          <!-- - - - - - -YEAR - - - - - - - --> 
                          <label>
-                            <input class ="form-control"  type="text" pattern="[0-9]{4}" maxlength="4" size="4" name="DOByear" id="birthyear" placeholder="Year">
+                            <input class ="form-control" style="float:left"  type="text" pattern="[0-9]{4}" maxlength="4" size="4" name="DOByear" id="birthyear" placeholder="Year">
                          </label>
             
                     </fieldset>
@@ -329,8 +348,9 @@ Author : Trung Pham
                     <fieldset>     
                         <legend>Email</legend>
                                                 
-                             <input type="email" id="email" name ="email" class="form-control"  placeholder=".com" onkeyup="test_email()">
+                             <input type="email" id="email" name ="email" class="form-control"  placeholder=".com" onkeyup="email_available()">
                              <small>*One Email for One Account Only</small>
+                             <span id="email_available_label"></span>
                                                 
                     </fieldset>
                 </div>                
@@ -483,10 +503,7 @@ Author : Trung Pham
                      <label class="checkbox-inline"><input type="checkbox" value="">Afternoon</label>
                      <label class="checkbox-inline"><input type="checkbox" value="">Evening</label>
                     <br>
-                    
-                  
-                    
-                    
+                            
                     </div>
                     
                     
@@ -545,10 +562,64 @@ Author : Trung Pham
             document.getElementById("email_submit").style.display = "none";
             document.getElementById("country_submit").style.display = "none";
                    
-        }  
+        } 
+        
+        
+        //---------------Username Available---------//
+        function username_available()
+            {
+                var xmlhttp;
+                var k = document.getElementById("username").value;
+                var urls = "username_available.jsp?ver=" + k;
+
+                if (window.XMLHttpRequest)
+                {
+                    xmlhttp = new XMLHttpRequest();
+                } else
+                {
+                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlhttp.onreadystatechange = function ()
+                {
+                    if (xmlhttp.readyState === 4)
+                    {
+                        document.getElementById("username_available_label").innerHTML = xmlhttp.responseText;
+                    }
+                };
+                xmlhttp.open("GET", urls, true);
+                xmlhttp.send();
+            }
+            
+            
+        //--------------Email Available-----------//
+        function email_available()
+            {
+                var xmlhttp;
+                var k = document.getElementById("email").value;
+                var urls = "email_available.jsp?ver=" + k;
+
+                if (window.XMLHttpRequest)
+                {
+                    xmlhttp = new XMLHttpRequest();
+                } else
+                {
+                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlhttp.onreadystatechange = function ()
+                {
+                    if (xmlhttp.readyState === 4)
+                    {
+                        document.getElementById("email_available_label").innerHTML = xmlhttp.responseText;
+                    }
+                };
+                xmlhttp.open("GET", urls, true);
+                xmlhttp.send();
+            }
+    
+    
+    
           
-          
-        //---------Password Strength---------    
+        //---------Password Strength--------- -------//  
         function CheckPasswordStrength(password) {
             var password_strength = document.getElementById("password_strength");
             
@@ -652,6 +723,8 @@ Author : Trung Pham
             /* Email */            var email=document.getElementById("email");
             /* Country */          var country = document.getElementById("country").options[document.getElementById("country").selectedIndex].value;
             
+            
+              
             
             
             //-----------------Checking Input in Detail ------------------//
@@ -798,33 +871,10 @@ Author : Trung Pham
         }
      
     </script> 
-     <div id="scrollToTop" class="scrollToTop mbr-arrow-up"><a style="text-align: center;"><i class="mbr-arrow-up-icon"></i></a></div>
-     
-     
-     
- <!-- - - - - - - - Background Transition - - - - - - - --> 
-  <script>
-            var myIndex = 0;
-            carousel();
-
-            function carousel() {
-                var i;
-                var x = document.getElementsByClassName("mySlides");
-                for (i = 0; i < x.length; i++) {
-                    x[i].style.display = "none";
-                }
-                myIndex++;
-                if (myIndex > x.length) {
-                    myIndex = 1;
-                }
-                x[myIndex - 1].style.display = "block";
-                setTimeout(carousel, 5000);
-            }           
-  
-  </script>
+ 
   
   <!-- - - - - - - - - - - Footer - - - - - - - -->
+ 
   <jsp:include page="_footer.jsp" flush="true"/>
 </body>
 </html>
-
