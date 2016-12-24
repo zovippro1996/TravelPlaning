@@ -128,7 +128,7 @@ public class JourneyProcessing extends HttpServlet
             out.println("alert('Your journey has been saved successfully! "
                 + "Go into your profile to see.');");
             // Redirect to user profile page
-//            out.println("window.location.replace('user_profile.jsp?UserID=" + user.getID() + "');");
+            // out.println("window.location.replace('user_profile.jsp?UserID=" + user.getID() + "');");
             out.println("window.location.replace('main.jsp');");
             out.println("</script>");
         }
@@ -336,12 +336,7 @@ public class JourneyProcessing extends HttpServlet
             {
                 queryJourneyLocation += "('" + journeyID + "', "
                         + "'" + currentDay.getPark().getID() + "', "
-                        + "'" + currentDay.getDayNumber() + "', 'all_day')";
-                
-                if (i != journey.getListDays().size() - 1)
-                {
-                    queryJourneyLocation += ", ";
-                }
+                        + "'" + currentDay.getDayNumber() + "', 'all_day'), ";
             }
             // If normal day
             else
@@ -351,12 +346,7 @@ public class JourneyProcessing extends HttpServlet
                 {
                     queryJourneyLocation += "('" + journeyID + "', "
                             + "'" + currentDay.getMorningLocation().getID() + "', "
-                            + "'" + currentDay.getDayNumber() + "', 'morning')";
-                    
-                    if ((i != journey.getListDays().size() - 1) || currentDay.hasAfternoon())
-                    {
-                        queryJourneyLocation += ", ";
-                    }
+                            + "'" + currentDay.getDayNumber() + "', 'morning'), ";
                 }
                 
 
@@ -365,12 +355,7 @@ public class JourneyProcessing extends HttpServlet
                 {
                     queryJourneyLocation += "('" + journeyID + "', "
                             + "'" + currentDay.getAfternoonLocation().getID() + "', "
-                            + "'" + currentDay.getDayNumber() + "', 'afternoon')";
-                    
-                    if ((i != journey.getListDays().size() - 1) || currentDay.hasEvening())
-                    {
-                        queryJourneyLocation += ", ";
-                    }
+                            + "'" + currentDay.getDayNumber() + "', 'afternoon'), ";
                 }
 
                 // Has evening --> assign afternoon location: period = evening
@@ -378,15 +363,12 @@ public class JourneyProcessing extends HttpServlet
                 {
                     queryJourneyLocation += "('" + journeyID + "', "
                             + "'" + currentDay.getEveningLocation().getID() + "', "
-                            + "'" + currentDay.getDayNumber() + "', 'evening')";
-                    
-                    if (i != journey.getListDays().size() - 1)
-                    {
-                        queryJourneyLocation += ", ";
-                    }
+                            + "'" + currentDay.getDayNumber() + "', 'evening'), ";
                 }
             }
         }
+        queryJourneyLocation =
+                queryJourneyLocation.substring(0, queryJourneyLocation.length() - 1); //erase last character
         queryJourneyLocation += ";";
         // out.println(queryJourneyLocation);
 

@@ -15,3 +15,50 @@ VALUES
 	('Newstead House', 'historical', 'Brisbane', 'Australia', 0.00, 'Newstead House is Brisbane's oldest surviving residence and is located on the Breakfast Creek bank of the Brisbane River, in the northern Brisbane suburb of Newstead, in Queensland, Australia. Built as a small cottage in the Colonial-Georgian style in 1846, the cottage was extended and today is painted and furnished in a late Victorian style.', 1, 1, 0),
 
 	
+
+
+
+
+
+** France: Paris, Marseille, Cannes, Normandy **
+
+INSERT INTO Locations
+	(NameLocation, TypeLocation, City, Country, Price, Description, Morning, Afternoon, Evening)
+VALUES
+	('Eiffel Tower', 'landmark', 'Paris', 'France', 19, 'The Eiffel Tower is a wrought iron lattice tower on the Champ de Mars inParis, France. It is named after the engineer Gustave Eiffel, whose company designed and built the tower. Constructed from 1887–89 as the entrance to the 1889 World''s Fair, it was initially criticized by some of France''s leading artists and intellectuals for its design, but it has become a global cultural icon of France and one of the most recognisable structures in the world. The Eiffel Tower is the most-visited paid monument in the world; 6.91 million people ascended it in 2015.', 1, 0, 0),
+	('Notre Dame de Paris', 'landmark', 'Paris', 'France', 0.00, 'Notre-Dame de Paris; meaning "Our lady of Paris"; also known as Notre-Dame Cathedral or simply Notre-Dame, is a medieval Catholic cathedral on the Île de la Cité in the fourth arrondissement of Paris, France. The cathedral is widely considered to be one of the finest examples of French Gothic architecture, and is among the largest and most well-known church buildings in the world. The naturalism of its sculptures and stained glass are in contrast with earlier Romanesque architecture.', 1, 1, 1),
+	('The Louvre', 'landmark', 'Paris', 'France', 17.00, 'The Louvre or the Louvre Museum is the world''s largest museum and a historic monument in Paris, France. A central landmark of the city, it is located on the Right Bank of the Seine in the city''s 1st arrondissement (district or ward). Nearly 35,000 objects from prehistory to the 21st century are exhibited over an area of 72,735 square metres (782,910 square feet). The Louvre is the world's second most visited museum after the Palace Museum in China, receiving more than 9.26 million visitors in 2014.', 1, 1, 1),
+	('Sacré-Cœur', 'landmark', 'Paris', 'France', 0.00, 'The Basilica of the Sacred Heart of Paris, commonly known as Sacré-Cœur Basilica and often simply Sacré-Cœur, is a Roman Catholic church and minor basilica, dedicated to the Sacred Heart of Jesus, in Paris, France. A popular landmark, the basilica is located at the summit of the butte Montmartre, the highest point in the city. Sacré-Cœur is a double monument, political and cultural, both a national penance for the defeat of France in the 1871 Franco-Prussian War and the socialist Paris Commune of 1871 crowning its most rebellious neighborhood, and an embodiment of conservative moral order, publicly dedicated to the Sacred Heart of Jesus, which was an increasingly popular vision of a loving and sympathetic Christ.', 1, 1, 1),
+	('Champ de Mars', 'landmark', 'Paris', 'France', 0.00, 'The Champ de Mars is a large public greenspace in Paris, France, located in the seventh arrondissement, between the Eiffel Tower to the northwest and the École Militaire to the southeast. The park is named after the Campus Martius ("Mars Field") in Rome, a tribute to the Latin name of the Roman God of war. The name also alludes to the fact that the lawns here were formerly used as drilling and marching grounds by the French military.', 1, 1, 1),
+	('Arc de Triomphe', 'historical', 'Paris', 'France', 13, 'The Arc de Triomphe de l''Étoile is one of the most famous monuments in Paris, standing at the western end of the Champs-Élysées at the center of Place Charles de Gaulle, formerly named Place de l''Étoile — the étoile or "star" of the juncture formed by its twelve radiating avenues.
+
+The Arc de Triomphe should not be confused with a smaller arch, the Arc de Triomphe du Carrousel, which stands west of the Louvre. The Arc de Triomphe honours those who fought and died for France in the French Revolutionary and the Napoleonic Wars, with the names of all French victories and generals inscribed on its inner and outer surfaces. Beneath its vault lies the Tomb of the Unknown Soldier from World War I.', 1, 1, 1),
+	('Place de la Bastille', 'historical', 'Paris', 'France', 0.00, 'The Place de la Bastille is a square in Paris where the Bastille prison stood until the "Storming of the Bastille" and its subsequent physical destruction between 14 July 1789 and 14 July 1790 during the French Revolution. No vestige of the prison remains.
+
+The square straddles 3 arrondissements of Paris, namely the 4th, 11th and 12th. The square and its surrounding areas are normally called simply Bastille.
+July Column
+
+The July Column (Colonne de Juillet) which commemorates the events of the July Revolution (1830) stands at the center of the square. Other notable features include the Bastille Opera, the Bastille subway station and a section of the Canal Saint Martin. Prior to 1984, the former Bastille railway station stood where the opera house now stands.
+
+As a consequence of its historical significance, the square is often the site or point of departure of political demonstrations, including the massive anti-CPE demonstration of 28 March 2006.', 1, 1, 1),
+	('Conciergerie', 'historical', 'Paris', 'France', 11.50, 'The Conciergerie is a building in Paris, France, located on the west of the Île de la Cité (literally "Island of the City"), formerly a prison but presently used mostly for law courts. It was part of the former royal palace, the Palais de la Cité, which consisted of the Conciergerie, Palais de Justice and the Sainte-Chapelle. Hundreds of prisoners during the French Revolution were taken from the Conciergerie to be executed by guillotine at a number of locations around Paris.', 1, 1, 0),
+	('Catacombs of Paris', 'historical', 'Paris', 'France', 12.00, 'The Catacombs of Paris are underground ossuaries in Paris, France, which hold the remains of more than six million people in a small part of the ancient Mines of Paris tunnel network. Located south of the former city gate "Barrière d’Enfer" (Gate of Hell) beneath Rue de la Tombe-Issoire, the ossuary was founded when city officials had two simultaneous problems: a series of cave-ins beginning 1774, and overflowing cemeteries, particularly Saint Innocents. Nightly processions of bones from 1786 to 1788 transferred remains from cemeteries to the reinforced tunnels, and more remains were added during later years. The underground cemetery became a tourist attraction on a small scale from the early 19th century, and has been open to the public on a regular basis since 1874 with surface access from a building at Place Denfert-Rochereau in the extreme southern part of the city of Paris.
+
+The Catacombs are among the 14 City of Paris Museums managed by Paris Musées since January 1, 2013. The catacombs are known formally as l''Ossuaire Municipal or Catacombes officiels and have been called "The World''s Largest Grave" due the number of remains buried. Although the ossuary comprises only a small section of the underground "carrières de Paris" ("quarries of Paris"), Parisians presently often refer to the entire tunnel network as "the catacombs".', 1, 1, 1),
+	('Arènes de Lutèce', 'historical', 'Paris', 'France', 0.00, 'The Arènes de Lutèce are among the most important remains from the Gallo-Roman era in Paris (known in antiquity as Lutetia, or Lutèce in French), together with the Thermes de Cluny. Lying in what is now the Quartier Latin, this amphitheater could once seat 15,000 people, and was used to present gladiatorial combats.', 1, 1, 0),
+	('Musée d'Orsay', 'art', 'Paris', 'France', 14.00, 'The Musée d''Orsay is a museum in Paris, France, on the left bank of the Seine. It is housed in the former Gare d'Orsay, a Beaux-Arts railway station built between 1898 and 1900. The museum holds mainly French art dating from 1848 to 1914, including paintings, sculptures, furniture, and photography. It houses the largest collection of impressionist and post-Impressionist masterpieces in the world, by painters including Monet, Manet, Degas, Renoir, Cézanne, Seurat, Sisley, Gauguin, and Van Gogh. Many of these works were held at the Galerie nationale du Jeu de Paume prior to the museum's opening in 1986. It is one of the largest art museums in Europe.', 1, 1, 0),
+	('Musée de Cluny - Le monde médiéval', 'art', 'Paris', 'France', 11.00, 'The Musée national du Moyen Âge, formerly Musée de Cluny, officially known as the Musée national du Moyen Âge – Thermes et hôtel de Cluny ("National Museum of the Middle Ages – Cluny thermal baths and mansion"), is a museum in Paris, France. It is located in the 5th arrondissement at 6 Place Paul-Painlevé, south of the Boulevard Saint-Germain, between the Boulevard Saint-Michel and the Rue Saint-Jacques. Among the principal holdings of the museum are the six The Lady and the Unicorn (La Dame à la licorne) tapestries.', 1, 1, 0),
+	
+
+
+
+
+
+
+
+
+
+
+
+
+	('Canal Saint-Martin', 'nature', 'Paris', 'France', , 'The Canal Saint-Martin is a 4.5 km long canal in Paris. It connects the Canal de l''Ourcq to the river Seine and runs underground between Bastille (Paris Métro) and République (Paris Métro). It is drained and cleaned every 10-15 years, uncovering tonnage of garbage and treasure alike.', 1, 1, 1),
