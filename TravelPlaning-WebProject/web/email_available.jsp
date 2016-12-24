@@ -1,8 +1,3 @@
-<%-- 
-    Document   : checkusername
-    Created on : 9 May, 2013, 12:42:25 PM
-    Author     : Aravind Sankaran
---%>
 
 <%@ page import="java.io.*,java.sql.*" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
