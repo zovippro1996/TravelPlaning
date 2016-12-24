@@ -124,7 +124,8 @@
                             <label>
                                 Where do you want to go ? <span class="required">*</span>
                             </label>
-                            <select class="form-control" name="country" id="country"></select>
+                            <select class="form-control" name="country" id="country" onclick="country_available();"></select>
+                            <span id="country_available_label"></span>
                             <div class="radio">
                                 <label>
                                     <input type="radio" name="dest" value="knownCountry" checked>
@@ -296,6 +297,31 @@
         <script>
             function focusForm() {
                 document.getElementById("lower").focus();
+            }
+            
+             //---------------Username Available---------//
+            function country_available()
+            {
+                var xmlhttp;
+                var k = document.getElementById("country").options[document.getElementById("country").selectedIndex].value;
+                var urls = "country_available.jsp?ver=" + k;
+
+                if (window.XMLHttpRequest)
+                {
+                    xmlhttp = new XMLHttpRequest();
+                } else
+                {
+                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlhttp.onreadystatechange = function ()
+                {
+                    if (xmlhttp.readyState === 4)
+                    {
+                        document.getElementById("country_available_label").innerHTML = xmlhttp.responseText;
+                    }
+                };
+                xmlhttp.open("GET", urls, true);
+                xmlhttp.send();
             }
             
             populateCountries("country", "");
