@@ -142,6 +142,60 @@ public class UserControl extends HttpServlet {
             }        
         }//End Of Sigup Control
         
+         //Provider Sign-Up Control    
+        else if ("signupaccount_provider".equals(command)) {
+             PrintWriter out = response.getWriter();
+             response.setContentType("text/html");
+                
+            String loc_name = request.getParameter("loc_name");
+            String loc_description = request.getParameter("loc_description");
+            String type = request.getParameter("type");
+            String loc_country = request.getParameter("loc_country");
+            String loc_city = request.getParameter("loc_city");
+            double loc_price = Double.parseDouble(request.getParameter("loc_price"));
+            int morning = Integer.parseInt(request.getParameter("loc_morning"));
+            int afternoon = Integer.parseInt(request.getParameter("loc_afternoon"));
+            int evening = Integer.parseInt(request.getParameter("loc_evening"));
+            
+            String locationID = new String();
+            
+            
+            try {
+                Statement st = c.createStatement();
+                Statement st_1 = c.createStatement();
+                ResultSet rs;
+                
+                int j = st_1.executeUpdate("insert into Locations(NameLocation, TypeLocation, City, Country, Price, Description, Morning, Afternoon, Evening) values ('" + loc_name + "','" + type + "','" + loc_city + "','" + loc_country
+                        + "','" + loc_price + "','" + loc_description + "','" + morning + "','" + afternoon + "','" + evening + "')");
+                
+                String query_location = "select * from Locations where NameLocation='" +loc_name+"' ";
+                rs = st.executeQuery(query_location);
+                
+                if (rs.next()) {
+                    locationID = rs.getString("LocationID");
+                }
+                
+                int i = st.executeUpdate("insert into Users(username,password,fullname,DOB,gender,phone,email,country, city, LocationID) values ('" + username + "','" + password_encrypt + "','" + fullname + "','" + DOB
+                        + "','" + gender + "','" + phone + "','" + email + "','" + country + "','" + city + "','" + locationID + "')");
+                out.printf("loc_name= %s \nloc_name= %s \nloc_name= %s \nloc_name= %s \nloc_name= %s \nloc_price= %f \nmorning= %d \nafternoon= %d \nevening= %d \n", loc_name, loc_description, type, loc_city, loc_city, loc_price, morning, afternoon, evening);
+                
+                
+                if ((j>0) && (i > 0)) {
+                   
+
+                    out.println("<script type=\"text/javascript\">");
+                    out.println("alert('Sign Up Successfully');");
+                    out.println("location = 'login.jsp'");  //Not Sure About This "location"
+                    out.println("</script>");
+
+                } else {
+                    response.sendRedirect("register.jsp");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(UserControl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }//End Of Provider Register Control
+        
         //Update Profile Control    
         else if ("update_profile".equals(command)) {
             User user = (User) session.getAttribute("user");
