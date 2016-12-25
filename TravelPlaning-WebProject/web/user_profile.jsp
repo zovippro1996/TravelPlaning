@@ -267,7 +267,6 @@
                         </div>
 
 
-
                     </div>    
                 </div>
 
@@ -407,11 +406,14 @@
                     
                      <% if((user_session != null)&&(UserID == user_session.getID())) { %>
                      
+                     <form action="JourneyProcessing" method="post">
                     <div style="text-align:right; ">
-                        <button class="btn btn-info btn-xlg" style="background: red; ">
+                        <input type="hidden" name="id" value="<%=journey.getID()%>">
+                        <button type="submit" name="action" class="btn btn-info btn-xlg" style="background: red; ">
                             <span class="glyphicon glyphicon-remove">Remove</span>
                         </button>
-                    </div> 
+                    </div>
+                     </form>
                      <% } %>
                     
                      
@@ -447,8 +449,6 @@
 
         <!--Banner -->
         <jsp:include page="_footer.jsp" flush="true"/>
-
-
 
     </body>
 </html>
