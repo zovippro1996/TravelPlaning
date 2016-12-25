@@ -141,10 +141,10 @@ public class JourneyProcessing extends HttpServlet
             User user = (User) session.getAttribute("user");
 
             // Redirect to user_profile page
-            // RequestDispatcher dispatcher =
-            //         getServletContext().getRequestDispatcher("/user_profile.jsp?UserID=" + user.getID());
             RequestDispatcher dispatcher =
-                        getServletContext().getRequestDispatcher("/test_display_saved_journey.html");
+                    getServletContext().getRequestDispatcher("/user_profile.jsp?UserID=" + user.getID());
+            // RequestDispatcher dispatcher =
+            //             getServletContext().getRequestDispatcher("/test_display_saved_journey.html");
             dispatcher.forward(request, response);
         }
         else if (action.equalsIgnoreCase("deleteJourney"))
@@ -161,8 +161,8 @@ public class JourneyProcessing extends HttpServlet
             // Notify user, and redirect back to the user profile page
             out.println("<script type=\"text/javascript\">");
             out.println("alert('The journey has been removed successfully!');");
-//            out.println("window.location.replace('user_profile.jsp?UserID=" + user.getID() + "');");
-            out.println("window.location.replace('test_delete_journey.html');");
+            out.println("window.location.replace('user_profile.jsp?UserID=" + user.getID() + "');");
+//            out.println("window.location.replace('test_delete_journey.html');");
             out.println("</script>");
         }
     }

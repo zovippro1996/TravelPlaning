@@ -65,7 +65,7 @@
                     </button>
 
                     <ul class="nav-dropdown collapse pull-xs-right nav navbar-nav navbar-toggleable-sm" id="exCollapsingNavbar">
-                        <li class="nav-item"><a class="nav-link link" href="#" aria-expanded="false">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link link" href="Contact.jsp" aria-expanded="false">Contact</a></li>
 
                         <!--If user is not logging in then show the login link--> 
                         <!--If user is logging in then show the logout link--> 

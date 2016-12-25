@@ -171,7 +171,7 @@
 
             Statement st = c.createStatement();
             ResultSet rs;
-            String query = "SELECT * FROM Users WHERE UserID='" + UserID + "'";
+            String query = "SELECT * FROM Users WHERE UserID='" + UserID + "';";
             rs = st.executeQuery(query);
             if (rs.next()) {
                 u.setUsername(rs.getString("Username"));
@@ -181,23 +181,28 @@
                 u.setPhone(rs.getString("Phone"));
                 u.setEmail(rs.getString("Email"));
                 u.setCountry(rs.getString("Country"));
-                u.setCity(rs.getString("City")); 
+                if (rs.getString("City") != null)
+                {
+                    u.setCity(rs.getString("City")); 
+                }
             }
         %>
         
          <%
             ArrayList<Journey> listJourney = new ArrayList();
-            query = "SELECT * FROM Journeys WHERE UserID='" + UserID+"'";
+            query = "SELECT * FROM Journeys WHERE UserID='" + UserID +"';";
             rs = st.executeQuery(query);
             while (rs.next()) {
-                Journey journey = new Journey(rs.getInt("JourneyID"), rs.getInt("UserID"), rs.getString("DeployDate"), rs.getInt("DurationDate"), JourneyType.valueOf(rs.getString("TypeJourney")));
+                Journey journey = new Journey(rs.getInt("JourneyID"), rs.getInt("UserID"),
+                        rs.getDouble("Budget"), rs.getString("DeployDate"), rs.getInt("DurationDate"),
+                        JourneyType.valueOf(rs.getString("TypeJourney")));
                 listJourney.add(journey);
             }
         %>
         
         <%
             List<Comment> listComment = new ArrayList();
-            query = "SELECT * FROM Comments WHERE UserID='" + UserID + "'";
+            query = "SELECT * FROM Comments WHERE UserID='" + UserID + "';";
             rs = st.executeQuery(query);
             while (rs.next()) {
                 Comment comment = new Comment(rs.getInt("CommentID"), rs.getInt("UserID"),
@@ -205,6 +210,13 @@
                 listComment.add(comment);
             }
         %>
+        
+        <!--       Fix animation disable page reset scrolling to top -->
+        <script type= "text/javascript">
+            window.onbeforeunload = function () {
+                window.scrollTo(0, 0);
+            };
+        </script>
     </head>
 
 
@@ -345,11 +357,11 @@
                             <div class="personalinfo">
                                 Gender : 
                                 <%
-                                    if (u.getGender().equals("M")) {
+                                    if (u.getGender().equalsIgnoreCase("m")) {
                                         out.print("Male");
-                                    } else if (u.getGender().equals("F")) {
+                                    } else if (u.getGender().equalsIgnoreCase("f")) {
                                         out.print("Female");
-                                    } else if (u.getGender().equals("O")) {
+                                    } else if (u.getGender().equalsIgnoreCase("o")) {
                                         out.print("Other");
                                     }
                                 %>
@@ -371,7 +383,7 @@
                             <!-- Country + City -->
                             <div class="personalinfo">
                                 Country: <%=u.getCountry()%>
-                                <% if (!u.getCity().isEmpty()) {
+                                <% if (u.getCity() != null && u.getCity().length() > 0) {
                                         out.print(" (" + u.getCity() + ")");
                                     }%>
                             </div>
@@ -408,7 +420,7 @@
                      <form action="JourneyProcessing" method="post">
                     <div style="text-align:right; ">
                         <input type="hidden" name="id" value="<%=journey.getID()%>">
-                        <button type="submit" name="action" class="btn btn-info btn-xlg" style="background: red; ">
+                        <button type="submit" name="action" value="deleteJourney" class="btn btn-info btn-xlg" style="background: red; ">
                             <span class="glyphicon glyphicon-remove">Remove</span>
                         </button>
                     </div>
@@ -417,7 +429,7 @@
                     
                      
                     <div class="panel-heading journey_index">
-                        <a href="display_journey.jsp?action=view&amp;id=<%=journey.getID()%>">No. <%=journey.getDeployDate()%> </a>
+                        <a href="JourneyProcessing?action=view&amp;id=<%=journey.getID()%>">No. <%=journey.getDeployDate()%> </a>
 
                     </div>
 
@@ -448,6 +460,6 @@
 
         <!--Banner -->
         <jsp:include page="_footer.jsp" flush="true"/>
-
+        
     </body>
 </html>

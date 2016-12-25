@@ -1,14 +1,14 @@
 
+<%@page import="Connect.DBConnect"%>
 <%@ page import="java.io.*,java.sql.*" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 
 <% 
                     String sn=request.getParameter("ver");
-
-                    Class.forName("com.mysql.jdbc.Driver");
-                    Connection con =DriverManager.getConnection("jdbc:mysql://db4free.net:3306/usertp_db","traveladmin","travel123");
+                    
+                    Connection con = DBConnect.getConnection();
                     Statement st=con.createStatement();
-                    ResultSet rs = st.executeQuery("select * from Users where email='"+sn+"'");  // this is for name
+                    ResultSet rs = st.executeQuery("select * from Users where email='"+sn+"';");  // this is for name
                     if(rs.next())
                     {    
                         out.println("<font color=red>");

@@ -38,9 +38,10 @@ public class Journey {
 
     
     //Trung need this , dont' change, add more constructor if needed.
-    public Journey(int ID, int userID, String deployDate, int duration, JourneyType type) {
+    public Journey(int ID, int userID, double budget, String deployDate, int duration, JourneyType type) {
         this.ID = ID;
         this.userID = userID;
+        this.budget = budget;
         this.deployDate = deployDate;
         this.duration = duration;
         this.type = type;
