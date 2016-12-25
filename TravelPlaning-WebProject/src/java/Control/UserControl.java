@@ -115,32 +115,60 @@ public class UserControl extends HttpServlet {
                 Logger.getLogger(UserControl.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-        } else //SignUp Control    
-        {
-            if ("signupaccount".equals(command)) {
-                try {
-                    Statement st = c.createStatement();
-                    ResultSet rs;
+        } 
+        //SignUp Control    
+        else if ("signupaccount".equals(command)) {
+            try {
+                Statement st = c.createStatement();
+                ResultSet rs;
 
-                    int i = st.executeUpdate("insert into Users(username,password,fullname,DOB,gender,phone,email,country) values ('" + username + "','" + password_encrypt + "','" + fullname + "','" + DOB
-                            + "','" + gender + "','" + phone + "','" + email + "','" + country + "')");
+                int i = st.executeUpdate("insert into Users(username,password,fullname,DOB,gender,phone,email,country, city) values ('" + username + "','" + password_encrypt + "','" + fullname + "','" + DOB
+                        + "','" + gender + "','" + phone + "','" + email + "','" + country + "','" + city + "')");
 
-                    if (i > 0) {
-                        PrintWriter out = response.getWriter();
-                        response.setContentType("text/html");
+                if (i > 0) {
+                    PrintWriter out = response.getWriter();
+                    response.setContentType("text/html");
 
-                        out.println("<script type=\"text/javascript\">");
-                        out.println("alert('Congratulation, your account has been created successfully, please log in to continue');");
-                        out.println("location = 'login.jsp'");  //Not Sure About This "location"
-                        out.println("</script>");
+                    out.println("<script type=\"text/javascript\">");
+                    out.println("alert('Congratulation, your account has been created successfully, please log in to continue');");
+                    out.println("location = 'login.jsp'");  //Not Sure About This "location"
+                    out.println("</script>");
 
-                    } else {
-                        response.sendRedirect("register.jsp");
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(UserControl.class.getName()).log(Level.SEVERE, null, ex);
+                } else {
+                    response.sendRedirect("register.jsp");
                 }
+            } catch (SQLException ex) {
+                Logger.getLogger(UserControl.class.getName()).log(Level.SEVERE, null, ex);
+            }        
+        }//End Of Sigup Control
+        
+        //Update Profile Control    
+        else if ("update_profile".equals(command)) {
+            User user = (User) session.getAttribute("user");
+            String username_session = user.getUsername();
+            
+            try {
+                Statement st = c.createStatement();
+                ResultSet rs;
+
+                int i = st.executeUpdate("update Users SET password='" + password_encrypt + "', fullname='" + fullname + "', DOB='" + DOB + "', gender='" + gender + "', phone='" + phone + "', country='" + country + "', city='" + city + "'"
+                        + "where username='" + username_session + "'");
+
+                if (i > 0) {
+                    PrintWriter out = response.getWriter();
+                    response.setContentType("text/html");
+
+                    out.println("<script type=\"text/javascript\">");
+                    out.println("alert('Update Successfully');");
+                    out.println("location = 'input_getting.jsp'");  //Not Sure About This "location"
+                    out.println("</script>");
+
+                } else {
+                    response.sendRedirect("main.jsp");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(UserControl.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
+        }//End Of Update Profile Control
     }
 }
