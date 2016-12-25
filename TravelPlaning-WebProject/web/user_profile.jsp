@@ -394,7 +394,6 @@
 
                 
                 <div class="journey_title">The Journey</div>
-
                 <br>
                 <br>
                 
@@ -439,7 +438,7 @@
                 </div>
                 
                      <% } %>
-
+                     
             </div>
 
 
