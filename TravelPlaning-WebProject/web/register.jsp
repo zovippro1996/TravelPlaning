@@ -494,7 +494,7 @@ Author : Trung Pham
 
                         <label for="loc_price">Price:</label>
                         <div>
-                            <input class="form-control" type="number" value="0" step="0.01" id="loc_price" name="price">
+                            <input class="form-control" type="number" value="0" step="0.01" id="loc_price" name="loc_price">
                         </div>
 
 
