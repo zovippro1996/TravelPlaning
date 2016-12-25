@@ -132,21 +132,6 @@ public class JourneyProcessing extends HttpServlet
             out.println("window.location.replace('main.jsp');");
             out.println("</script>");
         }
-        else if (action.equalsIgnoreCase("backProfile"))
-        {
-            // Delete current journey in session
-            session.removeAttribute("viewJourney");
-
-            // Retrieve user from session
-            User user = (User) session.getAttribute("user");
-
-            // Redirect to user_profile page
-            RequestDispatcher dispatcher =
-                    getServletContext().getRequestDispatcher("/user_profile.jsp?UserID=" + user.getID());
-            // RequestDispatcher dispatcher =
-            //             getServletContext().getRequestDispatcher("/test_display_saved_journey.html");
-            dispatcher.forward(request, response);
-        }
         else if (action.equalsIgnoreCase("deleteJourney"))
         {
             // Get journeyID parameter

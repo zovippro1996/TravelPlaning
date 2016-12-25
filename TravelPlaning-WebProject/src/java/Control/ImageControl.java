@@ -34,12 +34,36 @@ public class ImageControl {
     
     public static String importLocationImage(int locationID) {
         String image_url = null;
+        String path;
         try {
-//            path to folder location image
-            String path = "/Location/Loc" + Integer.toString(locationID) + ".png";
+            // path to folder location image
+            path = "/Location/Loc" + Integer.toString(locationID) + ".png";
             image_url = DBX_CLIENT.files().getTemporaryLink(path).getLink();
         } catch (DbxException e) {
-
+            path = "/Location/Loc" + Integer.toString(locationID) + ".jpg";
+            try {
+                image_url = DBX_CLIENT.files().getTemporaryLink(path).getLink();
+            } catch (DbxException ex) {
+                
+            }
+        }
+        return image_url;
+    }
+    
+    public static String importLocationAvatar(int locationID) {
+        String image_url = null;
+        String path;
+        try {
+            // path to folder location image
+            path = "/Location_Avatar/Loc" + Integer.toString(locationID) + ".png";
+            image_url = DBX_CLIENT.files().getTemporaryLink(path).getLink();
+        } catch (DbxException e) {
+            path = "/Location_Avatar/Loc" + Integer.toString(locationID) + ".jpg";
+            try {
+                image_url = DBX_CLIENT.files().getTemporaryLink(path).getLink();
+            } catch (DbxException ex) {
+                image_url = "http://www.placehold.it/250x250";
+            }
         }
         return image_url;
     }
