@@ -259,9 +259,9 @@
                     </a>
                     
                     <form action="UploadAvatar" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="UserID" value="<%=u.getID()%>"/>
+                    <input type="hidden" name="UserID" value="<%=UserID%>"/>
                     <label class="btn btn-default btn-file">
-                        Choose Image<input type="file" accept="image/*" name="uploadFile" id="uploadFile" style="display: none;"/>
+                        Choose Image<input type="file" accept="image/*" name="uploadFile" id="uploadFile"/>
                     </label>
                     <input type="submit" class="btn btn-default" value="Upload"/>
                     </form>
