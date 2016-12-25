@@ -59,6 +59,7 @@
                 text-align: center;
                 width: 100%;
                 float: left;
+                margin-bottom: 3%;
             }
 
             /*Location info*/
@@ -77,22 +78,17 @@
 
             /*Location rated star*/
             #rated{
-                margin-bottom: 3%;
                 text-align: center;
             }
 
-            /*Location description*/
+            /*Location brief description*/
             #description{
+                margin-top: 3%;
                 margin-bottom: 10%;
             }
 
             br{
                 clear: both;
-            }
-
-            #comment{
-                width: 1000px;
-                height: auto;
             }
 
             .comment-block{
@@ -182,6 +178,9 @@
                 l.setPrice(rs.getDouble("Price"));
                 l.setDescription(rs.getString("Description"));
                 l.setType(LocationType.valueOf(rs.getString("TypeLocation").toUpperCase()));
+                l.setMorning(rs.getInt("Morning") == 1 ? true : false);
+                l.setAfternoon(rs.getInt("Afternoon") == 1 ? true : false);
+                l.setEvening(rs.getInt("Evening") == 1 ? true : false);
             }
         %>
 
@@ -207,11 +206,17 @@
 
             <!--Name of the location-->
             <div id="title">
-                <b><%=l.getName()%></b>
+                <b style="float: left;"><%=l.getName()%></b>  
                 <%
                     if ((user != null) && (user.getLocationID() == l.getID())) {
                 %>
-                <input class="edit" type="button" value="Edit Location"/>
+                <form action="UploadImage" method="post" enctype="multipart/form-data" style="float: right;">
+                    <input type="hidden" name="locationID" value="<%=l.getID()%>"/>
+                    <label class="btn btn-default btn-file">
+                        Choose Image<input type="file" accept="image/*" name="uploadFile" id="uploadFile" style="display: none;"/>
+                    </label>
+                    <input type="submit" class="btn btn-default" value="Upload"/>
+                </form>
                 <% }%>
             </div>
 
@@ -221,16 +226,6 @@
                 <img src="<%=ImageControl.importLocationImage(LocationID)%>" 
                      alt="This location image has been removed" 
                      class="img-responsive" style="width: 100%; height: 450px;"/>
-            </div>
-
-            <!--Some information of the location-->
-            <div id="info">
-                <ul>
-                    <li><b>Country:</b> <%=l.getCountry()%></li>
-                    <li><b>City:</b> <%=l.getCity()%></li>
-                    <li><b>Price:</b> <%=l.getPrice()%>$</li>
-                    <li class="text-capitalize"><b>Type:</b> <%=l.getType().name().toLowerCase()%></li>
-                </ul>
             </div><br>
 
             <!--Star rating of the location-->
@@ -246,12 +241,59 @@
                 <input id="location-rating" value="<%=avg%>" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs">
             </div>
 
+            <%
+                if ((user != null) && (user.getLocationID() == l.getID())) {
+            %>
+            <form action="EditLocation" method="post" style="margin-bottom: 10%;">
+                <input type="hidden" name="locationID" value="<%=LocationID%>">
+                <div id="info">
+                    <ul>
+                        <li><b>Country:</b> <%=l.getCountry()%></li>
+                        <li><b>City:</b> <%=l.getCity()%></li>
+                        <li><b>Price:</b> <input type="text" name="price" value="<%=l.getPrice()%>"/>$</li>
+                        <li class="text-capitalize"><b>Type:</b> <%=l.getType().name().toLowerCase()%></li>
+                        <li style="width: 67%;">
+                            <b>Opening Time:</b>                           
+                            <input type="checkbox" name="morning" value="1" <%=l.isMorning() ? "checked" : ""%>>Morning
+                            <input type="checkbox" name="afternoon" value="1" <%=l.isAfternoon() ? "checked" : ""%>>Afternoon
+                            <input type="checkbox" name="evening" value="1" <%=l.isEvening() ? "checked" : ""%>>Evening
+                        </li>
+                    </ul>
+                </div><br>
+
+                <!--Brief description of the location-->
+                <div id="description" style="margin-bottom: 3%;">
+                    <p><b>Brief Description</b></p>
+                    <hr>
+                    <textarea name="briefDes" class="form-control" rows="5" style="width: 100%; background: #FFFFFF;"><%=l.getDescription()%></textarea>
+                </div>
+                <input type="submit" class="btn btn-default" value="Update Location" style="float: right;"/>
+            </form><br>
+            
+            <% } else {%>
+            <!--Some information of the location-->
+            <div id="info">
+                <ul>
+                    <li><b>Country:</b> <%=l.getCountry()%></li>
+                    <li><b>City:</b> <%=l.getCity()%></li>
+                    <li><b>Price:</b> <%=l.getPrice()%>$</li>
+                    <li class="text-capitalize"><b>Type:</b> <%=l.getType().name().toLowerCase()%></li>
+                    <li style="width: 67%;">
+                        <b>Opening Time:</b> 
+                        <%=l.isMorning() ? "Morning" : ""%> 
+                        <%=l.isAfternoon() ? "Afternoon" : ""%> 
+                        <%=l.isEvening() ? "Evening" : ""%>
+                    </li>
+                </ul>
+            </div><br>
+
             <!--Brief description of the location-->
             <div id="description">
                 <p><b>Brief Description</b></p>
                 <hr>
                 <p><%=l.getDescription()%></p>
             </div>
+            <% }%>
         </div>
 
         <div class="container" id="comment">
@@ -300,7 +342,6 @@
             %>
             <form id="comment-form" action="CommentControl" method="post">
                 <input type="hidden" name="locationID" value="<%=LocationID%>">
-                <input type="hidden" name="url" value="view_location.jsp?LocationID=<%=LocationID%>">
 
                 <p><b>Your Review</b></p>
                 <hr>
@@ -309,7 +350,7 @@
                          class="img-circle" width="75px" height="75px"/>
                 </div>
                 <div class="comment-desc">
-                    <textarea name="comment" class="form-control" rows="5" id="comment" style="width: 100%; background: #FFFFFF;"></textarea>
+                    <textarea name="comment" class="form-control" rows="5" style="width: 100%; background: #FFFFFF;"></textarea>
                 </div>
                 <div class="comment-rate">
                     <input name="rating" id="input-rating" value="3" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs">

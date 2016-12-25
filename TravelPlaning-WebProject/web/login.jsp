@@ -165,7 +165,7 @@
         <%
             // Delete session when Logout link is clicked
             String logout = request.getParameter("logout");
-            if (logout != null) {
+            if (logout == "true") {
                 session.setAttribute("user", null);
             }
 

@@ -38,17 +38,18 @@ public class CommentControl extends HttpServlet {
         User user = (User) session.getAttribute("user");
 
         int userID = user.getID();
-        String locID = request.getParameter("locationID");
+        int locationID = Integer.parseInt("locationID");
         String comment = request.getParameter("comment");
-        String rating = request.getParameter("rating");
-        String url = request.getParameter("url");
+        double rating = Double.parseDouble(request.getParameter("rating"));
+        
+        String url = "view_location.jsp?LocationID=" + locationID;
 
         Connection c = DBConnect.getConnection();
         try {
             Statement st = c.createStatement();
             ResultSet rs;
-            String query = "INSERT INTO Comments(UserID, LocationID, Description, Rate) values ('" + userID + "','" 
-                    + Integer.parseInt(locID) + "','" + comment + "','" + rating + "')";
+            String query = "INSERT INTO Comments(UserID, LocationID, Description, Rate) values (" + userID + ", " 
+                    + locationID + ", '" + comment + "', " + rating + ")";
             int i = st.executeUpdate(query);
             if (i > 0) {
                 response.sendRedirect(url);
