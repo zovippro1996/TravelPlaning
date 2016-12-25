@@ -79,9 +79,9 @@
         
         <!--       Fix animation disable page reset scrolling to top -->
         <script type= "text/javascript">
-        window.onbeforeunload = function () {
-            window.scrollTo(0, 0);
-        };
+            window.onbeforeunload = function () {
+                window.scrollTo(0, 0);
+            };
         </script>
         
         
@@ -295,10 +295,6 @@
         </div>
         
         <script>
-            function focusForm() {
-                document.getElementById("lower").focus();
-            }
-            
              //---------------Username Available---------//
             function country_available()
             {
