@@ -13,6 +13,7 @@ import java.sql.Date;
  */
 public class User {
     private int ID;
+    private int locationID = 0;
     private String username;
     private String password;
     private String fullname;
@@ -27,6 +28,7 @@ public class User {
     public User() {
     }
     
+    // For normal user
     public User(int ID, String username, String password, String fullname, Date DOB, String gender, String phone, String email, String city, String country, String User_Avatar) {
         this.ID = ID;
         this.username = username;
@@ -39,6 +41,20 @@ public class User {
         this.city = city;
         this.country = country;
         this.User_Avatar = User_Avatar;
+    }
+    
+    // For provider
+    public User(int ID, int locationID, String username, String password, String fullname, Date DOB, String phone, String email, String city, String country) {
+        this.ID = ID;
+        this.locationID = locationID;
+        this.username = username;
+        this.password = password;
+        this.fullname = fullname;
+        this.DOB = DOB;
+        this.phone = phone;
+        this.email = email;
+        this.city = city;
+        this.country = country;
     }
     
     /**
@@ -186,5 +202,19 @@ public class User {
      */
     public void setUser_Avatar(String User_Avatar) {
         this.User_Avatar = User_Avatar;
+    }
+
+    /**
+     * @return the locationID
+     */
+    public int getLocationID() {
+        return locationID;
+    }
+
+    /**
+     * @param locationID the locationID to set
+     */
+    public void setLocationID(int locationID) {
+        this.locationID = locationID;
     }
 }

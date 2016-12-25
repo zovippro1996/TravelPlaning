@@ -16,8 +16,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>View Location Page</title>
         <script src="js/jquery-3.1.1.min.js"></script>
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <!--<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">-->
         <link rel="stylesheet" href="assets/bootstrap-material-design-font/css/material.css">
         <link rel="stylesheet" href="assets/tether/tether.min.css">
         <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
@@ -199,11 +199,21 @@
     </head>
     <body>
         <jsp:include page="_header.jsp" flush="true"/>
-
+        <%
+            // Get user from session
+            User user = (User) session.getAttribute("user");
+        %>
         <div class="container" id="location">
 
             <!--Name of the location-->
-            <div id="title"><b><%=l.getName()%></b></div>
+            <div id="title">
+                <b><%=l.getName()%></b>
+                <%
+                    if ((user != null) && (user.getLocationID() == l.getID())) {
+                %>
+                <input class="edit" type="button" value="Edit Location"/>
+                <% }%>
+            </div>
 
             <!--Picture of the location-->
             <div id="picture">
@@ -286,9 +296,6 @@
             <a id="loadMore">Load More</a>
 
             <%
-                // Get user from session
-                User user = (User) session.getAttribute("user");
-
                 if (user != null) {
             %>
             <form id="comment-form" action="CommentControl" method="post">
@@ -305,7 +312,7 @@
                     <textarea name="comment" class="form-control" rows="5" id="comment" style="width: 100%; background: #FFFFFF;"></textarea>
                 </div>
                 <div class="comment-rate">
-                    <input name="rating" id="input-rating" value="3" type="number" class="rating" min=1 max=5 step=0.5 data-size="xs">
+                    <input name="rating" id="input-rating" value="3" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs">
                 </div>
                 <div>
                     <input style="margin-left: 80%;" class="btn btn-default" type="submit" value="Post Review"/>

@@ -47,8 +47,9 @@ public class UserControl extends HttpServlet {
 
         //User Properties
         String username = request.getParameter("username");
+        String password = request.getParameter("password");
         
-        String password_encrypt = MD5.getMD5(request.getParameter("password")); 
+        String password_encrypt = MD5.getMD5(password);
         String fullname = request.getParameter("firstname") + " " + request.getParameter("lastname");
         String DOB = request.getParameter("DOByear") + "-" + request.getParameter("DOBmonth") + "-" + request.getParameter("DOBday");
         String gender = request.getParameter("gender");
@@ -59,6 +60,7 @@ public class UserControl extends HttpServlet {
 
         //Command for control
         String command = request.getParameter("command");
+        boolean check = false;
 
         //Login Control
         if ("login".equals(command)) {
@@ -66,11 +68,10 @@ public class UserControl extends HttpServlet {
                 Statement st = c.createStatement();
                 ResultSet rs;
                 // Query allows login with username or email
-                String query = "select * from Users where username='" + username + "' OR email='" + username
-                        + "' AND password = '" + password_encrypt + "' ";
+                String query = "SELECT * FROM Users WHERE (Username='" + username + "' OR Email='" + username
+                        + "') AND (Password = '" + password + "') ";
                 rs = st.executeQuery(query);
                 if (rs.next()) {
-
                     User user = new User(rs.getInt("UserID"), rs.getString("Username"), rs.getString("Password"),
                             rs.getString("Fullname"), rs.getDate("DOB"), rs.getString("Gender"), rs.getString("Phone"),
                             rs.getString("Email"), rs.getString("City"), rs.getString("Country"), rs.getString("User_Avatar"));
@@ -79,8 +80,28 @@ public class UserControl extends HttpServlet {
 
 //                    rd = request.getServletContext().getRequestDispatcher("/main.jsp");
 //                    rd.forward(request, response);
-                response.sendRedirect("main.jsp");
-                } else {
+                    check = true;
+                    response.sendRedirect("main.jsp");
+                }
+
+                query = "SELECT * FROM Providers WHERE (Username='" + username + "' OR Email='" + username
+                        + "') AND (Password = '" + password + "') ";
+                rs = st.executeQuery(query);
+                if (rs.next()) {
+
+                    User user = new User(rs.getInt("ProviderID"), rs.getInt("LocationID"), rs.getString("Username"), rs.getString("Password"),
+                            rs.getString("Fullname"), rs.getDate("DOB"), rs.getString("Phone"),
+                            rs.getString("Email"), rs.getString("City"), rs.getString("Country"));
+
+                    session.setAttribute("user", user);
+
+//                    rd = request.getServletContext().getRequestDispatcher("/main.jsp");
+//                    rd.forward(request, response);
+                    check = true;
+                    response.sendRedirect("main.jsp");
+                }
+                
+                if (!check) {
                     // Pop up if invalid login
                     // Then redirect to login page
                     PrintWriter out = response.getWriter();
@@ -107,12 +128,12 @@ public class UserControl extends HttpServlet {
                     if (i > 0) {
                         PrintWriter out = response.getWriter();
                         response.setContentType("text/html");
-                        
+
                         out.println("<script type=\"text/javascript\">");
                         out.println("alert('Congratulation, your account has been created successfully, please log in to continue');");
                         out.println("location = 'login.jsp'");  //Not Sure About This "location"
                         out.println("</script>");
-                        
+
                     } else {
                         response.sendRedirect("register.jsp");
                     }
