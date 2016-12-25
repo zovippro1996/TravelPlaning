@@ -63,6 +63,13 @@ public class User {
     public int getID() {
         return ID;
     }
+    
+    /**
+     * @param ID the ID to set
+     */
+    public void setID(int ID) {
+        this.ID = ID;
+    }
 
     /**
      * @return the username
