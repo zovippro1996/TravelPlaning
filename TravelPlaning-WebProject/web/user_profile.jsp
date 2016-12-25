@@ -190,7 +190,7 @@
             query = "SELECT * FROM Journeys WHERE UserID='" + UserID+"'";
             rs = st.executeQuery(query);
             while (rs.next()) {
-                Journey journey = new Journey(rs.getInt("JourneyID"), rs.getInt("UserID"), rs.getString("DeployDate"), rs.getInt("DurationDate"),JourneyType.valueOf(rs.getString("TypeJourney")));
+                Journey journey = new Journey(rs.getInt("JourneyID"), rs.getInt("UserID"), rs.getString("DeployDate"), rs.getInt("DurationDate"), JourneyType.valueOf(rs.getString("TypeJourney")));
                 listJourney.add(journey);
             }
         %>

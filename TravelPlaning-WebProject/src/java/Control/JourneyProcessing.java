@@ -368,7 +368,7 @@ public class JourneyProcessing extends HttpServlet
             }
         }
         queryJourneyLocation =
-                queryJourneyLocation.substring(0, queryJourneyLocation.length() - 1); //erase last character
+                queryJourneyLocation.substring(0, queryJourneyLocation.length() - 2); //erase last character
         queryJourneyLocation += ";";
         // out.println(queryJourneyLocation);
 
