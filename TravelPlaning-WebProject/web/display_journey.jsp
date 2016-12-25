@@ -388,7 +388,7 @@
                                 // list through all days spent for the first city
                                 for (int i = 0; i < journey.getDaysCity().get(0); ++i) {
                                     Day day = journey.getListDays().get(i);  // current Day
-                            %>
+%>
 
                             <h1 class="day-title">Day <%= day.getDayNumber()%></h1>
                             <table width="100%">
@@ -543,7 +543,7 @@
                                 // list through all days spent for the second city
                                 for (int j = journey.getDaysCity().get(0); j < journey.getDuration(); ++j) {
                                     Day day = journey.getListDays().get(j);  // current Day
-                            %>
+%>
 
                             <h1 class="day-title">Day <%= day.getDayNumber()%></h1>
                             <table width="100%">
@@ -712,23 +712,23 @@
             <% } %>
 
         </div>
-        <script>
-            var $j = jQuery.noConflict();
-            $j(document).ready(function () {
-                $(".location-rating").rating({
-                    showCaption: false,
-                    showClear: false,
-                    displayOnly: true
-                });
-            });
-        </script>
+
         <!-- Footer -->
         <div id="footer">
             <jsp:include page="_footer.jsp" flush="true" />
         </div>
     </body>
 </html>
-
+<script>
+    var $j = jQuery.noConflict();
+    $j(document).ready(function () {
+        $(".location-rating").rating({
+            showCaption: false,
+            showClear: false,
+            displayOnly: true
+        });
+    });
+</script>
 <% } else { %>
 
 <script>
