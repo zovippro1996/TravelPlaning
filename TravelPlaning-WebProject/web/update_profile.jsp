@@ -4,6 +4,7 @@ Register Page
 TravelPlaning Project
 Author : Trung Pham
 -->
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Data.*" %>
 
@@ -195,8 +196,8 @@ Author : Trung Pham
                 <form action="UserControl" method="POST" onsubmit="return validateForm();">
 
 
-                    <!-- Command : - edit_profile - -->
-                    <input type="hidden" name="command" id="command" value="edit_profile">
+                    <!-- Command : - update_profile - -->
+                    <input type="hidden" name="command" id="command" value="update_profile">
 
                     <span id="hidden_test"></span>
 
@@ -406,7 +407,7 @@ Author : Trung Pham
                    
                     <!-- - - - - - - BUTTON - - - - - - -->
                     <div style = "text-align: center" >
-                        <input class="submit_button" id="submitbutton" name="submitbuton" type="submit" value="Sign Up" style="">
+                        <input class="submit_button" id="submitbutton" name="submitbuton" type="submit" value="Save" style="">
 
                     </div>
                 </form>
