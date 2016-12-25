@@ -118,11 +118,12 @@ public class UserControl extends HttpServlet {
             }
 
         } 
-        //SignUp Control    
+         //SignUp Control    
         else if ("signupaccount".equals(command)) {
             try {
                 Statement st = c.createStatement();
                 ResultSet rs;
+                
 
                 int i = st.executeUpdate("insert into Users(username,password,fullname,DOB,gender,phone,email,country, city) values ('" + username + "','" + password_encrypt + "','" + fullname + "','" + DOB
                         + "','" + gender + "','" + phone + "','" + email + "','" + country + "','" + city + "')");
@@ -130,7 +131,6 @@ public class UserControl extends HttpServlet {
                 if (i > 0) {
                     PrintWriter out = response.getWriter();
                     response.setContentType("text/html");
-
                     out.println("<script type=\"text/javascript\">");
                     out.println("alert('Congratulation, your account has been created successfully, please log in to continue');");
                     out.println("location = 'login.jsp'");  //Not Sure About This "location"
@@ -141,10 +141,10 @@ public class UserControl extends HttpServlet {
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(UserControl.class.getName()).log(Level.SEVERE, null, ex);
-            }        
+            }
         }//End Of Sigup Control
         
-         //Provider Sign-Up Control    
+        //Provider Sign-Up Control    
         else if ("signupaccount_provider".equals(command)) {
              PrintWriter out = response.getWriter();
              response.setContentType("text/html");
@@ -179,7 +179,6 @@ public class UserControl extends HttpServlet {
                 
                 int i = st.executeUpdate("insert into Users(username,password,fullname,DOB,gender,phone,email,country, city, LocationID) values ('" + username + "','" + password_encrypt + "','" + fullname + "','" + DOB
                         + "','" + gender + "','" + phone + "','" + email + "','" + country + "','" + city + "','" + locationID + "')");
-                out.printf("loc_name= %s \nloc_name= %s \nloc_name= %s \nloc_name= %s \nloc_name= %s \nloc_price= %f \nmorning= %d \nafternoon= %d \nevening= %d \n", loc_name, loc_description, type, loc_city, loc_city, loc_price, morning, afternoon, evening);
                 
                 
                 if ((j>0) && (i > 0)) {
@@ -202,7 +201,7 @@ public class UserControl extends HttpServlet {
         else if ("update_profile".equals(command)) {
             User user = (User) session.getAttribute("user");
             String username_session = user.getUsername();
-            
+
             try {
                 Statement st = c.createStatement();
                 ResultSet rs;
@@ -213,7 +212,6 @@ public class UserControl extends HttpServlet {
                 if (i > 0) {
                     PrintWriter out = response.getWriter();
                     response.setContentType("text/html");
-
                     out.println("<script type=\"text/javascript\">");
                     out.println("alert('Update Successfully');");
                     out.println("location = 'input_getting.jsp'");  //Not Sure About This "location"
