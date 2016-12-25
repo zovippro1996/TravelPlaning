@@ -502,10 +502,15 @@ Author : Trung Pham
 
 
                         <label>Opening Period:</label>  &nbsp;
-
-                        <label class="checkbox-inline"><input type="checkbox" value="">Morning</label>
-                        <label class="checkbox-inline"><input type="checkbox" value="">Afternoon</label>
-                        <label class="checkbox-inline"><input type="checkbox" value="">Evening</label>
+                        
+                        <input type="hidden" name="loc_morning" value="0">
+                        <label class="checkbox-inline"><input type="checkbox" value="1" name="loc_morning">Morning</label>
+                        
+                        <input type="hidden" name="loc_afternoon" value="0">
+                        <label class="checkbox-inline"><input type="checkbox" value="1" name="loc_afternoon">Afternoon</label>
+                        
+                        <input type="hidden" name="loc_evening" value="0">
+                        <label class="checkbox-inline"><input type="checkbox" value="1" name="loc_evening">Evening</label>
                         <br>
 
                     </div>
@@ -762,8 +767,6 @@ Author : Trung Pham
 
 
 
-
-
                 //-----------------Checking Input in Detail ------------------//
                 //------------------------------------------------------------//
 
@@ -956,6 +959,11 @@ Author : Trung Pham
                 {
                     document.getElementById("nortification_submit").style.display = "block";
                     return false;
+                }
+                else
+                {
+                    document.getElementById("nortification_submit").style.display = "none";
+                    return true;
                 }
 
             }
