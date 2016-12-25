@@ -9,7 +9,9 @@
 <%@page import="java.util.*"%>
 <%@page import="java.sql.*"%>
 <%@page import="Control.UserControl"%>
+<%@page import="java.util.ArrayList;"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -119,7 +121,7 @@
             .avatarcss{
                 position: relative;
                 width:145px; 
-                height:122px; 
+                height:125px; 
                 padding-right: 2%; 
 
                 float:left;
@@ -133,9 +135,22 @@
 
             .journey_index{
                 font-size:140%;
-
-
-
+            }
+            
+            .journey_outmost{
+                background-color: #74b38b; 
+                margin-bottom: 5%;  
+                border: 4.5px solid #378a80; 
+                border-radius: 8px;
+            }
+            
+            .journey_title {
+                color:white; 
+                font-family: Comic Sans MS; 
+                font-weight: 600; 
+                text-align: center; 
+                font-size: 350%
+                
             }
 
             .journey_type{
@@ -145,6 +160,7 @@
             }
 
         </style>
+        
         <!-- Initialize Connection and Object-->
         <%
             Connection c = DBConnect.getConnection();
@@ -165,8 +181,28 @@
                 u.setPhone(rs.getString("Phone"));
                 u.setEmail(rs.getString("Email"));
                 u.setCountry(rs.getString("Country"));
-                u.setCity(rs.getString("City"));
-
+                u.setCity(rs.getString("City")); 
+            }
+        %>
+        
+         <%
+            ArrayList<Journey> listJourney = new ArrayList();
+            query = "SELECT * FROM Journeys WHERE UserID='" + UserID+"'";
+            rs = st.executeQuery(query);
+            while (rs.next()) {
+                Journey journey = new Journey(rs.getInt("JourneyID"), rs.getInt("UserID"), rs.getString("DeployDate"), rs.getInt("DurationDate"),JourneyType.valueOf(rs.getString("TypeJourney")));
+                listJourney.add(journey);
+            }
+        %>
+        
+        <%
+            List<Comment> listComment = new ArrayList();
+            query = "SELECT * FROM Comments WHERE UserID='" + UserID + "'";
+            rs = st.executeQuery(query);
+            while (rs.next()) {
+                Comment comment = new Comment(rs.getInt("CommentID"), rs.getInt("UserID"),
+                        rs.getInt("LocationID"), rs.getString("Description"), rs.getDouble("Rate"));
+                listComment.add(comment);
             }
         %>
     </head>
@@ -187,11 +223,19 @@
 
             <!-- Personal Info. -->
             <div class="personalwrap">
+                
+                
+                <% 
+                    User user_session = (User) session.getAttribute("user");
+                    
+                    if((user_session != null)&&(UserID == user_session.getID())) { %>
                 <div style="float:right">
-                    <button class="btn btn-info btn-xlg">
+                    <a href="update_profile.jsp" class="btn btn-info btn-xlg">
                         <span class="glyphicon glyphicon-cog">Update Profile</span>
-                    </button>
-                </div>    
+                    </a>
+                </div>
+                <% } %>
+                
                 <!-- Avatar + Name -->
                 <div style="background-color: #40a0b2; padding-left: 3%; ">
                     <div>
@@ -237,8 +281,8 @@
 
                         <br>
                         <ul>
-                            <li>Total <b>JOURNEYS</b>: <span class="achievenumber">11</span> </li>                          
-                            <li>Total <b>RATES</b> : <span class="achievenumber">3</span></li>
+                            <li>Total <b>JOURNEYS</b>: <span class="achievenumber"><%=listJourney.size() %></span> </li>                          
+                            <li>Total <b>RATES</b> : <span class="achievenumber"><%=listComment.size() %></span></li>
 
                         </ul>
 
@@ -347,52 +391,52 @@
 
             <!-- - - - - - - - Journey HERE - - - - - - - - - - -->         
 
-            <div style="background-color: #74b38b; margin-bottom: 5%;  border: 4.5px solid #378a80; border-radius: 8px;">
+            <div class="journey_outmost">
 
-                <div style="text-align:right;">
-                    <button class="btn btn-info btn-xlg">
-                        <span class="glyphicon glyphicon-cog">Edit Journeys</span>
-                    </button>
-                </div>   
-                <br>
-                <div style="color:white; font-family: Comic Sans MS; font-weight: 600; text-align: center; font-size: 350%">The Journey</div>
+                
+                <div class="journey_title">The Journey</div>
 
                 <br>
                 <br>
                 
-                
-                
+                <%
+                for (Journey journey : listJourney) {
+                %> 
                 <div class="panel panel-default" style=" margin-left: 4%; margin-right: 4%">
-
+                    
+                    
+                     <% if((user_session != null)&&(UserID == user_session.getID())) { %>
+                     
                     <div style="text-align:right; ">
                         <button class="btn btn-info btn-xlg" style="background: red; ">
                             <span class="glyphicon glyphicon-remove">Remove</span>
                         </button>
                     </div> 
-
+                     <% } %>
+                    
+                     
                     <div class="panel-heading journey_index">
-                        <a href="display_journey.jsp?action=view&amp;id=1">No. #1</a>
+                        <a href="display_journey.jsp?action=view&amp;id=<%=journey.getID()%>">No. <%=journey.getDeployDate()%> </a>
 
                     </div>
 
                     <div class="panel-body">
-                        Sightseeing
+                        Type: <%=journey.getType()%>
 
                         <br>
 
-                        Deploy Date: December 23, 2016
+                        Budget: <%=journey.getBudget() %>
 
                         <br>
 
-                        Duration: 3 days
+                        Duration: <%=journey.getDuration() %>
 
                         <br>
-
-
-
+                        
                     </div>
                 </div>
                 
+                     <% } %>
 
             </div>
 
@@ -401,25 +445,9 @@
 
         </div>        
 
-
-
-
         <!--Banner -->
         <jsp:include page="_footer.jsp" flush="true"/>
 
-
-
-
-        <script>
-
-            function edit_activate() {
-
-
-
-
-            }
-
-        </script>    
 
 
     </body>
