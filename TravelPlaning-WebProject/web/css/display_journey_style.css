@@ -125,6 +125,7 @@ span.text-class {
 }
 
 .img-block {
+    height: 250px;
     width: 250px;
 }
 

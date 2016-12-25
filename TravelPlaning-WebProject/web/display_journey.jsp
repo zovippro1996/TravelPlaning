@@ -60,6 +60,10 @@
             window.onbeforeunload = function () {
                 window.scrollTo(0, 0);
             };
+            
+            function goBack() {
+                window.history.back();
+            };
         </script>
     </head>
     <body>
@@ -401,7 +405,9 @@
                                         All day&nbsp;<i class="wi wi-time-3"></i>
                                     </td>
                                     <td class="img-block">
-                                        <a href="#"><img src="http://placehold.it/250x250" class="img-thumbnail" alt="location-image"></a>
+                                        <a href="view_location.jsp?LocationID=<%= day.getPark().getID()%>" target="_blank">
+                                            <img src="<%= ImageControl.importLocationAvatar(day.getPark().getID()) %>" class="img-thumbnail" alt="location-image">
+                                        </a>
                                     </td>
                                     <td class="location-block">
                                         <h2 class="text-capitalize">
@@ -433,7 +439,9 @@
                                         Morning&nbsp;<i class="wi wi-sunrise"></i>
                                     </td>
                                     <td class="img-block">
-                                        <a href="#"><img src="http://placehold.it/250x250" class="img-thumbnail" alt="location-img"></a>
+                                        <a href="view_location.jsp?LocationID=<%= day.getMorningLocation().getID()%>" target="_blank">
+                                            <img src="<%= ImageControl.importLocationAvatar(day.getMorningLocation().getID()) %>" class="img-thumbnail" alt="location-img">
+                                        </a>
                                     </td>
                                     <td class="location-block">
                                         <h2 class="text-capitalize">
@@ -466,7 +474,9 @@
                                         Afternoon&nbsp;<i class="wi wi-day-sunny"></i>
                                     </td>
                                     <td class="img-block">
-                                        <a href="#"><img src="http://placehold.it/250x250" class="img-thumbnail" alt="location-img"></a>
+                                        <a href="view_location.jsp?LocationID=<%= day.getAfternoonLocation().getID()%>" target="_blank">
+                                            <img src="<%= ImageControl.importLocationAvatar(day.getAfternoonLocation().getID()) %>" class="img-thumbnail" alt="location-img">
+                                        </a>
                                     </td>
                                     <td class="location-block">
                                         <h2 class="text-capitalize">
@@ -498,7 +508,9 @@
                                         Evening&nbsp;<i class="wi wi-night-clear"></i>
                                     </td>
                                     <td class="img-block">
-                                        <a href="#"><img src="http://placehold.it/250x250" class="img-thumbnail" alt="location-img"></a>
+                                        <a href="view_location.jsp?LocationID=<%= day.getEveningLocation().getID()%>" target="_blank">
+                                            <img src="<%= ImageControl.importLocationAvatar(day.getEveningLocation().getID()) %>" class="img-thumbnail" alt="location-img">
+                                        </a>
                                     </td>
                                     <td class="location-block">
                                         <h2 class="text-capitalize">
@@ -556,7 +568,9 @@
                                         All day&nbsp;<i class="wi wi-time-3"></i>
                                     </td>
                                     <td class="img-block">
-                                        <a href="#"><img src="http://placehold.it/250x250" class="img-thumbnail" alt="location-image"></a>
+                                        <a href="view_location.jsp?LocationID=<%= day.getPark().getID()%>" target="_blank">
+                                            <img src="<%= ImageControl.importLocationAvatar(day.getPark().getID()) %>" class="img-thumbnail" alt="location-image">
+                                        </a>
                                     </td>
                                     <td class="location-block">
                                         <h2 class="text-capitalize">
@@ -588,7 +602,9 @@
                                         Morning&nbsp;<i class="wi wi-sunrise"></i>
                                     </td>
                                     <td class="img-block">
-                                        <a href="#"><img src="http://placehold.it/250x250" class="img-thumbnail" alt="location-img"></a>
+                                        <a href="view_location.jsp?LocationID=<%= day.getMorningLocation().getID()%>" target="_blank">
+                                            <img src="<%= ImageControl.importLocationAvatar(day.getMorningLocation().getID()) %>" class="img-thumbnail" alt="location-img">
+                                        </a>
                                     </td>
                                     <td class="location-block">
                                         <h2 class="text-capitalize">
@@ -620,7 +636,9 @@
                                         Afternoon&nbsp;<i class="wi wi-day-sunny"></i>
                                     </td>
                                     <td class="img-block">
-                                        <a href="#"><img src="http://placehold.it/250x250" class="img-thumbnail" alt="location-img"></a>
+                                        <a href="view_location.jsp?LocationID=<%= day.getAfternoonLocation().getID()%>" target="_blank">
+                                            <img src="<%= ImageControl.importLocationAvatar(day.getAfternoonLocation().getID()) %>" class="img-thumbnail" alt="location-img">
+                                        </a>
                                     </td>
                                     <td class="location-block">
                                         <h2 class="text-capitalize">
@@ -652,7 +670,9 @@
                                         Evening&nbsp;<i class="wi wi-night-clear"></i>
                                     </td>
                                     <td class="img-block">
-                                        <a href="#"><img src="http://placehold.it/250x250" class="img-thumbnail" alt="location-img"></a>
+                                        <a href="view_location.jsp?LocationID=<%= day.getEveningLocation().getID()%>" target="_blank">
+                                            <img src="<%= ImageControl.importLocationAvatar(day.getEveningLocation().getID()) %>" class="img-thumbnail" alt="location-img">
+                                        </a>
                                     </td>
                                     <td class="location-block">
                                         <h2 class="text-capitalize">
@@ -705,10 +725,10 @@
             <% } else { %>
 
             <!-- Back to previous page button -->
-            <form action="JourneyProcessing" method="post" id="form-button">
-                <button type="submit" name="action" value="backProfile" class="btn btn-primary choose-btn">Return to profile</button>
-            </form>
-
+            <br>
+            <div style="text-align: center">
+                <button class="btn btn-primary choose-btn" onclick="goBack()">Return to profile</button>
+            </div>
             <% } %>
 
         </div>
