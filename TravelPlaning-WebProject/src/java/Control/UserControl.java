@@ -49,14 +49,16 @@ public class UserControl extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         
-        String password_encrypt = MD5.getMD5(password);
+        String password_encrypt = MD5.getMD5(request.getParameter("password"));
         String fullname = request.getParameter("firstname") + " " + request.getParameter("lastname");
         String DOB = request.getParameter("DOByear") + "-" + request.getParameter("DOBmonth") + "-" + request.getParameter("DOBday");
         String gender = request.getParameter("gender");
         String phone = request.getParameter("phone");
         String email = request.getParameter("email");
         String country = request.getParameter("country");
+        String city = request.getParameter("city");
         String User_Avatar = request.getParameter("User_Avatar");
+
 
         //Command for control
         String command = request.getParameter("command");
