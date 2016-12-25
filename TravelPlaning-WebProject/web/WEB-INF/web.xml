@@ -28,6 +28,16 @@
         </multipart-config>
     </servlet>
     <servlet>
+        <servlet-name>UploadAvatar</servlet-name>
+        <servlet-class>Control.UploadAvatar</servlet-class>
+        <multipart-config>
+            <location>/tmp</location>
+            <max-file-size>524288000</max-file-size>
+            <max-request-size>524288000</max-request-size>
+            <file-size-threshold>524288000</file-size-threshold>
+        </multipart-config>
+    </servlet>
+    <servlet>
         <servlet-name>EditLocation</servlet-name>
         <servlet-class>Control.EditLocation</servlet-class>
     </servlet>
@@ -50,6 +60,10 @@
     <servlet-mapping>
         <servlet-name>UploadImage</servlet-name>
         <url-pattern>/UploadImage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadAvatar</servlet-name>
+        <url-pattern>/UploadAvatar</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>EditLocation</servlet-name>
