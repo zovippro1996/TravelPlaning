@@ -13,14 +13,7 @@ import com.dropbox.core.v2.files.FileMetadata;
 import com.dropbox.core.v2.files.Metadata;
 import com.dropbox.core.v2.files.UploadErrorException;
 import com.dropbox.core.v2.files.WriteMode;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,11 +25,8 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import org.apache.commons.io.FilenameUtils;
 
-/**
- *
- * @author CREAT10N
- */
-public class UploadImage extends HttpServlet {
+
+public class UploadAvatar extends HttpServlet {
 
     // Dropbox access token
     private static final String ACCESS_TOKEN = "cKh3tEi-r1AAAAAAAAAKCWzcDYB7Sm2XAJaYkzxhdvq-viW81Uk22j7hgL3-6rFU";
@@ -58,7 +48,7 @@ public class UploadImage extends HttpServlet {
         DbxRequestConfig requestConfig = new DbxRequestConfig("tp-transfer-file");
         DbxClientV2 dbxClient = new DbxClientV2(requestConfig, ACCESS_TOKEN);
 
-        String UPLOAD_DIRECTORY = getServletContext().getRealPath("/") + "LocImage";
+        String UPLOAD_DIRECTORY = getServletContext().getRealPath("/") + "UserImage";
         // checks if the temp folder is created and create it if not
         
         File dir = new File(UPLOAD_DIRECTORY);
@@ -67,16 +57,16 @@ public class UploadImage extends HttpServlet {
             dir.mkdir();
         }
 
-        final String locationID = request.getParameter("locationID");
+        final String UserID = request.getParameter("UserID");
         final Part filePart = request.getPart("uploadFile");
         final String fileType = "png";
         
-        String url = "view_location.jsp?LocationID=" + locationID;
+        String url = "user_profile.jsp?UserID=" + UserID;
         
         OutputStream out = null;
         InputStream filecontent = null;
 
-        String tmpfilepath = UPLOAD_DIRECTORY + File.separator + "Loc" + locationID + "." + fileType;
+        String tmpfilepath = UPLOAD_DIRECTORY + File.separator + UserID + "." + fileType;
 
         try {
             out = new FileOutputStream(new File(tmpfilepath));
@@ -109,13 +99,13 @@ public class UploadImage extends HttpServlet {
         File tmpfile = new File(tmpfilepath);
         // delete old location picture before upload new one
         try {
-            Metadata metadata = dbxClient.files().delete("/Location/Loc" + locationID + "." + fileType);
+            Metadata metadata = dbxClient.files().delete("/User_Avatar/" + UserID + "." + fileType);
         } catch (DbxException ex) {
             Logger.getLogger(UploadImage.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         // upload new location picture
-        uploadFile(dbxClient, tmpfile, "/Location/Loc" + locationID + "." + fileType);
+        uploadFile(dbxClient, tmpfile, "/User_Avatar/" + UserID + "." + fileType);
 
         response.sendRedirect(url);
 
