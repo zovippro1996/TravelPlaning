@@ -3,7 +3,8 @@
     Created on : Dec 3, 2016, 10:39:38 PM
     Author     : zovippro1996
 --%>
-<%@page import="Control.ImageControl"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="Control.*"%>
 <%@page import="Data.*"%>
 <%@page import="Connect.DBConnect"%>
 <%@page import="java.util.*"%>
@@ -70,7 +71,7 @@
             .divider{
                 position:absolute;
                 left:50%;
-                top:40%;
+                top:43%;
                 bottom:5%;
                 border-left:3px solid white;
             } 
@@ -147,9 +148,9 @@
             .journey_title {
                 color:white; 
                 font-family: Comic Sans MS; 
-                font-weight: 600; 
+                font-weight: 500; 
                 text-align: center; 
-                font-size: 350%
+                font-size: 380%
                 
             }
 
@@ -157,6 +158,14 @@
                 font-size: 80%;
                 color:green;
                 font-weight: 600;
+            }
+            
+            .wishes {
+                font-size: 200%;
+                font-style: oblique; 
+                text-align: center; 
+                color:#556981; 
+                margin-bottom: 4%;
             }
 
         </style>
@@ -241,10 +250,22 @@
                     User user_session = (User) session.getAttribute("user");
                     
                     if((user_session != null)&&(UserID == user_session.getID())) { %>
+                    
                 <div style="float:right">
+                    
+                    
                     <a href="update_profile.jsp" class="btn btn-info btn-xlg">
                         <span class="glyphicon glyphicon-cog">Update Profile</span>
                     </a>
+                    
+                    <form action="UploadAvatar" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="UserID" value="<%=u.getID()%>"/>
+                    <label class="btn btn-default btn-file">
+                        Choose Image<input type="file" accept="image/*" name="uploadFile" id="uploadFile" style="display: none;"/>
+                    </label>
+                    <input type="submit" class="btn btn-default" value="Upload"/>
+                    </form>
+                    
                 </div>
                 <% } %>
                 
@@ -334,15 +355,15 @@
                                         monString = "June";
                                     } else if (month == 7) {
                                         monString = "July";
-                                    } else if (month == 2) {
+                                    } else if (month == 8) {
                                         monString = "August";
-                                    } else if (month == 2) {
+                                    } else if (month == 9) {
                                         monString = "September";
-                                    } else if (month == 2) {
+                                    } else if (month == 10) {
                                         monString = "October";
-                                    } else if (month == 2) {
+                                    } else if (month == 11) {
                                         monString = "November";
-                                    } else if (month == 2) {
+                                    } else if (month == 12) {
                                         monString = "December";
                                     }
 
@@ -429,7 +450,44 @@
                     
                      
                     <div class="panel-heading journey_index">
-                        <a href="JourneyProcessing?action=view&amp;id=<%=journey.getID()%>">No. <%=journey.getDeployDate()%> </a>
+                        <a href="JourneyProcessing?action=view&amp;id=<%=journey.getID()%>">
+                            
+                            <% 
+                                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                                    java.util.Date date = sdf.parse(journey.getDeployDate());
+                                    cal.setTime(date);
+                                    month = cal.get(Calendar.MONTH) + 1;
+                                    
+
+                                    if (month == 1) {
+                                        monString = "January";
+                                    } else if (month == 2) {
+                                        monString = "February";
+                                    } else if (month == 3) {
+                                        monString = "March";
+                                    } else if (month == 4) {
+                                        monString = "April";
+                                    } else if (month == 5) {
+                                        monString = "May";
+                                    } else if (month == 6) {
+                                        monString = "June";
+                                    } else if (month == 7) {
+                                        monString = "July";
+                                    } else if (month == 8) {
+                                        monString = "August";
+                                    } else if (month == 9) {
+                                        monString = "September";
+                                    } else if (month == 10) {
+                                        monString = "October";
+                                    } else if (month == 11) {
+                                        monString = "November";
+                                    } else if (month == 12) {
+                                        monString = "December";
+                                    }
+
+                                    day = cal.get(Calendar.DAY_OF_MONTH);
+                                    year = cal.get(Calendar.YEAR);
+                                    out.print(monString + " " + day + ", " + year); %> </a>
 
                     </div>
 
@@ -438,11 +496,11 @@
 
                         <br>
 
-                        Budget: <%=journey.getBudget() %>
+                        Budget: $<%=journey.getBudget() %>
 
                         <br>
 
-                        Duration: <%=journey.getDuration() %>
+                        Duration: <%=journey.getDuration() %> day(s)
 
                         <br>
                         
@@ -450,7 +508,26 @@
                 </div>
                 
                      <% } %>
+                
                      
+                     <% if (listJourney.size()== 0) { %>
+                     <div class="wishes">
+                         <br>
+                         The Traveler has not found his way , yet!
+                         <br>
+                         
+                     </div>
+                     <% } else { %>
+                     
+                     
+                     <div class="wishes" >
+                         <br>
+                         Bon Voyage!
+                         
+                         <br>
+                         
+                     </div>
+                     <%}%>
             </div>
 
 
