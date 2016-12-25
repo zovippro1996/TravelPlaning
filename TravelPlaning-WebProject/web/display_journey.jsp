@@ -8,17 +8,16 @@
 <%@page import="java.util.*, Data.*, Control.*" %>
 <%
     final int MAX_SIZE_STRING = 250;
-    
+
     // Retrieve checking parameter
     String checkParam = (String) session.getAttribute("generated");
     Journey journey = null;
 
-    if (checkParam != null && checkParam.equalsIgnoreCase("yes"))   // generated journey
+    if (checkParam != null && checkParam.equalsIgnoreCase("yes")) // generated journey
     {
         // Retrieve generated journey from session
         journey = (Journey) session.getAttribute("generatedJourney");
-    }
-    else        // view journey
+    } else // view journey
     {
         // Retrieve view journey from session
         journey = (Journey) session.getAttribute("viewJourney");
@@ -54,11 +53,13 @@
         <link rel="stylesheet" href="assets/theme/css/style.css">
         <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
         <link rel="stylesheet" href="css/weather-icons.min.css" type="text/css">
+        <link rel="stylesheet" href="css/star-rating.min.css">
+        <script type="text/javascript" src="js/star-rating.min.js"></script>
         <!--       Fix animation disable page reset scrolling to top -->
         <script type= "text/javascript">
-        window.onbeforeunload = function () {
-            window.scrollTo(0, 0);
-        };
+            window.onbeforeunload = function () {
+                window.scrollTo(0, 0);
+            };
         </script>
     </head>
     <body>
@@ -76,19 +77,19 @@
                         <span class="days">
                             <!-- Sample -->
                             <!-- <span class="num-class">9</span> -->
-                            <span class="num-class"><%= journey.getDuration() %></span>
+                            <span class="num-class"><%= journey.getDuration()%></span>
                             <span class="text-class">DAYS</span>
                         </span>
                         <span class="border"></span>
                         <!-- Sample -->
                         <!-- <span class="title">Australia</span> -->
-                        <span class="title text-capitalize"><%= journey.getCountry().toLowerCase() %></span>
+                        <span class="title text-capitalize"><%= journey.getCountry().toLowerCase()%></span>
                     </div>
                 </div>
             </div>
-            
+
             <br>
-            
+
             <!-- Display visited cities -->
 
             <!-- Sample -->
@@ -108,21 +109,22 @@
                 </div>
             </div> -->
 
-            <% if (journey.getListCity().size() >= 2) {  /* 2 cities */ %>
+            <% if (journey.getListCity().size() >= 2) {
+                    /* 2 cities */%>
 
             <div class="row">
                 <div class="col-md-offset-1 col-md-4 city-block">
-                    <span class="number"><%= journey.getDaysCity().get(0) %></span>
+                    <span class="number"><%= journey.getDaysCity().get(0)%></span>
                     <i style="font-size: 1.3em">days in</i>
-                    <span class="text-city text-capitalize"><%= journey.getListCity().get(0).toLowerCase() %></span>
+                    <span class="text-city text-capitalize"><%= journey.getListCity().get(0).toLowerCase()%></span>
                 </div>
                 <div class="col-md-2">
                     <img src="img/black-plane.png" class="center-block">
                 </div>
                 <div class="col-md-4 city-block">
-                    <span class="number"><%= journey.getDaysCity().get(1) %></span>
+                    <span class="number"><%= journey.getDaysCity().get(1)%></span>
                     <i style="font-size: 1.3em">days in</i>
-                    <span class="text-city text-capitalize"><%= journey.getListCity().get(1).toLowerCase() %></span>
+                    <span class="text-city text-capitalize"><%= journey.getListCity().get(1).toLowerCase()%></span>
                 </div>
             </div>
 
@@ -135,20 +137,22 @@
                 </div>
             </div> -->
 
-            <% } else { /* 1 city */ %>
+            <% } else {
+                /* 1 city */%>
 
             <div class="row">
                 <div class="col-md-offset-4 col-md-4 city-block">
-                    <span class="number"><%= journey.getDaysCity().get(0) %></span>
+                    <span class="number"><%= journey.getDaysCity().get(0)%></span>
                     <i style="font-size: 1.3em">days in</i>
-                    <span class="text-city text-capitalize"><%= journey.getListCity().get(0).toLowerCase() %></span>
+                    <span class="text-city text-capitalize"><%= journey.getListCity().get(0).toLowerCase()%></span>
                 </div>
             </div>
-            
-            <% }    /* end of if .. else .. */ %>
+
+            <% }
+                /* end of if .. else .. */%>
 
             <br>
-            
+
             <!-- Display list of locations grouped by day -->
             <div class="wrapper-locations">
                 <div>
@@ -165,19 +169,20 @@
                         <!-- if 1 city -> 1 city tab only -->
                         <li role="presentation">
                             <a href="#first_city" aria-controls="first_city" role="tab" data-toggle="tab">
-                                <span class="text-capitalize"><%= journey.getListCity().get(0) %></span>
+                                <span class="text-capitalize"><%= journey.getListCity().get(0)%></span>
                             </a>
                         </li>
 
-                        <% if (journey.getListCity().size() >= 2) {  /* 2 cities --> 1 more city tab */ %>
-                        
+                        <% if (journey.getListCity().size() >= 2) {
+                                /* 2 cities --> 1 more city tab */%>
+
                         <li role="presentation">
                             <a href="#second_city" aria-controls="second_city" role="tab" data-toggle="tab">
-                                <span class="text-capitalize"><%= journey.getListCity().get(1).toLowerCase() %></span>
+                                <span class="text-capitalize"><%= journey.getListCity().get(1).toLowerCase()%></span>
                             </a>
                         </li>
 
-                        <% } %>
+                        <% }%>
 
                     </ul>
 
@@ -198,30 +203,30 @@
                             <ul>
                                 <li class="block-text">
                                     <strong><em>Country</em>:</strong>&nbsp;
-                                    <span class="text-capitalize"><%= journey.getCountry().toLowerCase() %></span>
+                                    <span class="text-capitalize"><%= journey.getCountry().toLowerCase()%></span>
                                 </li>
                                 <li class="block-text">
                                     <strong><em>Cities</em>:</strong>&nbsp;
-                                    <span class="text-capitalize"><%= journey.getListCity().get(0).toLowerCase() %></span>&nbsp;
+                                    <span class="text-capitalize"><%= journey.getListCity().get(0).toLowerCase()%></span>&nbsp;
 
-                                    <% if (journey.getListCity().size() >= 2) { %>
+                                    <% if (journey.getListCity().size() >= 2) {%>
 
                                     <em>and</em>&nbsp;
-                                    <span class="text-capitalize"><%= journey.getListCity().get(1).toLowerCase() %></span>
+                                    <span class="text-capitalize"><%= journey.getListCity().get(1).toLowerCase()%></span>
 
-                                    <% } %>
+                                    <% }%>
                                 </li>
                                 <li class="block-text">
                                     <strong><em>Duration</em>:</strong>&nbsp;
-                                    <%= journey.getDuration() %>&nbsp;day(s)
+                                    <%= journey.getDuration()%>&nbsp;day(s)
                                 </li>
                                 <li class="block-text">
                                     <strong><em>Estimated budget</em>:</strong>&nbsp;
-                                    $<%= Math.round((journey.getBudget() + 5) / 10.0) * 10.0 %>
+                                    $<%= Math.round((journey.getBudget() + 5) / 10.0) * 10.0%>
                                 </li>
                                 <li class="block-text">
                                     <strong><em>Type</em>:</strong>&nbsp;
-                                    <span class="text-capitalize"><%= journey.getType().name().toLowerCase() %></span>
+                                    <span class="text-capitalize"><%= journey.getType().name().toLowerCase()%></span>
                                 </li>
                                 <li class="block-text">
                                     <strong><em>Deploy date</em>:</strong>&nbsp;
@@ -230,12 +235,13 @@
 
                                     <span>Unknown</span>
 
-                                    <% } else { %>
+                                    <% } else {%>
 
-                                    <span><%= journey.getDeployDate() %></span>
-                                    
-                                    <% }    /* end of if - deployDate */ %>
-                                    
+                                    <span><%= journey.getDeployDate()%></span>
+
+                                    <% }
+                                        /* end of if - deployDate */ %>
+
                                 </li>
                             </ul>
 
@@ -299,7 +305,7 @@
                                     </td>
                                 </tr>
                             </table> -->
-                            
+
                             <!-- Sample - Day 2 -->
                             <!-- <h1 class="day-title">Day 2</h1>
                             <table width="100%">
@@ -355,7 +361,7 @@
                                     </td>
                                 </tr>
                             </table> -->
-                            
+
                             <!-- Sample - Day 3 -->
                             <!-- <h1 class="day-title">Day 3</h1>
                             <table width="100%">
@@ -380,15 +386,15 @@
 
                             <%
                                 // list through all days spent for the first city
-                                for (int i = 0; i < journey.getDaysCity().get(0); ++i)
-                                {
+                                for (int i = 0; i < journey.getDaysCity().get(0); ++i) {
                                     Day day = journey.getListDays().get(i);  // current Day
                             %>
 
-                            <h1 class="day-title">Day <%= day.getDayNumber() %></h1>
+                            <h1 class="day-title">Day <%= day.getDayNumber()%></h1>
                             <table width="100%">
 
-                            <% if (day.hasPark()) { /* day spent for park */ %>
+                                <% if (day.hasPark()) {
+                                        /* day spent for park */%>
 
                                 <tr>
                                     <td class="period-block">
@@ -399,26 +405,28 @@
                                     </td>
                                     <td class="location-block">
                                         <h2 class="text-capitalize">
-                                            <a href="view_location.jsp?LocationID=<%= day.getPark().getID() %>" target="_blank">
-                                                <%= day.getPark().getName().toLowerCase() %>
+                                            <a href="view_location.jsp?LocationID=<%= day.getPark().getID()%>" target="_blank">
+                                                <%= day.getPark().getName().toLowerCase()%>
                                             </a>
                                         </h2>
+                                        <input value="<%=day.getPark().getAvgRate()%>" type="number" class="rating location-rating" min=0 max=5 step=0.5 data-size="xs">
                                         <p class="text-capitalize">
                                             <%
                                                 String description = day.getPark().getDescription().toLowerCase();
                                                 int size = description.length() < MAX_SIZE_STRING ? description.length() : MAX_SIZE_STRING;
                                             %>
-                                            <%= description.substring(0, size) %>...
-                                            <a href="view_location.jsp?LocationID=<%= day.getPark().getID() %>" target="_blank">
+                                            <%= description.substring(0, size)%>...
+                                            <a href="view_location.jsp?LocationID=<%= day.getPark().getID()%>" target="_blank">
                                                 More
                                             </a>
                                         </p>
                                     </td>
                                 </tr>
 
-                            <% } else /* normal day */ { %>
+                                <% } else /* normal day */ { %>
 
-                                <% if (day.hasMorning()) {  /* suggest location for morning */ %>
+                                <% if (day.hasMorning()) {
+                                        /* suggest location for morning */%>
 
                                 <tr>
                                     <td class="period-block">
@@ -429,26 +437,29 @@
                                     </td>
                                     <td class="location-block">
                                         <h2 class="text-capitalize">
-                                            <a href="view_location.jsp?LocationID=<%= day.getMorningLocation().getID() %>" target="_blank">
-                                                <%= day.getMorningLocation().getName().toLowerCase() %>
+                                            <a href="view_location.jsp?LocationID=<%= day.getMorningLocation().getID()%>" target="_blank">
+                                                <%= day.getMorningLocation().getName().toLowerCase()%>
                                             </a>
                                         </h2>
+                                        <input value="<%=day.getMorningLocation().getAvgRate()%>" type="number" class="rating location-rating" min=0 max=5 step=0.5 data-size="xs">
                                         <p class="text-capitalize">
                                             <%
                                                 String description = day.getMorningLocation().getDescription().toLowerCase();
                                                 int size = description.length() < MAX_SIZE_STRING ? description.length() : MAX_SIZE_STRING;
                                             %>
-                                            <%= description.substring(0, size) %>...
-                                            <a href="view_location.jsp?LocationID=<%= day.getMorningLocation().getID() %>" target="_blank">
+                                            <%= description.substring(0, size)%>...
+                                            <a href="view_location.jsp?LocationID=<%= day.getMorningLocation().getID()%>" target="_blank">
                                                 More
                                             </a>
                                         </p>
-                                        
+
                                     </td>
                                 </tr>
 
-                                <% }    /* end of 'morning' */ %>
-                                <% if (day.hasAfternoon()) {    /* for afternoon */ %>
+                                <% }
+                                    /* end of 'morning' */ %>
+                                <% if (day.hasAfternoon()) {
+                                        /* for afternoon */%>
 
                                 <tr>
                                     <td class="period-block">
@@ -459,25 +470,28 @@
                                     </td>
                                     <td class="location-block">
                                         <h2 class="text-capitalize">
-                                            <a href="view_location.jsp?LocationID=<%= day.getAfternoonLocation().getID() %>" target="_blank">
-                                                <%= day.getAfternoonLocation().getName().toLowerCase() %>
+                                            <a href="view_location.jsp?LocationID=<%= day.getAfternoonLocation().getID()%>" target="_blank">
+                                                <%= day.getAfternoonLocation().getName().toLowerCase()%>
                                             </a>
                                         </h2>
+                                        <input value="<%=day.getAfternoonLocation().getAvgRate()%>" type="number" class="rating location-rating" min=0 max=5 step=0.5 data-size="xs">
                                         <p class="text-capitalize">
                                             <%
                                                 String description = day.getAfternoonLocation().getDescription().toLowerCase();
                                                 int size = description.length() < MAX_SIZE_STRING ? description.length() : MAX_SIZE_STRING;
                                             %>
-                                            <%= description.substring(0, size) %>...
-                                            <a href="view_location.jsp?LocationID=<%= day.getAfternoonLocation().getID() %>" target="_blank">
+                                            <%= description.substring(0, size)%>...
+                                            <a href="view_location.jsp?LocationID=<%= day.getAfternoonLocation().getID()%>" target="_blank">
                                                 More
                                             </a>
                                         </p>
                                     </td>
                                 </tr>
 
-                                <% }    /* end of 'afternoon' */ %>
-                                <% if (day.hasEvening()) {  /* for evening */ %>
+                                <% }
+                                    /* end of 'afternoon' */ %>
+                                <% if (day.hasEvening()) {
+                                        /* for evening */%>
 
                                 <tr>
                                     <td class="period-block">
@@ -488,49 +502,54 @@
                                     </td>
                                     <td class="location-block">
                                         <h2 class="text-capitalize">
-                                            <a href="view_location.jsp?LocationID=<%= day.getEveningLocation().getID() %>" target="_blank">
-                                                <%= day.getEveningLocation().getName().toLowerCase() %>
+                                            <a href="view_location.jsp?LocationID=<%= day.getEveningLocation().getID()%>" target="_blank">
+                                                <%= day.getEveningLocation().getName().toLowerCase()%>
                                             </a>
                                         </h2>
+                                        <input value="<%=day.getEveningLocation().getAvgRate()%>" type="number" class="rating location-rating" min=0 max=5 step=0.5 data-size="xs">    
                                         <p class="text-capitalize">
                                             <%
                                                 String description = day.getEveningLocation().getDescription().toLowerCase();
                                                 int size = description.length() < 100 ? description.length() : 100;
                                             %>
-                                            <%= description.substring(0, size) %>...
-                                            <a href="view_location.jsp?LocationID=<%= day.getEveningLocation().getID() %>" target="_blank">
+                                            <%= description.substring(0, size)%>...
+                                            <a href="view_location.jsp?LocationID=<%= day.getEveningLocation().getID()%>" target="_blank">
                                                 More
                                             </a>
                                         </p>
                                     </td>
                                 </tr>
 
-                                <% }    /* end of 'evening' */ %>
+                                <% }
+                                    /* end of 'evening' */ %>
 
-                            <% }    /* end of normal day */%>
+                                <% }
+                                    /* end of normal day */%>
 
                             </table>
 
-                            <% }    /* end of loop */ %>
+                            <% }
+                                /* end of loop */ %>
 
                         </div>
 
-                        <% if (journey.getListCity().size() >= 2) {  /* 2 cities */ %>
+                        <% if (journey.getListCity().size() >= 2) {
+                                /* 2 cities */ %>
 
                         <!-- Second city tab content, if exist -->
                         <div role="tabpanel" class="tab-pane fade" id="second_city">
-                            
+
                             <%
                                 // list through all days spent for the second city
-                                for (int j = journey.getDaysCity().get(0); j < journey.getDuration(); ++j)
-                                {
+                                for (int j = journey.getDaysCity().get(0); j < journey.getDuration(); ++j) {
                                     Day day = journey.getListDays().get(j);  // current Day
                             %>
 
-                            <h1 class="day-title">Day <%= day.getDayNumber() %></h1>
+                            <h1 class="day-title">Day <%= day.getDayNumber()%></h1>
                             <table width="100%">
 
-                            <% if (day.hasPark()) { /* day spent for park */ %>
+                                <% if (day.hasPark()) {
+                                        /* day spent for park */%>
 
                                 <tr>
                                     <td class="period-block">
@@ -541,26 +560,28 @@
                                     </td>
                                     <td class="location-block">
                                         <h2 class="text-capitalize">
-                                            <a href="view_location.jsp?LocationID=<%= day.getPark().getID() %>" target="_blank">
-                                                <%= day.getPark().getName().toLowerCase() %>
+                                            <a href="view_location.jsp?LocationID=<%= day.getPark().getID()%>" target="_blank">
+                                                <%= day.getPark().getName().toLowerCase()%>
                                             </a>
                                         </h2>
+                                        <input value="<%=day.getPark().getAvgRate()%>" type="number" class="rating location-rating" min=0 max=5 step=0.5 data-size="xs">
                                         <p class="text-capitalize">
                                             <%
                                                 String description = day.getPark().getDescription().toLowerCase();
                                                 int size = description.length() < MAX_SIZE_STRING ? description.length() : MAX_SIZE_STRING;
                                             %>
-                                            <%= description.substring(0, size) %>...
-                                            <a href="view_location.jsp?LocationID=<%= day.getPark().getID() %>" target="_blank">
+                                            <%= description.substring(0, size)%>...
+                                            <a href="view_location.jsp?LocationID=<%= day.getPark().getID()%>" target="_blank">
                                                 More
                                             </a>
                                         </p>
                                     </td>
                                 </tr>
 
-                            <% } else /* normal day */ { %>
+                                <% } else /* normal day */ { %>
 
-                                <% if (day.hasMorning()) {  /* suggest location for morning */ %>
+                                <% if (day.hasMorning()) {
+                                        /* suggest location for morning */%>
 
                                 <tr>
                                     <td class="period-block">
@@ -571,25 +592,28 @@
                                     </td>
                                     <td class="location-block">
                                         <h2 class="text-capitalize">
-                                            <a href="view_location.jsp?LocationID=<%= day.getMorningLocation().getID() %>" target="_blank">
-                                                <%= day.getMorningLocation().getName().toLowerCase() %>
+                                            <a href="view_location.jsp?LocationID=<%= day.getMorningLocation().getID()%>" target="_blank">
+                                                <%= day.getMorningLocation().getName().toLowerCase()%>
                                             </a>
                                         </h2>
+                                        <input value="<%=day.getMorningLocation().getAvgRate()%>" type="number" class="rating location-rating" min=0 max=5 step=0.5 data-size="xs">
                                         <p class="text-capitalize">
                                             <%
                                                 String description = day.getMorningLocation().getDescription().toLowerCase();
                                                 int size = description.length() < MAX_SIZE_STRING ? description.length() : MAX_SIZE_STRING;
                                             %>
-                                            <%= description.substring(0, size) %>...
-                                            <a href="view_location.jsp?LocationID=<%= day.getMorningLocation().getID() %>" target="_blank">
+                                            <%= description.substring(0, size)%>...
+                                            <a href="view_location.jsp?LocationID=<%= day.getMorningLocation().getID()%>" target="_blank">
                                                 More
                                             </a>
                                         </p>
                                     </td>
                                 </tr>
 
-                                <% }    /* end of 'morning' */ %>
-                                <% if (day.hasAfternoon()) {    /* for afternoon */ %>
+                                <% }
+                                    /* end of 'morning' */ %>
+                                <% if (day.hasAfternoon()) {
+                                        /* for afternoon */%>
 
                                 <tr>
                                     <td class="period-block">
@@ -600,25 +624,28 @@
                                     </td>
                                     <td class="location-block">
                                         <h2 class="text-capitalize">
-                                            <a href="view_location.jsp?LocationID=<%= day.getAfternoonLocation().getID() %>" target="_blank">
-                                                <%= day.getAfternoonLocation().getName().toLowerCase() %>
+                                            <a href="view_location.jsp?LocationID=<%= day.getAfternoonLocation().getID()%>" target="_blank">
+                                                <%= day.getAfternoonLocation().getName().toLowerCase()%>
                                             </a>
                                         </h2>
+                                        <input value="<%=day.getAfternoonLocation().getAvgRate()%>" type="number" class="rating location-rating" min=0 max=5 step=0.5 data-size="xs">    
                                         <p class="text-capitalize">
                                             <%
                                                 String description = day.getAfternoonLocation().getDescription().toLowerCase();
                                                 int size = description.length() < MAX_SIZE_STRING ? description.length() : MAX_SIZE_STRING;
                                             %>
-                                            <%= description.substring(0, size) %>...
-                                            <a href="view_location.jsp?LocationID=<%= day.getAfternoonLocation().getID() %>" target="_blank">
+                                            <%= description.substring(0, size)%>...
+                                            <a href="view_location.jsp?LocationID=<%= day.getAfternoonLocation().getID()%>" target="_blank">
                                                 More
                                             </a>
                                         </p>
                                     </td>
                                 </tr>
 
-                                <% }    /* end of 'afternoon' */ %>
-                                <% if (day.hasEvening()) {  /* for evening */ %>
+                                <% }
+                                    /* end of 'afternoon' */ %>
+                                <% if (day.hasEvening()) {
+                                        /* for evening */%>
 
                                 <tr>
                                     <td class="period-block">
@@ -629,34 +656,39 @@
                                     </td>
                                     <td class="location-block">
                                         <h2 class="text-capitalize">
-                                            <a href="view_location.jsp?LocationID=<%= day.getEveningLocation().getID() %>" target="_blank">
-                                                <%= day.getEveningLocation().getName().toLowerCase() %>
+                                            <a href="view_location.jsp?LocationID=<%= day.getEveningLocation().getID()%>" target="_blank">
+                                                <%= day.getEveningLocation().getName().toLowerCase()%>
                                             </a>
                                         </h2>
+                                        <input value="<%=day.getEveningLocation().getAvgRate()%>" type="number" class="rating location-rating" min=0 max=5 step=0.5 data-size="xs">
                                         <p class="text-capitalize">
                                             <%
                                                 String description = day.getEveningLocation().getDescription().toLowerCase();
                                                 int size = description.length() < 100 ? description.length() : 100;
                                             %>
-                                            <%= description.substring(0, size) %>...
-                                            <a href="view_location.jsp?LocationID=<%= day.getEveningLocation().getID() %>" target="_blank">
+                                            <%= description.substring(0, size)%>...
+                                            <a href="view_location.jsp?LocationID=<%= day.getEveningLocation().getID()%>" target="_blank">
                                                 More
                                             </a>
                                         </p>
                                     </td>
                                 </tr>
 
-                                <% }    /* end of 'evening' */ %>
+                                <% }
+                                    /* end of 'evening' */ %>
 
-                            <% }    /* end of normal day */%>
+                                <% }
+                                    /* end of normal day */%>
 
                             </table>
 
-                            <% }    /* end of loop */ %>
+                            <% }
+                                /* end of loop */ %>
 
                         </div>
 
-                        <% }    /* end of if - check second city */ %>
+                        <% }
+                            /* end of if - check second city */ %>
 
                     </div>
 
@@ -664,12 +696,12 @@
             </div>
 
             <% if (checkParam != null && checkParam.equalsIgnoreCase("yes")) { %>
-            
+
             <!-- Save journey button -->
             <form action="JourneyProcessing" method="post" id="form-button">
                 <button type="submit" name="action" value="saveJourney" class="btn btn-primary choose-btn">Save your journey</button>
             </form>
-            
+
             <% } else { %>
 
             <!-- Back to previous page button -->
@@ -680,7 +712,16 @@
             <% } %>
 
         </div>
-
+        <script>
+            var $j = jQuery.noConflict();
+            $j(document).ready(function () {
+                $(".location-rating").rating({
+                    showCaption: false,
+                    showClear: false,
+                    displayOnly: true
+                });
+            });
+        </script>
         <!-- Footer -->
         <div id="footer">
             <jsp:include page="_footer.jsp" flush="true" />
@@ -695,4 +736,4 @@
     window.location.replace('input_getting.jsp');
 </script>
 
-<% } %>
+<% }%>

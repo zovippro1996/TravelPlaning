@@ -38,21 +38,33 @@ public class CommentControl extends HttpServlet {
         User user = (User) session.getAttribute("user");
 
         int userID = user.getID();
-        int locationID = Integer.parseInt("locationID");
+        int locationID = Integer.parseInt(request.getParameter("locationID"));
         String comment = request.getParameter("comment");
         double rating = Double.parseDouble(request.getParameter("rating"));
-        
+
         String url = "view_location.jsp?LocationID=" + locationID;
 
         Connection c = DBConnect.getConnection();
         try {
             Statement st = c.createStatement();
             ResultSet rs;
-            String query = "INSERT INTO Comments(UserID, LocationID, Description, Rate) values (" + userID + ", " 
-                    + locationID + ", '" + comment + "', " + rating + ")";
-            int i = st.executeUpdate(query);
-            if (i > 0) {
-                response.sendRedirect(url);
+            String query = "SELECT * FROM Comments WHERE (UserID=" + userID + " AND LocationID=" + locationID + ")";
+            String query1;
+            rs = st.executeQuery(query);
+            if (rs.next()) {
+                query1 = "UPDATE Comments SET Description='" + comment + "', Rate=" + rating + 
+                        " WHERE (UserID=" + userID + " AND LocationID=" + locationID + ")"; 
+                int i = st.executeUpdate(query1);
+                if (i > 0) {
+                    response.sendRedirect(url);
+                }
+            } else {
+                query1 = "INSERT INTO Comments(UserID, LocationID, Description, Rate) values (" + userID + ", "
+                        + locationID + ", '" + comment + "', " + rating + ")";
+                int i = st.executeUpdate(query1);
+                if (i > 0) {
+                    response.sendRedirect(url);
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(CommentControl.class.getName()).log(Level.SEVERE, null, ex);

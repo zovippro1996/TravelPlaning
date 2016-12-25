@@ -23,34 +23,18 @@ public class User {
     private String email;
     private String city;
     private String country;
-    private String User_Avatar;
 
     public User() {
     }
     
-    // For normal user
-    public User(int ID, String username, String password, String fullname, Date DOB, String gender, String phone, String email, String city, String country, String User_Avatar) {
-        this.ID = ID;
-        this.username = username;
-        this.password = password;
-        this.fullname = fullname;
-        this.DOB = DOB;
-        this.gender = gender;
-        this.phone = phone;
-        this.email = email;
-        this.city = city;
-        this.country = country;
-        this.User_Avatar = User_Avatar;
-    }
-    
-    // For provider
-    public User(int ID, int locationID, String username, String password, String fullname, Date DOB, String phone, String email, String city, String country) {
+    public User(int ID, int locationID, String username, String password, String fullname, Date DOB, String gender, String phone, String email, String city, String country) {
         this.ID = ID;
         this.locationID = locationID;
         this.username = username;
         this.password = password;
         this.fullname = fullname;
         this.DOB = DOB;
+        this.gender = gender;
         this.phone = phone;
         this.email = email;
         this.city = city;
@@ -188,20 +172,6 @@ public class User {
      */
     public void setCountry(String country) {
         this.country = country;
-    }
-
-    /**
-     * @return the User_Avatar
-     */
-    public String getUser_Avatar() {
-        return User_Avatar;
-    }
-
-    /**
-     * @param User_Avatar the User_Avatar to set
-     */
-    public void setUser_Avatar(String User_Avatar) {
-        this.User_Avatar = User_Avatar;
     }
 
     /**

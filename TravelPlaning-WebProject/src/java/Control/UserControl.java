@@ -57,12 +57,9 @@ public class UserControl extends HttpServlet {
         String email = request.getParameter("email");
         String country = request.getParameter("country");
         String city = request.getParameter("city");
-        String User_Avatar = request.getParameter("User_Avatar");
-
 
         //Command for control
         String command = request.getParameter("command");
-        boolean check = false;
 
         //Login Control
         if ("login".equals(command)) {
@@ -71,39 +68,19 @@ public class UserControl extends HttpServlet {
                 ResultSet rs;
                 // Query allows login with username or email
                 String query = "SELECT * FROM Users WHERE (Username='" + username + "' OR Email='" + username
-                        + "') AND (Password = '" + password + "') ";
+                        + "') AND (Password = '" + password_encrypt + "') ";
                 rs = st.executeQuery(query);
                 if (rs.next()) {
-                    User user = new User(rs.getInt("UserID"), rs.getString("Username"), rs.getString("Password"),
-                            rs.getString("Fullname"), rs.getDate("DOB"), rs.getString("Gender"), rs.getString("Phone"),
-                            rs.getString("Email"), rs.getString("City"), rs.getString("Country"), rs.getString("User_Avatar"));
+                    User user = new User(rs.getInt("UserID"), rs.getInt("LocationID"), rs.getString("Username"), 
+                            rs.getString("Password"), rs.getString("Fullname"), rs.getDate("DOB"), rs.getString("Gender"), 
+                            rs.getString("Phone"), rs.getString("Email"), rs.getString("City"), rs.getString("Country"));
 
                     session.setAttribute("user", user);
 
 //                    rd = request.getServletContext().getRequestDispatcher("/main.jsp");
 //                    rd.forward(request, response);
-                    check = true;
                     response.sendRedirect("main.jsp");
-                }
-
-                query = "SELECT * FROM Providers WHERE (Username='" + username + "' OR Email='" + username
-                        + "') AND (Password = '" + password + "') ";
-                rs = st.executeQuery(query);
-                if (rs.next()) {
-
-                    User user = new User(rs.getInt("ProviderID"), rs.getInt("LocationID"), rs.getString("Username"), rs.getString("Password"),
-                            rs.getString("Fullname"), rs.getDate("DOB"), rs.getString("Phone"),
-                            rs.getString("Email"), rs.getString("City"), rs.getString("Country"));
-
-                    session.setAttribute("user", user);
-
-//                    rd = request.getServletContext().getRequestDispatcher("/main.jsp");
-//                    rd.forward(request, response);
-                    check = true;
-                    response.sendRedirect("main.jsp");
-                }
-                
-                if (!check) {
+                } else {
                     // Pop up if invalid login
                     // Then redirect to login page
                     PrintWriter out = response.getWriter();

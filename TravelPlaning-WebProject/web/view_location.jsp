@@ -91,6 +91,11 @@
                 clear: both;
             }
 
+            #comment{
+                width: 1000px;
+                height: auto;
+            }
+
             .comment-block{
                 display: none;
             }
@@ -163,7 +168,9 @@
             Connection c = DBConnect.getConnection();
             String ID = request.getParameter("LocationID");
             int LocationID = 0;
-            LocationID = Integer.parseInt(ID);
+            if (ID != null) {
+                LocationID = Integer.parseInt(ID);
+            }
             Location l = new Location();
 
             Statement st = c.createStatement();
@@ -181,7 +188,7 @@
                 l.setMorning(rs.getInt("Morning") == 1 ? true : false);
                 l.setAfternoon(rs.getInt("Afternoon") == 1 ? true : false);
                 l.setEvening(rs.getInt("Evening") == 1 ? true : false);
-            }
+            } 
         %>
 
         <!--Get the list of comment from the location-->
@@ -269,7 +276,7 @@
                 </div>
                 <input type="submit" class="btn btn-default" value="Update Location" style="float: right;"/>
             </form><br>
-            
+
             <% } else {%>
             <!--Some information of the location-->
             <div id="info">
