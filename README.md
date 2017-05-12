@@ -3,10 +3,10 @@
 **Project**: Travel Planning System <br />
 **Members**:
 
-  * Pham Le Trung (leader)
-  * Le Quang Minh Anh
-  * Nguyen Luong Huy
-  * Do Quoc Thinh
+  * Pham Le Trung (Leader/ Scrum Master)
+  * Le Quang Minh Anh (Database Handler, Technique Researcher/Analysis)
+  * Nguyen Luong Huy (Front-end / Back-end Construtor / Tester)
+  * Do Quoc Thinh (Front-end / Back-end Algorithms and Data Structure)
   
 **Objectives**: Our Web-based System aims at people who consider traveling as their hobbies. The system delivers an environment for planning a complete trip from the beginning to the end, with add-on functions to give out the best support to the customers.
 
